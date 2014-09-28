@@ -1,0 +1,29 @@
+.container { padding:10px; }
+
+h1 { text-align:center; margin-bottom:10px; color:white; }
+
+
+h2 { margin: 0; color: white; padding-top: 90px; font-size: 52px; }
+
+.jumbotron { margin-bottom: 0; background-image: inherit; }
+.jumbotron h1 { color:white; }
+
+.jumbotron, section.carousel { 
+    background-image: -webkit-linear-gradient(top,#3d6497 0,#60aadc 100%);
+    background-image: -o-linear-gradient(top,#3d6497 0,#60aadc 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#3d6497),to(#60aadc));
+    background-image: linear-gradient(to bottom,#3d6497 0,#60aadc 100%); 
+}
+
+.dropdown { cursor: pointer; }
+
+.carousel-control.left, .carousel-control.right { background-image:inherit; }
+
+.carousel .item { text-align: center; height: 300px !important; }
+
+
+section.dark { background: #243647; color: #5983ab; }
+section.dark p { color:white; }
+
+section.light { background: #fff; color: #6c7781; }
+
