@@ -12,39 +12,43 @@
     <body>
         <script src="js/jquery.min.1.11.1.js"></script>
         <script src="js/bootstrap.min.js"></script>  
-        
-        <header>
-            <div class="jumbotron">
-                <div class="container">                
-                  <h1>Agora Asturias</h1>
-                  <p>Gijón 14th-18th April 2015</p>
+
+        <div class="navbar">
+            <div class="container">
+
+                <div class="navbar-header">    
+
+                    <div class="navbar-brand">
+                        <a href="index.html">
+                            <img src="img/logo-large-small.png" alt="XXXX">
+                        </a>
+                    </div>                
+                    
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button> 
+
+                    <div class="navbar-collapse collapse pull-right">
+                        <ul class="nav navbar-nav pull-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">About <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">AEGEE-Oviedo</a></li>
+                                    <li><a href="#">AEGEE-Europe</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/agora" data-track="link" data-event="about-us menu">Agora</a></li>
+                            <li><a href="#info">Info</a></li>
+                            <li><a href="#partners">Partners</a></li>
+                            <li><a href="#contact">Contact us</a></li>                               
+                        </ul>
+                    </div>
+                    
                 </div>
             </div>
-
-            <div class="navbar-wrapper">
-                <div class="container">   
-                    <div class="navbar navbar-inverse navbar-static-top" role="navigation">                                   
-                        <div class="navbar-collapse collapse">
-                            <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">Home</a></li>
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown">About <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">AEGEE-Oviedo</a></li>
-                                        <li><a href="#">AEGEE-Europe</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#agora">Agora</a></li>
-                                <li><a href="#info">Info</a></li>
-                                <li><a href="#partners">Partners</a></li>
-                                <li><a href="#media">Media</a></li>
-                                <li><a href="#contact">Contact us</a></li>                            
-                            </ul>
-                        </div>                      
-                    </div>
-                </div>  
-            </div>  
-        </header>
+        </div>
 
         <section class="carousel">
             <div class="container">
@@ -125,6 +129,16 @@
 
     </body>
     <footer>
+
+        <div id="buildings">
+
+        </div>
+
+        <div id="credits">
+
+            <span>AEGEE-Oviedo</span>
+
+        </div>
          
     </footer>
 </html>

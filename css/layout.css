@@ -1,27 +1,63 @@
-.container { padding:10px; }
-
 h1 { text-align:center; margin-bottom:10px; color:white; }
 h2 { margin: 0; color: white; padding-top: 90px; font-size: 52px; }
 
-.jumbotron { margin-bottom: 0; background-image: inherit; }
-.jumbotron h1 { color:white; }
+.navbar { margin-bottom:0; padding-bottom:10px; }
+.navbar .container { min-height:100px; }
+.navbar-nav li { font-size: 22px; }
 
-.jumbotron, section.carousel { 
+.navbar-header { width:100%; min-height:90px; }
+.navbar-brand { margin-left:0; padding: 0; min-height:90px; }
+.navbar-collapse { padding-top: 25px; }
+
+
+.navbar .navbar-toggle { border: 1px solid #3d6497; margin-right: 0; transition: opacity 250ms; }
+
+.navbar .navbar-toggle .icon-bar { background-color: #3d6497; }
+
+.container { padding:10px; }
+
+.dropdown { cursor: pointer; }
+
+section.carousel { 
     background-image: -webkit-linear-gradient(top,#3d6497 0,#60aadc 100%);
     background-image: -o-linear-gradient(top,#3d6497 0,#60aadc 100%);
     background-image: -webkit-gradient(linear,left top,left bottom,from(#3d6497),to(#60aadc));
     background-image: linear-gradient(to bottom,#3d6497 0,#60aadc 100%); 
 }
 
-.dropdown { cursor: pointer; }
-
 .carousel-control.left, .carousel-control.right { background-image:inherit; }
 
 .carousel .item { text-align: center; height: 300px !important; }
-
 
 section.dark { background: #243647; color: #5983ab; }
 section.dark p { color:white; }
 
 section.light { background: #fff; color: #6c7781; }
 
+#buildings { height:225px; width:100%; background: url('../img/footer.jpg') no-repeat center bottom; }
+
+#credits { height:120px; width:100%; background-color: #ecedf2; color:black; padding-right:10%; padding-left:10%; }
+
+@media (max-width: 1000px) {
+
+    .navbar .container { width: 96%; }
+}
+
+@media (max-width: 885px) {
+
+    .navbar-nav li { font-size: 20px; }
+
+    .navbar .container { width: 97%; }
+
+    .navbar-collapse { padding-right: 0; padding-left: 0; }
+}
+
+@media (max-width: 768px) {
+
+    .navbar-collapse { margin-right:40px; padding-top: 0px; }
+}
+
+@media (max-width: 500px) {
+
+    .navbar-collapse { margin-right:0; padding-top: 0px; }
+}
