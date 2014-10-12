@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <meta charset="UTF-8">
-      <title>Spring Agora Asturias 2015</title>
-      <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">      
-      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-      <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
-      <link rel="stylesheet" type="text/css" href="css/layout.css">
-    </head>
-    
-    <body>
+        <meta charset="UTF-8">
+        <title>Spring Agora Asturias 2015</title>
+        <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">      
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="css/layout.css">
+
         <script src="js/jquery.min.1.11.1.js"></script>
         <script src="js/bootstrap.min.js"></script>  
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+        <script src="js/script.js"></script>
+    </head>
+    
+    <body ng-app="agorasturiasApp">
 
         <div class="navbar">
             <div class="container">
@@ -19,7 +24,7 @@
                 <div class="navbar-header">    
 
                     <div class="navbar-brand">
-                        <a href="index.html">
+                        <a ui-sref="#">
                             <img src="img/logo-large-small.png" alt="XXXX">
                         </a>
                     </div>                
@@ -32,17 +37,18 @@
 
                     <div class="navbar-collapse collapse pull-right">
                         <ul class="nav navbar-nav pull-right">
+                            <li><a ui-sref="home">Home</a></li>  
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown">About <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">AEGEE-Oviedo</a></li>
-                                    <li><a href="#">AEGEE-Europe</a></li>
+                                    <li><a href="#aegee-oviedo">AEGEE-Oviedo</a></li>
+                                    <li><a href="#aegee-europe">AEGEE-Europe</a></li>
                                 </ul>
                             </li>
-                            <li><a href="/agora" data-track="link" data-event="about-us menu">Agora</a></li>
+                            <li><a href="#agora">Agora</a></li>
                             <li><a href="#info">Info</a></li>
                             <li><a href="#partners">Partners</a></li>
-                            <li><a href="#contact">Contact us</a></li>                               
+                            <li><a ui-sref="contact">Contact us</a></li>                               
                         </ul>
                     </div>
                     
@@ -50,82 +56,11 @@
             </div>
         </div>
 
-        <section class="carousel">
-            <div class="container">
-                <div id="#mainCarousel" class="carousel slide" data-interval="3000" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#mainCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#mainCarousel" data-slide-to="1"></li>
-                        <li data-target="#mainCarousel" data-slide-to="2"></li>
-                    </ol> 
-                    <div class="carousel-inner">
-                        <div class="active item">
-                            <h2>Asturias</h2>
-                            <div class="carousel-caption">
-                              <h3>First slide label</h3>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <h2>Gijón</h2>
-                            <div class="carousel-caption">
-                              <h3>Second slide label</h3>
-                              <p>Aliquam sit amet gravida nibh, facilisis gravida odio.</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <h2>AEGEE</h2>
-                            <div class="carousel-caption">
-                              <h3>Third slide label</h3>
-                              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="carousel-control left" href="#mainCarousel" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a class="carousel-control right" href="#mainCarousel" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </div>            
-            </div> 
-        </section>
+        <div id="main">
 
-        <section class="dark">
-            <div class="container">
-                <h1>AUTUMN AGORA IS CALLING</h1>
-                <div class="row">
-                    <div class="col-md-8">
-                        <p>On the road to Autumn Agora Cagliari 2014...</p>
+            <div ui-view></div>
 
-                        <p>Summer has finally come but nothing could ever stop preparations for the AEGEE Autumn Agora 2014, one of the most important youth events in Europe in terms of number of participants and importance of the discussed issues: thanks to this, AEGEE has obtained a role in the United Nations advisory board and in the Council of Europe.</p>
-
-                        <p>Agora is the general Assembly of AEGEE association and it takes place twice a year, every year, since 1986, involving generations of students from hundreds of cities. In this special occasion, all of the European Antennae reach the organizing city of the event in order to deal with topics that concern active citizenship and the impact of young people in Europe of the future.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <img src="http://www.europarl.it/resource/static/images/martin_schulz_ep_president_1.jpg" border="0" width="200" height="284" style="border: 2px solid black; float: right;">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="light">
-            <div class="container">
-                <h1>AUTUMN AGORA IS CALLING</h1>
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="http://www.europarl.it/resource/static/images/martin_schulz_ep_president_1.jpg" border="0" width="200" height="284" style="border: 2px solid black; float: right;">
-                    </div>
-                    <div class="col-md-8">
-                        <p>On the road to Autumn Agora Cagliari 2014...</p>
-
-                        <p>Summer has finally come but nothing could ever stop preparations for the AEGEE Autumn Agora 2014, one of the most important youth events in Europe in terms of number of participants and importance of the discussed issues: thanks to this, AEGEE has obtained a role in the United Nations advisory board and in the Council of Europe.</p>
-
-                        <p>Agora is the general Assembly of AEGEE association and it takes place twice a year, every year, since 1986, involving generations of students from hundreds of cities. In this special occasion, all of the European Antennae reach the organizing city of the event in order to deal with topics that concern active citizenship and the impact of young people in Europe of the future.</p>
-                    </div>                    
-                </div>
-            </div>
-        </section>
+        </div>        
 
     </body>
     <footer>
