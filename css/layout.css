@@ -1,6 +1,8 @@
 h1 { text-align:center; margin-bottom:10px; color:white; }
 h2 { margin: 0; color: white; padding-top: 90px; font-size: 52px; }
 
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
 .navbar { margin-bottom:0; padding-bottom:10px; }
 .navbar .container { min-height:100px; }
 .navbar-nav li { font-size: 22px; }
@@ -18,7 +20,8 @@ h2 { margin: 0; color: white; padding-top: 90px; font-size: 52px; }
 
 .dropdown { cursor: pointer; }
 
-section.carousel { 
+section.light { 
+    color : white;
     background-image: -webkit-linear-gradient(top,#3d6497 0,#60aadc 100%);
     background-image: -o-linear-gradient(top,#3d6497 0,#60aadc 100%);
     background-image: -webkit-gradient(linear,left top,left bottom,from(#3d6497),to(#60aadc));
@@ -32,7 +35,7 @@ section.carousel {
 section.dark { background: #243647; color: #5983ab; }
 section.dark p { color:white; }
 
-section.light { background: #fff; color: #6c7781; }
+section.white { background: #fff; color: #6c7781; }
 
 #buildings { height:225px; width:100%; background: url('../img/footer.jpg') no-repeat center bottom; }
 
