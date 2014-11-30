@@ -21,12 +21,12 @@
         <div class="post container">
             <h1>{{post.title}}</h1>
             <div class="row">
-                <div class="col-md-9" ng-class-even="'right'" ng-class-odd="'left'">
+                <div class="col-xs-7 col-md-9" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
                     <p ng-repeat="paragraph in post.text">{{paragraph}}</p>
                 </div>
-                <div class="col-md-3" ng-class-even="'right'" ng-class-odd="'left'">
-                    <img ng-src="{{post.image}}" border="0" width="200" height="284" 
-                        ng-class-even="'right'" ng-class-odd="'left'" style="border: 2px solid black;">
+                <div class="col-xs-5 col-md-3" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
+                    <img class="img-responsive" ng-src="{{post.image}}" border="0" width="200" height="284" 
+                        style="border: 2px solid black;"> 
                 </div>
             </div>
         </div> 

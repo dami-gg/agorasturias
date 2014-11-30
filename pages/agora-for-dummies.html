@@ -1,0 +1,18 @@
+<section class="dark">
+    <div class="container">
+
+        <h1>Agora for dummies</h1>
+
+        <div class="col-sm-8 col-sm-offset-2" ng-controller="BookCtrl">
+            <wallop-slider
+                data-images="images" data-animation="rotate" data-current-item-index="index" 
+                data-on-previous="updateTsPrevious()" data-on-next="updateTsNext()">
+            </wallop-slider>
+        </div>
+
+        <a>Download as pdf</a>
+
+    </div>
+</section>
+
+<script src="js/wallop-slider-directive.js"></script>
