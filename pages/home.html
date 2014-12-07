@@ -19,9 +19,9 @@
 
     <section ng-repeat="post in pagedPosts" ng-class-even="'light'" ng-class-odd="'dark'">
         <div class="post container">
-            <h1>{{post.title}}</h1>
             <div class="row">
                 <div class="col-xs-7 col-md-9" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
+                    <p class="lead">{{post.title}}</p>
                     <p ng-repeat="paragraph in post.text">{{paragraph}}</p>
                 </div>
                 <div class="col-xs-5 col-md-3" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
