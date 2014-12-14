@@ -37,7 +37,7 @@ h2 {
   font-size: 22px; }
   @media (max-width: 925px) {
     .navbar-nav li {
-      font-size: 20px; } }
+      font-size: 19px; } }
 
 .navbar-header {
   width: 100%;
@@ -54,7 +54,7 @@ h2 {
     .navbar-collapse {
       padding-right: 0;
       padding-left: 0; } }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .navbar-collapse {
       position: absolute;
       background-color: white;
@@ -134,10 +134,25 @@ section.white {
   background-size: cover;
   background-position: center center; }
 
+.wallop-slider__list {
+  padding-left: 0; }
+
+.wallop-slider__btn--previous {
+  float: left; }
+
+.wallop-slider__btn--next {
+  float: right; }
+
+.link-wrap {
+  text-align: center; }
+  .link-wrap a {
+    cursor: pointer;
+    color: yellow; }
+
 #buildings {
   height: 225px;
   width: 100%;
-  background: url('../img/footer.jpg') no-repeat center bottom; }
+  background: url("../img/footer.jpg") no-repeat center bottom; }
 
 #credits {
   height: 120px;
@@ -146,3 +161,5 @@ section.white {
   color: black;
   padding-right: 10%;
   padding-left: 10%; }
+
+/*# sourceMappingURL=layout.css.map */

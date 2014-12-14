@@ -32,7 +32,7 @@ h2 { margin: 0; color: white; padding-top: 90px; font-size: 52px; }
 
         font-size: 22px; 
 
-        @media (max-width: 925px) { font-size: 20px; }
+        @media (max-width: 925px) { font-size: 19px; }
     }
 }
 
@@ -45,7 +45,7 @@ h2 { margin: 0; color: white; padding-top: 90px; font-size: 52px; }
 
     @media (max-width: 925px) { padding-right: 0; padding-left: 0; }
 
-    @media (max-width: 768px) { 
+    @media (max-width: 767px) { 
 
         position: absolute; background-color: white; z-index: 100; right: 34px; top: 50px;
             padding: 0 20px; border: 1px solid #3d6497; 
@@ -112,8 +112,18 @@ section {
 
 
 .teaser { height:400px; margin:auto; -webkit-background-size: cover; -moz-background-size: cover;
-            -o-background-size: cover; background-size: cover; background-position: center center;}
+            -o-background-size: cover; background-size: cover; background-position: center center; }
 
+.wallop-slider__list { padding-left: 0; }
+.wallop-slider__btn--previous { float:left; }
+.wallop-slider__btn--next { float:right; }
+
+.link-wrap { 
+
+    text-align: center;
+
+    a { cursor: pointer; color: yellow; }
+}
 
 #buildings { height:225px; width:100%; background: url('../img/footer.jpg') no-repeat center bottom; }
 
