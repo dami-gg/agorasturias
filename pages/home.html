@@ -8,7 +8,7 @@
                         <div class="teaser" 
                             ng-style="{'background-image': 'url(assets/img/{{ slide.image }})'}"></div>
                         <div class="carousel-caption">
-                            <h2>{{slide.title}}</h2>
+                            <p>{{slide.title}}</h2>
                             <p>{{slide.text}}</p>
                         </div>
                     </slide>
@@ -34,7 +34,7 @@
 
     <div class="text-center">
         <pagination total-items="totalItems" items-per-page="itemsPerPage" 
-            ng-model="currentPage" ng-change="pageChanged()">
+            ng-model="currentPage" ng-change="pageChanged(); gotoTop();">
         </pagination>
     </div> 
 </div>

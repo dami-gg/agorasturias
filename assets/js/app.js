@@ -86,7 +86,8 @@ agorasturiasApp.controller('CarouselCtrl', function ($scope) {
     }
 });
 
-agorasturiasApp.controller('PostsCtrl', function ($scope) {
+agorasturiasApp.controller('PostsCtrl', ['$scope', '$location', '$anchorScroll',
+  function ($scope, $location, $anchorScroll) {
 
     var posts = $scope.posts = [];
 
@@ -98,7 +99,7 @@ agorasturiasApp.controller('PostsCtrl', function ($scope) {
         });
     };
 
-    for (var i=0; i<7; ++i) {
+    for (var i=0; i<9; ++i) {
         $scope.addPost();
     }
 
@@ -118,7 +119,12 @@ agorasturiasApp.controller('PostsCtrl', function ($scope) {
     };
 
     $scope.pageChanged();
-});
+
+    $scope.gotoTop = function() {
+      $location.hash('menu-wrapper');
+      $anchorScroll();
+    };
+}]);
 
 agorasturiasApp.controller('FormCtrl', function ($scope) {
 
@@ -259,19 +265,22 @@ agorasturiasApp.controller('BookCtrl', function ($scope) {
     };
 });
 
-agorasturiasApp.controller('PartnersCtrl', function ($scope) {
+agorasturiasApp.controller('PartnersCtrl', function ($scope, partitionService) {
 
   var partners = $scope.partners = [];
 
     $scope.addPartner = function() {
         partners.push({
-          logo: 'http://www.europarl.it/resource/static/images/martin_schulz_ep_president_1.jpg',
+          link: 'http://www.uniovi.es/',
+          logo: 'http://goo.gl/NUL33N'
         });
     };
 
     for (var i=0; i<8; ++i) {
         $scope.addPartner();
     }
+
+    $scope.rows = partitionService.partition(partners, 3);
 });
 
 agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService) {

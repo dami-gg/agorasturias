@@ -7973,8 +7973,8 @@ section.white {
   border: none;
   box-shadow: none; }
   .thumbnail img {
-    max-width: 170px;
-    max-height: 170px; }
+    width: 170px;
+    height: 170px; }
   .thumbnail p {
     text-align: center; }
   .thumbnail .name {

@@ -6,10 +6,14 @@
 
         <div>
             <p>This Agora could not have taken place without the help of our partners:</p>
-        </div>
-   
-        <div class="col-md-4" ng-repeat="partner in partners">
-            <img class="img-responsive" ng-src="{{partner.logo}}" border="0" width="200" height="200"> 
+        </div>   
+        
+        <div class="row" ng-repeat="row in rows">
+            <div class="col-xs-6 col-md-4" ng-repeat="item in row">
+                <a href="{{item.link}}" target="_blank">
+                    <img class="img-responsive" ng-src="{{item.logo}}" border="0" width="200" height="200"> 
+                </a>
+            </div>
         </div>
 
     </div>
