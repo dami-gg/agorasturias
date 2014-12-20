@@ -7969,6 +7969,17 @@ section.white {
     cursor: pointer;
     color: yellow; }
 
+.thumbnail {
+  border: none;
+  box-shadow: none; }
+  .thumbnail img {
+    max-width: 170px;
+    max-height: 170px; }
+  .thumbnail p {
+    text-align: center; }
+  .thumbnail .name {
+    font-size: 24px; }
+
 #buildings {
   height: 225px;
   width: 100%;

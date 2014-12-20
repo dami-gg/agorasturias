@@ -1,0 +1,26 @@
+<div ng-controller="ThumbnailsCtrl"
+
+    <section class="light">
+
+        <div class="container">
+
+            <p class="lead">AgorAsturias core team</p>
+
+            <div class="row" ng-repeat="row in rows">
+                <div class="col-xs-6 col-md-3" ng-repeat="item in row">
+                    <div class="thumbnail">
+                        <img ng-init="image = item.image" ng-src="{{image}}" alt="{{item.name}}" class="img-circle"
+                            ng-mouseenter="image = item.hover" ng-mouseleave="image = item.image">
+                        <div class="caption">
+                            <p class="name">{{item.name}}</p>
+                            <p class="position">{{item.position}}</p>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+       
+        </div>
+
+
+    </section>
+</div>

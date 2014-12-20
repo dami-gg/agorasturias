@@ -152,6 +152,17 @@ section {
     a { cursor: pointer; color: yellow; }
 }
 
+.thumbnail {
+
+    border: none; box-shadow: none;
+
+    img { max-width:170px; max-height:170px; }
+
+    p { text-align: center; }
+
+    .name { font-size:24px; }
+}
+
 #buildings { height:225px; width:100%; background: url('../img/footer.jpg') no-repeat center bottom; }
 
 #credits { height:120px; width:100%; background-color: #ecedf2; color:black; padding-right:10%; padding-left:10%; }
