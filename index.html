@@ -3,11 +3,14 @@
     <head>
         <meta charset="UTF-8">        
         <title>Spring Agora Asturias 2015</title>
-        <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">      
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="css/layout.css">   
-        <link rel="stylesheet" type="text/css" href="css/wallop-slider.css">           
+   <!--     <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">      
+        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/layout.css">   
+        <link rel="stylesheet" type="text/css" href="assets/css/wallop-slider.css">  
+        <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css"> 
+        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-social.css">    -->     
+        <link rel="stylesheet" type="text/css" href="assets/dist/style.css"> 
         
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
@@ -21,40 +24,70 @@
 
                     <div class="navbar-brand">
                         <a ui-sref="#">
-                            <img class="logo" src="img/logo-large-small.png" alt="XXXX">
+                            <img class="logo" src="assets/img/logo-large-small.png" alt="AgorAsturias">
                         </a>
-                    </div>                
-                    
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button> 
+                    </div>  
 
-                    <div class="navbar-collapse collapse pull-right">
-                        <ul class="nav navbar-nav pull-right">
-                            <li><a ui-sref="home">Home</a></li>  
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown">About <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#aegee-oviedo">AEGEE-Oviedo</a></li>
-                                    <li><a href="#aegee-europe">AEGEE-Europe</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown">Agora <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#agora-for-dummies">Agora for dummies</a></li>
-                                    <li><a href="#event-timetable">Event timetable</a></li>
-                                    <li><a href="#pre-events">Pre-events</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#info">Info</a></li>
-                            <li><a href="#partners">Partners</a></li>
-                            <li><a ui-sref="contact">Contact us</a></li>                               
-                        </ul>
-                    </div>
+                    <div id="menu-wrapper">
+                                                                 
+                        <button type="button" class="navbar-toggle" 
+                            data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button> 
+
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav pull-right">
+                                <li><a ui-sref="home">Home</a></li>  
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown">About 
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#aegee-europe">AEGEE-Europe</a></li>
+                                        <li><a href="#aegee-oviedo">AEGEE-Oviedo</a></li>
+                                        <li><a href="#core-team">Core team</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown">Agora 
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#info">General information</a></li>
+                                        <li><a href="#agora-for-dummies">Agora for dummies</a></li>
+                                        <li><a href="#event-timetable">Event timetable</a></li>
+                                        <li><a href="#pre-events">Pre-events</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#partners">Partners</a></li>
+                                <li><a ui-sref="contact">Contact us</a></li>                               
+                            </ul>
+                        </div>   
+
+                        <div id="social-buttons">
+                            <div> 
+                                <a class="btn btn-social-icon btn-facebook" target="_blank"
+                                    href="https://www.facebook.com/agorasturias2015">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                            </div> 
+                            <div> 
+                                <a class="btn btn-social-icon btn-twitter"target="_blank"
+                                    href="">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </div>  
+                            <div> 
+                                <a class="btn btn-social-icon btn-youtube"target="_blank"
+                                    href="">
+                                    <i class="fa fa-youtube"></i>
+                                </a>
+                            </div>   
+                        </div>                  
                     
+                    </div>
                 </div>
             </div>
         </div>
@@ -80,5 +113,5 @@
          
     </footer>
     
-    <script src="dist/all.js"></script>
+    <script src="assets/dist/all.js"></script>
 </html>

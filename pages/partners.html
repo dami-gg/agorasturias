@@ -1,0 +1,17 @@
+<section class="light" ng-controller="PartnersCtrl">
+
+    <div class="container">
+
+        <h1>Partners</h1>
+
+        <div>
+            <p>This Agora could not have taken place without the help of our partners:</p>
+        </div>
+   
+        <div class="col-md-4" ng-repeat="partner in partners">
+            <img class="img-responsive" ng-src="{{partner.logo}}" border="0" width="200" height="200"> 
+        </div>
+
+    </div>
+
+</section>
