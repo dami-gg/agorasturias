@@ -1,0 +1,56 @@
+<section class="light">
+    <div class="container">
+
+        <h1>Contact us</h1>
+
+        <p>Feel free to send us an email with your doubts to 
+            <a href="mailto:damian.garciagarcia@gmail.com">aegee.oviedo@gmail.com</a>
+        </p>
+
+        <p>You can also do it through the next form</p>
+
+    </div>
+
+    <div class="container">
+
+        <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12" ng-controller="FormCtrl">
+           
+            <form name="contactForm" ng-submit="submitForm(contactForm.$valid)" novalidate> 
+
+                <div class="form-group" ng-class="{ 'has-error' : 
+                    contactForm.name.$invalid && submitted }">
+                    <label>Name</label>
+                    <input type="text" name="name" class="form-control" ng-model="name" required>
+                    <p class="help-block"
+                        ng-show="contactForm.name.$invalid && submitted">
+                        Please tell us your name
+                    </p>
+                </div>            
+                
+                <div class="form-group" ng-class="{ 'has-error' : 
+                    contactForm.email.$invalid && submitted }">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" ng-model="email" required>
+                    <p class="help-block"
+                        ng-show="contactForm.email.$invalid && submitted">
+                        Please introduce a valid email so we can reply to you
+                    </p>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error' : 
+                    contactForm.message.$invalid && submitted }">
+                    <label>Message</label>
+                    <textarea type="text" name="message" class="form-control" ng-model="message" required/>
+                    <p class="help-block" 
+                        ng-show="contactForm.message.$invalid && submitted">
+                        Please tell us how we can help you
+                    </p>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+                
+            </form>
+
+        </div>
+    </div>
+</section>

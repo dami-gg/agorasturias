@@ -15,50 +15,51 @@ var jshint = require('gulp-jshint'),
 
 // Concatenate & Minify JS
 gulp.task('js', function() {
-    gulp.src('./assets/js/*.js')
+    gulp.src('./dev/js/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
-        .pipe(addsrc('./assets/lib/*.js'))
+        .pipe(addsrc('./dev/lib/*.js'))
         .pipe(order([
-                'assets/lib/jquery.min-1.11.1.js',
-                'assets/lib/bootstrap.min.js',
-                'assets/lib/angular.min-1.2.25.js',
-                'assets/lib/angular-ui-router.min-0.2.8.js',
-                'assets/lib/ui-bootstrap-tpls-0.11.2.min.js',
-                'assets/js/app.js'
+                'dev/lib/jquery.min-1.11.1.js',
+                'dev/lib/bootstrap.min.js',
+                'dev/lib/angular.min-1.2.25.js',
+                'dev/lib/angular-ui-router.min-0.2.8.js',
+                'dev/lib/ui-bootstrap-tpls-0.11.2.min.js',
+                'dev/lib/wallop-slider-directive.js',
+                'dev/js/app.js'
             ], { base: './' }))
         .pipe(concat('all.js'))
-        .pipe(gulp.dest('assets/dist'))
+        .pipe(gulp.dest('public/js'))
         .pipe(rename('all.min.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('assets/dist'))
+        .pipe(gulp.dest('public/js'))
         .pipe(notify({ message: 'JS task complete' }));
 });
 
 // Compile Sass
 gulp.task('sass', function() {
-    return gulp.src('assets/sass/*.scss')
+    return gulp.src('dev/sass/*.scss')
         .pipe(sass())
-        .pipe(gulp.dest('assets/css'))
+        .pipe(gulp.dest('dev/css'))
         .pipe(notify({ message: 'Sass task complete' }));
 });
 
 // Concatenate & Minify CSS
 gulp.task('css', function() {
-    gulp.src('./assets/css/*.css')
+    gulp.src('./dev/css/*.css')
         .pipe(concat('style.css'))
-        .pipe(gulp.dest('assets/dist'))
+        .pipe(gulp.dest('public/css'))
         .pipe(minifyCSS())
         .pipe(rename('style.min.css'))
-        .pipe(gulp.dest('assets/dist'))
+        .pipe(gulp.dest('public/css'))
         .pipe(notify({ message: 'CSS task complete' }));
 });
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch('assets/js/*.js', ['js']);
-    gulp.watch('assets/sass/*.scss', ['sass']);
-    gulp.watch('assets/css/*.css', ['css']);
+    gulp.watch('dev/js/*.js', ['js']);
+    gulp.watch('dev/sass/*.scss', ['sass']);
+    gulp.watch('dev/css/*.css', ['css']);
 });
 
 // Default Task

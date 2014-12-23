@@ -4,13 +4,13 @@
         <meta charset="UTF-8">        
         <title>Spring Agora Asturias 2015</title>
    <!--     <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">      
-        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/layout.css">   
-        <link rel="stylesheet" type="text/css" href="assets/css/wallop-slider.css">  
-        <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css"> 
-        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-social.css">    -->     
-        <link rel="stylesheet" type="text/css" href="assets/dist/style.css"> 
+        <link rel="stylesheet" type="text/css" href="public/dev/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="public/dev/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="public/dev/layout.css">   
+        <link rel="stylesheet" type="text/css" href="public/dev/wallop-slider.css">  
+        <link rel="stylesheet" type="text/css" href="public/dev/font-awesome.min.css"> 
+        <link rel="stylesheet" type="text/css" href="public/dev/bootstrap-social.css">    -->     
+        <link rel="stylesheet" type="text/css" href="public/css/style.css"> 
         
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
@@ -24,7 +24,7 @@
 
                     <div class="navbar-brand">
                         <a ui-sref="#">
-                            <img class="logo" src="assets/img/logo-large-small.png" alt="AgorAsturias">
+                            <img class="logo" src="public/img/logo-large-small.png" alt="AgorAsturias">
                         </a>
                     </div>  
 
@@ -59,9 +59,10 @@
                                         <li><a href="#agora-for-dummies">Agora for dummies</a></li>
                                         <li><a href="#event-timetable">Event timetable</a></li>
                                         <li><a href="#pre-events">Pre-events</a></li>
+                                        <li><a href="#partners">Partners</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#partners">Partners</a></li>
+                                <li><a href="#account">Login</a></li>
                                 <li><a ui-sref="contact">Contact us</a></li>                               
                             </ul>
                         </div>   
@@ -96,7 +97,9 @@
 
             <div ui-view autoscroll="false"></div>
 
-        </div>        
+        </div>   
+
+        <div class="to-top-button"></div>    
 
     </body>
     <footer>
@@ -114,15 +117,17 @@
     </footer>
     
     <!-- Development -->
-    <script src="assets/lib/jquery.min-1.11.1.js"></script>
-    <script src="assets/lib/angular.min-1.2.25.js"></script>
-    <script src="assets/lib/angular-ui-router.min-0.2.8.js"></script>
-    <script src="assets/lib/bootstrap.min.js"></script>    
-    <script src="assets/lib/ui-bootstrap-tpls-0.11.2.min.js"></script>
-    <script src="assets/lib/wallop-slider-directive.js"></script>
-    <script src="assets/js/app.js"></script>
+    <script src="dev/lib/jquery.min-1.11.1.js"></script>
+    <script src="dev/lib/angular.min-1.2.25.js"></script>
+    <script src="dev/lib/angular-ui-router.min-0.2.8.js"></script>
+    <script src="dev/lib/bootstrap.min.js"></script>    
+    <script src="dev/lib/ui-bootstrap-tpls-0.11.2.min.js"></script>
+    <script src="dev/lib/wallop-slider-directive.js"></script>
+    <script src="dev/js/app.js"></script>
+    <script src="dev/js/functions.js"></script> 
 
-    <!-- Production
-    <script src="assets/dist/all.js"></script>
+    <!-- Production 
+    <script src="public/js/all.js"></script>
     -->
+    
 </html>
