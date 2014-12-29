@@ -9,7 +9,6 @@ var jshint = require('gulp-jshint'),
     rename = require('gulp-rename'),
     order = require('gulp-order'),
     addsrc = require('gulp-add-src'),
-    livereload = require('gulp-livereload'),
     notify = require('gulp-notify'),
     minifyCSS = require('gulp-minify-css');
 

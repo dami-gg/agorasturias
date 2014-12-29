@@ -3,8 +3,9 @@
     <head>
         <meta charset="UTF-8">        
         <title>Spring Agora Asturias 2015</title>
-   <!--     <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">      
-        <link rel="stylesheet" type="text/css" href="public/dev/bootstrap.min.css">
+        <link rel="shortcut icon" href="public/img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+   <!-- <link rel="stylesheet" type="text/css" href="public/dev/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="public/dev/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="public/dev/layout.css">   
         <link rel="stylesheet" type="text/css" href="public/dev/wallop-slider.css">  
@@ -21,12 +22,6 @@
             <div class="container">
 
                 <div class="navbar-header">    
-
-                    <div class="navbar-brand">
-                        <a ui-sref="#">
-                            <img class="logo" src="public/img/logo-large-small.png" alt="AgorAsturias">
-                        </a>
-                    </div>  
 
                     <div id="menu-wrapper">
                                                                  
@@ -45,9 +40,9 @@
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#aegee-europe">AEGEE-Europe</a></li>
-                                        <li><a href="#aegee-oviedo">AEGEE-Oviedo</a></li>
-                                        <li><a href="#core-team">Core team</a></li>
+                                        <li><a class="submenu" href="#aegee-europe">AEGEE-Europe</a></li>
+                                        <li><a class="submenu" href="#aegee-oviedo">AEGEE-Oviedo</a></li>
+                                        <li><a class="submenu" href="#core-team">Core team</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
@@ -55,41 +50,49 @@
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#info">General information</a></li>
-                                        <li><a href="#agora-for-dummies">Agora for dummies</a></li>
-                                        <li><a href="#event-timetable">Event timetable</a></li>
-                                        <li><a href="#pre-events">Pre-events</a></li>
-                                        <li><a href="#partners">Partners</a></li>
+                                        <li><a class="submenu" href="#info">General information</a></li>
+                                        <li>
+                                            <a class="submenu" href="#agora-for-dummies">Agora for dummies</a>
+                                        </li>
+                                        <li><a class="submenu" href="#event-timetable">Event timetable</a></li>
+                                        <li><a class="submenu" href="#pre-events">Pre-events</a></li>
                                     </ul>
                                 </li>
+                                <li><a href="#partners">Partners</a></li>
                                 <li><a href="#account">Login</a></li>
-                                <li><a ui-sref="contact">Contact us</a></li>                               
+                                <li><a ui-sref="contact">Contact</a></li>                               
                             </ul>
-                        </div>   
-
-                        <div id="social-buttons">
-                            <div> 
-                                <a class="btn btn-social-icon btn-facebook" target="_blank"
-                                    href="https://www.facebook.com/agorasturias2015">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                            </div> 
-                            <div> 
-                                <a class="btn btn-social-icon btn-twitter"target="_blank"
-                                    href="">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                            </div>  
-                            <div> 
-                                <a class="btn btn-social-icon btn-youtube"target="_blank"
-                                    href="">
-                                    <i class="fa fa-youtube"></i>
-                                </a>
-                            </div>   
-                        </div>                  
-                    
+                        </div>                           
                     </div>
+
+                    <div class="navbar-brand">
+                        <a ui-sref="#">
+                            <img class="logo" src="public/img/logo-large-small.png" alt="AgorAsturias">
+                        </a>
+                    </div>  
                 </div>
+<!--
+                <div id="social-buttons">
+                    <div> 
+                        <a class="btn btn-social-icon btn-facebook" target="_blank"
+                            href="https://www.facebook.com/agorasturias2015">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </div> 
+                    <div> 
+                        <a class="btn btn-social-icon btn-twitter"target="_blank"
+                            href="">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </div>  
+                    <div> 
+                        <a class="btn btn-social-icon btn-youtube"target="_blank"
+                            href="">
+                            <i class="fa fa-youtube"></i>
+                        </a>
+                    </div>   
+                </div>   
+-->
             </div>
         </div>
 
@@ -102,18 +105,21 @@
         <div class="to-top-button"></div>    
 
     </body>
+
     <footer>
-
-        <div id="buildings">
-
-        </div>
+        <div id="buildings"></div>
 
         <div id="credits">
-
-            <span>AEGEE-Oviedo</span>
-
-        </div>
-         
+            <p>
+                Copyright © 2015 AEGEE-Oviedo 
+                <a href="http://www.aegeeoviedo.org/" target="_blank">http://www.aegeeoviedo.org/</a>
+            </p>
+            <p>
+                Association des États Généraux des Étudiants de l’Europe (AEGEE) - European Students Forum
+                <a href="http://www.aegee.org/" target="_blank">http://www.aegee.org/</a>
+            </p> 
+            <p>Website developed by Damián García and Alberto Cuesta</p>
+        </div>         
     </footer>
     
     <!-- Development -->

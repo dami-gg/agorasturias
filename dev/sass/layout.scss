@@ -1,5 +1,9 @@
+body { font-family: Open Sans,Droid Serif,Arial,Georgia,sans-serif; }
+
 h1 { text-align:center; margin-bottom:20px; color:white; }
 h2 { margin: 0; color: white; padding-top: 90px; font-size: 52px; }
+
+.container { padding:10px; }
 
 .nav, .pagination, .panel-title a { cursor: pointer; }
 
@@ -7,14 +11,7 @@ h2 { margin: 0; color: white; padding-top: 90px; font-size: 52px; }
    
     margin-bottom:0; padding-bottom:10px; 
 
-    .container { 
-
-        min-height:100px; 
-
-        @media (max-width: 1000px) { width: 96%; }
-
-        @media (max-width: 925px) { width: 97%; }
-    }
+    .container { min-height:100px; padding:0; width:100%; }
 
     .navbar-toggle { 
         
@@ -24,38 +21,57 @@ h2 { margin: 0; color: white; padding-top: 90px; font-size: 52px; }
     }
 }
 
-.navbar-nav {
+.navbar-header { width:100%; min-height:90px; }
 
-    @media (max-width: 768px) { margin:0; }
+.navbar-brand { 
 
-    li { 
+    float:left; margin-left:0; padding:15px; min-height:110px; 
+}
 
-        font-size: 22px; 
+#menu-wrapper { 
 
-        @media (max-width: 925px) { font-size: 19px; }
+    float:right; 
+
+    @media (max-width: 960px) { float: left; width: 100%; }
+
+    @media (max-width: 767px) { float: right; width: auto; }
+
+    .navbar-nav {
+
+        @media (max-width: 960px) { width: 100%; background-color: #428bca; color: white; }
+
+        @media (max-width: 767px) { width: auto; margin: 0; background-color: white; }
+
+        li {
+
+            font-size: 20px; text-align: center; 
+
+            @media (max-width: 960px) { width: 16%; }
+
+            @media (max-width: 767px) { width: auto; text-align: left; }
+
+            a {
+
+                @media (max-width: 960px) { color: white; }
+
+                @media (max-width: 767px) { color: #428bca; }
+            }
+
+            .submenu { text-align: left; color: black;}
+        }
     }
 }
 
-.navbar-header { width:100%; min-height:90px; }
-.navbar-brand { margin-left:0; padding: 0; min-height:90px; }
-
-.logo { 
-
-    @media (max-width: 820px) { width:170px; height:auto; padding-top:12px; }
-}
-
-#menu-wrapper { float:right; }
-
 .navbar-collapse { 
 
-    float:left; padding-top: 25px; padding-right:30px;
+    float:left; padding-top:35px; padding-right:30px;
 
-    @media (max-width: 925px) { padding-left: 0; }
+    @media (max-width: 960px) { width:100%; padding:0; }
 
     @media (max-width: 767px) { 
 
-        position: absolute; background-color: white; z-index: 100; right: 47px; top: 50px;
-            padding: 0 20px; border: 1px solid #3d6497; 
+        position: absolute; background-color: white; z-index: 100; right: 15px; top: 40px;
+        padding: 0 20px; border: 1px solid #3d6497; width: auto;
     }
 
     @media (max-width: 500px) { margin-right:0; padding-top: 0px; }
@@ -68,7 +84,7 @@ h2 { margin: 0; color: white; padding-top: 90px; font-size: 52px; }
 
 #social-buttons { 
 
-    float:right;
+    float:right; margin:15px 15px 0 0;
 
     @media (max-width: 767px) { float:none; margin-left:-25px; }
 
@@ -85,8 +101,6 @@ h2 { margin: 0; color: white; padding-top: 90px; font-size: 52px; }
 
     .btn-youtube { color: #DD4B39; }
 }
-
-.container { padding:10px; }
 
 .post { 
 
@@ -134,10 +148,18 @@ section {
     padding:0; width:100%; height:400px; max-width:100%; margin:0 auto; cursor: pointer;
 
     .item { text-align: center; height: 400px !important; }
+
+    .title { font-size: 32px; }
+
+    .text { font-size: 20px; }
+
+    .carousel-control.left, .carousel-control.right { 
+
+        background-image:inherit; 
+
+        @media (max-width: 767px) { display: none; }
+    }
 }
-
-.carousel-control.left, .carousel-control.right { background-image:inherit; }
-
 
 .teaser { height:400px; margin:auto; -webkit-background-size: cover; -moz-background-size: cover;
             -o-background-size: cover; background-size: cover; background-position: center center; }
@@ -166,7 +188,10 @@ section {
 
 #buildings { height:225px; width:100%; background: url('../img/footer.jpg') no-repeat center bottom; }
 
-#credits { height:120px; width:100%; background-color: #ecedf2; color:black; padding-right:10%; padding-left:10%; }
+#credits { 
+
+    height:120px; width:100%; background-color: #ecedf2; color:black; 
+    padding-right:10%; padding-left:10%; text-align: center; font-weight: bold; }
 
 .to-top-button {
     
