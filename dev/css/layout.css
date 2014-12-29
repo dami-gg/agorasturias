@@ -95,14 +95,16 @@ h2 {
     text-align: center; }
     @media (max-width: 960px) {
       #menu-wrapper .navbar-nav li {
-        width: 16%; } }
+        width: 16%;
+        font-size: 18px; } }
     @media (max-width: 767px) {
       #menu-wrapper .navbar-nav li {
         width: auto;
         text-align: left; } }
     @media (max-width: 960px) {
       #menu-wrapper .navbar-nav li a {
-        color: white; } }
+        color: white;
+        padding: 8px; } }
     @media (max-width: 767px) {
       #menu-wrapper .navbar-nav li a {
         color: #428bca; } }
@@ -116,7 +118,7 @@ h2 {
   right: 15px; }
   @media (max-width: 960px) {
     #social-buttons {
-      top: 90px;
+      top: 76px;
       right: 55px; } }
   @media (max-width: 767px) {
     #social-buttons {
@@ -129,7 +131,8 @@ h2 {
     @media (max-width: 960px) {
       #social-buttons div {
         float: left;
-        padding-left: 25px; } }
+        padding-left: 25px;
+        width: auto; } }
     @media (max-width: 767px) {
       #social-buttons div {
         padding-left: 20px; } }
@@ -142,6 +145,19 @@ h2 {
      color: #55ACEE; }
   #social-buttons .btn-youtube {
     color: #DD4B39; }
+
+#language-switcher {
+  position: absolute;
+  top: 0;
+  right: 75px; }
+  @media (max-width: 960px) {
+    #language-switcher {
+      top: 134px;
+      right: 30px; } }
+  @media (max-width: 767px) {
+    #language-switcher {
+      top: 98px;
+      right: 10px; } }
 
 .post {
   padding: 15px 10px; }

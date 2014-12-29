@@ -1,11 +1,11 @@
 // create the module including ngRoute for all the routing needs
-var agorasturiasApp = angular.module('agorasturiasApp', ['ui.router', 'ui.bootstrap']);
+var agorasturiasApp = angular.module('agorasturiasApp', ['ui.router', 'ui.bootstrap', 'pascalprecht.translate']);
 // , 'uiRouterStyles'
 
 // configure the routes
 agorasturiasApp.config(
 
-    function($stateProvider, $urlRouterProvider) {
+    function($stateProvider, $urlRouterProvider, $translateProvider) {
     
         $urlRouterProvider.otherwise('/home');
 
@@ -68,8 +68,56 @@ agorasturiasApp.config(
                 url  : '/account',
                 templateUrl : 'public/views/account.html'
             });
+
+      $translateProvider.translations('en', {
+        
+          // TODO: Load from DB table
+          HOME: 'Home',
+          ABOUT: 'About',
+          AEGEE_EUROPE: 'AEGEE-Europe',
+          CORE_TEAM: 'Core team',
+          AGORA: 'Agora',
+          GENERAL_INFORMATION: 'General information',
+          AGORA_FOR_DUMMIES: 'Agora for dummies',
+          EVENT_TIMETABLE: 'Event timetable',
+          PRE_EVENTS: 'Pre-events',
+          PARTNERS: 'Partners',
+          CONTACT: 'Contact',
+          LANGUAGE: 'Versión en español'
+      });
+
+      $translateProvider.translations('es', {
+        
+          // TODO: Load from DB table
+          HOME: 'Inicio',
+          ABOUT: 'Sobre nosotros',
+          AEGEE_EUROPE: 'AEGEE-Europa',
+          CORE_TEAM: 'Equipo organizador',
+          AGORA: 'Ágora',
+          GENERAL_INFORMATION: 'Información general',
+          AGORA_FOR_DUMMIES: 'Ágora para novatos',
+          EVENT_TIMETABLE: 'Calendario de eventos',
+          PRE_EVENTS: 'Preeventos',
+          PARTNERS: 'Colaboradores',
+          CONTACT: 'Contacto',
+          LANGUAGE: 'English version'
+      });
+
+      $translateProvider.preferredLanguage('en');
     }
 );
+
+agorasturiasApp.controller('LanguageSwitcherCtrl', ['$scope', '$translate', function ($scope, $translate) { 
+
+    $scope.changeLanguage = function () {
+      if ($translate.use() == 'en') {
+        $translate.use('es');
+      }  
+      else {
+        $translate.use('en');
+      }
+    };
+}]);
 
 agorasturiasApp.controller('CarouselCtrl', function ($scope) {
 

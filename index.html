@@ -4,19 +4,19 @@
         <meta charset="UTF-8">        
         <title>Spring Agora Asturias 2015</title>
         <link rel="shortcut icon" href="public/img/favicon.ico" type="image/x-icon">
-        <link rel="icon" href="/favicon.ico" type="image/x-icon">
-   <!-- <link rel="stylesheet" type="text/css" href="public/dev/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="public/dev/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="public/dev/layout.css">   
-        <link rel="stylesheet" type="text/css" href="public/dev/wallop-slider.css">  
-        <link rel="stylesheet" type="text/css" href="public/dev/font-awesome.min.css"> 
-        <link rel="stylesheet" type="text/css" href="public/dev/bootstrap-social.css">    -->     
-        <link rel="stylesheet" type="text/css" href="public/css/style.css"> 
+    <!--     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" type="text/css" href="dev/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="dev/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="dev/css/layout.css">   
+        <link rel="stylesheet" type="text/css" href="dev/css/wallop-slider.css">  
+        <link rel="stylesheet" type="text/css" href="dev/css/font-awesome.min.css"> 
+        <link rel="stylesheet" type="text/css" href="dev/css/bootstrap-social.css">  -->      
+       <link rel="stylesheet" type="text/css" href="public/css/style.css">  
         
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     
-    <body ng-app="agorasturiasApp">
+    <body ng-app="agorasturiasApp" ng-controller="LanguageSwitcherCtrl">
 
         <div class="navbar">
             <div class="container">
@@ -34,33 +34,43 @@
 
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav pull-right">
-                                <li><a ui-sref="home">Home</a></li>  
+                                <li><a ui-sref="home">{{ 'HOME' | translate }}</a></li>  
                                 <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown">About 
-                                        <span class="caret"></span>
+                                    <a class="dropdown-toggle" data-toggle="dropdown">
+                                        {{ 'ABOUT' | translate }}<span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a class="submenu" href="#aegee-europe">AEGEE-Europe</a></li>
+                                        <li><a class="submenu" href="#aegee-europe">
+                                            {{ 'AEGEE_EUROPE' | translate }}
+                                        </a></li>
                                         <li><a class="submenu" href="#aegee-oviedo">AEGEE-Oviedo</a></li>
-                                        <li><a class="submenu" href="#core-team">Core team</a></li>
+                                        <li><a class="submenu" href="#core-team">
+                                            {{ 'CORE_TEAM' | translate }}</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown">Agora 
-                                        <span class="caret"></span>
+                                    <a class="dropdown-toggle" data-toggle="dropdown">
+                                        {{ 'AGORA' | translate }}<span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a class="submenu" href="#info">General information</a></li>
-                                        <li>
-                                            <a class="submenu" href="#agora-for-dummies">Agora for dummies</a>
-                                        </li>
-                                        <li><a class="submenu" href="#event-timetable">Event timetable</a></li>
-                                        <li><a class="submenu" href="#pre-events">Pre-events</a></li>
+                                        <li><a class="submenu" href="#info">
+                                            {{ 'GENERAL_INFORMATION' | translate }}
+                                        </a></li>
+                                        <li><a class="submenu" href="#agora-for-dummies">
+                                            {{ 'AGORA_FOR_DUMMIES' | translate }}
+                                        </a></li>
+                                        <li><a class="submenu" href="#event-timetable">
+                                            {{ 'EVENT_TIMETABLE' | translate }}
+                                        </a></li>
+                                        <li><a class="submenu" href="#pre-events">
+                                            {{ 'PRE_EVENTS' | translate }}
+                                        </a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#partners">Partners</a></li>
+                                <li><a href="#partners">{{ 'PARTNERS' | translate }}</a></li>
                                 <li><a href="#account">Login</a></li>
-                                <li><a ui-sref="contact">Contact</a></li>                               
+                                <li><a ui-sref="contact">{{ 'CONTACT' | translate }}</a></li>  
                             </ul>
                         </div>                           
                     </div>
@@ -73,6 +83,8 @@
                 </div>
             </div>
         </div>
+
+        <button id="language-switcher" ng-click="changeLanguage();" translate="LANGUAGE"></button>
 
         <div id="social-buttons">
             <div> 
@@ -125,6 +137,7 @@
     <script src="dev/lib/jquery.min-1.11.1.js"></script>
     <script src="dev/lib/angular.min-1.2.25.js"></script>
     <script src="dev/lib/angular-ui-router.min-0.2.8.js"></script>
+    <script src="dev/lib/angular-translate.min.js"></script>
     <script src="dev/lib/bootstrap.min.js"></script>    
     <script src="dev/lib/ui-bootstrap-tpls-0.11.2.min.js"></script>
     <script src="dev/lib/wallop-slider-directive.js"></script>
