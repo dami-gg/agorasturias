@@ -72,46 +72,24 @@
                                 </li>
 
                                 <li><a href="#partners">{{ 'PARTNERS' | translate }}</a></li>
-                                <li><a href="#account">Login</a></li>
-                                <li><a ui-sref="contact">{{ 'CONTACT' | translate }}</a></li>  
-                            </ul>
-                        </div>                           
-         <!--
-
+                                
                                 <li class="dropdown">
-                                  <a ng-controller="UsersCtrl" ui-sref="login" ng-if="!authenticated">Sign in</a>
-                                  <a class="dropdown-toggle" data-toggle="dropdown"
-                                    ng-controller="UsersCtrl" ui-sref="profile" ng-if="authenticated">{{username}}</a>
-                                  <ul class="dropdown-menu" role="menu" ng-if="authenticated">
-                                    <li ng-if="username==='admin'"><a ng-click="newPost()">New post</a></li>
-                                    <li><a href="#">Profile</a></li>
-                                    <li><a href="#">Shop</a></li>
-                                    <li><a href="#">Logout</a></li>
-                                  </ul>
+                                    <a ng-controller="UsersCtrl" ui-sref="login" ng-if="!authenticated">
+                                        Login
+                                    </a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown"
+                                        ng-controller="UsersCtrl" ui-sref="profile" ng-if="authenticated">{{username}}
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu" ng-if="authenticated">
+                                        <li ng-if="username==='admin'"><a ng-click="newPost()">New post</a></li>
+                                        <li><a href="#">Profile</a></li>
+                                        <li><a href="#">Shop</a></li>
+                                        <li><a href="#">Logout</a></li>
+                                    </ul>
                                 </li>
+                                <li><a ui-sref="contact">{{ 'CONTACT' | translate }}</a></li>                                  
                             </ul>
-                        </div> -->
-
-                        <div id="social-buttons">
-                            <div>
-                                <a class="btn btn-social-icon btn-facebook" target="_blank"
-                                    href="https://www.facebook.com/agorasturias2015">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                            </div>
-                            <div>
-                                <a class="btn btn-social-icon btn-twitter"target="_blank"
-                                    href="">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                            </div>
-                            <div>
-                                <a class="btn btn-social-icon btn-youtube"target="_blank"
-                                    href="">
-                                    <i class="fa fa-youtube"></i>
-                                </a>
-                            </div>
-                        </div>
+                        </div>   
 
                     </div>
 
