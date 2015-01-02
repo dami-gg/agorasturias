@@ -3,9 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>Spring Agora Asturias 2015</title>
-<<<<<<< HEAD
         <link rel="shortcut icon" href="public/img/favicon.ico" type="image/x-icon">
-    <!--     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <!-- <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="dev/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="dev/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="dev/css/layout.css">   
@@ -13,42 +12,18 @@
         <link rel="stylesheet" type="text/css" href="dev/css/font-awesome.min.css"> 
         <link rel="stylesheet" type="text/css" href="dev/css/bootstrap-social.css">  -->      
        <link rel="stylesheet" type="text/css" href="public/css/style.css">  
+       <link rel="stylesheet" type="text/css" href="public/css/ng-ckeditor.css">
         
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    
-    <body ng-app="agorasturiasApp" ng-controller="LanguageSwitcherCtrl">
-=======
-   <!--     <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
-        <link rel="stylesheet" type="text/css" href="public/dev/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="public/dev/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="public/dev/layout.css">
-        <link rel="stylesheet" type="text/css" href="public/dev/wallop-slider.css">
-        <link rel="stylesheet" type="text/css" href="public/dev/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="public/dev/bootstrap-social.css">    -->
-        <link rel="stylesheet" type="text/css" href="public/css/style.css">
-        <link rel="stylesheet" type="text/css" href="public/css/ng-ckeditor.css">
-
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
 
     <body ng-app="agorasturiasApp">
->>>>>>> backend/master
 
         <div class="navbar">
             <div class="container">
 
                 <div class="navbar-header">
 
-<<<<<<< HEAD
-=======
-                    <div class="navbar-brand">
-                        <a ui-sref="#">
-                            <img class="logo" src="public/img/logo-large-small.png" alt="AgorAsturias">
-                        </a>
-                    </div>
-
->>>>>>> backend/master
                     <div id="menu-wrapper">
 
                         <button type="button" class="navbar-toggle"
@@ -60,17 +35,11 @@
 
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav pull-right">
-<<<<<<< HEAD
+
                                 <li><a ui-sref="home">{{ 'HOME' | translate }}</a></li>  
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown">
                                         {{ 'ABOUT' | translate }}<span class="caret"></span>
-=======
-                                <li><a ui-sref="home">Home</a></li>
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown">About
-                                        <span class="caret"></span>
->>>>>>> backend/master
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a class="submenu" href="#aegee-europe">
@@ -83,13 +52,8 @@
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-<<<<<<< HEAD
                                     <a class="dropdown-toggle" data-toggle="dropdown">
                                         {{ 'AGORA' | translate }}<span class="caret"></span>
-=======
-                                    <a class="dropdown-toggle" data-toggle="dropdown">Agora
-                                        <span class="caret"></span>
->>>>>>> backend/master
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a class="submenu" href="#info">
@@ -106,14 +70,13 @@
                                         </a></li>
                                     </ul>
                                 </li>
-<<<<<<< HEAD
+
                                 <li><a href="#partners">{{ 'PARTNERS' | translate }}</a></li>
                                 <li><a href="#account">Login</a></li>
                                 <li><a ui-sref="contact">{{ 'CONTACT' | translate }}</a></li>  
                             </ul>
                         </div>                           
-=======
-                                <li><a ui-sref="contact">Contact us</a></li>
+         <!--
 
                                 <li class="dropdown">
                                   <a ng-controller="UsersCtrl" ui-sref="login" ng-if="!authenticated">Sign in</a>
@@ -127,7 +90,7 @@
                                   </ul>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
 
                         <div id="social-buttons">
                             <div>
@@ -150,7 +113,6 @@
                             </div>
                         </div>
 
->>>>>>> backend/master
                     </div>
 
                     <div class="navbar-brand">
@@ -199,7 +161,6 @@
         <div id="buildings"></div>
 
         <div id="credits">
-<<<<<<< HEAD
             <p>
                 Copyright © 2015 AEGEE-Oviedo 
                 <a href="http://www.aegeeoviedo.org/" target="_blank">http://www.aegeeoviedo.org/</a>
@@ -209,35 +170,23 @@
                 <a href="http://www.aegee.org/" target="_blank">http://www.aegee.org/</a>
             </p> 
             <p>Website developed by Damián García and Alberto Cuesta</p>
-        </div>         
-=======
-
-            <span>AEGEE-Oviedo</span>
-
-        </div>
-
->>>>>>> backend/master
+        </div>  
     </footer>
 
     <!-- Development -->
     <script src="dev/lib/jquery.min-1.11.1.js"></script>
     <script src="dev/lib/angular.min-1.2.25.js"></script>
-    <script src="dev/lib/angular-route.min.js"></script>
+    <script src="dev/lib/angular-ui-router.min-0.2.8.js"></script>
+    <script src="dev/lib/angular-translate.min.js"></script>
     <script src="dev/lib/angular-resource.min.js"></script>
     <script src="dev/lib/angular-sanitize.min.js"></script>
-    <script src="dev/lib/angular-ui-router.min-0.2.8.js"></script>
-<<<<<<< HEAD
-    <script src="dev/lib/angular-translate.min.js"></script>
     <script src="dev/lib/bootstrap.min.js"></script>    
-=======
-    <script src="dev/lib/bootstrap.min.js"></script>
->>>>>>> backend/master
     <script src="dev/lib/ui-bootstrap-tpls-0.11.2.min.js"></script>
     <script src="dev/lib/wallop-slider-directive.js"></script>
     <script src='dev/lib/ckeditor/ckeditor.js'></script>
     <script src="dev/lib/ng-ckeditor.js"></script>
     <script src="dev/js/app.js"></script>
-    <script src="dev/js/functions.js"></script>
+    <script src="dev/js/functions.js"></script> 
 
     <!-- Production
     <script src="public/js/all.js"></script>
