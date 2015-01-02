@@ -1,5 +1,5 @@
 // Include gulp
-var gulp = require('gulp'); 
+var gulp = require('gulp');
 
 // Include Our Plugins
 var jshint = require('gulp-jshint'),
@@ -23,7 +23,11 @@ gulp.task('js', function() {
                 'dev/lib/bootstrap.min.js',
                 'dev/lib/angular.min-1.2.25.js',
                 'dev/lib/angular-ui-router.min-0.2.8.js',
+<<<<<<< HEAD
                 'dev/lib/angular-translate.min.js',
+=======
+                'dev/lib/angular-route.min.js',
+>>>>>>> backend/master
                 'dev/lib/ui-bootstrap-tpls-0.11.2.min.js',
                 'dev/lib/wallop-slider-directive.js',
                 'dev/js/app.js',

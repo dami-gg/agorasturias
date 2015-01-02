@@ -5,7 +5,7 @@
             <div ng-controller="CarouselCtrl">
                 <carousel interval="interval">
                     <slide ng-repeat="slide in slides" active="slide.active">
-                        <div class="teaser" 
+                        <div class="teaser"
                             ng-style="{'background-image': 'url(public/img/{{ slide.image }})'}"></div>
                         <div class="carousel-caption">
                             <p class="title">{{slide.title}}</h2>
@@ -13,28 +13,31 @@
                         </div>
                     </slide>
                 </carousel>
-            </div> 
-        </div> 
+            </div>
+        </div>
     </section>
 
     <section ng-repeat="post in pagedPosts" ng-class-even="'light'" ng-class-odd="'dark'">
         <div class="post container">
             <div class="row">
                 <div class="col-xs-7 col-md-9" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
-                    <p class="lead">{{post.title}}</p>
-                    <p ng-repeat="paragraph in post.text">{{paragraph}}</p>
+                    <p class="lead">{{post.engTitle}}</p>
+
+                    <a ng-if="authenticated" ng-click="editPost(post)">Edit</a>
+
+                    <div ng-bind-html="post.engText|htmlSafe"></div>
                 </div>
                 <div class="col-xs-5 col-md-3" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
-                    <img class="img-responsive" ng-src="{{post.image}}" border="0" width="200" height="284" 
-                        style="border: 2px solid black;"> 
+                    <img class="img-responsive" ng-src="{{post.image}}" border="0" width="200" height="284"
+                        style="border: 2px solid black;"></img>
                 </div>
             </div>
-        </div> 
+        </div>
     </section>
 
     <div class="text-center">
-        <pagination total-items="totalItems" items-per-page="itemsPerPage" 
+        <pagination total-items="totalItems" items-per-page="itemsPerPage"
             ng-model="currentPage" ng-change="pageChanged(); gotoTop();">
         </pagination>
-    </div> 
+    </div>
 </div>
