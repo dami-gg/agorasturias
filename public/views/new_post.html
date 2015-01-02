@@ -1,0 +1,33 @@
+<div ng-if="authenticated" ng-controller="NewPostCtrl">
+  <section>
+    <div class="container">
+      <form name="postEditForm" role="form">
+        <input class="btn btn-default" id="submit1"
+          value="OK" ng-click="doNewPost(insertedPost)">
+
+        <p><strong>Versión en inglés del post</strong></p>
+        <p><i>(esta es obligatoria al menos, será la versión por defecto)</i>
+
+        <p><strong>Título</strong></p>
+        <input class="form-control" type="text" ng-model="insertedPost.engTitle"
+          id="engTitle" name="engTitle">
+
+        <strong>Cuerpo</strong>
+        <textarea ckeditor="editorOptions" name="engBody" ng-model="insertedPost.engText"></textarea>
+
+        <strong>Versión en español del post</strong>
+
+        <p><strong>Título</strong></p>
+        <input class="form-control" type="text" ng-model="insertedPost.esTitle"
+        id="esTitle" name="esTitle">
+
+        <strong>Cuerpo</strong>
+        <textarea ckeditor="editorOptions" name="esBody" ng-model="insertedPost.esText"></textarea>
+
+        <input class="btn btn-default" id="submit2"
+            value="OK" ng-click="doNewPost(insertedPost)">
+
+      </form>
+    </div>
+  <section>
+</div>
