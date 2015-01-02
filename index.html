@@ -1,47 +1,48 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">        
+        <meta charset="UTF-8">
         <title>Spring Agora Asturias 2015</title>
-   <!--     <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">      
+   <!--     <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
         <link rel="stylesheet" type="text/css" href="public/dev/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="public/dev/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="public/dev/layout.css">   
-        <link rel="stylesheet" type="text/css" href="public/dev/wallop-slider.css">  
-        <link rel="stylesheet" type="text/css" href="public/dev/font-awesome.min.css"> 
-        <link rel="stylesheet" type="text/css" href="public/dev/bootstrap-social.css">    -->     
-        <link rel="stylesheet" type="text/css" href="public/css/style.css"> 
-        
+        <link rel="stylesheet" type="text/css" href="public/dev/layout.css">
+        <link rel="stylesheet" type="text/css" href="public/dev/wallop-slider.css">
+        <link rel="stylesheet" type="text/css" href="public/dev/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="public/dev/bootstrap-social.css">    -->
+        <link rel="stylesheet" type="text/css" href="public/css/style.css">
+        <link rel="stylesheet" type="text/css" href="public/css/ng-ckeditor.css">
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
-    
+
     <body ng-app="agorasturiasApp">
 
         <div class="navbar">
             <div class="container">
 
-                <div class="navbar-header">    
+                <div class="navbar-header">
 
                     <div class="navbar-brand">
                         <a ui-sref="#">
                             <img class="logo" src="public/img/logo-large-small.png" alt="AgorAsturias">
                         </a>
-                    </div>  
+                    </div>
 
                     <div id="menu-wrapper">
-                                                                 
-                        <button type="button" class="navbar-toggle" 
+
+                        <button type="button" class="navbar-toggle"
                             data-toggle="collapse" data-target=".navbar-collapse">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
-                        </button> 
+                        </button>
 
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav pull-right">
-                                <li><a ui-sref="home">Home</a></li>  
+                                <li><a ui-sref="home">Home</a></li>
                                 <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown">About 
+                                    <a class="dropdown-toggle" data-toggle="dropdown">About
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
@@ -51,7 +52,7 @@
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown">Agora 
+                                    <a class="dropdown-toggle" data-toggle="dropdown">Agora
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
@@ -62,32 +63,43 @@
                                         <li><a href="#partners">Partners</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#account">Login</a></li>
-                                <li><a ui-sref="contact">Contact us</a></li>                               
+                                <li><a ui-sref="contact">Contact us</a></li>
+
+                                <li class="dropdown">
+                                  <a ng-controller="UsersCtrl" ui-sref="login" ng-if="!authenticated">Sign in</a>
+                                  <a class="dropdown-toggle" data-toggle="dropdown"
+                                    ng-controller="UsersCtrl" ui-sref="profile" ng-if="authenticated">{{username}}</a>
+                                  <ul class="dropdown-menu" role="menu" ng-if="authenticated">
+                                    <li ng-if="username==='admin'"><a ng-click="newPost()">New post</a></li>
+                                    <li><a href="#">Profile</a></li>
+                                    <li><a href="#">Shop</a></li>
+                                    <li><a href="#">Logout</a></li>
+                                  </ul>
+                                </li>
                             </ul>
-                        </div>   
+                        </div>
 
                         <div id="social-buttons">
-                            <div> 
+                            <div>
                                 <a class="btn btn-social-icon btn-facebook" target="_blank"
                                     href="https://www.facebook.com/agorasturias2015">
                                     <i class="fa fa-facebook"></i>
                                 </a>
-                            </div> 
-                            <div> 
+                            </div>
+                            <div>
                                 <a class="btn btn-social-icon btn-twitter"target="_blank"
                                     href="">
                                     <i class="fa fa-twitter"></i>
                                 </a>
-                            </div>  
-                            <div> 
+                            </div>
+                            <div>
                                 <a class="btn btn-social-icon btn-youtube"target="_blank"
                                     href="">
                                     <i class="fa fa-youtube"></i>
                                 </a>
-                            </div>   
-                        </div>                  
-                    
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -97,9 +109,9 @@
 
             <div ui-view autoscroll="false"></div>
 
-        </div>   
+        </div>
 
-        <div class="to-top-button"></div>    
+        <div class="to-top-button"></div>
 
     </body>
     <footer>
@@ -113,21 +125,26 @@
             <span>AEGEE-Oviedo</span>
 
         </div>
-         
+
     </footer>
-    
+
     <!-- Development -->
     <script src="dev/lib/jquery.min-1.11.1.js"></script>
     <script src="dev/lib/angular.min-1.2.25.js"></script>
+    <script src="dev/lib/angular-route.min.js"></script>
+    <script src="dev/lib/angular-resource.min.js"></script>
+    <script src="dev/lib/angular-sanitize.min.js"></script>
     <script src="dev/lib/angular-ui-router.min-0.2.8.js"></script>
-    <script src="dev/lib/bootstrap.min.js"></script>    
+    <script src="dev/lib/bootstrap.min.js"></script>
     <script src="dev/lib/ui-bootstrap-tpls-0.11.2.min.js"></script>
     <script src="dev/lib/wallop-slider-directive.js"></script>
+    <script src='dev/lib/ckeditor/ckeditor.js'></script>
+    <script src="dev/lib/ng-ckeditor.js"></script>
     <script src="dev/js/app.js"></script>
-    <script src="dev/js/functions.js"></script> 
+    <script src="dev/js/functions.js"></script>
 
-    <!-- Production 
+    <!-- Production
     <script src="public/js/all.js"></script>
     -->
-    
+
 </html>

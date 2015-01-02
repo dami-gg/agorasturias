@@ -234,6 +234,21 @@ l.addOption(e.value);d.on("$destroy",function(){l.removeOption(e.value)})}}}}],h
  */
 "undefined"!=typeof module&&"undefined"!=typeof exports&&module.exports===exports&&(module.exports="ui.router"),function(a,b,c){"use strict";function d(a,b){return H(new(H(function(){},{prototype:a})),b)}function e(a){return G(arguments,function(b){b!==a&&G(b,function(b,c){a.hasOwnProperty(c)||(a[c]=b)})}),a}function f(a,b){var c=[];for(var d in a.path){if(a.path[d]!==b.path[d])break;c.push(a.path[d])}return c}function g(a,b){if(Array.prototype.indexOf)return a.indexOf(b,Number(arguments[2])||0);var c=a.length>>>0,d=Number(arguments[2])||0;for(d=0>d?Math.ceil(d):Math.floor(d),0>d&&(d+=c);c>d;d++)if(d in a&&a[d]===b)return d;return-1}function h(a,b,c,d){var e,h=f(c,d),i={},j=[];for(var k in h)if(h[k].params&&h[k].params.length){e=h[k].params;for(var l in e)g(j,e[l])>=0||(j.push(e[l]),i[e[l]]=a[e[l]])}return H({},i,b)}function i(a,b){var c={};return G(a,function(a){var d=b[a];c[a]=null!=d?String(d):null}),c}function j(a,b,c){if(!c){c=[];for(var d in a)c.push(d)}for(var e=0;e<c.length;e++){var f=c[e];if(a[f]!=b[f])return!1}return!0}function k(a,b){var c={};return G(a,function(a){c[a]=b[a]}),c}function l(a,b){var d=1,f=2,g={},h=[],i=g,j=H(a.when(g),{$$promises:g,$$values:g});this.study=function(g){function k(a,c){if(o[c]!==f){if(n.push(c),o[c]===d)throw n.splice(0,n.indexOf(c)),new Error("Cyclic dependency: "+n.join(" -> "));if(o[c]=d,D(a))m.push(c,[function(){return b.get(a)}],h);else{var e=b.annotate(a);G(e,function(a){a!==c&&g.hasOwnProperty(a)&&k(g[a],a)}),m.push(c,a,e)}n.pop(),o[c]=f}}function l(a){return E(a)&&a.then&&a.$$promises}if(!E(g))throw new Error("'invocables' must be an object");var m=[],n=[],o={};return G(g,k),g=n=o=null,function(d,f,g){function h(){--s||(t||e(r,f.$$values),p.$$values=r,p.$$promises=!0,o.resolve(r))}function k(a){p.$$failure=a,o.reject(a)}function n(c,e,f){function i(a){l.reject(a),k(a)}function j(){if(!B(p.$$failure))try{l.resolve(b.invoke(e,g,r)),l.promise.then(function(a){r[c]=a,h()},i)}catch(a){i(a)}}var l=a.defer(),m=0;G(f,function(a){q.hasOwnProperty(a)&&!d.hasOwnProperty(a)&&(m++,q[a].then(function(b){r[a]=b,--m||j()},i))}),m||j(),q[c]=l.promise}if(l(d)&&g===c&&(g=f,f=d,d=null),d){if(!E(d))throw new Error("'locals' must be an object")}else d=i;if(f){if(!l(f))throw new Error("'parent' must be a promise returned by $resolve.resolve()")}else f=j;var o=a.defer(),p=o.promise,q=p.$$promises={},r=H({},d),s=1+m.length/3,t=!1;if(B(f.$$failure))return k(f.$$failure),p;f.$$values?(t=e(r,f.$$values),h()):(H(q,f.$$promises),f.then(h,k));for(var u=0,v=m.length;v>u;u+=3)d.hasOwnProperty(m[u])?h():n(m[u],m[u+1],m[u+2]);return p}},this.resolve=function(a,b,c,d){return this.study(a)(b,c,d)}}function m(a,b,c){this.fromConfig=function(a,b,c){return B(a.template)?this.fromString(a.template,b):B(a.templateUrl)?this.fromUrl(a.templateUrl,b):B(a.templateProvider)?this.fromProvider(a.templateProvider,b,c):null},this.fromString=function(a,b){return C(a)?a(b):a},this.fromUrl=function(c,d){return C(c)&&(c=c(d)),null==c?null:a.get(c,{cache:b}).then(function(a){return a.data})},this.fromProvider=function(a,b,d){return c.invoke(a,null,d||{params:b})}}function n(a){function b(b){if(!/^\w+(-+\w+)*$/.test(b))throw new Error("Invalid parameter name '"+b+"' in pattern '"+a+"'");if(f[b])throw new Error("Duplicate parameter name '"+b+"' in pattern '"+a+"'");f[b]=!0,j.push(b)}function c(a){return a.replace(/[\\\[\]\^$*+?.()|{}]/g,"\\$&")}var d,e=/([:*])(\w+)|\{(\w+)(?:\:((?:[^{}\\]+|\\.|\{(?:[^{}\\]+|\\.)*\})+))?\}/g,f={},g="^",h=0,i=this.segments=[],j=this.params=[];this.source=a;for(var k,l,m;(d=e.exec(a))&&(k=d[2]||d[3],l=d[4]||("*"==d[1]?".*":"[^/]*"),m=a.substring(h,d.index),!(m.indexOf("?")>=0));)g+=c(m)+"("+l+")",b(k),i.push(m),h=e.lastIndex;m=a.substring(h);var n=m.indexOf("?");if(n>=0){var o=this.sourceSearch=m.substring(n);m=m.substring(0,n),this.sourcePath=a.substring(0,h+n),G(o.substring(1).split(/[&?]/),b)}else this.sourcePath=a,this.sourceSearch="";g+=c(m)+"$",i.push(m),this.regexp=new RegExp(g),this.prefix=i[0]}function o(){this.compile=function(a){return new n(a)},this.isMatcher=function(a){return E(a)&&C(a.exec)&&C(a.format)&&C(a.concat)},this.$get=function(){return this}}function p(a){function b(a){var b=/^\^((?:\\[^a-zA-Z0-9]|[^\\\[\]\^$*+?.()|{}]+)*)/.exec(a.source);return null!=b?b[1].replace(/\\(.)/g,"$1"):""}function c(a,b){return a.replace(/\$(\$|\d{1,2})/,function(a,c){return b["$"===c?0:Number(c)]})}function d(a,b,c){if(!c)return!1;var d=a.invoke(b,b,{$match:c});return B(d)?d:!0}var e=[],f=null;this.rule=function(a){if(!C(a))throw new Error("'rule' must be a function");return e.push(a),this},this.otherwise=function(a){if(D(a)){var b=a;a=function(){return b}}else if(!C(a))throw new Error("'rule' must be a function");return f=a,this},this.when=function(e,f){var g,h=D(f);if(D(e)&&(e=a.compile(e)),!h&&!C(f)&&!F(f))throw new Error("invalid 'handler' in when()");var i={matcher:function(b,c){return h&&(g=a.compile(c),c=["$match",function(a){return g.format(a)}]),H(function(a,e){return d(a,c,b.exec(e.path(),e.search()))},{prefix:D(b.prefix)?b.prefix:""})},regex:function(a,e){if(a.global||a.sticky)throw new Error("when() RegExp must not be global or sticky");return h&&(g=e,e=["$match",function(a){return c(g,a)}]),H(function(b,c){return d(b,e,a.exec(c.path()))},{prefix:b(a)})}},j={matcher:a.isMatcher(e),regex:e instanceof RegExp};for(var k in j)if(j[k])return this.rule(i[k](e,f));throw new Error("invalid 'what' in when()")},this.$get=["$location","$rootScope","$injector",function(a,b,c){function d(b){function d(b){var d=b(c,a);return d?(D(d)&&a.replace().url(d),!0):!1}if(!b||!b.defaultPrevented){var g,h=e.length;for(g=0;h>g;g++)if(d(e[g]))return;f&&d(f)}}return b.$on("$locationChangeSuccess",d),{sync:function(){d()}}}]}function q(a,e,f){function g(a){return 0===a.indexOf(".")||0===a.indexOf("^")}function l(a,b){var d=D(a),e=d?a:a.name,f=g(e);if(f){if(!b)throw new Error("No reference point given for path '"+e+"'");for(var h=e.split("."),i=0,j=h.length,k=b;j>i;i++)if(""!==h[i]||0!==i){if("^"!==h[i])break;if(!k.parent)throw new Error("Path '"+e+"' not valid for state '"+b.name+"'");k=k.parent}else k=b;h=h.slice(i).join("."),e=k.name+(k.name&&h?".":"")+h}var l=u[e];return!l||!d&&(d||l!==a&&l.self!==a)?c:l}function m(a,b){v[a]||(v[a]=[]),v[a].push(b)}function n(b){b=d(b,{self:b,resolve:b.resolve||{},toString:function(){return this.name}});var c=b.name;if(!D(c)||c.indexOf("@")>=0)throw new Error("State must have a valid name");if(u.hasOwnProperty(c))throw new Error("State '"+c+"'' is already defined");var e=-1!==c.indexOf(".")?c.substring(0,c.lastIndexOf(".")):D(b.parent)?b.parent:"";if(e&&!u[e])return m(e,b.self);for(var f in x)C(x[f])&&(b[f]=x[f](b,x.$delegates[f]));if(u[c]=b,!b[w]&&b.url&&a.when(b.url,["$match","$stateParams",function(a,c){t.$current.navigable==b&&j(a,c)||t.transitionTo(b,a,{location:!1})}]),v[c])for(var g=0;g<v[c].length;g++)n(v[c][g]);return b}function o(a,b){return D(a)&&!B(b)?x[a]:C(b)&&D(a)?(x[a]&&!x.$delegates[a]&&(x.$delegates[a]=x[a]),x[a]=b,this):this}function p(a,b){return E(a)?b=a:b.name=a,n(b),this}function q(a,e,g,m,n,o,p){function q(){p.url()!==D&&(p.url(D),p.replace())}function v(a,c,d,f,h){var i=d?c:k(a.params,c),j={$stateParams:i};h.resolve=n.resolve(a.resolve,j,h.resolve,a);var l=[h.resolve.then(function(a){h.globals=a})];return f&&l.push(f),G(a.views,function(c,d){var e=c.resolve&&c.resolve!==a.resolve?c.resolve:{};e.$template=[function(){return g.load(d,{view:c,locals:j,params:i,notify:!1})||""}],l.push(n.resolve(e,j,h.resolve,a).then(function(f){if(C(c.controllerProvider)||F(c.controllerProvider)){var g=b.extend({},e,j);f.$$controller=m.invoke(c.controllerProvider,null,g)}else f.$$controller=c.controller;f.$$state=a,h[d]=f}))}),e.all(l).then(function(){return h})}var x=e.reject(new Error("transition superseded")),y=e.reject(new Error("transition prevented")),z=e.reject(new Error("transition aborted")),A=e.reject(new Error("transition failed")),D=p.url();return s.locals={resolve:null,globals:{$stateParams:{}}},t={params:{},current:s.self,$current:s,transition:null},t.reload=function(){t.transitionTo(t.current,o,{reload:!0,inherit:!1,notify:!1})},t.go=function(a,b,c){return this.transitionTo(a,b,H({inherit:!0,relative:t.$current},c))},t.transitionTo=function(b,c,f){c=c||{},f=H({location:!0,inherit:!1,relative:null,notify:!0,reload:!1,$retry:!1},f||{});var g,k=t.$current,n=t.params,u=k.path,C=l(b,f.relative);if(!B(C)){var E={to:b,toParams:c,options:f};if(g=a.$broadcast("$stateNotFound",E,k.self,n),g.defaultPrevented)return q(),z;if(g.retry){if(f.$retry)return q(),A;var F=t.transition=e.when(g.retry);return F.then(function(){return F!==t.transition?x:(E.options.$retry=!0,t.transitionTo(E.to,E.toParams,E.options))},function(){return z}),q(),F}if(b=E.to,c=E.toParams,f=E.options,C=l(b,f.relative),!B(C)){if(f.relative)throw new Error("Could not resolve '"+b+"' from state '"+f.relative+"'");throw new Error("No such state '"+b+"'")}}if(C[w])throw new Error("Cannot transition to abstract state '"+b+"'");f.inherit&&(c=h(o,c||{},t.$current,C)),b=C;var G,J,K=b.path,L=s.locals,M=[];for(G=0,J=K[G];J&&J===u[G]&&j(c,n,J.ownParams)&&!f.reload;G++,J=K[G])L=M[G]=J.locals;if(r(b,k,L,f))return b.self.reloadOnSearch!==!1&&q(),t.transition=null,e.when(t.current);if(c=i(b.params,c||{}),f.notify&&(g=a.$broadcast("$stateChangeStart",b.self,c,k.self,n),g.defaultPrevented))return q(),y;for(var N=e.when(L),O=G;O<K.length;O++,J=K[O])L=M[O]=d(L),N=v(J,c,J===b,N,L);var P=t.transition=N.then(function(){var d,e,g;if(t.transition!==P)return x;for(d=u.length-1;d>=G;d--)g=u[d],g.self.onExit&&m.invoke(g.self.onExit,g.self,g.locals.globals),g.locals=null;for(d=G;d<K.length;d++)e=K[d],e.locals=M[d],e.self.onEnter&&m.invoke(e.self.onEnter,e.self,e.locals.globals);if(t.transition!==P)return x;t.$current=b,t.current=b.self,t.params=c,I(t.params,o),t.transition=null;var h=b.navigable;return f.location&&h&&(p.url(h.url.format(h.locals.globals.$stateParams)),"replace"===f.location&&p.replace()),f.notify&&a.$broadcast("$stateChangeSuccess",b.self,c,k.self,n),D=p.url(),t.current},function(d){return t.transition!==P?x:(t.transition=null,a.$broadcast("$stateChangeError",b.self,c,k.self,n,d),q(),e.reject(d))});return P},t.is=function(a,d){var e=l(a);return B(e)?t.$current!==e?!1:B(d)&&null!==d?b.equals(o,d):!0:c},t.includes=function(a,d){var e=l(a);if(!B(e))return c;if(!B(t.$current.includes[e.name]))return!1;var f=!0;return b.forEach(d,function(a,b){B(o[b])&&o[b]===a||(f=!1)}),f},t.href=function(a,b,c){c=H({lossy:!0,inherit:!1,absolute:!1,relative:t.$current},c||{});var d=l(a,c.relative);if(!B(d))return null;b=h(o,b||{},t.$current,d);var e=d&&c.lossy?d.navigable:d,g=e&&e.url?e.url.format(i(d.params,b||{})):null;return!f.html5Mode()&&g&&(g="#"+f.hashPrefix()+g),c.absolute&&g&&(g=p.protocol()+"://"+p.host()+(80==p.port()||443==p.port()?"":":"+p.port())+(!f.html5Mode()&&g?"/":"")+g),g},t.get=function(a,b){if(!B(a)){var c=[];return G(u,function(a){c.push(a.self)}),c}var d=l(a,b);return d&&d.self?d.self:null},t}function r(a,b,c,d){return a!==b||(c!==b.locals||d.reload)&&a.self.reloadOnSearch!==!1?void 0:!0}var s,t,u={},v={},w="abstract",x={parent:function(a){if(B(a.parent)&&a.parent)return l(a.parent);var b=/^(.+)\.[^.]+$/.exec(a.name);return b?l(b[1]):s},data:function(a){return a.parent&&a.parent.data&&(a.data=a.self.data=H({},a.parent.data,a.data)),a.data},url:function(a){var b=a.url;if(D(b))return"^"==b.charAt(0)?e.compile(b.substring(1)):(a.parent.navigable||s).url.concat(b);if(e.isMatcher(b)||null==b)return b;throw new Error("Invalid url '"+b+"' in state '"+a+"'")},navigable:function(a){return a.url?a:a.parent?a.parent.navigable:null},params:function(a){if(!a.params)return a.url?a.url.parameters():a.parent.params;if(!F(a.params))throw new Error("Invalid params in state '"+a+"'");if(a.url)throw new Error("Both params and url specicified in state '"+a+"'");return a.params},views:function(a){var b={};return G(B(a.views)?a.views:{"":a},function(c,d){d.indexOf("@")<0&&(d+="@"+a.parent.name),b[d]=c}),b},ownParams:function(a){if(!a.parent)return a.params;var b={};G(a.params,function(a){b[a]=!0}),G(a.parent.params,function(c){if(!b[c])throw new Error("Missing required parameter '"+c+"' in state '"+a.name+"'");b[c]=!1});var c=[];return G(b,function(a,b){a&&c.push(b)}),c},path:function(a){return a.parent?a.parent.path.concat(a):[]},includes:function(a){var b=a.parent?H({},a.parent.includes):{};return b[a.name]=!0,b},$delegates:{}};s=n({name:"",url:"^",views:null,"abstract":!0}),s.navigable=null,this.decorator=o,this.state=p,this.$get=q,q.$inject=["$rootScope","$q","$view","$injector","$resolve","$stateParams","$location","$urlRouter"]}function r(){function a(a,b){return{load:function(c,d){var e,f={template:null,controller:null,view:null,locals:null,notify:!0,async:!0,params:{}};return d=H(f,d),d.view&&(e=b.fromConfig(d.view,d.params,d.locals)),e&&d.notify&&a.$broadcast("$viewContentLoading",d),e}}}this.$get=a,a.$inject=["$rootScope","$templateFactory"]}function s(){var a=!1;this.useAnchorScroll=function(){a=!0},this.$get=["$anchorScroll","$timeout",function(b,c){return a?b:function(a){c(function(){a[0].scrollIntoView()},0,!1)}}]}function t(a,c,d,e,f,g){function h(){return e.has?function(a){return e.has(a)?e.get(a):null}:function(a){try{return e.get(a)}catch(b){return null}}}function i(a,b,c){var d=function(){return{leave:function(a){a.remove()},enter:function(a,b,c){c.after(a)}}};if(m)return function(a){return a?{enter:function(a,b,c){m.enter(a,null,c)},leave:function(a){m.leave(a,function(){a.remove()})}}:d()};if(l){var e=l&&l(c,b);return function(a){return a?{enter:function(a,b){e.enter(a,b)},leave:function(a){e.leave(a.contents(),a)}}:d()}}return d}var j=!1,k=h(),l=k("$animator"),m=k("$animate"),n={restrict:"ECA",compile:function(e,h){var k=e.html(),l=!0,m=b.element(g[0].createComment(" ui-view-anchor ")),o=e.parent();return e.prepend(m),function(g){function p(){s&&(y(!0).leave(s),s=null),r&&(r.$destroy(),r=null)}function q(h){var i=a.$current&&a.$current.locals[v];if(l&&(l=!1,e.replaceWith(m)),!i)return p(),s=e.clone(),s.html(k),y(h).enter(s,o,m),r=g.$new(),c(s.contents())(r),void 0;if(i!==t){p(),s=e.clone(),s.html(i.$template?i.$template:k),y(!0).enter(s,o,m),s.data("$uiView",z),t=i,z.state=i.$$state;var j=c(s.contents());if(r=g.$new(),i.$$controller){i.$scope=r;var n=d(i.$$controller,i);s.children().data("$ngControllerController",n)}j(r),r.$emit("$viewContentLoaded"),w&&r.$eval(w),b.isDefined(x)&&x&&!g.$eval(x)||f(s)}}var r,s,t,u=o.inheritedData("$uiView"),v=h[n.name]||h.name||"",w=h.onload||"",x=h.autoscroll,y=i(e,h,g);v.indexOf("@")<0&&(v=v+"@"+(u?u.state.name:""));var z={name:v,state:null},A=function(){if(!j){j=!0;try{q(!0)}catch(a){throw j=!1,a}j=!1}};g.$on("$stateChangeSuccess",A),g.$on("$viewContentLoading",A),q(!1)}}};return n}function u(a){var b=a.replace(/\n/g," ").match(/^([^(]+?)\s*(\((.*)\))?$/);if(!b||4!==b.length)throw new Error("Invalid state ref '"+a+"'");return{state:b[1],paramExpr:b[3]||null}}function v(a){var b=a.parent().inheritedData("$uiView");return b&&b.state&&b.state.name?b.state:void 0}function w(a,b){return{restrict:"A",require:"?^uiSrefActive",link:function(c,d,e,f){var g=u(e.uiSref),h=null,i=v(d)||a.$current,j="FORM"===d[0].nodeName,k=j?"action":"href",l=!0,m=function(b){if(b&&(h=b),l){var c=a.href(g.state,h,{relative:i});return f&&f.$$setStateInfo(g.state,h),c?(d[0][k]=c,void 0):(l=!1,!1)}};g.paramExpr&&(c.$watch(g.paramExpr,function(a){a!==h&&m(a)},!0),h=c.$eval(g.paramExpr)),m(),j||d.bind("click",function(c){var e=c.which||c.button;0!==e&&1!=e||c.ctrlKey||c.metaKey||c.shiftKey||d.attr("target")||(b(function(){a.go(g.state,h,{relative:i})}),c.preventDefault())})}}}function x(a,b,c){return{restrict:"A",controller:["$scope","$element","$attrs",function(d,e,f){function g(){a.$current.self===i&&h()?e.addClass(l):e.removeClass(l)}function h(){return!k||j(k,b)}var i,k,l;l=c(f.uiSrefActive||"",!1)(d),this.$$setStateInfo=function(b,c){i=a.get(b,v(e)),k=c,g()},d.$on("$stateChangeSuccess",g)}]}}function y(a){return function(b){return a.is(b)}}function z(a){return function(b){return a.includes(b)}}function A(a,b){function e(a){this.locals=a.locals.globals,this.params=this.locals.$stateParams}function f(){this.locals=null,this.params=null}function g(c,g){if(null!=g.redirectTo){var h,j=g.redirectTo;if(D(j))h=j;else{if(!C(j))throw new Error("Invalid 'redirectTo' in when()");h=function(a,b){return j(a,b.path(),b.search())}}b.when(c,h)}else a.state(d(g,{parent:null,name:"route:"+encodeURIComponent(c),url:c,onEnter:e,onExit:f}));return i.push(g),this}function h(a,b,d){function e(a){return""!==a.name?a:c}var f={routes:i,params:d,current:c};return b.$on("$stateChangeStart",function(a,c,d,f){b.$broadcast("$routeChangeStart",e(c),e(f))}),b.$on("$stateChangeSuccess",function(a,c,d,g){f.current=e(c),b.$broadcast("$routeChangeSuccess",e(c),e(g)),I(d,f.params)}),b.$on("$stateChangeError",function(a,c,d,f,g,h){b.$broadcast("$routeChangeError",e(c),e(f),h)}),f}var i=[];e.$inject=["$$state"],this.when=g,this.$get=h,h.$inject=["$state","$rootScope","$routeParams"]}var B=b.isDefined,C=b.isFunction,D=b.isString,E=b.isObject,F=b.isArray,G=b.forEach,H=b.extend,I=b.copy;b.module("ui.router.util",["ng"]),b.module("ui.router.router",["ui.router.util"]),b.module("ui.router.state",["ui.router.router","ui.router.util"]),b.module("ui.router",["ui.router.state"]),b.module("ui.router.compat",["ui.router"]),l.$inject=["$q","$injector"],b.module("ui.router.util").service("$resolve",l),m.$inject=["$http","$templateCache","$injector"],b.module("ui.router.util").service("$templateFactory",m),n.prototype.concat=function(a){return new n(this.sourcePath+a+this.sourceSearch)},n.prototype.toString=function(){return this.source},n.prototype.exec=function(a,b){var c=this.regexp.exec(a);if(!c)return null;var d,e=this.params,f=e.length,g=this.segments.length-1,h={};if(g!==c.length-1)throw new Error("Unbalanced capture group in route '"+this.source+"'");for(d=0;g>d;d++)h[e[d]]=c[d+1];for(;f>d;d++)h[e[d]]=b[e[d]];return h},n.prototype.parameters=function(){return this.params},n.prototype.format=function(a){var b=this.segments,c=this.params;if(!a)return b.join("");var d,e,f,g=b.length-1,h=c.length,i=b[0];for(d=0;g>d;d++)f=a[c[d]],null!=f&&(i+=encodeURIComponent(f)),i+=b[d+1];for(;h>d;d++)f=a[c[d]],null!=f&&(i+=(e?"&":"?")+c[d]+"="+encodeURIComponent(f),e=!0);return i},b.module("ui.router.util").provider("$urlMatcherFactory",o),p.$inject=["$urlMatcherFactoryProvider"],b.module("ui.router.router").provider("$urlRouter",p),q.$inject=["$urlRouterProvider","$urlMatcherFactoryProvider","$locationProvider"],b.module("ui.router.state").value("$stateParams",{}).provider("$state",q),r.$inject=[],b.module("ui.router.state").provider("$view",r),b.module("ui.router.state").provider("$uiViewScroll",s),t.$inject=["$state","$compile","$controller","$injector","$uiViewScroll","$document"],b.module("ui.router.state").directive("uiView",t),w.$inject=["$state","$timeout"],x.$inject=["$state","$stateParams","$interpolate"],b.module("ui.router.state").directive("uiSref",w).directive("uiSrefActive",x),y.$inject=["$state"],z.$inject=["$state"],b.module("ui.router.state").filter("isState",y).filter("includedByState",z),A.$inject=["$stateProvider","$urlRouterProvider"],b.module("ui.router.compat").provider("$route",A).directive("ngView",t)}(window,window.angular);
 /*
+ AngularJS v1.2.25
+ (c) 2010-2014 Google, Inc. http://angularjs.org
+ License: MIT
+*/
+(function(n,e,A){'use strict';function x(s,g,h){return{restrict:"ECA",terminal:!0,priority:400,transclude:"element",link:function(a,c,b,f,w){function y(){p&&(p.remove(),p=null);k&&(k.$destroy(),k=null);l&&(h.leave(l,function(){p=null}),p=l,l=null)}function v(){var b=s.current&&s.current.locals;if(e.isDefined(b&&b.$template)){var b=a.$new(),d=s.current;l=w(b,function(d){h.enter(d,null,l||c,function(){!e.isDefined(t)||t&&!a.$eval(t)||g()});y()});k=d.scope=b;k.$emit("$viewContentLoaded");k.$eval(u)}else y()}
+var k,l,p,t=b.autoscroll,u=b.onload||"";a.$on("$routeChangeSuccess",v);v()}}}function z(e,g,h){return{restrict:"ECA",priority:-400,link:function(a,c){var b=h.current,f=b.locals;c.html(f.$template);var w=e(c.contents());b.controller&&(f.$scope=a,f=g(b.controller,f),b.controllerAs&&(a[b.controllerAs]=f),c.data("$ngControllerController",f),c.children().data("$ngControllerController",f));w(a)}}}n=e.module("ngRoute",["ng"]).provider("$route",function(){function s(a,c){return e.extend(new (e.extend(function(){},
+{prototype:a})),c)}function g(a,e){var b=e.caseInsensitiveMatch,f={originalPath:a,regexp:a},h=f.keys=[];a=a.replace(/([().])/g,"\\$1").replace(/(\/)?:(\w+)([\?\*])?/g,function(a,e,b,c){a="?"===c?c:null;c="*"===c?c:null;h.push({name:b,optional:!!a});e=e||"";return""+(a?"":e)+"(?:"+(a?e:"")+(c&&"(.+?)"||"([^/]+)")+(a||"")+")"+(a||"")}).replace(/([\/$\*])/g,"\\$1");f.regexp=RegExp("^"+a+"$",b?"i":"");return f}var h={};this.when=function(a,c){h[a]=e.extend({reloadOnSearch:!0},c,a&&g(a,c));if(a){var b=
+"/"==a[a.length-1]?a.substr(0,a.length-1):a+"/";h[b]=e.extend({redirectTo:a},g(b,c))}return this};this.otherwise=function(a){this.when(null,a);return this};this.$get=["$rootScope","$location","$routeParams","$q","$injector","$http","$templateCache","$sce",function(a,c,b,f,g,n,v,k){function l(){var d=p(),m=r.current;if(d&&m&&d.$$route===m.$$route&&e.equals(d.pathParams,m.pathParams)&&!d.reloadOnSearch&&!u)m.params=d.params,e.copy(m.params,b),a.$broadcast("$routeUpdate",m);else if(d||m)u=!1,a.$broadcast("$routeChangeStart",
+d,m),(r.current=d)&&d.redirectTo&&(e.isString(d.redirectTo)?c.path(t(d.redirectTo,d.params)).search(d.params).replace():c.url(d.redirectTo(d.pathParams,c.path(),c.search())).replace()),f.when(d).then(function(){if(d){var a=e.extend({},d.resolve),c,b;e.forEach(a,function(d,c){a[c]=e.isString(d)?g.get(d):g.invoke(d)});e.isDefined(c=d.template)?e.isFunction(c)&&(c=c(d.params)):e.isDefined(b=d.templateUrl)&&(e.isFunction(b)&&(b=b(d.params)),b=k.getTrustedResourceUrl(b),e.isDefined(b)&&(d.loadedTemplateUrl=
+b,c=n.get(b,{cache:v}).then(function(a){return a.data})));e.isDefined(c)&&(a.$template=c);return f.all(a)}}).then(function(c){d==r.current&&(d&&(d.locals=c,e.copy(d.params,b)),a.$broadcast("$routeChangeSuccess",d,m))},function(c){d==r.current&&a.$broadcast("$routeChangeError",d,m,c)})}function p(){var a,b;e.forEach(h,function(f,h){var q;if(q=!b){var g=c.path();q=f.keys;var l={};if(f.regexp)if(g=f.regexp.exec(g)){for(var k=1,p=g.length;k<p;++k){var n=q[k-1],r=g[k];n&&r&&(l[n.name]=r)}q=l}else q=null;
+else q=null;q=a=q}q&&(b=s(f,{params:e.extend({},c.search(),a),pathParams:a}),b.$$route=f)});return b||h[null]&&s(h[null],{params:{},pathParams:{}})}function t(a,c){var b=[];e.forEach((a||"").split(":"),function(a,d){if(0===d)b.push(a);else{var e=a.match(/(\w+)(.*)/),f=e[1];b.push(c[f]);b.push(e[2]||"");delete c[f]}});return b.join("")}var u=!1,r={routes:h,reload:function(){u=!0;a.$evalAsync(l)}};a.$on("$locationChangeSuccess",l);return r}]});n.provider("$routeParams",function(){this.$get=function(){return{}}});
+n.directive("ngView",x);n.directive("ngView",z);x.$inject=["$route","$anchorScroll","$animate"];z.$inject=["$compile","$controller","$route"]})(window,window.angular);
+//# sourceMappingURL=angular-route.min.js.map
+
+/*
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
 
@@ -362,21 +377,21 @@ angular.module("ui.bootstrap",["ui.bootstrap.tpls","ui.bootstrap.transition","ui
 
 })();
 // create the module including ngRoute for all the routing needs
-var agorasturiasApp = angular.module('agorasturiasApp', ['ui.router', 'ui.bootstrap']);
+var agorasturiasApp = angular.module('agorasturiasApp',
+  ['ui.router', 'ui.bootstrap', 'ngRoute', 'ngResource',
+  'ngCkeditor','ngSanitize']);
 // , 'uiRouterStyles'
-
 // configure the routes
 agorasturiasApp.config(
-
     function($stateProvider, $urlRouterProvider) {
-    
+
         $urlRouterProvider.otherwise('/home');
 
         $stateProvider
 
             .state('home', {
                 url  : '/home',
-                templateUrl : 'public/views/home.html'                
+                templateUrl : 'public/views/home.html'
             })
 
             .state('aegee-oviedo', {
@@ -430,15 +445,60 @@ agorasturiasApp.config(
             .state('account', {
                 url  : '/account',
                 templateUrl : 'public/views/account.html'
+            })
+
+            .state('login', {
+              url : '/login',
+              templateUrl : 'public/views/login.html'
+            })
+
+            .state('new_post',{
+              url:'/new_post',
+              templateUrl : 'public/views/new_post.html'
+            })
+
+            .state('edit_post',{
+              url:'/edit_post',
+              templateUrl : 'public/views/edit_post.html'
             });
     }
 );
+
+agorasturiasApp.factory('Data', ['$http',
+function ($http) { // This service connects to our REST API
+
+  var serviceBase = 'api/v1/';
+  var obj = {};
+  obj.get = function (q, object) {
+    return $http.get(serviceBase + q, object).then(function (results) {
+      return results.data;
+    });
+  };
+  obj.post = function (q, object) {
+    return $http.post(serviceBase + q, object).then(function (results) {
+      return results.data;
+    });
+  };
+  obj.put = function (q, object) {
+    return $http.put(serviceBase + q, object).then(function (results) {
+      return results.data;
+    });
+  };
+  obj.delete = function (q) {
+    return $http.delete(serviceBase + q).then(function (results) {
+      return results.data;
+    });
+  };
+
+  return obj;
+}]);
+
 
 agorasturiasApp.controller('CarouselCtrl', function ($scope) {
 
     $scope.interval = 5000;
     var slides = $scope.slides = [];
-  
+
     $scope.addSlide = function() {
         var newWidth = 600 + slides.length;
         slides.push({
@@ -448,30 +508,15 @@ agorasturiasApp.controller('CarouselCtrl', function ($scope) {
                     'The capital of the Green Coast','Surplus'][slides.length % 3]
         });
     };
-  
+
     for (var i=0; i<3; ++i) {
         $scope.addSlide();
     }
 });
 
-agorasturiasApp.controller('PostsCtrl', ['$scope', '$location', '$anchorScroll',
-  function ($scope, $location, $anchorScroll) {
+agorasturiasApp.controller('PostsCtrl', ['$rootScope', '$scope', '$location', '$anchorScroll', 'Data',
+  function ($rootScope, $scope, $location, $anchorScroll, Data) {
 
-    var posts = $scope.posts = [];
-
-    $scope.addPost = function() {
-        posts.push({
-          title: 'SPRING AGORA IS CALLING',
-          image: 'http://www.europarl.it/resource/static/images/martin_schulz_ep_president_1.jpg',
-          text: ['On the road to Autumn Agora Cagliari 2014...', 'Summer has finally come but nothing could ever stop preparations for the AEGEE Autumn Agora 2014, one of the most important youth events in Europe in terms of number of participants and importance of the discussed issues: thanks to this, AEGEE has obtained a role in the United Nations advisory board and in the Council of Europe.','Agora is the general Assembly of AEGEE association and it takes place twice a year, every year, since 1986, involving generations of students from hundreds of cities. In this special occasion, all of the European Antennae reach the organizing city of the event in order to deal with topics that concern active citizenship and the impact of young people in Europe of the future.']
-        });
-    };
-
-    for (var i=0; i<9; ++i) {
-        $scope.addPost();
-    }
-
-    $scope.totalItems = posts.length;
     $scope.currentPage = 1;
     $scope.itemsPerPage = 5;
 
@@ -480,18 +525,105 @@ agorasturiasApp.controller('PostsCtrl', ['$scope', '$location', '$anchorScroll',
     };
 
     $scope.pageChanged = function() {
-        var begin = (($scope.currentPage - 1) * $scope.itemsPerPage);
-        var end = begin + $scope.itemsPerPage;
+      $scope.lastPageLoaded = angular.copy($scope.currentPage);
+      Data.get('posts/desc/'+$scope.currentPage+'/'+$scope.itemsPerPage)
+      .then(function(response){
 
-        $scope.pagedPosts = $scope.posts.slice(begin, end);
+        if(response.status === "success"){
+          $scope.posts = response.posts;
+          $scope.totalItems = response.total_posts;
+
+          $scope.pagedPosts = $scope.posts;
+        }
+
+      });
+
     };
 
+    //$scope.loadPosts($scope.currentPage,$scope.itemsPerPage);
     $scope.pageChanged();
 
     $scope.gotoTop = function() {
       $location.hash('menu-wrapper');
       $anchorScroll();
     };
+
+    $scope.editPost = function(post){
+      $rootScope.currentPost = angular.copy(post);
+      $location.path ('/edit_post');
+    };
+
+
+}]);
+
+agorasturiasApp.controller('NewPostCtrl',['$location','$scope','Data',
+function($location,$scope,Data){
+
+  $scope.editorOptions = {
+    language:'es',
+    uiColor:'#ffffff'
+  };
+
+  $scope.doNewPost = function(new_post){
+    new_post.username = $scope.username;
+    new_post.modifier_username = $scope.username;
+    new_post.user_id = $scope.uid;
+    new_post.modifier_id = $scope.uid;
+    new_post.image = '';
+    new_post.header_image = '';
+
+    Data.post('posts',{
+      post:JSON.stringify(new_post)
+
+    }).then(function(response){
+
+      if(response.status==="success"){
+        alert(response.message);
+        $location.path('/home');
+      }
+      else
+        alert(response.message);
+    });
+  };
+
+}]);
+
+agorasturiasApp.controller('EditPostCtrl',['$location','$scope','Data',
+function($location,$scope,Data){
+
+  $scope.editorOptions = {
+    language:'es',
+    uiColor:'#ffffff'
+  };
+
+  $scope.doEditPost = function(updated_post){
+
+    updated_post.modifier_username = $scope.username;
+    updated_post.modifier_id = $scope.uid;
+
+    Data.put('posts/'+updated_post.id, {
+      post:JSON.stringify(updated_post)
+    }).then(function(response){
+
+      if(response.status==="success"){
+        alert("Post actualizado correctamente");
+        $location.path('/home');
+      }
+      else
+        alert(response.message);
+    });
+  };
+
+  $scope.doDeletePost = function(post_id){
+    Data.delete('posts/'+post_id).then(function(response){
+      if(response.status==="success"){
+        alert(response.message);
+        $location.path('/home');
+      }
+      else
+        alert(response.message);
+    });
+  };
 }]);
 
 agorasturiasApp.controller('FormCtrl', function ($scope) {
@@ -510,7 +642,7 @@ agorasturiasApp.controller('FormCtrl', function ($scope) {
 agorasturiasApp.controller('BookCtrl', function ($scope) {
 
   $scope.index = 0;
-  
+
   $scope.images = [
     'public/img/agora-for-dummies-page-1.jpg',
     'public/img/agora-for-dummies-page-2.jpg',
@@ -618,7 +750,7 @@ agorasturiasApp.controller('BookCtrl', function ($scope) {
         $scope.onNextButtonClicked = function () {
           _goTo($scope.currentItemIndex + 1);
         };
-        
+
         $scope.$watch('currentItemIndex', function(newVal, oldVal) {
           if (oldVal > newVal) {
             if (typeof $scope.onPrevious === 'function') {
@@ -673,6 +805,39 @@ agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService)
   $scope.rows = partitionService.partition(members, 4);
 });
 
+agorasturiasApp.controller('UsersCtrl', ['$rootScope','$scope','$location','$http','Data',
+function($rootScope,$scope,$location,$http,Data){
+
+  $rootScope.newPost = function(){
+    $rootScope.currentPost = null;
+    $location.path('/new_post');
+  };
+
+  //initially set those objects to null to avoid undefined error
+  $rootScope.login = {};
+
+  $rootScope.doLogin = function (user) {
+    Data.post('login',
+      {
+        username:user.username,
+        password:user.password
+      }).then(function (response) {
+      if (response.status === "success") {
+        $rootScope.authenticated = true;
+        $rootScope.username = response.username;
+        $rootScope.uid = response.uid;
+        $rootScope.appID = response.app_id;
+        $rootScope.email = response.email;
+        $rootScope.name = response.name;
+
+        $location.path('/home');
+      }
+      else
+        alert(response.message);
+    });
+  };
+}]);
+
 agorasturiasApp.service('partitionService', function() {
 
   this.partition = function (dataArray, chunkSize) {
@@ -685,6 +850,11 @@ agorasturiasApp.service('partitionService', function() {
     return result;
   };
 });
+
+agorasturiasApp.filter('htmlSafe',['$sce',function($sce){
+  return $sce.trustAsHtml;
+}]);
+
 jQuery(document).ready(function($){
     // browser window scroll (in pixels) after which the "back to top" link is shown
     var offset = 300,
@@ -713,3 +883,828 @@ jQuery(document).ready(function($){
     });
 
 });
+/*
+ AngularJS v1.2.25
+ (c) 2010-2014 Google, Inc. http://angularjs.org
+ License: MIT
+*/
+(function(H,a,A){'use strict';function D(p,g){g=g||{};a.forEach(g,function(a,c){delete g[c]});for(var c in p)!p.hasOwnProperty(c)||"$"===c.charAt(0)&&"$"===c.charAt(1)||(g[c]=p[c]);return g}var v=a.$$minErr("$resource"),C=/^(\.[a-zA-Z_$][0-9a-zA-Z_$]*)+$/;a.module("ngResource",["ng"]).factory("$resource",["$http","$q",function(p,g){function c(a,c){this.template=a;this.defaults=c||{};this.urlParams={}}function t(n,w,l){function r(h,d){var e={};d=x({},w,d);s(d,function(b,d){u(b)&&(b=b());var k;if(b&&
+b.charAt&&"@"==b.charAt(0)){k=h;var a=b.substr(1);if(null==a||""===a||"hasOwnProperty"===a||!C.test("."+a))throw v("badmember",a);for(var a=a.split("."),f=0,c=a.length;f<c&&k!==A;f++){var g=a[f];k=null!==k?k[g]:A}}else k=b;e[d]=k});return e}function e(a){return a.resource}function f(a){D(a||{},this)}var F=new c(n);l=x({},B,l);s(l,function(h,d){var c=/^(POST|PUT|PATCH)$/i.test(h.method);f[d]=function(b,d,k,w){var q={},n,l,y;switch(arguments.length){case 4:y=w,l=k;case 3:case 2:if(u(d)){if(u(b)){l=
+b;y=d;break}l=d;y=k}else{q=b;n=d;l=k;break}case 1:u(b)?l=b:c?n=b:q=b;break;case 0:break;default:throw v("badargs",arguments.length);}var t=this instanceof f,m=t?n:h.isArray?[]:new f(n),z={},B=h.interceptor&&h.interceptor.response||e,C=h.interceptor&&h.interceptor.responseError||A;s(h,function(a,b){"params"!=b&&("isArray"!=b&&"interceptor"!=b)&&(z[b]=G(a))});c&&(z.data=n);F.setUrlParams(z,x({},r(n,h.params||{}),q),h.url);q=p(z).then(function(b){var d=b.data,k=m.$promise;if(d){if(a.isArray(d)!==!!h.isArray)throw v("badcfg",
+h.isArray?"array":"object",a.isArray(d)?"array":"object");h.isArray?(m.length=0,s(d,function(b){"object"===typeof b?m.push(new f(b)):m.push(b)})):(D(d,m),m.$promise=k)}m.$resolved=!0;b.resource=m;return b},function(b){m.$resolved=!0;(y||E)(b);return g.reject(b)});q=q.then(function(b){var a=B(b);(l||E)(a,b.headers);return a},C);return t?q:(m.$promise=q,m.$resolved=!1,m)};f.prototype["$"+d]=function(b,a,k){u(b)&&(k=a,a=b,b={});b=f[d].call(this,b,this,a,k);return b.$promise||b}});f.bind=function(a){return t(n,
+x({},w,a),l)};return f}var B={get:{method:"GET"},save:{method:"POST"},query:{method:"GET",isArray:!0},remove:{method:"DELETE"},"delete":{method:"DELETE"}},E=a.noop,s=a.forEach,x=a.extend,G=a.copy,u=a.isFunction;c.prototype={setUrlParams:function(c,g,l){var r=this,e=l||r.template,f,p,h=r.urlParams={};s(e.split(/\W/),function(a){if("hasOwnProperty"===a)throw v("badname");!/^\d+$/.test(a)&&(a&&RegExp("(^|[^\\\\]):"+a+"(\\W|$)").test(e))&&(h[a]=!0)});e=e.replace(/\\:/g,":");g=g||{};s(r.urlParams,function(d,
+c){f=g.hasOwnProperty(c)?g[c]:r.defaults[c];a.isDefined(f)&&null!==f?(p=encodeURIComponent(f).replace(/%40/gi,"@").replace(/%3A/gi,":").replace(/%24/g,"$").replace(/%2C/gi,",").replace(/%20/g,"%20").replace(/%26/gi,"&").replace(/%3D/gi,"=").replace(/%2B/gi,"+"),e=e.replace(RegExp(":"+c+"(\\W|$)","g"),function(a,c){return p+c})):e=e.replace(RegExp("(/?):"+c+"(\\W|$)","g"),function(a,c,d){return"/"==d.charAt(0)?d:c+d})});e=e.replace(/\/+$/,"")||"/";e=e.replace(/\/\.(?=\w+($|\?))/,".");c.url=e.replace(/\/\\\./,
+"/.");s(g,function(a,e){r.urlParams[e]||(c.params=c.params||{},c.params[e]=a)})}};return t}])})(window,window.angular);
+//# sourceMappingURL=angular-resource.min.js.map
+
+/**
+ * @license AngularJS v1.2.25
+ * (c) 2010-2014 Google, Inc. http://angularjs.org
+ * License: MIT
+ */
+(function(window, angular, undefined) {'use strict';
+
+var $sanitizeMinErr = angular.$$minErr('$sanitize');
+
+/**
+ * @ngdoc module
+ * @name ngSanitize
+ * @description
+ *
+ * # ngSanitize
+ *
+ * The `ngSanitize` module provides functionality to sanitize HTML.
+ *
+ *
+ * <div doc-module-components="ngSanitize"></div>
+ *
+ * See {@link ngSanitize.$sanitize `$sanitize`} for usage.
+ */
+
+/*
+ * HTML Parser By Misko Hevery (misko@hevery.com)
+ * based on:  HTML Parser By John Resig (ejohn.org)
+ * Original code by Erik Arvidsson, Mozilla Public License
+ * http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
+ *
+ * // Use like so:
+ * htmlParser(htmlString, {
+ *     start: function(tag, attrs, unary) {},
+ *     end: function(tag) {},
+ *     chars: function(text) {},
+ *     comment: function(text) {}
+ * });
+ *
+ */
+
+
+/**
+ * @ngdoc service
+ * @name $sanitize
+ * @kind function
+ *
+ * @description
+ *   The input is sanitized by parsing the html into tokens. All safe tokens (from a whitelist) are
+ *   then serialized back to properly escaped html string. This means that no unsafe input can make
+ *   it into the returned string, however, since our parser is more strict than a typical browser
+ *   parser, it's possible that some obscure input, which would be recognized as valid HTML by a
+ *   browser, won't make it through the sanitizer.
+ *   The whitelist is configured using the functions `aHrefSanitizationWhitelist` and
+ *   `imgSrcSanitizationWhitelist` of {@link ng.$compileProvider `$compileProvider`}.
+ *
+ * @param {string} html Html input.
+ * @returns {string} Sanitized html.
+ *
+ * @example
+   <example module="sanitizeExample" deps="angular-sanitize.js">
+   <file name="index.html">
+     <script>
+         angular.module('sanitizeExample', ['ngSanitize'])
+           .controller('ExampleController', ['$scope', '$sce', function($scope, $sce) {
+             $scope.snippet =
+               '<p style="color:blue">an html\n' +
+               '<em onmouseover="this.textContent=\'PWN3D!\'">click here</em>\n' +
+               'snippet</p>';
+             $scope.deliberatelyTrustDangerousSnippet = function() {
+               return $sce.trustAsHtml($scope.snippet);
+             };
+           }]);
+     </script>
+     <div ng-controller="ExampleController">
+        Snippet: <textarea ng-model="snippet" cols="60" rows="3"></textarea>
+       <table>
+         <tr>
+           <td>Directive</td>
+           <td>How</td>
+           <td>Source</td>
+           <td>Rendered</td>
+         </tr>
+         <tr id="bind-html-with-sanitize">
+           <td>ng-bind-html</td>
+           <td>Automatically uses $sanitize</td>
+           <td><pre>&lt;div ng-bind-html="snippet"&gt;<br/>&lt;/div&gt;</pre></td>
+           <td><div ng-bind-html="snippet"></div></td>
+         </tr>
+         <tr id="bind-html-with-trust">
+           <td>ng-bind-html</td>
+           <td>Bypass $sanitize by explicitly trusting the dangerous value</td>
+           <td>
+           <pre>&lt;div ng-bind-html="deliberatelyTrustDangerousSnippet()"&gt;
+&lt;/div&gt;</pre>
+           </td>
+           <td><div ng-bind-html="deliberatelyTrustDangerousSnippet()"></div></td>
+         </tr>
+         <tr id="bind-default">
+           <td>ng-bind</td>
+           <td>Automatically escapes</td>
+           <td><pre>&lt;div ng-bind="snippet"&gt;<br/>&lt;/div&gt;</pre></td>
+           <td><div ng-bind="snippet"></div></td>
+         </tr>
+       </table>
+       </div>
+   </file>
+   <file name="protractor.js" type="protractor">
+     it('should sanitize the html snippet by default', function() {
+       expect(element(by.css('#bind-html-with-sanitize div')).getInnerHtml()).
+         toBe('<p>an html\n<em>click here</em>\nsnippet</p>');
+     });
+
+     it('should inline raw snippet if bound to a trusted value', function() {
+       expect(element(by.css('#bind-html-with-trust div')).getInnerHtml()).
+         toBe("<p style=\"color:blue\">an html\n" +
+              "<em onmouseover=\"this.textContent='PWN3D!'\">click here</em>\n" +
+              "snippet</p>");
+     });
+
+     it('should escape snippet without any filter', function() {
+       expect(element(by.css('#bind-default div')).getInnerHtml()).
+         toBe("&lt;p style=\"color:blue\"&gt;an html\n" +
+              "&lt;em onmouseover=\"this.textContent='PWN3D!'\"&gt;click here&lt;/em&gt;\n" +
+              "snippet&lt;/p&gt;");
+     });
+
+     it('should update', function() {
+       element(by.model('snippet')).clear();
+       element(by.model('snippet')).sendKeys('new <b onclick="alert(1)">text</b>');
+       expect(element(by.css('#bind-html-with-sanitize div')).getInnerHtml()).
+         toBe('new <b>text</b>');
+       expect(element(by.css('#bind-html-with-trust div')).getInnerHtml()).toBe(
+         'new <b onclick="alert(1)">text</b>');
+       expect(element(by.css('#bind-default div')).getInnerHtml()).toBe(
+         "new &lt;b onclick=\"alert(1)\"&gt;text&lt;/b&gt;");
+     });
+   </file>
+   </example>
+ */
+function $SanitizeProvider() {
+  this.$get = ['$$sanitizeUri', function($$sanitizeUri) {
+    return function(html) {
+      var buf = [];
+      htmlParser(html, htmlSanitizeWriter(buf, function(uri, isImage) {
+        return !/^unsafe/.test($$sanitizeUri(uri, isImage));
+      }));
+      return buf.join('');
+    };
+  }];
+}
+
+function sanitizeText(chars) {
+  var buf = [];
+  var writer = htmlSanitizeWriter(buf, angular.noop);
+  writer.chars(chars);
+  return buf.join('');
+}
+
+
+// Regular Expressions for parsing tags and attributes
+var START_TAG_REGEXP =
+       /^<((?:[a-zA-Z])[\w:-]*)((?:\s+[\w:-]+(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)\s*(>?)/,
+  END_TAG_REGEXP = /^<\/\s*([\w:-]+)[^>]*>/,
+  ATTR_REGEXP = /([\w:-]+)(?:\s*=\s*(?:(?:"((?:[^"])*)")|(?:'((?:[^'])*)')|([^>\s]+)))?/g,
+  BEGIN_TAG_REGEXP = /^</,
+  BEGING_END_TAGE_REGEXP = /^<\//,
+  COMMENT_REGEXP = /<!--(.*?)-->/g,
+  DOCTYPE_REGEXP = /<!DOCTYPE([^>]*?)>/i,
+  CDATA_REGEXP = /<!\[CDATA\[(.*?)]]>/g,
+  SURROGATE_PAIR_REGEXP = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g,
+  // Match everything outside of normal chars and " (quote character)
+  NON_ALPHANUMERIC_REGEXP = /([^\#-~| |!])/g;
+
+
+// Good source of info about elements and attributes
+// http://dev.w3.org/html5/spec/Overview.html#semantics
+// http://simon.html5.org/html-elements
+
+// Safe Void Elements - HTML5
+// http://dev.w3.org/html5/spec/Overview.html#void-elements
+var voidElements = makeMap("area,br,col,hr,img,wbr");
+
+// Elements that you can, intentionally, leave open (and which close themselves)
+// http://dev.w3.org/html5/spec/Overview.html#optional-tags
+var optionalEndTagBlockElements = makeMap("colgroup,dd,dt,li,p,tbody,td,tfoot,th,thead,tr"),
+    optionalEndTagInlineElements = makeMap("rp,rt"),
+    optionalEndTagElements = angular.extend({},
+                                            optionalEndTagInlineElements,
+                                            optionalEndTagBlockElements);
+
+// Safe Block Elements - HTML5
+var blockElements = angular.extend({}, optionalEndTagBlockElements, makeMap("address,article," +
+        "aside,blockquote,caption,center,del,dir,div,dl,figure,figcaption,footer,h1,h2,h3,h4,h5," +
+        "h6,header,hgroup,hr,ins,map,menu,nav,ol,pre,script,section,table,ul"));
+
+// Inline Elements - HTML5
+var inlineElements = angular.extend({}, optionalEndTagInlineElements, makeMap("a,abbr,acronym,b," +
+        "bdi,bdo,big,br,cite,code,del,dfn,em,font,i,img,ins,kbd,label,map,mark,q,ruby,rp,rt,s," +
+        "samp,small,span,strike,strong,sub,sup,time,tt,u,var"));
+
+
+// Special Elements (can contain anything)
+var specialElements = makeMap("script,style");
+
+var validElements = angular.extend({},
+                                   voidElements,
+                                   blockElements,
+                                   inlineElements,
+                                   optionalEndTagElements);
+
+//Attributes that have href and hence need to be sanitized
+var uriAttrs = makeMap("background,cite,href,longdesc,src,usemap");
+var validAttrs = angular.extend({}, uriAttrs, makeMap(
+    'abbr,align,alt,axis,bgcolor,border,cellpadding,cellspacing,class,clear,'+
+    'color,cols,colspan,compact,coords,dir,face,headers,height,hreflang,hspace,'+
+    'ismap,lang,language,nohref,nowrap,rel,rev,rows,rowspan,rules,'+
+    'scope,scrolling,shape,size,span,start,summary,target,title,type,'+
+    'valign,value,vspace,width'));
+
+function makeMap(str) {
+  var obj = {}, items = str.split(','), i;
+  for (i = 0; i < items.length; i++) obj[items[i]] = true;
+  return obj;
+}
+
+
+/**
+ * @example
+ * htmlParser(htmlString, {
+ *     start: function(tag, attrs, unary) {},
+ *     end: function(tag) {},
+ *     chars: function(text) {},
+ *     comment: function(text) {}
+ * });
+ *
+ * @param {string} html string
+ * @param {object} handler
+ */
+function htmlParser( html, handler ) {
+  if (typeof html !== 'string') {
+    if (html === null || typeof html === 'undefined') {
+      html = '';
+    } else {
+      html = '' + html;
+    }
+  }
+  var index, chars, match, stack = [], last = html, text;
+  stack.last = function() { return stack[ stack.length - 1 ]; };
+
+  while ( html ) {
+    text = '';
+    chars = true;
+
+    // Make sure we're not in a script or style element
+    if ( !stack.last() || !specialElements[ stack.last() ] ) {
+
+      // Comment
+      if ( html.indexOf("<!--") === 0 ) {
+        // comments containing -- are not allowed unless they terminate the comment
+        index = html.indexOf("--", 4);
+
+        if ( index >= 0 && html.lastIndexOf("-->", index) === index) {
+          if (handler.comment) handler.comment( html.substring( 4, index ) );
+          html = html.substring( index + 3 );
+          chars = false;
+        }
+      // DOCTYPE
+      } else if ( DOCTYPE_REGEXP.test(html) ) {
+        match = html.match( DOCTYPE_REGEXP );
+
+        if ( match ) {
+          html = html.replace( match[0], '');
+          chars = false;
+        }
+      // end tag
+      } else if ( BEGING_END_TAGE_REGEXP.test(html) ) {
+        match = html.match( END_TAG_REGEXP );
+
+        if ( match ) {
+          html = html.substring( match[0].length );
+          match[0].replace( END_TAG_REGEXP, parseEndTag );
+          chars = false;
+        }
+
+      // start tag
+      } else if ( BEGIN_TAG_REGEXP.test(html) ) {
+        match = html.match( START_TAG_REGEXP );
+
+        if ( match ) {
+          // We only have a valid start-tag if there is a '>'.
+          if ( match[4] ) {
+            html = html.substring( match[0].length );
+            match[0].replace( START_TAG_REGEXP, parseStartTag );
+          }
+          chars = false;
+        } else {
+          // no ending tag found --- this piece should be encoded as an entity.
+          text += '<';
+          html = html.substring(1);
+        }
+      }
+
+      if ( chars ) {
+        index = html.indexOf("<");
+
+        text += index < 0 ? html : html.substring( 0, index );
+        html = index < 0 ? "" : html.substring( index );
+
+        if (handler.chars) handler.chars( decodeEntities(text) );
+      }
+
+    } else {
+      html = html.replace(new RegExp("(.*)<\\s*\\/\\s*" + stack.last() + "[^>]*>", 'i'),
+        function(all, text){
+          text = text.replace(COMMENT_REGEXP, "$1").replace(CDATA_REGEXP, "$1");
+
+          if (handler.chars) handler.chars( decodeEntities(text) );
+
+          return "";
+      });
+
+      parseEndTag( "", stack.last() );
+    }
+
+    if ( html == last ) {
+      throw $sanitizeMinErr('badparse', "The sanitizer was unable to parse the following block " +
+                                        "of html: {0}", html);
+    }
+    last = html;
+  }
+
+  // Clean up any remaining tags
+  parseEndTag();
+
+  function parseStartTag( tag, tagName, rest, unary ) {
+    tagName = angular.lowercase(tagName);
+    if ( blockElements[ tagName ] ) {
+      while ( stack.last() && inlineElements[ stack.last() ] ) {
+        parseEndTag( "", stack.last() );
+      }
+    }
+
+    if ( optionalEndTagElements[ tagName ] && stack.last() == tagName ) {
+      parseEndTag( "", tagName );
+    }
+
+    unary = voidElements[ tagName ] || !!unary;
+
+    if ( !unary )
+      stack.push( tagName );
+
+    var attrs = {};
+
+    rest.replace(ATTR_REGEXP,
+      function(match, name, doubleQuotedValue, singleQuotedValue, unquotedValue) {
+        var value = doubleQuotedValue
+          || singleQuotedValue
+          || unquotedValue
+          || '';
+
+        attrs[name] = decodeEntities(value);
+    });
+    if (handler.start) handler.start( tagName, attrs, unary );
+  }
+
+  function parseEndTag( tag, tagName ) {
+    var pos = 0, i;
+    tagName = angular.lowercase(tagName);
+    if ( tagName )
+      // Find the closest opened tag of the same type
+      for ( pos = stack.length - 1; pos >= 0; pos-- )
+        if ( stack[ pos ] == tagName )
+          break;
+
+    if ( pos >= 0 ) {
+      // Close all the open elements, up the stack
+      for ( i = stack.length - 1; i >= pos; i-- )
+        if (handler.end) handler.end( stack[ i ] );
+
+      // Remove the open elements from the stack
+      stack.length = pos;
+    }
+  }
+}
+
+var hiddenPre=document.createElement("pre");
+var spaceRe = /^(\s*)([\s\S]*?)(\s*)$/;
+/**
+ * decodes all entities into regular string
+ * @param value
+ * @returns {string} A string with decoded entities.
+ */
+function decodeEntities(value) {
+  if (!value) { return ''; }
+
+  // Note: IE8 does not preserve spaces at the start/end of innerHTML
+  // so we must capture them and reattach them afterward
+  var parts = spaceRe.exec(value);
+  var spaceBefore = parts[1];
+  var spaceAfter = parts[3];
+  var content = parts[2];
+  if (content) {
+    hiddenPre.innerHTML=content.replace(/</g,"&lt;");
+    // innerText depends on styling as it doesn't display hidden elements.
+    // Therefore, it's better to use textContent not to cause unnecessary
+    // reflows. However, IE<9 don't support textContent so the innerText
+    // fallback is necessary.
+    content = 'textContent' in hiddenPre ?
+      hiddenPre.textContent : hiddenPre.innerText;
+  }
+  return spaceBefore + content + spaceAfter;
+}
+
+/**
+ * Escapes all potentially dangerous characters, so that the
+ * resulting string can be safely inserted into attribute or
+ * element text.
+ * @param value
+ * @returns {string} escaped text
+ */
+function encodeEntities(value) {
+  return value.
+    replace(/&/g, '&amp;').
+    replace(SURROGATE_PAIR_REGEXP, function (value) {
+      var hi = value.charCodeAt(0);
+      var low = value.charCodeAt(1);
+      return '&#' + (((hi - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000) + ';';
+    }).
+    replace(NON_ALPHANUMERIC_REGEXP, function(value){
+      return '&#' + value.charCodeAt(0) + ';';
+    }).
+    replace(/</g, '&lt;').
+    replace(/>/g, '&gt;');
+}
+
+/**
+ * create an HTML/XML writer which writes to buffer
+ * @param {Array} buf use buf.jain('') to get out sanitized html string
+ * @returns {object} in the form of {
+ *     start: function(tag, attrs, unary) {},
+ *     end: function(tag) {},
+ *     chars: function(text) {},
+ *     comment: function(text) {}
+ * }
+ */
+function htmlSanitizeWriter(buf, uriValidator){
+  var ignore = false;
+  var out = angular.bind(buf, buf.push);
+  return {
+    start: function(tag, attrs, unary){
+      tag = angular.lowercase(tag);
+      if (!ignore && specialElements[tag]) {
+        ignore = tag;
+      }
+      if (!ignore && validElements[tag] === true) {
+        out('<');
+        out(tag);
+        angular.forEach(attrs, function(value, key){
+          var lkey=angular.lowercase(key);
+          var isImage = (tag === 'img' && lkey === 'src') || (lkey === 'background');
+          if (validAttrs[lkey] === true &&
+            (uriAttrs[lkey] !== true || uriValidator(value, isImage))) {
+            out(' ');
+            out(key);
+            out('="');
+            out(encodeEntities(value));
+            out('"');
+          }
+        });
+        out(unary ? '/>' : '>');
+      }
+    },
+    end: function(tag){
+        tag = angular.lowercase(tag);
+        if (!ignore && validElements[tag] === true) {
+          out('</');
+          out(tag);
+          out('>');
+        }
+        if (tag == ignore) {
+          ignore = false;
+        }
+      },
+    chars: function(chars){
+        if (!ignore) {
+          out(encodeEntities(chars));
+        }
+      }
+  };
+}
+
+
+// define ngSanitize module and register $sanitize service
+angular.module('ngSanitize', []).provider('$sanitize', $SanitizeProvider);
+
+/* global sanitizeText: false */
+
+/**
+ * @ngdoc filter
+ * @name linky
+ * @kind function
+ *
+ * @description
+ * Finds links in text input and turns them into html links. Supports http/https/ftp/mailto and
+ * plain email address links.
+ *
+ * Requires the {@link ngSanitize `ngSanitize`} module to be installed.
+ *
+ * @param {string} text Input text.
+ * @param {string} target Window (_blank|_self|_parent|_top) or named frame to open links in.
+ * @returns {string} Html-linkified text.
+ *
+ * @usage
+   <span ng-bind-html="linky_expression | linky"></span>
+ *
+ * @example
+   <example module="linkyExample" deps="angular-sanitize.js">
+     <file name="index.html">
+       <script>
+         angular.module('linkyExample', ['ngSanitize'])
+           .controller('ExampleController', ['$scope', function($scope) {
+             $scope.snippet =
+               'Pretty text with some links:\n'+
+               'http://angularjs.org/,\n'+
+               'mailto:us@somewhere.org,\n'+
+               'another@somewhere.org,\n'+
+               'and one more: ftp://127.0.0.1/.';
+             $scope.snippetWithTarget = 'http://angularjs.org/';
+           }]);
+       </script>
+       <div ng-controller="ExampleController">
+       Snippet: <textarea ng-model="snippet" cols="60" rows="3"></textarea>
+       <table>
+         <tr>
+           <td>Filter</td>
+           <td>Source</td>
+           <td>Rendered</td>
+         </tr>
+         <tr id="linky-filter">
+           <td>linky filter</td>
+           <td>
+             <pre>&lt;div ng-bind-html="snippet | linky"&gt;<br>&lt;/div&gt;</pre>
+           </td>
+           <td>
+             <div ng-bind-html="snippet | linky"></div>
+           </td>
+         </tr>
+         <tr id="linky-target">
+          <td>linky target</td>
+          <td>
+            <pre>&lt;div ng-bind-html="snippetWithTarget | linky:'_blank'"&gt;<br>&lt;/div&gt;</pre>
+          </td>
+          <td>
+            <div ng-bind-html="snippetWithTarget | linky:'_blank'"></div>
+          </td>
+         </tr>
+         <tr id="escaped-html">
+           <td>no filter</td>
+           <td><pre>&lt;div ng-bind="snippet"&gt;<br>&lt;/div&gt;</pre></td>
+           <td><div ng-bind="snippet"></div></td>
+         </tr>
+       </table>
+     </file>
+     <file name="protractor.js" type="protractor">
+       it('should linkify the snippet with urls', function() {
+         expect(element(by.id('linky-filter')).element(by.binding('snippet | linky')).getText()).
+             toBe('Pretty text with some links: http://angularjs.org/, us@somewhere.org, ' +
+                  'another@somewhere.org, and one more: ftp://127.0.0.1/.');
+         expect(element.all(by.css('#linky-filter a')).count()).toEqual(4);
+       });
+
+       it('should not linkify snippet without the linky filter', function() {
+         expect(element(by.id('escaped-html')).element(by.binding('snippet')).getText()).
+             toBe('Pretty text with some links: http://angularjs.org/, mailto:us@somewhere.org, ' +
+                  'another@somewhere.org, and one more: ftp://127.0.0.1/.');
+         expect(element.all(by.css('#escaped-html a')).count()).toEqual(0);
+       });
+
+       it('should update', function() {
+         element(by.model('snippet')).clear();
+         element(by.model('snippet')).sendKeys('new http://link.');
+         expect(element(by.id('linky-filter')).element(by.binding('snippet | linky')).getText()).
+             toBe('new http://link.');
+         expect(element.all(by.css('#linky-filter a')).count()).toEqual(1);
+         expect(element(by.id('escaped-html')).element(by.binding('snippet')).getText())
+             .toBe('new http://link.');
+       });
+
+       it('should work with the target property', function() {
+        expect(element(by.id('linky-target')).
+            element(by.binding("snippetWithTarget | linky:'_blank'")).getText()).
+            toBe('http://angularjs.org/');
+        expect(element(by.css('#linky-target a')).getAttribute('target')).toEqual('_blank');
+       });
+     </file>
+   </example>
+ */
+angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
+  var LINKY_URL_REGEXP =
+        /((ftp|https?):\/\/|(mailto:)?[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>"]/,
+      MAILTO_REGEXP = /^mailto:/;
+
+  return function(text, target) {
+    if (!text) return text;
+    var match;
+    var raw = text;
+    var html = [];
+    var url;
+    var i;
+    while ((match = raw.match(LINKY_URL_REGEXP))) {
+      // We can not end in these as they are sometimes found at the end of the sentence
+      url = match[0];
+      // if we did not match ftp/http/mailto then assume mailto
+      if (match[2] == match[3]) url = 'mailto:' + url;
+      i = match.index;
+      addText(raw.substr(0, i));
+      addLink(url, match[0].replace(MAILTO_REGEXP, ''));
+      raw = raw.substring(i + match[0].length);
+    }
+    addText(raw);
+    return $sanitize(html.join(''));
+
+    function addText(text) {
+      if (!text) {
+        return;
+      }
+      html.push(sanitizeText(text));
+    }
+
+    function addLink(url, text) {
+      html.push('<a ');
+      if (angular.isDefined(target)) {
+        html.push('target="');
+        html.push(target);
+        html.push('" ');
+      }
+      html.push('href="');
+      html.push(url);
+      html.push('">');
+      addText(text);
+      html.push('</a>');
+    }
+  };
+}]);
+
+
+})(window, window.angular);
+
+/*
+ AngularJS v1.2.25
+ (c) 2010-2014 Google, Inc. http://angularjs.org
+ License: MIT
+*/
+(function(q,g,r){'use strict';function F(a){var d=[];t(d,g.noop).chars(a);return d.join("")}function m(a){var d={};a=a.split(",");var c;for(c=0;c<a.length;c++)d[a[c]]=!0;return d}function G(a,d){function c(a,b,c,h){b=g.lowercase(b);if(u[b])for(;f.last()&&v[f.last()];)e("",f.last());w[b]&&f.last()==b&&e("",b);(h=x[b]||!!h)||f.push(b);var n={};c.replace(H,function(a,b,d,c,e){n[b]=s(d||c||e||"")});d.start&&d.start(b,n,h)}function e(a,b){var c=0,e;if(b=g.lowercase(b))for(c=f.length-1;0<=c&&f[c]!=b;c--);
+if(0<=c){for(e=f.length-1;e>=c;e--)d.end&&d.end(f[e]);f.length=c}}"string"!==typeof a&&(a=null===a||"undefined"===typeof a?"":""+a);var b,l,f=[],n=a,h;for(f.last=function(){return f[f.length-1]};a;){h="";l=!0;if(f.last()&&y[f.last()])a=a.replace(RegExp("(.*)<\\s*\\/\\s*"+f.last()+"[^>]*>","i"),function(a,b){b=b.replace(I,"$1").replace(J,"$1");d.chars&&d.chars(s(b));return""}),e("",f.last());else{if(0===a.indexOf("\x3c!--"))b=a.indexOf("--",4),0<=b&&a.lastIndexOf("--\x3e",b)===b&&(d.comment&&d.comment(a.substring(4,
+b)),a=a.substring(b+3),l=!1);else if(z.test(a)){if(b=a.match(z))a=a.replace(b[0],""),l=!1}else if(K.test(a)){if(b=a.match(A))a=a.substring(b[0].length),b[0].replace(A,e),l=!1}else L.test(a)&&((b=a.match(B))?(b[4]&&(a=a.substring(b[0].length),b[0].replace(B,c)),l=!1):(h+="<",a=a.substring(1)));l&&(b=a.indexOf("<"),h+=0>b?a:a.substring(0,b),a=0>b?"":a.substring(b),d.chars&&d.chars(s(h)))}if(a==n)throw M("badparse",a);n=a}e()}function s(a){if(!a)return"";var d=N.exec(a);a=d[1];var c=d[3];if(d=d[2])p.innerHTML=
+d.replace(/</g,"&lt;"),d="textContent"in p?p.textContent:p.innerText;return a+d+c}function C(a){return a.replace(/&/g,"&amp;").replace(O,function(a){var c=a.charCodeAt(0);a=a.charCodeAt(1);return"&#"+(1024*(c-55296)+(a-56320)+65536)+";"}).replace(P,function(a){return"&#"+a.charCodeAt(0)+";"}).replace(/</g,"&lt;").replace(/>/g,"&gt;")}function t(a,d){var c=!1,e=g.bind(a,a.push);return{start:function(a,l,f){a=g.lowercase(a);!c&&y[a]&&(c=a);c||!0!==D[a]||(e("<"),e(a),g.forEach(l,function(c,f){var k=
+g.lowercase(f),l="img"===a&&"src"===k||"background"===k;!0!==Q[k]||!0===E[k]&&!d(c,l)||(e(" "),e(f),e('="'),e(C(c)),e('"'))}),e(f?"/>":">"))},end:function(a){a=g.lowercase(a);c||!0!==D[a]||(e("</"),e(a),e(">"));a==c&&(c=!1)},chars:function(a){c||e(C(a))}}}var M=g.$$minErr("$sanitize"),B=/^<((?:[a-zA-Z])[\w:-]*)((?:\s+[\w:-]+(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)\s*(>?)/,A=/^<\/\s*([\w:-]+)[^>]*>/,H=/([\w:-]+)(?:\s*=\s*(?:(?:"((?:[^"])*)")|(?:'((?:[^'])*)')|([^>\s]+)))?/g,L=/^</,
+K=/^<\//,I=/\x3c!--(.*?)--\x3e/g,z=/<!DOCTYPE([^>]*?)>/i,J=/<!\[CDATA\[(.*?)]]\x3e/g,O=/[\uD800-\uDBFF][\uDC00-\uDFFF]/g,P=/([^\#-~| |!])/g,x=m("area,br,col,hr,img,wbr");q=m("colgroup,dd,dt,li,p,tbody,td,tfoot,th,thead,tr");r=m("rp,rt");var w=g.extend({},r,q),u=g.extend({},q,m("address,article,aside,blockquote,caption,center,del,dir,div,dl,figure,figcaption,footer,h1,h2,h3,h4,h5,h6,header,hgroup,hr,ins,map,menu,nav,ol,pre,script,section,table,ul")),v=g.extend({},r,m("a,abbr,acronym,b,bdi,bdo,big,br,cite,code,del,dfn,em,font,i,img,ins,kbd,label,map,mark,q,ruby,rp,rt,s,samp,small,span,strike,strong,sub,sup,time,tt,u,var")),
+y=m("script,style"),D=g.extend({},x,u,v,w),E=m("background,cite,href,longdesc,src,usemap"),Q=g.extend({},E,m("abbr,align,alt,axis,bgcolor,border,cellpadding,cellspacing,class,clear,color,cols,colspan,compact,coords,dir,face,headers,height,hreflang,hspace,ismap,lang,language,nohref,nowrap,rel,rev,rows,rowspan,rules,scope,scrolling,shape,size,span,start,summary,target,title,type,valign,value,vspace,width")),p=document.createElement("pre"),N=/^(\s*)([\s\S]*?)(\s*)$/;g.module("ngSanitize",[]).provider("$sanitize",
+function(){this.$get=["$$sanitizeUri",function(a){return function(d){var c=[];G(d,t(c,function(c,b){return!/^unsafe/.test(a(c,b))}));return c.join("")}}]});g.module("ngSanitize").filter("linky",["$sanitize",function(a){var d=/((ftp|https?):\/\/|(mailto:)?[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>"]/,c=/^mailto:/;return function(e,b){function l(a){a&&k.push(F(a))}function f(a,c){k.push("<a ");g.isDefined(b)&&(k.push('target="'),k.push(b),k.push('" '));k.push('href="');k.push(a);k.push('">');l(c);k.push("</a>")}
+if(!e)return e;for(var n,h=e,k=[],m,p;n=h.match(d);)m=n[0],n[2]==n[3]&&(m="mailto:"+m),p=n.index,l(h.substr(0,p)),f(m,n[0].replace(c,"")),h=h.substring(p+n[0].length);l(h);return a(k.join(""))}}])})(window,window.angular);
+//# sourceMappingURL=angular-sanitize.min.js.map
+
+(function(angular, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['angular', 'ckeditor'], function(angular) {
+            return factory(angular);
+        });
+    } else {
+        return factory(angular);
+    }
+}(angular || null, function(angular) {
+var app = angular.module('ngCkeditor', []);
+var $defer, loaded = false;
+
+app.run(['$q', '$timeout', function($q, $timeout) {
+    $defer = $q.defer();
+
+    if (angular.isUndefined(CKEDITOR)) {
+        throw new Error('CKEDITOR not found');
+    }
+    CKEDITOR.disableAutoInline = true;
+    function checkLoaded() {
+        if (CKEDITOR.status == 'loaded') {
+            loaded = true;
+            $defer.resolve();
+        } else {
+            checkLoaded();
+        }
+    }
+    CKEDITOR.on('loaded', checkLoaded);
+    $timeout(checkLoaded, 100);
+}])
+
+app.directive('ckeditor', ['$timeout', '$q', function ($timeout, $q) {
+    'use strict';
+
+    return {
+        restrict: 'AC',
+        require: ['ngModel', '^?form'],
+        scope: false,
+        link: function (scope, element, attrs, ctrls) {
+            var ngModel = ctrls[0];
+            var form    = ctrls[1] || null;
+            var EMPTY_HTML = '<p></p>',
+                isTextarea = element[0].tagName.toLowerCase() == 'textarea',
+                data = [],
+                isReady = false;
+
+            if (!isTextarea) {
+                element.attr('contenteditable', true);
+            }
+
+            var onLoad = function () {
+                var options = {
+                    toolbar: 'full',
+                    toolbar_full: [
+                        { name: 'basicstyles',
+                            items: [ 'Bold', 'Italic', 'Strike', 'Underline' ] },
+                        { name: 'paragraph', items: [ 'BulletedList', 'NumberedList', 'Blockquote' ] },
+                        { name: 'editing', items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+                        { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+                        { name: 'tools', items: [ 'SpellChecker', 'Maximize' ] },
+                        '/',
+                        { name: 'styles', items: [ 'Format', 'FontSize', 'TextColor', 'PasteText', 'PasteFromWord', 'RemoveFormat' ] },
+                        { name: 'insert', items: [ 'Image', 'Table', 'SpecialChar' ] },
+                        { name: 'forms', items: [ 'Outdent', 'Indent' ] },
+                        { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
+                        { name: 'document', items: [ 'PageBreak', 'Source' ] }
+                    ],
+                    disableNativeSpellChecker: false,
+                    uiColor: '#FAFAFA',
+                    height: '400px',
+                    width: '100%'
+                };
+                options = angular.extend(options, scope[attrs.ckeditor]);
+
+                var instance = (isTextarea) ? CKEDITOR.replace(element[0], options) : CKEDITOR.inline(element[0], options),
+                    configLoaderDef = $q.defer();
+
+                element.bind('$destroy', function () {
+                    instance.destroy(
+                        false //If the instance is replacing a DOM element, this parameter indicates whether or not to update the element with the instance contents.
+                    );
+                });
+                var setModelData = function(setPristine) {
+                    var data = instance.getData();
+                    if (data == '') {
+                        data = null;
+                    }
+                    $timeout(function () { // for key up event
+                        (setPristine !== true || data != ngModel.$viewValue) && ngModel.$setViewValue(data);
+                        (setPristine === true && form) && form.$setPristine();
+                    }, 0);
+                }, onUpdateModelData = function(setPristine) {
+                    if (!data.length) { return; }
+
+
+                    var item = data.pop() || EMPTY_HTML;
+                    isReady = false;
+                    instance.setData(item, function () {
+                        setModelData(setPristine);
+                        isReady = true;
+                    });
+                }
+
+                //instance.on('pasteState',   setModelData);
+                instance.on('change',       setModelData);
+                instance.on('blur',         setModelData);
+                //instance.on('key',          setModelData); // for source view
+
+                instance.on('instanceReady', function() {
+                    scope.$broadcast("ckeditor.ready");
+                    scope.$apply(function() {
+                        onUpdateModelData(true);
+                    });
+
+                    instance.document.on("keyup", setModelData);
+                });
+                instance.on('customConfigLoaded', function() {
+                    configLoaderDef.resolve();
+                });
+
+                ngModel.$render = function() {
+                    data.push(ngModel.$viewValue);
+                    if (isReady) {
+                        onUpdateModelData();
+                    }
+                };
+            };
+
+            if (CKEDITOR.status == 'loaded') {
+                loaded = true;
+            }
+            if (loaded) {
+                onLoad();
+            } else {
+                $defer.promise.then(onLoad);
+            }
+        }
+    };
+}]);
+
+    return app;
+}));
+/*! ngCkeditor v0.2.1 by Vitalii Savchuk(esvit666@gmail.com) - https://github.com/esvit/ng-ckeditor - New BSD License */
+!function(a,b){return"function"==typeof define&&define.amd?(define(["angular","ckeditor"],function(a){return b(a)}),void 0):b(a)}(angular||null,function(a){var b,c=a.module("ngCkeditor",[]),d=!1;return c.run(["$q","$timeout",function(c,e){function f(){"loaded"==CKEDITOR.status?(d=!0,b.resolve()):f()}if(b=c.defer(),a.isUndefined(CKEDITOR))throw new Error("CKEDITOR not found");CKEDITOR.disableAutoInline=!0,CKEDITOR.on("loaded",f),e(f,100)}]),c.directive("ckeditor",["$timeout","$q",function(c,e){"use strict";return{restrict:"AC",require:["ngModel","^?form"],scope:!1,link:function(f,g,h,i){var j=i[0],k=i[1]||null,l="<p></p>",m="textarea"==g[0].tagName.toLowerCase(),n=[],o=!1;m||g.attr("contenteditable",!0);var p=function(){var b={toolbar:"full",toolbar_full:[{name:"basicstyles",items:["Bold","Italic","Strike","Underline"]},{name:"paragraph",items:["BulletedList","NumberedList","Blockquote"]},{name:"editing",items:["JustifyLeft","JustifyCenter","JustifyRight","JustifyBlock"]},{name:"links",items:["Link","Unlink","Anchor"]},{name:"tools",items:["SpellChecker","Maximize"]},"/",{name:"styles",items:["Format","FontSize","TextColor","PasteText","PasteFromWord","RemoveFormat"]},{name:"insert",items:["Image","Table","SpecialChar"]},{name:"forms",items:["Outdent","Indent"]},{name:"clipboard",items:["Undo","Redo"]},{name:"document",items:["PageBreak","Source"]}],disableNativeSpellChecker:!1,uiColor:"#FAFAFA",height:"400px",width:"100%"};b=a.extend(b,f[h.ckeditor]);var d=m?CKEDITOR.replace(g[0],b):CKEDITOR.inline(g[0],b),i=e.defer();g.bind("$destroy",function(){d.destroy(!1)});var p=function(a){var b=d.getData();""==b&&(b=null),c(function(){(a!==!0||b!=j.$viewValue)&&j.$setViewValue(b),a===!0&&k&&k.$setPristine()},0)},q=function(a){if(n.length){var b=n.pop()||l;o=!1,d.setData(b,function(){p(a),o=!0})}};d.on("change",p),d.on("blur",p),d.on("instanceReady",function(){f.$broadcast("ckeditor.ready"),f.$apply(function(){q(!0)}),d.document.on("keyup",p)}),d.on("customConfigLoaded",function(){i.resolve()}),j.$render=function(){n.push(j.$viewValue),o&&q()}};"loaded"==CKEDITOR.status&&(d=!0),d?p():b.promise.then(p)}}}]),c});
+/*
+//@ sourceMappingURL=ng-ckeditor.min.map
+*/

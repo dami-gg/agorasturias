@@ -1,19 +1,19 @@
 // create the module including ngRoute for all the routing needs
-var agorasturiasApp = angular.module('agorasturiasApp', ['ui.router', 'ui.bootstrap']);
+var agorasturiasApp = angular.module('agorasturiasApp',
+  ['ui.router', 'ui.bootstrap', 'ngRoute', 'ngResource',
+  'ngCkeditor','ngSanitize']);
 // , 'uiRouterStyles'
-
 // configure the routes
 agorasturiasApp.config(
-
     function($stateProvider, $urlRouterProvider) {
-    
+
         $urlRouterProvider.otherwise('/home');
 
         $stateProvider
 
             .state('home', {
                 url  : '/home',
-                templateUrl : 'public/views/home.html'                
+                templateUrl : 'public/views/home.html'
             })
 
             .state('aegee-oviedo', {
@@ -67,15 +67,60 @@ agorasturiasApp.config(
             .state('account', {
                 url  : '/account',
                 templateUrl : 'public/views/account.html'
+            })
+
+            .state('login', {
+              url : '/login',
+              templateUrl : 'public/views/login.html'
+            })
+
+            .state('new_post',{
+              url:'/new_post',
+              templateUrl : 'public/views/new_post.html'
+            })
+
+            .state('edit_post',{
+              url:'/edit_post',
+              templateUrl : 'public/views/edit_post.html'
             });
     }
 );
+
+agorasturiasApp.factory('Data', ['$http',
+function ($http) { // This service connects to our REST API
+
+  var serviceBase = 'api/v1/';
+  var obj = {};
+  obj.get = function (q, object) {
+    return $http.get(serviceBase + q, object).then(function (results) {
+      return results.data;
+    });
+  };
+  obj.post = function (q, object) {
+    return $http.post(serviceBase + q, object).then(function (results) {
+      return results.data;
+    });
+  };
+  obj.put = function (q, object) {
+    return $http.put(serviceBase + q, object).then(function (results) {
+      return results.data;
+    });
+  };
+  obj.delete = function (q) {
+    return $http.delete(serviceBase + q).then(function (results) {
+      return results.data;
+    });
+  };
+
+  return obj;
+}]);
+
 
 agorasturiasApp.controller('CarouselCtrl', function ($scope) {
 
     $scope.interval = 5000;
     var slides = $scope.slides = [];
-  
+
     $scope.addSlide = function() {
         var newWidth = 600 + slides.length;
         slides.push({
@@ -85,30 +130,15 @@ agorasturiasApp.controller('CarouselCtrl', function ($scope) {
                     'The capital of the Green Coast','Surplus'][slides.length % 3]
         });
     };
-  
+
     for (var i=0; i<3; ++i) {
         $scope.addSlide();
     }
 });
 
-agorasturiasApp.controller('PostsCtrl', ['$scope', '$location', '$anchorScroll',
-  function ($scope, $location, $anchorScroll) {
+agorasturiasApp.controller('PostsCtrl', ['$rootScope', '$scope', '$location', '$anchorScroll', 'Data',
+  function ($rootScope, $scope, $location, $anchorScroll, Data) {
 
-    var posts = $scope.posts = [];
-
-    $scope.addPost = function() {
-        posts.push({
-          title: 'SPRING AGORA IS CALLING',
-          image: 'http://www.europarl.it/resource/static/images/martin_schulz_ep_president_1.jpg',
-          text: ['On the road to Autumn Agora Cagliari 2014...', 'Summer has finally come but nothing could ever stop preparations for the AEGEE Autumn Agora 2014, one of the most important youth events in Europe in terms of number of participants and importance of the discussed issues: thanks to this, AEGEE has obtained a role in the United Nations advisory board and in the Council of Europe.','Agora is the general Assembly of AEGEE association and it takes place twice a year, every year, since 1986, involving generations of students from hundreds of cities. In this special occasion, all of the European Antennae reach the organizing city of the event in order to deal with topics that concern active citizenship and the impact of young people in Europe of the future.']
-        });
-    };
-
-    for (var i=0; i<9; ++i) {
-        $scope.addPost();
-    }
-
-    $scope.totalItems = posts.length;
     $scope.currentPage = 1;
     $scope.itemsPerPage = 5;
 
@@ -117,18 +147,105 @@ agorasturiasApp.controller('PostsCtrl', ['$scope', '$location', '$anchorScroll',
     };
 
     $scope.pageChanged = function() {
-        var begin = (($scope.currentPage - 1) * $scope.itemsPerPage);
-        var end = begin + $scope.itemsPerPage;
+      $scope.lastPageLoaded = angular.copy($scope.currentPage);
+      Data.get('posts/desc/'+$scope.currentPage+'/'+$scope.itemsPerPage)
+      .then(function(response){
 
-        $scope.pagedPosts = $scope.posts.slice(begin, end);
+        if(response.status === "success"){
+          $scope.posts = response.posts;
+          $scope.totalItems = response.total_posts;
+
+          $scope.pagedPosts = $scope.posts;
+        }
+
+      });
+
     };
 
+    //$scope.loadPosts($scope.currentPage,$scope.itemsPerPage);
     $scope.pageChanged();
 
     $scope.gotoTop = function() {
       $location.hash('menu-wrapper');
       $anchorScroll();
     };
+
+    $scope.editPost = function(post){
+      $rootScope.currentPost = angular.copy(post);
+      $location.path ('/edit_post');
+    };
+
+
+}]);
+
+agorasturiasApp.controller('NewPostCtrl',['$location','$scope','Data',
+function($location,$scope,Data){
+
+  $scope.editorOptions = {
+    language:'es',
+    uiColor:'#ffffff'
+  };
+
+  $scope.doNewPost = function(new_post){
+    new_post.username = $scope.username;
+    new_post.modifier_username = $scope.username;
+    new_post.user_id = $scope.uid;
+    new_post.modifier_id = $scope.uid;
+    new_post.image = '';
+    new_post.header_image = '';
+
+    Data.post('posts',{
+      post:JSON.stringify(new_post)
+
+    }).then(function(response){
+
+      if(response.status==="success"){
+        alert(response.message);
+        $location.path('/home');
+      }
+      else
+        alert(response.message);
+    });
+  };
+
+}]);
+
+agorasturiasApp.controller('EditPostCtrl',['$location','$scope','Data',
+function($location,$scope,Data){
+
+  $scope.editorOptions = {
+    language:'es',
+    uiColor:'#ffffff'
+  };
+
+  $scope.doEditPost = function(updated_post){
+
+    updated_post.modifier_username = $scope.username;
+    updated_post.modifier_id = $scope.uid;
+
+    Data.put('posts/'+updated_post.id, {
+      post:JSON.stringify(updated_post)
+    }).then(function(response){
+
+      if(response.status==="success"){
+        alert("Post actualizado correctamente");
+        $location.path('/home');
+      }
+      else
+        alert(response.message);
+    });
+  };
+
+  $scope.doDeletePost = function(post_id){
+    Data.delete('posts/'+post_id).then(function(response){
+      if(response.status==="success"){
+        alert(response.message);
+        $location.path('/home');
+      }
+      else
+        alert(response.message);
+    });
+  };
 }]);
 
 agorasturiasApp.controller('FormCtrl', function ($scope) {
@@ -147,7 +264,7 @@ agorasturiasApp.controller('FormCtrl', function ($scope) {
 agorasturiasApp.controller('BookCtrl', function ($scope) {
 
   $scope.index = 0;
-  
+
   $scope.images = [
     'public/img/agora-for-dummies-page-1.jpg',
     'public/img/agora-for-dummies-page-2.jpg',
@@ -255,7 +372,7 @@ agorasturiasApp.controller('BookCtrl', function ($scope) {
         $scope.onNextButtonClicked = function () {
           _goTo($scope.currentItemIndex + 1);
         };
-        
+
         $scope.$watch('currentItemIndex', function(newVal, oldVal) {
           if (oldVal > newVal) {
             if (typeof $scope.onPrevious === 'function') {
@@ -310,6 +427,39 @@ agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService)
   $scope.rows = partitionService.partition(members, 4);
 });
 
+agorasturiasApp.controller('UsersCtrl', ['$rootScope','$scope','$location','$http','Data',
+function($rootScope,$scope,$location,$http,Data){
+
+  $rootScope.newPost = function(){
+    $rootScope.currentPost = null;
+    $location.path('/new_post');
+  };
+
+  //initially set those objects to null to avoid undefined error
+  $rootScope.login = {};
+
+  $rootScope.doLogin = function (user) {
+    Data.post('login',
+      {
+        username:user.username,
+        password:user.password
+      }).then(function (response) {
+      if (response.status === "success") {
+        $rootScope.authenticated = true;
+        $rootScope.username = response.username;
+        $rootScope.uid = response.uid;
+        $rootScope.appID = response.app_id;
+        $rootScope.email = response.email;
+        $rootScope.name = response.name;
+
+        $location.path('/home');
+      }
+      else
+        alert(response.message);
+    });
+  };
+}]);
+
 agorasturiasApp.service('partitionService', function() {
 
   this.partition = function (dataArray, chunkSize) {
@@ -322,3 +472,7 @@ agorasturiasApp.service('partitionService', function() {
     return result;
   };
 });
+
+agorasturiasApp.filter('htmlSafe',['$sce',function($sce){
+  return $sce.trustAsHtml;
+}]);
