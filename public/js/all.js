@@ -383,24 +383,12 @@ angular.module("ui.bootstrap",["ui.bootstrap.tpls","ui.bootstrap.transition","ui
 
 })();
 // create the module including ngRoute for all the routing needs
-<<<<<<< HEAD
-var agorasturiasApp = angular.module('agorasturiasApp', ['ui.router', 'ui.bootstrap', 'pascalprecht.translate']);
-=======
 var agorasturiasApp = angular.module('agorasturiasApp',
-  ['ui.router', 'ui.bootstrap', 'ngRoute', 'ngResource',
-  'ngCkeditor','ngSanitize']);
->>>>>>> backend/master
+  ['ui.router', 'ui.bootstrap', 'ngRoute', 'ngResource', 'ngCkeditor', 'ngSanitize', 'pascalprecht.translate']);
 // , 'uiRouterStyles'
+
 // configure the routes
-agorasturiasApp.config(
-<<<<<<< HEAD
-
-    function($stateProvider, $urlRouterProvider, $translateProvider) {
-    
-=======
-    function($stateProvider, $urlRouterProvider) {
-
->>>>>>> backend/master
+agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translateProvider) {
         $urlRouterProvider.otherwise('/home');
 
         $stateProvider
@@ -516,7 +504,6 @@ agorasturiasApp.config(
     }
 );
 
-<<<<<<< HEAD
 agorasturiasApp.controller('LanguageSwitcherCtrl', ['$scope', '$translate', function ($scope, $translate) { 
 
     $scope.changeLanguage = function () {
@@ -529,7 +516,6 @@ agorasturiasApp.controller('LanguageSwitcherCtrl', ['$scope', '$translate', func
     };
 }]);
 
-=======
 agorasturiasApp.factory('Data', ['$http',
 function ($http) { // This service connects to our REST API
 
@@ -559,8 +545,6 @@ function ($http) { // This service connects to our REST API
   return obj;
 }]);
 
-
->>>>>>> backend/master
 agorasturiasApp.controller('CarouselCtrl', function ($scope) {
 
     $scope.interval = 5000;
