@@ -51,7 +51,7 @@ $app->post('/posts', function() use ($app){
   $post['esTitle'] = base64_encode($post['esTitle']);
   $post['esText'] = base64_encode($post['esText']);
 
-  $new_post_id = $db->createPost(json_encode($post));
+  $new_post_id = $db->createPost(json_encode($post),true);
 
   if(!is_null($new_post_id)){
     $query = 'select p.id, p.engTitle as engTitle,'.
@@ -98,13 +98,15 @@ $app->put('/posts/:id', function($id) use ($app){
   $response = array();
   $db = new DbHandler();
 
-  // easy fast way to lead with all the html-styles in texts and titles
-  $r->post['engTitle'] = base64_encode($r->post['engTitle']);
-  $r->post['engText'] = base64_encode($r->post['engText']);
-  $r->post['esTitle'] = base64_encode($r->post['esTitle']);
-  $r->post['esText'] = base64_encode($r->post['esText']);
+  $post = json_decode($r->post,true);
 
-  if($db->updatePost($r->post)){
+  // easy fast way to lead with all the html-styles in texts and titles
+  $post['engTitle'] = base64_encode($post['engTitle']);
+  $post['engText'] = base64_encode($post['engText']);
+  $post['esTitle'] = base64_encode($post['esTitle']);
+  $post['esText'] = base64_encode($post['esText']);
+
+  if($db->updatePost(json_encode($post))){
     $response["status"]="success";
     $response['message']="Modificación realizada con éxito";
   }
