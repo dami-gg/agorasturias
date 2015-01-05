@@ -73,15 +73,35 @@
 
                                 <li><a href="#partners">{{ 'PARTNERS' | translate }}</a></li>
                                 
-                                <li class="dropdown">
-                                    <a ng-controller="UsersCtrl" ui-sref="login" ng-if="!authenticated">
+                                <li class="dropdown" ng-if="!authenticated">
+                                    <a ng-controller="UsersCtrl" class="dropdown-toggle" data-togle="dropdown">
+                                        Login
+                                    </a>
+                                    <ul class="dropdown-menu login-menu" role="menu">
+                                        <div class="dropdown">             
+                                            <form name="loginForm" role="form" ng-controller="UsersCtrl">
+                                                <label for="username">Username</label>
+                                                <input id="username" class="form-control" type="text"
+                                                    ng-model="user.username" name="username">
+                                                <label for="password">Password</label>
+                                                <input id="password" class="form-control" type="password"
+                                                    ng-model="user.password" name="password">
+                                                <input id="sign-in" class="btn btn-primary btn-block" 
+                                                    type="submit" value="Sign In" ng-click="doLogin(user)">
+                                              </form>
+                                        </div>
+                                    </ul>
+                                </li>
+                                <li class="dropdown" ng-if="authenticated">
+                                    <a ng-controller="UsersCtrl" ui-sref="login">
                                         Login
                                     </a>
                                     <a class="dropdown-toggle" data-toggle="dropdown"
-                                        ng-controller="UsersCtrl" ui-sref="profile" ng-if="authenticated">{{username}}
+                                        ng-controller="UsersCtrl" ui-sref="profile">
+                                        {{username}}
                                     </a>
-                                    <ul class="dropdown-menu" role="menu" ng-if="authenticated">
-                                        <li ng-if="username==='admin'"><a ng-click="newPost()">New post</a></li>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li ng-if="username === 'admin'"><a ng-click="newPost()">New post</a></li>
                                         <li><a href="#">Profile</a></li>
                                         <li><a href="#">Shop</a></li>
                                         <li><a href="#">Logout</a></li>

@@ -130,7 +130,14 @@ h2 { margin: 0; color: white; padding-top: 90px; font-size: 52px; }
     &:hover .dropdown-menu { 
 
         /* Make navigation toggle only on desktop */
-        @media only screen and (min-width : 768px) { display:block; }
+        @media only screen and (min-width : 768px) { display: block; }
+    }
+
+    .login-menu { 
+        
+        padding: 10px; 
+
+        input { margin-bottom: 10px; }
     }
 }
 

@@ -67,11 +67,6 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 templateUrl : 'public/views/account.html'
             })
 
-            .state('login', {
-              url : '/login',
-              templateUrl : 'public/views/login.html'
-            })
-
             .state('new_post',{
               url:'/new_post',
               templateUrl : 'public/views/new_post.html'
