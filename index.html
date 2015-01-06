@@ -74,7 +74,7 @@
                                 <li><a href="#partners">{{ 'PARTNERS' | translate }}</a></li>
                                 
                                 <li class="dropdown" ng-if="!authenticated">
-                                    <a ng-controller="UsersCtrl" class="dropdown-toggle" data-togle="dropdown">
+                                    <a ng-controller="UsersCtrl" class="dropdown-toggle" data-toggle="dropdown">
                                         Login
                                     </a>
                                     <ul class="dropdown-menu login-menu" role="menu">
@@ -93,18 +93,17 @@
                                     </ul>
                                 </li>
                                 <li class="dropdown" ng-if="authenticated">
-                                    <a ng-controller="UsersCtrl" ui-sref="login">
-                                        Login
-                                    </a>
                                     <a class="dropdown-toggle" data-toggle="dropdown"
-                                        ng-controller="UsersCtrl" ui-sref="profile">
-                                        {{username}}
+                                        ng-controller="UsersCtrl">
+                                        {{username}}<span class="caret">
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li ng-if="username === 'admin'"><a ng-click="newPost()">New post</a></li>
-                                        <li><a href="#">Profile</a></li>
-                                        <li><a href="#">Shop</a></li>
-                                        <li><a href="#">Logout</a></li>
+                                        <li ng-if="username === 'admin'">
+                                            <a class="submenu" ng-click="newPost()">New post</a>
+                                        </li>
+                                        <li><a class="submenu" href="#">Profile</a></li>
+                                        <li><a class="submenu" href="#">Shop</a></li>
+                                        <li><a class="submenu" href="#">Logout</a></li>
                                     </ul>
                                 </li>
                                 <li><a ui-sref="contact">{{ 'CONTACT' | translate }}</a></li>                                  
