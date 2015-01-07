@@ -1315,6 +1315,10 @@ h2 {
     @media only screen and (min-width: 768px) {
       .dropdown:hover .dropdown-menu {
         display: block; } }
+  .dropdown .login-menu {
+    padding: 10px; }
+    .dropdown .login-menu input {
+      margin-bottom: 10px; }
 
 section.light {
   color: white;
@@ -1448,6 +1452,7 @@ section.slider {
 
 /*# sourceMappingURL=layout.css.map */
 
+.ng-ckeditor{border:0 none}
 .wallop-slider {
   width: 100%;
 }

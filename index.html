@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">        
+        <meta charset="UTF-8">
         <title>Spring Agora Asturias 2015</title>
         <link rel="shortcut icon" href="public/img/favicon.ico" type="image/x-icon">
-    <!--     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <!-- <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="dev/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="dev/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="dev/css/layout.css">   
@@ -12,28 +12,30 @@
         <link rel="stylesheet" type="text/css" href="dev/css/font-awesome.min.css"> 
         <link rel="stylesheet" type="text/css" href="dev/css/bootstrap-social.css">  -->      
        <link rel="stylesheet" type="text/css" href="public/css/style.css">  
+       <link rel="stylesheet" type="text/css" href="public/css/ng-ckeditor.css">
         
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
-    
-    <body ng-app="agorasturiasApp" ng-controller="LanguageSwitcherCtrl">
+
+    <body ng-app="agorasturiasApp">
 
         <div class="navbar">
             <div class="container">
 
-                <div class="navbar-header">    
+                <div class="navbar-header">
 
                     <div id="menu-wrapper">
-                                                                 
-                        <button type="button" class="navbar-toggle" 
+
+                        <button type="button" class="navbar-toggle"
                             data-toggle="collapse" data-target=".navbar-collapse">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
-                        </button> 
+                        </button>
 
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav pull-right">
+
                                 <li><a ui-sref="home">{{ 'HOME' | translate }}</a></li>  
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown">
@@ -68,11 +70,46 @@
                                         </a></li>
                                     </ul>
                                 </li>
+
                                 <li><a href="#partners">{{ 'PARTNERS' | translate }}</a></li>
-                                <li><a href="#account">Login</a></li>
-                                <li><a ui-sref="contact">{{ 'CONTACT' | translate }}</a></li>  
+                                
+                                <li class="dropdown" ng-if="!authenticated">
+                                    <a ng-controller="UsersCtrl" class="dropdown-toggle" data-toggle="dropdown">
+                                        Login
+                                    </a>
+                                    <ul class="dropdown-menu login-menu" role="menu">
+                                        <div class="dropdown">             
+                                            <form name="loginForm" role="form" ng-controller="UsersCtrl">
+                                                <label for="username">Username</label>
+                                                <input id="username" class="form-control" type="text"
+                                                    ng-model="user.username" name="username">
+                                                <label for="password">Password</label>
+                                                <input id="password" class="form-control" type="password"
+                                                    ng-model="user.password" name="password">
+                                                <input id="sign-in" class="btn btn-primary btn-block" 
+                                                    type="submit" value="Sign In" ng-click="doLogin(user)">
+                                              </form>
+                                        </div>
+                                    </ul>
+                                </li>
+                                <li class="dropdown" ng-if="authenticated">
+                                    <a class="dropdown-toggle" data-toggle="dropdown"
+                                        ng-controller="UsersCtrl">
+                                        {{username}}<span class="caret">
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li ng-if="username === 'admin'">
+                                            <a class="submenu" ng-click="newPost()">New post</a>
+                                        </li>
+                                        <li><a class="submenu" href="#">Profile</a></li>
+                                        <li><a class="submenu" href="#">Shop</a></li>
+                                        <li><a class="submenu" href="#">Logout</a></li>
+                                    </ul>
+                                </li>
+                                <li><a ui-sref="contact">{{ 'CONTACT' | translate }}</a></li>                                  
                             </ul>
-                        </div>                           
+                        </div>   
+
                     </div>
 
                     <div class="navbar-brand">
@@ -111,9 +148,9 @@
 
             <div ui-view autoscroll="false"></div>
 
-        </div>   
+        </div>
 
-        <div class="to-top-button"></div>    
+        <div class="to-top-button"></div>
 
     </body>
 
@@ -130,22 +167,26 @@
                 <a href="http://www.aegee.org/" target="_blank">http://www.aegee.org/</a>
             </p> 
             <p>Website developed by Damián García and Alberto Cuesta</p>
-        </div>         
+        </div>  
     </footer>
-    
+
     <!-- Development -->
     <script src="dev/lib/jquery.min-1.11.1.js"></script>
     <script src="dev/lib/angular.min-1.2.25.js"></script>
     <script src="dev/lib/angular-ui-router.min-0.2.8.js"></script>
     <script src="dev/lib/angular-translate.min.js"></script>
+    <script src="dev/lib/angular-resource.min.js"></script>
+    <script src="dev/lib/angular-sanitize.min.js"></script>
     <script src="dev/lib/bootstrap.min.js"></script>    
     <script src="dev/lib/ui-bootstrap-tpls-0.11.2.min.js"></script>
     <script src="dev/lib/wallop-slider-directive.js"></script>
+    <script src='dev/lib/ckeditor/ckeditor.js'></script>
+    <script src="dev/lib/ng-ckeditor.js"></script>
     <script src="dev/js/app.js"></script>
     <script src="dev/js/functions.js"></script> 
 
-    <!-- Production 
+    <!-- Production
     <script src="public/js/all.js"></script>
     -->
-    
+
 </html>
