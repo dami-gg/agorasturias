@@ -11,13 +11,12 @@
         <link rel="stylesheet" type="text/css" href="dev/css/wallop-slider.css">  
         <link rel="stylesheet" type="text/css" href="dev/css/font-awesome.min.css"> 
         <link rel="stylesheet" type="text/css" href="dev/css/bootstrap-social.css">  -->      
-       <link rel="stylesheet" type="text/css" href="public/css/style.css">  
-       <link rel="stylesheet" type="text/css" href="public/css/ng-ckeditor.css">
+        <link rel="stylesheet" type="text/css" href="public/css/style.css">
         
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
 
-    <body ng-app="agorasturiasApp">
+    <body ng-app="agorasturiasApp" ng-cloak>
 
         <div class="navbar">
             <div class="container">
@@ -92,14 +91,14 @@
                                         </div>
                                     </ul>
                                 </li>
-                                <li class="dropdown" ng-if="authenticated">
-                                    <a class="dropdown-toggle" data-toggle="dropdown"
-                                        ng-controller="UsersCtrl">
+                                <li class="dropdown" ng-controller="UsersCtrl" ng-if="authenticated">
+                                    <a class="dropdown-toggle" data-toggle="dropdown">
                                         {{username}}<span class="caret">
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li ng-if="username === 'admin'">
-                                            <a class="submenu" ng-click="newPost()">New post</a>
+                                            <a class="submenu" href="#new-post">New post</a>
+                                            <a class="submenu" href="#file-uploader">Upload files</a>
                                         </li>
                                         <li><a class="submenu" href="#">Profile</a></li>
                                         <li><a class="submenu" href="#">Shop</a></li>
@@ -170,7 +169,7 @@
         </div>  
     </footer>
 
-    <!-- Development -->
+    <!-- Development 
     <script src="dev/lib/jquery.min-1.11.1.js"></script>
     <script src="dev/lib/angular.min-1.2.25.js"></script>
     <script src="dev/lib/angular-ui-router.min-0.2.8.js"></script>
@@ -181,12 +180,13 @@
     <script src="dev/lib/ui-bootstrap-tpls-0.11.2.min.js"></script>
     <script src="dev/lib/wallop-slider-directive.js"></script>
     <script src='dev/lib/ckeditor/ckeditor.js'></script>
-    <script src="dev/lib/ng-ckeditor.js"></script>
+    <script src="dev/lib/ng-ckeditor.min.js"></script>
+    <script src="dev/lib/angular-file-upload.min.js"></script> 
     <script src="dev/js/app.js"></script>
-    <script src="dev/js/functions.js"></script> 
+    <script src="dev/js/functions.js"></script>  -->
 
-    <!-- Production
+    <!-- Production -->
+    <script src='dev/lib/ckeditor/ckeditor.js'></script>
     <script src="public/js/all.js"></script>
-    -->
 
 </html>

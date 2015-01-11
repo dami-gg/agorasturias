@@ -1,0 +1,45 @@
+/*
+Error: Invalid property: "Backtrace:" (no value).
+        on line 4 of none
+
+1: /*
+2: Errno::ENOENT: No such file or directory - none
+3: 
+4: Backtrace:
+5: /Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:482:in `read'
+6: /Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:482:in `update_stylesheet'
+7: /Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+8: /Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:209:in `each'
+9: /Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+
+Backtrace:
+none:4
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/engine.rb:721:in `parse_property'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/engine.rb:681:in `parse_property_or_rule'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/engine.rb:647:in `parse_line'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/engine.rb:525:in `build_tree'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/engine.rb:544:in `block in append_children'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/engine.rb:543:in `each'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/engine.rb:543:in `append_children'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/engine.rb:396:in `_to_tree'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/engine.rb:368:in `_render_with_sourcemap'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/engine.rb:285:in `render_with_sourcemap'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:490:in `update_stylesheet'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:209:in `each'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/plugin.rb:82:in `update_stylesheets'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/exec/sass_scss.rb:350:in `watch_or_update'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/exec/sass_scss.rb:50:in `process_result'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/exec/base.rb:52:in `parse'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/exec/base.rb:19:in `parse!'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/bin/sass:13:in `<top (required)>'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/bin/sass:19:in `load'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/bin/sass:19:in `<main>'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/bin/ruby_noexec_wrapper:14:in `eval'
+/Users/Dami/.rvm/gems/ruby-1.9.3-p374/bin/ruby_noexec_wrapper:14:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid property: \"Backtrace:\" (no value).\A         on line 4 of none\A \A 1: /*\A 2: Errno::ENOENT: No such file or directory - none\A 3: \A 4: Backtrace:\A 5: /Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:482:in `read'\A 6: /Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:482:in `update_stylesheet'\A 7: /Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'\A 8: /Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:209:in `each'\A 9: /Users/Dami/.rvm/gems/ruby-1.9.3-p374/gems/sass-3.4.9/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'"; }
