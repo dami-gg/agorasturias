@@ -16,7 +16,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
 
-    <body ng-app="agorasturiasApp" ng-cloak>
+    <body ng-app="agorasturiasApp" ng-controller="LanguageSwitcherCtrl" ng-cloak>
 
         <div class="navbar">
             <div class="container">
@@ -120,7 +120,8 @@
             </div>
         </div>
 
-        <button id="language-switcher" ng-click="changeLanguage();" translate="LANGUAGE"></button>
+        <button id="language-switcher" class="btn btn-primary btn-xs" 
+            ng-click="changeLanguage();" translate="LANGUAGE"></button>
 
         <div id="social-buttons">
             <div> 

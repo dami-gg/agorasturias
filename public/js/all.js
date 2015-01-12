@@ -1370,6 +1370,11 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 templateUrl : 'public/views/home.html'
             })
 
+            .state('post',{
+              url:'/post',
+              templateUrl : 'public/views/post.html'
+            })
+
             .state('aegee-oviedo', {
                 url : '/aegee-oviedo',
                 templateUrl : 'public/views/aegee-oviedo.html'
@@ -1520,7 +1525,6 @@ agorasturiasApp.controller('PostsCtrl', ['$rootScope', '$scope', '$location', '$
         }
 
       });
-
     };
 
     //$scope.loadPosts($scope.currentPage,$scope.itemsPerPage);
@@ -1536,7 +1540,10 @@ agorasturiasApp.controller('PostsCtrl', ['$rootScope', '$scope', '$location', '$
       $location.path ('/edit-post');
     };
 
-
+    $scope.openPost = function(post){
+      $rootScope.currentPost = angular.copy(post);
+      $location.path ('/post');
+    };
 }]);
 agorasturiasApp.controller('NewPostCtrl',['$location','$scope','Data', function($location,$scope,Data){
 

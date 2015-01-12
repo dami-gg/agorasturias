@@ -15,6 +15,11 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 templateUrl : 'public/views/home.html'
             })
 
+            .state('post',{
+              url:'/post',
+              templateUrl : 'public/views/post.html'
+            })
+
             .state('aegee-oviedo', {
                 url : '/aegee-oviedo',
                 templateUrl : 'public/views/aegee-oviedo.html'

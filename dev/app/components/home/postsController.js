@@ -21,7 +21,6 @@ agorasturiasApp.controller('PostsCtrl', ['$rootScope', '$scope', '$location', '$
         }
 
       });
-
     };
 
     //$scope.loadPosts($scope.currentPage,$scope.itemsPerPage);
@@ -37,5 +36,8 @@ agorasturiasApp.controller('PostsCtrl', ['$rootScope', '$scope', '$location', '$
       $location.path ('/edit-post');
     };
 
-
+    $scope.openPost = function(post){
+      $rootScope.currentPost = angular.copy(post);
+      $location.path ('/post');
+    };
 }]);

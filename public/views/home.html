@@ -25,7 +25,11 @@
 
                     <a ng-if="authenticated" ng-click="editPost(post)">Edit</a>
 
-                    <div ng-bind-html="post.engText | htmlSafe"></div>
+                    <div ng-bind-html="post.engText | limitTo: 400 | htmlSafe"></div>
+
+                    <button ng-if="post.engText.length > 400" class="btn btn-success btn-sm" 
+                        ng-click="openPost(post)">    Show more
+                    </button>
                 </div>
                 <div class="col-xs-5 col-md-3" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
                     <img class="img-responsive" ng-src="{{post.image}}" border="0" width="200" height="284"
