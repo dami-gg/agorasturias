@@ -1,8 +1,9 @@
-agorasturiasApp.controller('PostsCtrl', ['$rootScope', '$scope', '$location', '$anchorScroll', 'Data',
-  function ($rootScope, $scope, $location, $anchorScroll, Data) {
+agorasturiasApp.controller('PostsCtrl', ['$rootScope', '$scope', '$location', '$anchorScroll', 'Data', '$translate',
+  function ($rootScope, $scope, $location, $anchorScroll, Data, $translate) {
 
     $scope.currentPage = 1;
     $scope.itemsPerPage = 5;
+    $lang = $translate.use();
 
     $scope.setPage = function (pageNumber) {
         $scope.currentPage = pageNumber;
@@ -10,7 +11,7 @@ agorasturiasApp.controller('PostsCtrl', ['$rootScope', '$scope', '$location', '$
 
     $scope.pageChanged = function() {
       $scope.lastPageLoaded = angular.copy($scope.currentPage);
-      Data.get('posts/desc/'+$scope.currentPage+'/'+$scope.itemsPerPage)
+      Data.get('posts/' + $lang + '/desc/'+$scope.currentPage+'/'+$scope.itemsPerPage)
       .then(function(response){
 
         if(response.status === "success"){
