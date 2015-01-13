@@ -4,7 +4,8 @@ TODO:SECURE THIS!!!
 */
 
 
-$app->get('/posts/:order/:page/:resources', function($order,$page,$resources) use ($app) {
+$app->get('/posts/:lang/:order/:page/:resources',
+function($lang,$order,$page,$resources) use ($app) {
 
   $r = json_decode($app->request->getBody());
 
@@ -17,10 +18,19 @@ $app->get('/posts/:order/:page/:resources', function($order,$page,$resources) us
       $response['status'] = "success";
 
       foreach($posts as $order => $post){
-        $posts[$order]['engTitle'] = base64_decode($post['engTitle']);
-        $posts[$order]['engText'] = base64_decode($post['engText']);
+        if($lang == 'es'){
+          $posts[$order]['title'] = base64_decode($post['esTitle']);
+          $posts[$order]['text'] = base64_decode($post['esText']);
+        }
+        else{
+          $posts[$order]['title'] = base64_decode($post['engTitle']);
+          $posts[$order]['text'] = base64_decode($post['engText']);
+        }
+
         $posts[$order]['esTitle'] = base64_decode($post['esTitle']);
         $posts[$order]['esText'] = base64_decode($post['esText']);
+        $posts[$order]['engTitle'] = base64_decode($post['engTitle']);
+        $posts[$order]['engText'] = base64_decode($post['engText']);
       }
       unset($post);
 

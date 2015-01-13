@@ -11,8 +11,10 @@ $app = new \Slim\Slim();
 // User id from db - Global Variable
 $user_id = NULL;
 
+include_once '../config.php';
 require_once 'authentication.php';
 require_once 'posts.php';
+require_once 'files.php';
 
 /**
 * Verifying required params posted or not

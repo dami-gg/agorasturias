@@ -1,14 +1,15 @@
 agorasturiasApp.controller('FileUploaderCtrl', ['$scope', '$upload', function($scope, $upload) {
-  
+
   $scope.$watch('files', function(files) {
-    
+
     if (files !== undefined && files !== null) {
 
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
         $scope.upload = $upload.upload({
-          url: '/upload', // upload.php script, node.js route, or servlet url
+          url: '/agorasturias/api/v1/upload', // upload.php script, node.js route, or servlet url
           //method: 'POST' or 'PUT',
+          method: 'POST',
           //headers: {'Authorization': 'xxx'}, // only for html5
           //withCredentials: true,
           data: {myObj: $scope.myModelObj},
@@ -20,7 +21,7 @@ agorasturiasApp.controller('FileUploaderCtrl', ['$scope', '$upload', function($s
         });
         //.error(...)
         //.then(success, error, progress); // returns a promise that does NOT have progress/abort/xhr functions
-        //.xhr(function(xhr){xhr.upload.addEventListener(...)}) // access or attach event listeners to 
+        //.xhr(function(xhr){xhr.upload.addEventListener(...)}) // access or attach event listeners to
                                                                 //the underlying XMLHttpRequest
       }
     }

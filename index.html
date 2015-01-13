@@ -7,12 +7,12 @@
     <!-- <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="dev/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="dev/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="dev/css/layout.css">   
-        <link rel="stylesheet" type="text/css" href="dev/css/wallop-slider.css">  
-        <link rel="stylesheet" type="text/css" href="dev/css/font-awesome.min.css"> 
-        <link rel="stylesheet" type="text/css" href="dev/css/bootstrap-social.css">  -->      
+        <link rel="stylesheet" type="text/css" href="dev/css/layout.css">
+        <link rel="stylesheet" type="text/css" href="dev/css/wallop-slider.css">
+        <link rel="stylesheet" type="text/css" href="dev/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="dev/css/bootstrap-social.css">  -->
         <link rel="stylesheet" type="text/css" href="public/css/style.css">
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
 
@@ -35,7 +35,7 @@
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav pull-right">
 
-                                <li><a ui-sref="home">{{ 'HOME' | translate }}</a></li>  
+                                <li><a ui-sref="home">{{ 'HOME' | translate }}</a></li>
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown">
                                         {{ 'ABOUT' | translate }}<span class="caret"></span>
@@ -71,13 +71,13 @@
                                 </li>
 
                                 <li><a href="#partners">{{ 'PARTNERS' | translate }}</a></li>
-                                
+
                                 <li class="dropdown" ng-if="!authenticated">
                                     <a ng-controller="UsersCtrl" class="dropdown-toggle" data-toggle="dropdown">
                                         Login
                                     </a>
                                     <ul class="dropdown-menu login-menu" role="menu">
-                                        <div class="dropdown">             
+                                        <div class="dropdown">
                                             <form name="loginForm" role="form" ng-controller="UsersCtrl">
                                                 <label for="username">Username</label>
                                                 <input id="username" class="form-control" type="text"
@@ -85,7 +85,7 @@
                                                 <label for="password">Password</label>
                                                 <input id="password" class="form-control" type="password"
                                                     ng-model="user.password" name="password">
-                                                <input id="sign-in" class="btn btn-primary btn-block" 
+                                                <input id="sign-in" class="btn btn-primary btn-block"
                                                     type="submit" value="Sign In" ng-click="doLogin(user)">
                                               </form>
                                         </div>
@@ -105,9 +105,9 @@
                                         <li><a class="submenu" href="#">Logout</a></li>
                                     </ul>
                                 </li>
-                                <li><a ui-sref="contact">{{ 'CONTACT' | translate }}</a></li>                                  
+                                <li><a ui-sref="contact">{{ 'CONTACT' | translate }}</a></li>
                             </ul>
-                        </div>   
+                        </div>
 
                     </div>
 
@@ -115,34 +115,34 @@
                         <a ui-sref="#">
                             <img class="logo" src="public/img/logo-large-small.png" alt="AgorAsturias">
                         </a>
-                    </div>  
+                    </div>
                 </div>
             </div>
         </div>
 
-        <button id="language-switcher" class="btn btn-primary btn-xs" 
+        <button id="language-switcher" class="btn btn-primary btn-xs"
             ng-click="changeLanguage();" translate="LANGUAGE"></button>
 
         <div id="social-buttons">
-            <div> 
+            <div>
                 <a class="btn btn-social-icon btn-facebook" target="_blank"
                     href="https://www.facebook.com/agorasturias2015">
                     <i class="fa fa-facebook"></i>
                 </a>
-            </div> 
-            <div> 
+            </div>
+            <div>
                 <a class="btn btn-social-icon btn-twitter"target="_blank"
                     href="">
                     <i class="fa fa-twitter"></i>
                 </a>
-            </div>  
-            <div> 
+            </div>
+            <div>
                 <a class="btn btn-social-icon btn-youtube"target="_blank"
                     href="">
                     <i class="fa fa-youtube"></i>
                 </a>
-            </div>   
-        </div>   
+            </div>
+        </div>
 
         <div id="main">
 
@@ -159,35 +159,34 @@
 
         <div id="credits">
             <p>
-                Copyright © 2015 AEGEE-Oviedo 
+                Copyright © 2015 AEGEE-Oviedo
                 <a href="http://www.aegeeoviedo.org/" target="_blank">http://www.aegeeoviedo.org/</a>
             </p>
             <p>
                 Association des États Généraux des Étudiants de l’Europe (AEGEE) - European Students Forum
                 <a href="http://www.aegee.org/" target="_blank">http://www.aegee.org/</a>
-            </p> 
+            </p>
             <p>Website developed by Damián García and Alberto Cuesta</p>
-        </div>  
+        </div>
     </footer>
 
-    <!-- Development 
+    <!-- Development
     <script src="dev/lib/jquery.min-1.11.1.js"></script>
     <script src="dev/lib/angular.min-1.2.25.js"></script>
     <script src="dev/lib/angular-ui-router.min-0.2.8.js"></script>
     <script src="dev/lib/angular-translate.min.js"></script>
     <script src="dev/lib/angular-resource.min.js"></script>
     <script src="dev/lib/angular-sanitize.min.js"></script>
-    <script src="dev/lib/bootstrap.min.js"></script>    
+    <script src="dev/lib/bootstrap.min.js"></script>
     <script src="dev/lib/ui-bootstrap-tpls-0.11.2.min.js"></script>
     <script src="dev/lib/wallop-slider-directive.js"></script>
     <script src='dev/lib/ckeditor/ckeditor.js'></script>
     <script src="dev/lib/ng-ckeditor.min.js"></script>
-    <script src="dev/lib/angular-file-upload.min.js"></script> 
+    <script src="dev/lib/angular-file-upload.min.js"></script>
     <script src="dev/js/app.js"></script>
-    <script src="dev/js/functions.js"></script>  -->
+    <script src="dev/js/functions.js"></script> -->
 
     <!-- Production -->
     <script src='dev/lib/ckeditor/ckeditor.js'></script>
-    <script src="public/js/all.js"></script>
-
+    <script src="public/js/all.js"></script> -->
 </html>

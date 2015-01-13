@@ -7,4 +7,6 @@ define('DB_PASS', 'root');
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'agorasturias');
 
+define('DS',DIRECTORY_SEPARATOR);
+
 ?>
