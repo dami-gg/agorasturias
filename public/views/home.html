@@ -21,14 +21,15 @@
         <div class="post container">
             <div class="row">
                 <div class="col-xs-7 col-md-9" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
-                    <p class="lead" ng-click="openPost(post)">{{post.title}}</p>
+                    <p class="lead" ng-click="openPost(post)" translate="{{post.title}}"></p>
 
                     <a ng-if="authenticated" ng-click="editPost(post)">Edit</a>
 
-                    <div ng-bind-html="post.text | limitTo: 1000 | htmlSafe"></div>
+                    <div ng-bind-html="post.text | translate | limitTo: 1000 | htmlSafe"></div>
 
                     <button ng-if="post.text.length > 1000" class="btn btn-success btn-sm"
-                        ng-click="openPost(post)">    Show more
+                        ng-click="openPost(post)">
+                        Show more
                     </button>
                 </div>
                 <div class="col-xs-5 col-md-3" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">

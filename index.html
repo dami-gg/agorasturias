@@ -35,46 +35,65 @@
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav pull-right">
 
-                                <li><a ui-sref="home">{{ 'HOME' | translate }}</a></li>
+                                <li>
+                                    <a ui-sref="home" translate="HOME"></a>
+                                </li>
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown">
-                                        {{ 'ABOUT' | translate }}<span class="caret"></span>
+                                        <span translate="ABOUT"></span>
+                                        <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a class="submenu" href="#aegee-europe">
-                                            {{ 'AEGEE_EUROPE' | translate }}
-                                        </a></li>
-                                        <li><a class="submenu" href="#aegee-oviedo">AEGEE-Oviedo</a></li>
-                                        <li><a class="submenu" href="#core-team">
-                                            {{ 'CORE_TEAM' | translate }}</a>
+                                        <li>
+                                            <a class="submenu" href="#aegee-europe" 
+                                                translate="AEGEE_EUROPE">                     
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="submenu" href="#aegee-oviedo">
+                                                AEGEE-Oviedo
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="submenu" href="#core-team" translate="CORE_TEAM">
+                                            </a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown">
-                                        {{ 'AGORA' | translate }}<span class="caret"></span>
+                                        <span translate="AGORA"></span>
+                                        <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a class="submenu" href="#info">
-                                            {{ 'GENERAL_INFORMATION' | translate }}
-                                        </a></li>
-                                        <li><a class="submenu" href="#agora-for-dummies">
-                                            {{ 'AGORA_FOR_DUMMIES' | translate }}
-                                        </a></li>
-                                        <li><a class="submenu" href="#event-timetable">
-                                            {{ 'EVENT_TIMETABLE' | translate }}
-                                        </a></li>
-                                        <li><a class="submenu" href="#pre-events">
-                                            {{ 'PRE_EVENTS' | translate }}
-                                        </a></li>
+                                        <li>
+                                            <a class="submenu" href="#info" translate="GENERAL_INFORMATION">
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="submenu" href="#agora-for-dummies" 
+                                                translate="AGORA_FOR_DUMMIES">
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="submenu" href="#event-timetable" 
+                                                translate="EVENT_TIMETABLE">                    
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="submenu" href="#pre-events" translate="PRE_EVENTS">
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
-
-                                <li><a href="#partners">{{ 'PARTNERS' | translate }}</a></li>
+                                <li>
+                                    <a href="#partners" translate="PARTNERS">
+                                    </a>
+                                </li>
 
                                 <li class="dropdown" ng-if="!authenticated">
-                                    <a ng-controller="UsersCtrl" class="dropdown-toggle" data-toggle="dropdown">
-                                        Login
+                                    <a ng-controller="UsersCtrl" class="dropdown-toggle" 
+                                        data-toggle="dropdown" translate="LOGIN">
                                     </a>
                                     <ul class="dropdown-menu login-menu" role="menu">
                                         <div class="dropdown">
@@ -93,7 +112,8 @@
                                 </li>
                                 <li class="dropdown" ng-controller="UsersCtrl" ng-if="authenticated">
                                     <a class="dropdown-toggle" data-toggle="dropdown">
-                                        {{username}}<span class="caret">
+                                        <span ng-bind="username"></span>
+                                        <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li ng-if="username === 'admin'">
@@ -105,7 +125,10 @@
                                         <li><a class="submenu" href="#">Logout</a></li>
                                     </ul>
                                 </li>
-                                <li><a ui-sref="contact">{{ 'CONTACT' | translate }}</a></li>
+                                <li>
+                                    <a ui-sref="contact" translate="CONTACT">
+                                    </a>
+                                </li>
                             </ul>
                         </div>
 
@@ -170,11 +193,12 @@
         </div>
     </footer>
 
-    <!-- Development
+    <!-- Development -->
     <script src="dev/lib/jquery.min-1.11.1.js"></script>
     <script src="dev/lib/angular.min-1.2.25.js"></script>
     <script src="dev/lib/angular-ui-router.min-0.2.8.js"></script>
     <script src="dev/lib/angular-translate.min.js"></script>
+    <script src="dev/lib/angular-translate-loader-static-files.min.js"></script>
     <script src="dev/lib/angular-resource.min.js"></script>
     <script src="dev/lib/angular-sanitize.min.js"></script>
     <script src="dev/lib/bootstrap.min.js"></script>
@@ -183,10 +207,10 @@
     <script src='dev/lib/ckeditor/ckeditor.js'></script>
     <script src="dev/lib/ng-ckeditor.min.js"></script>
     <script src="dev/lib/angular-file-upload.min.js"></script>
-    <script src="dev/js/app.js"></script>
-    <script src="dev/js/functions.js"></script> -->
+    <script src="dev/js/build.js"></script>
+    <script src="dev/js/functions.js"></script> 
 
-    <!-- Production -->
+    <!-- Production 
     <script src='dev/lib/ckeditor/ckeditor.js'></script>
     <script src="public/js/all.js"></script> -->
 </html>

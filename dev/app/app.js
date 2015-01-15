@@ -2,7 +2,6 @@
 var agorasturiasApp = angular.module('agorasturiasApp',
   ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngSanitize', 
     'pascalprecht.translate', 'angularFileUpload']);
-// , 'uiRouterStyles'
 
 // configure the routes
 agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translateProvider) {
@@ -37,10 +36,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
 
             .state('agora-for-dummies', {
                 url : '/agora-for-dummies',
-                templateUrl : 'public/views/agora-for-dummies.html'/*,
-                data : {
-                    css : 'css/wallop-slider.css'
-                }*/
+                templateUrl : 'public/views/agora-for-dummies.html'
             })
 
             .state('event-timetable', {
@@ -88,41 +84,13 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
               templateUrl : 'public/views/file-uploader.html'
             });
 
-      $translateProvider.translations('en', {
-        
-          // TODO: Load from DB table
-          HOME: 'Home',
-          ABOUT: 'About',
-          AEGEE_EUROPE: 'AEGEE-Europe',
-          CORE_TEAM: 'Core team',
-          AGORA: 'Agora',
-          GENERAL_INFORMATION: 'General information',
-          AGORA_FOR_DUMMIES: 'Agora for dummies',
-          EVENT_TIMETABLE: 'Event timetable',
-          PRE_EVENTS: 'Pre-events',
-          PARTNERS: 'Partners',
-          CONTACT: 'Contact',
-          LANGUAGE: 'Versión en español'
-      });
-
-      $translateProvider.translations('es', {
-        
-          // TODO: Load from DB table
-          HOME: 'Inicio',
-          ABOUT: 'Sobre nosotros',
-          AEGEE_EUROPE: 'AEGEE-Europa',
-          CORE_TEAM: 'Equipo organizador',
-          AGORA: 'Ágora',
-          GENERAL_INFORMATION: 'Información general',
-          AGORA_FOR_DUMMIES: 'Ágora para novatos',
-          EVENT_TIMETABLE: 'Calendario de eventos',
-          PRE_EVENTS: 'Preeventos',
-          PARTNERS: 'Colaboradores',
-          CONTACT: 'Contacto',
-          LANGUAGE: 'English version'
+      $translateProvider.useStaticFilesLoader({
+        prefix: 'public/translations/',
+        suffix: '.json'
       });
 
       $translateProvider.preferredLanguage('en');
+      //$translateProvider.useCookieStorage();
     }
 );
 
