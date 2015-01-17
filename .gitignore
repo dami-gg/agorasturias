@@ -16,3 +16,8 @@ npm-debug.log
 .Trashes
 ehthumbs.db
 Thumbs.db
+public/js/all.js
+
+public/js/all.min.js
+
+dev/js/build.js

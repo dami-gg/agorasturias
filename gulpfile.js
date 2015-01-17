@@ -57,6 +57,7 @@ gulp.task('js', function() {
                 'dev/lib/angular-ui-router.min-0.2.8.js',
                 'dev/lib/angular-translate.min.js',
                 'dev/lib/angular-translate-loader-static-files.min.js',
+                'dev/lib/angular-cookies.min.js',
                 'dev/lib/angular-route.min.js',
                 'dev/lib/ui-bootstrap-tpls-0.11.2.min.js',
                 'dev/lib/wallop-slider-directive.js',
