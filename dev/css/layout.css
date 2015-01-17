@@ -162,7 +162,8 @@ h2 {
 .post {
   padding: 15px 10px; }
   .post .lead {
-    font-weight: bold; }
+    font-weight: bold;
+    cursor: pointer; }
 
 .dropdown {
   cursor: pointer; }
