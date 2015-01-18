@@ -1,6 +1,6 @@
-<section id="file-uploader" class="light">
+<section id="file-uploader" class="light" ng-controller="FileUploaderCtrl">
 
-    <div class="container" ng-controller="FileUploaderCtrl">
+    <div class="container">
 
       <p class="lead">Upload images or PDFs</p>
 
@@ -33,4 +33,18 @@
       </div>
     
     </div>
+
+    <div class="container">
+      <p class="lead">List of files already in the server</p>
+
+      <div class="row" ng-repeat="row in rows">
+        <div class="col-sm-2" ng-repeat="file in row">
+          <a href="{{file.image}}" class="thumbnail" target="_blank">
+            <img title="{{file.title}}" src="{{file.thumb}}" class="img-responsive">
+          </a>
+          <p class="file-name">{{file.title}}</p>
+        </div>
+      </div>
+    </div>
+
 </section>
