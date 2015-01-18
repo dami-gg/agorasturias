@@ -91,7 +91,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
       });
 
       $translateProvider.preferredLanguage('en');
-      //$translateProvider.useCookieStorage();
+      $translateProvider.useCookieStorage();
     }
 );
 
