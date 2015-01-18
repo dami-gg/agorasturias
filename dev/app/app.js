@@ -1,7 +1,7 @@
 // create the module including ngRoute for all the routing needs
 var agorasturiasApp = angular.module('agorasturiasApp',
   ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngSanitize', 
-    'pascalprecht.translate', 'angularFileUpload', 'ngCookies']);
+    'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'ngSocial']);
 
 // configure the routes
 agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translateProvider) {
@@ -15,7 +15,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
             })
 
             .state('post',{
-              url:'/post',
+              url:'/post/:postId',
               templateUrl : 'public/views/post.html'
             })
 

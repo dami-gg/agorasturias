@@ -132,6 +132,17 @@ class DbHandler {
 
   }
 
+  public function getPostById($id){
+
+    $query = "SELECT p.engTitle as engTitle, p.esText as esText,".
+    " p.esTitle as esTitle, p.engText as engText".
+    " FROM posts p WHERE p.id = ".$id;
+
+    $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+
+    return $r->fetch_assoc();
+  }
+
   public function insertIntoTable($obj, $column_names, $table_name) {
 
     $c = (array) $obj;

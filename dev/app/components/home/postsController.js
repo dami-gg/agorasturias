@@ -11,12 +11,6 @@ agorasturiasApp.controller('PostsCtrl',
       $scope.currentPage = 1;
     }
 
-    var postInCookie = $cookieStore.get("post");
-
-    if (postInCookie !== undefined) {
-      $rootScope.currentPost = postInCookie;
-    }
-
     $scope.itemsPerPage = 5;  
 
     $scope.setPage = function (pageNumber) {
@@ -55,6 +49,6 @@ agorasturiasApp.controller('PostsCtrl',
       $cookieStore.put('post', post);
 
       $rootScope.currentPost = angular.copy(post);
-      $location.path ('/post');
+      $location.path ('/post/' + post.id);
     };
 }]);
