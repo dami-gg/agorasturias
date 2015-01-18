@@ -13,3 +13,5 @@
   border: 5px dashed black;
   text-align: center;
   color: black; }
+#file-uploader .file-name {
+  text-align: center; }

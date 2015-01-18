@@ -11,7 +11,7 @@ $app->get('/images/gallery', function() {
 
   $iterator = glob( $dir . '*.png');
   $files = [];
-  $count = 1;
+  $count = 0;
   foreach($iterator as $file) {
     $files[$count]['thumb'] = $rel . '/' . basename($file);
     $files[$count]['image'] = $rel . '/' . basename($file);
@@ -35,8 +35,11 @@ $app->get('/images/gallery', function() {
     $count ++;
   }
 
+  $response['status'] = "Success";
+  $response['files'] = $files;
+  $response['total_files'] = $count;
 
-  echoResponse(200, $files);
+  echoResponse(200, $response);
 });
 
 $app->post('/upload', function(){

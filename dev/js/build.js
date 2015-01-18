@@ -300,7 +300,8 @@ agorasturiasApp.controller('EditPostCtrl',['$location','$scope','Data',
     });
   };
 }]);
-agorasturiasApp.controller('FileUploaderCtrl', ['$scope', '$upload', function($scope, $upload) {
+agorasturiasApp.controller('FileUploaderCtrl', 
+  ['$scope', '$upload', 'Data', 'partitionService', function($scope, $upload, Data, partitionService) {
 
   $scope.$watch('files', function(files) {
 
@@ -309,25 +310,40 @@ agorasturiasApp.controller('FileUploaderCtrl', ['$scope', '$upload', function($s
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
         $scope.upload = $upload.upload({
-          url: '/agorasturias/api/v1/upload', // upload.php script, node.js route, or servlet url
-          //method: 'POST' or 'PUT',
+          url: '/agorasturias/api/v1/upload', 
           method: 'POST',
           //headers: {'Authorization': 'xxx'}, // only for html5
           //withCredentials: true,
           data: {myObj: $scope.myModelObj},
           file: file, // single file or a list of files. list is only for html5
-          //fileName: 'doc.jpg' or ['1.jpg', '2.jpg', ...] // to modify the name of the file(s)
-          //fileFormDataName: myFile, // file formData name ('Content-Disposition'), server side request form name
-                                      // could be a list of names for multiple files (html5). Default is 'file'
-
         });
-        //.error(...)
-        //.then(success, error, progress); // returns a promise that does NOT have progress/abort/xhr functions
-        //.xhr(function(xhr){xhr.upload.addEventListener(...)}) // access or attach event listeners to
-                                                                //the underlying XMLHttpRequest
       }
+
+      getFiles();
     }
   });
+
+  function getFiles() {
+      Data.get('/images/gallery')
+      .then(function(response){
+
+        $scope.rows = [];
+
+        if (response.status === "Success") {
+          var json = response.files,
+              files = [];
+
+          for (var i=0; i<response.total_files; ++i) {
+            files.push(response.files[i]);
+          }
+
+          $scope.rows = partitionService.partition(files, 6);
+        }         
+      });
+  }
+
+  getFiles();
+
 }]);
 
 agorasturiasApp.controller('BookCtrl', function ($scope) {
