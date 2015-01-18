@@ -22,7 +22,7 @@
         <div class="navbar">
             <div class="container">
 
-                <div class="navbar-header">
+                <div class="navbar-header" ng-controller="NavigationCtrl">
 
                     <div id="menu-wrapper">
 
@@ -35,9 +35,8 @@
 
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav pull-right">
-
                                 <li>
-                                    <a ui-sref="home" translate="HOME"></a>
+                                    <a ui-sref="home" translate="HOME" ng-click="reloadContent()"></a>
                                 </li>
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown">
@@ -136,7 +135,7 @@
                     </div>
 
                     <div class="navbar-brand">
-                        <a ui-sref="#">
+                        <a ui-sref="home" ng-click="reloadContent()">
                             <img class="logo" src="public/img/logo-large-small.png" alt="AgorAsturias">
                         </a>
                     </div>

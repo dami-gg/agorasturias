@@ -5,6 +5,7 @@ var agorasturiasApp = angular.module('agorasturiasApp',
 
 // configure the routes
 agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translateProvider) {
+        
         $urlRouterProvider.otherwise('/home');
 
         $stateProvider
