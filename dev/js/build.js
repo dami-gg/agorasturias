@@ -5,6 +5,7 @@ var agorasturiasApp = angular.module('agorasturiasApp',
 
 // configure the routes
 agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translateProvider) {
+        
         $urlRouterProvider.otherwise('/home');
 
         $stateProvider
@@ -213,7 +214,7 @@ agorasturiasApp.controller('PostViewerCtrl',
       $cookieStore.put('post', $rootScope.currentPost);
     }
 
-    $rootScope.currentUrl = document.location.href;
+    $scope.currentUrl = document.location.href;
 
     function getPostById (postId) {
       Data.get('posts/' + postId + '/' + $translate.use())
@@ -515,6 +516,20 @@ agorasturiasApp.factory('Data', ['$http', function ($http) {
 
   return obj;
 }]);
+agorasturiasApp.controller('NavigationCtrl', 
+  ['$scope', '$location', '$state', '$stateParams',
+    function ($scope, $location, $state, $stateParams) {
+
+      $scope.reloadContent = function () {
+        var destinationPath = '/home';
+        if ($location.path() === destinationPath) {
+            $state.transitionTo($state.current, $stateParams, { reload: true, inherit: true, notify: true });
+        } else {
+            $location.path(destinationPath);
+        }
+      };
+}]);
+
 agorasturiasApp.controller('UsersCtrl', ['$rootScope','$scope','$location','$http','Data',
   function($rootScope,$scope,$location,$http,Data){
 
