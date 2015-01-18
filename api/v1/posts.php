@@ -39,7 +39,7 @@ function($lang,$order,$page,$resources) use ($app) {
   }
   else {
     $response['status'] = "error";
-    $response['message'] = "Error en el acceso a la base de datos";
+    $response['message'] = "Error when trying to access the DB";
   }
 
   echoResponse(200,$response);
@@ -146,6 +146,38 @@ $app->delete('/posts/:id', function($id) use ($app){
 
   echoResponse(200,$response);
 
+});
+
+$app->get('/posts/:id/:lang',
+function($id,$lang) use ($app) {
+
+  $r = json_decode($app->request->getBody());
+
+  $response = array();
+  $db = new DbHandler();
+
+  $post = $db->getPostById($id);
+
+  if ($post != NULL) {
+      $response['status'] = "success";
+
+      if($lang == 'es'){
+        $response['title'] = base64_decode($post['esTitle']);
+        $response['text'] = base64_decode($post['esText']);
+      }
+      else{
+        $response['title'] = base64_decode($post['engTitle']);
+        $response['text'] = base64_decode($post['engText']);
+      }
+  }
+  else {
+    $response['status'] = "error";
+    $response['message'] = "Error when trying to access the DB";
+  }
+
+  echoResponse(200,$response);
+
+  return;
 });
 
 ?>

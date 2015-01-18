@@ -1,8 +1,7 @@
 // create the module including ngRoute for all the routing needs
 var agorasturiasApp = angular.module('agorasturiasApp',
   ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngSanitize', 
-    'pascalprecht.translate', 'angularFileUpload', 'ngCookies']);
-// , 'uiRouterStyles'
+    'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'ngSocial']);
 
 // configure the routes
 agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translateProvider) {
@@ -16,7 +15,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
             })
 
             .state('post',{
-              url:'/post',
+              url:'/post/:postId',
               templateUrl : 'public/views/post.html'
             })
 
@@ -37,10 +36,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
 
             .state('agora-for-dummies', {
                 url : '/agora-for-dummies',
-                templateUrl : 'public/views/agora-for-dummies.html'/*,
-                data : {
-                    css : 'css/wallop-slider.css'
-                }*/
+                templateUrl : 'public/views/agora-for-dummies.html'
             })
 
             .state('event-timetable', {

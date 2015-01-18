@@ -1,8 +1,7 @@
 // create the module including ngRoute for all the routing needs
 var agorasturiasApp = angular.module('agorasturiasApp',
   ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngSanitize', 
-    'pascalprecht.translate', 'angularFileUpload', 'ngCookies']);
-// , 'uiRouterStyles'
+    'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'ngSocial']);
 
 // configure the routes
 agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translateProvider) {
@@ -16,7 +15,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
             })
 
             .state('post',{
-              url:'/post',
+              url:'/post/:postId',
               templateUrl : 'public/views/post.html'
             })
 
@@ -37,10 +36,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
 
             .state('agora-for-dummies', {
                 url : '/agora-for-dummies',
-                templateUrl : 'public/views/agora-for-dummies.html'/*,
-                data : {
-                    css : 'css/wallop-slider.css'
-                }*/
+                templateUrl : 'public/views/agora-for-dummies.html'
             })
 
             .state('event-timetable', {
@@ -160,12 +156,6 @@ agorasturiasApp.controller('PostsCtrl',
       $scope.currentPage = 1;
     }
 
-    var postInCookie = $cookieStore.get("post");
-
-    if (postInCookie !== undefined) {
-      $rootScope.currentPost = postInCookie;
-    }
-
     $scope.itemsPerPage = 5;  
 
     $scope.setPage = function (pageNumber) {
@@ -204,7 +194,41 @@ agorasturiasApp.controller('PostsCtrl',
       $cookieStore.put('post', post);
 
       $rootScope.currentPost = angular.copy(post);
-      $location.path ('/post');
+      $location.path ('/post/' + post.id);
+    };
+}]);
+
+agorasturiasApp.controller('PostViewerCtrl', 
+  ['$rootScope', '$scope', '$location', '$anchorScroll', 'Data', '$translate', '$cookieStore', '$stateParams',
+    function ($rootScope, $scope, $location, $anchorScroll, Data, $translate, $cookieStore, $stateParams) {
+
+    var paramPostId = $stateParams.postId,
+        postInCookie = $cookieStore.get("post");
+
+    if (postInCookie !== undefined && postInCookie.id === paramPostId) {
+      $rootScope.currentPost = postInCookie;
+    }    
+    else {      
+      $rootScope.currentPost = getPostById(paramPostId);
+      $cookieStore.put('post', $rootScope.currentPost);
+    }
+
+    $rootScope.currentUrl = document.location.href;
+
+    function getPostById (postId) {
+      Data.get('posts/' + postId + '/' + $translate.use())
+      .then(function(response){
+
+        if(response.status === "success"){
+          $rootScope.currentPost = {id: postId, title: response.title, text: response.text };
+        }
+
+      });
+    }
+
+    $scope.gotoTop = function() {
+      $location.hash('menu-wrapper');
+      $anchorScroll();
     };
 }]);
 

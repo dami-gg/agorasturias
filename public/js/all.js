@@ -1384,8 +1384,7 @@ CKEDITOR.dialog.add("checkspell",this.path+(CKEDITOR.env.ie&&7>=CKEDITOR.env.ver
 // create the module including ngRoute for all the routing needs
 var agorasturiasApp = angular.module('agorasturiasApp',
   ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngSanitize', 
-    'pascalprecht.translate', 'angularFileUpload', 'ngCookies']);
-// , 'uiRouterStyles'
+    'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'ngSocial']);
 
 // configure the routes
 agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translateProvider) {
@@ -1399,7 +1398,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
             })
 
             .state('post',{
-              url:'/post',
+              url:'/post/:postId',
               templateUrl : 'public/views/post.html'
             })
 
@@ -1420,10 +1419,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
 
             .state('agora-for-dummies', {
                 url : '/agora-for-dummies',
-                templateUrl : 'public/views/agora-for-dummies.html'/*,
-                data : {
-                    css : 'css/wallop-slider.css'
-                }*/
+                templateUrl : 'public/views/agora-for-dummies.html'
             })
 
             .state('event-timetable', {
@@ -1543,12 +1539,6 @@ agorasturiasApp.controller('PostsCtrl',
       $scope.currentPage = 1;
     }
 
-    var postInCookie = $cookieStore.get("post");
-
-    if (postInCookie !== undefined) {
-      $rootScope.currentPost = postInCookie;
-    }
-
     $scope.itemsPerPage = 5;  
 
     $scope.setPage = function (pageNumber) {
@@ -1556,7 +1546,7 @@ agorasturiasApp.controller('PostsCtrl',
         $cookieStore.put("currentPage", pageNumber);
     };
 
-    $scope.pageChanged = function() {
+    $scope.pageChanged = (function() {
       $scope.lastPageLoaded = angular.copy($scope.currentPage);
       Data.get('posts/' + $translate.use() + '/desc/' + $scope.currentPage + '/' + $scope.itemsPerPage)
       .then(function(response){
@@ -1571,7 +1561,7 @@ agorasturiasApp.controller('PostsCtrl',
       });
 
       $cookieStore.put("currentPage", $scope.lastPageLoaded);
-    };
+    })();
 
     $scope.gotoTop = function() {
       $location.hash('menu-wrapper');
@@ -1587,7 +1577,41 @@ agorasturiasApp.controller('PostsCtrl',
       $cookieStore.put('post', post);
 
       $rootScope.currentPost = angular.copy(post);
-      $location.path ('/post');
+      $location.path ('/post/' + post.id);
+    };
+}]);
+
+agorasturiasApp.controller('PostViewerCtrl', 
+  ['$rootScope', '$scope', '$location', '$anchorScroll', 'Data', '$translate', '$cookieStore', '$stateParams',
+    function ($rootScope, $scope, $location, $anchorScroll, Data, $translate, $cookieStore, $stateParams) {
+
+    var paramPostId = $stateParams.postId,
+        postInCookie = $cookieStore.get("post");
+
+    if (postInCookie !== undefined && postInCookie.id === paramPostId) {
+      $rootScope.currentPost = postInCookie;
+    }    
+    else {      
+      $rootScope.currentPost = getPostById(paramPostId);
+      $cookieStore.put('post', $rootScope.currentPost);
+    }
+
+    $scope.currentUrl = document.location.href;
+
+    function getPostById (postId) {
+      Data.get('posts/' + postId + '/' + $translate.use())
+      .then(function(response){
+
+        if(response.status === "success"){
+          $rootScope.currentPost = {id: postId, title: response.title, text: response.text };
+        }
+
+      });
+    }
+
+    $scope.gotoTop = function() {
+      $location.hash('menu-wrapper');
+      $anchorScroll();
     };
 }]);
 
@@ -2013,6 +2037,7 @@ y=m("script,style"),D=g.extend({},x,u,v,w),E=m("background,cite,href,longdesc,sr
 function(){this.$get=["$$sanitizeUri",function(a){return function(d){var c=[];G(d,t(c,function(c,b){return!/^unsafe/.test(a(c,b))}));return c.join("")}}]});g.module("ngSanitize").filter("linky",["$sanitize",function(a){var d=/((ftp|https?):\/\/|(mailto:)?[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>"]/,c=/^mailto:/;return function(e,b){function l(a){a&&k.push(F(a))}function f(a,c){k.push("<a ");g.isDefined(b)&&(k.push('target="'),k.push(b),k.push('" '));k.push('href="');k.push(a);k.push('">');l(c);k.push("</a>")}
 if(!e)return e;for(var n,h=e,k=[],m,p;n=h.match(d);)m=n[0],n[2]==n[3]&&(m="mailto:"+m),p=n.index,l(h.substr(0,p)),f(m,n[0].replace(c,"")),h=h.substring(p+n[0].length);l(h);return a(k.join(""))}}])})(window,window.angular);
 
+function template(a,b,c){"use strict";return a.replace(/\{([^\}]+)\}/g,function(a,d){return d in b?c?c(b[d]):b[d]:a})}var app=angular.module("ngSocial",[]);app.directive("ngSocialButtons",["$compile","$q","$parse","$http","$location",function(a,b,c,d,e){"use strict";return{restrict:"A",scope:{url:"=",title:"=",description:"=",image:"="},replace:!0,transclude:!0,template:'<div class="ng-social-container ng-cloak"><ul class="ng-social" ng-transclude></ul></div>',controller:["$scope","$q","$http",function(a,b,c){var d=function(){return a.url||e.absUrl()},f={init:function(a,b,c){c.counter&&f.getCount(a.options).then(function(b){a.count=b})},link:function(b){b=b||{};var c=b.urlOptions||{};return c.url=d(),c.title=a.title,c.image=a.image,c.description=a.description||"",f.makeUrl(b.clickUrl||b.popup.url,c)},clickShare:function(b,c){if(!b.shiftKey&&!b.ctrlKey){b.preventDefault(),c.track&&"undefined"!=typeof _gaq&&angular.isArray(_gaq)&&_gaq.push(["_trackSocial",c.track.name,c.track.action,a.url]);var d=!0;if(angular.isFunction(c.click)&&(d=c.click.call(this,c)),d){var e=f.link(c);f.openPopup(e,c.popup)}}},openPopup:function(a,b){var c=Math.round(screen.width/2-b.width/2),d=0;screen.height>b.height&&(d=Math.round(screen.height/3-b.height/2));var e=window.open(a,"sl_"+this.service,"left="+c+",top="+d+","+"width="+b.width+",height="+b.height+",personalbar=0,toolbar=0,scrollbars=1,resizable=1");e?e.focus():location.href=a},getCount:function(e){var g=b.defer(),h=e.urlOptions||{};h.url=d(),h.title=a.title;var i=f.makeUrl(e.counter.url,h);return e.counter.get?e.counter.get(i,g,c):c.jsonp(i).success(function(a){e.counter.getNumber?g.resolve(e.counter.getNumber(a)):g.resolve(a)}),g.promise},makeUrl:function(a,b){return template(a,b,encodeURIComponent)}};return f}]}}]),app.directive("ngSocialFacebook",function(){"use strict";var a={counter:{url:"http://graph.facebook.com/fql?q=SELECT+total_count+FROM+link_stat+WHERE+url%3D%22{url}%22&callback=JSON_CALLBACK",getNumber:function(a){return a.data[0].total_count}},popup:{url:"http://www.facebook.com/sharer/sharer.php?u={url}",width:600,height:500},track:{name:"facebook",action:"send"}};return{restrict:"C",require:"^?ngSocialButtons",scope:!0,replace:!0,transclude:!0,template:'<li><a ng-href="{{ctrl.link(options)}}" target="_blank" ng-click="ctrl.clickShare($event, options)" class="ng-social-button"><span class="ng-social-icon"></span><span class="ng-social-text" ng-transclude></span></a><span ng-show="count" class="ng-social-counter">{{ count }}</span></li>',link:function(b,c,d,e){c.addClass("ng-social-facebook"),e&&(b.options=a,b.ctrl=e,e.init(b,c,a))}}}),app.directive("ngSocialTwitter",function(){"use strict";var a={counter:{url:"http://urls.api.twitter.com/1/urls/count.json?url={url}&callback=JSON_CALLBACK",getNumber:function(a){return a.count}},popup:{url:"http://twitter.com/intent/tweet?url={url}&text={title}",width:600,height:450},click:function(a){return/[\.:\-–—]\s*$/.test(a.pageTitle)||(a.pageTitle+=":"),!0},track:{name:"twitter",action:"tweet"}};return{restrict:"C",require:"^?ngSocialButtons",scope:!0,replace:!0,transclude:!0,template:'<li>                     <a ng-href="{{ctrl.link(options)}}" target="_blank" ng-click="ctrl.clickShare($event, options)" class="ng-social-button">                         <span class="ng-social-icon"></span>                         <span class="ng-social-text" ng-transclude></span>                     </a>                     <span ng-show="count" class="ng-social-counter">{{ count }}</span>                    </li>',controller:function(){},link:function(b,c,d,e){c.addClass("ng-social-twitter"),e&&(b.options=a,b.ctrl=e,e.init(b,c,a))}}}),app.directive("ngSocialGooglePlus",["$parse",function(a){"use strict";var b={counter:{url:"{proxy}?url={url}&type=google-plus&callback=JSON_CALLBACK",getNumber:function(a){return a.count}},popup:{url:"https://plus.google.com/share?url={url}",width:700,height:500},track:{name:"Google+",action:"share"}};return{restrict:"C",require:"^?ngSocialButtons",scope:!0,replace:!0,transclude:!0,template:'<li>                     <a ng-href="{{ctrl.link(options)}}" target="_blank" ng-click="ctrl.clickShare($event, options)" class="ng-social-button">                         <span class="ng-social-icon"></span>                         <span class="ng-social-text" ng-transclude></span>                     </a>                     <span ng-show="count" class="ng-social-counter">{{ count }}</span>                    </li>',link:function(c,d,e,f){if(d.addClass("ng-social-google-plus"),f){var g=a(e.proxyUrl)(c)||"/proxy.php";b.counter.url=b.counter.url.replace("{proxy}",g),c.options=b,c.ctrl=f,f.init(c,d,b)}}}}]),app.directive("ngSocialVk",function(){"use strict";var a={counter:{url:"http://vkontakte.ru/share.php?act=count&url={url}&index={index}",get:function(b,c,d){a._||(a._=[],window.VK||(window.VK={}),window.VK.Share={count:function(b,c){a._[b].resolve(c)}});var e=a._.length;a._.push(c),d.jsonp(b.replace("{index}",e))}},popup:{url:"http://vk.com/share.php?url={url}&title={title}&description={description}&image={image}",width:550,height:330},track:{name:"VKontakte",action:"share"}};return{restrict:"C",require:"^?ngSocialButtons",scope:!0,replace:!0,transclude:!0,template:'<li>                     <a ng-href="{{ctrl.link(options)}}" target="_blank" ng-click="ctrl.clickShare($event, options)" class="ng-social-button">                         <span class="ng-social-icon"></span>                         <span class="ng-social-text" ng-transclude></span>                     </a>                     <span ng-show="count" class="ng-social-counter">{{ count }}</span>                    </li>',controller:function(){},link:function(b,c,d,e){c.addClass("ng-social-vk"),e&&(b.options=a,b.ctrl=e,e.init(b,c,a))}}}),angular.module("ngSocial").directive("ngSocialOdnoklassniki",function(){var a={counter:{url:"http://www.odnoklassniki.ru/dk?st.cmd=shareData&ref={url}&cb=JSON_CALLBACK",getNumber:function(a){return a.count}},popup:{url:"http://www.odnoklassniki.ru/dk?st.cmd=addShare&st._surl={url}",width:550,height:360},track:{name:"Odnoklassniki",action:"share"}};return{restrict:"C",require:"^?ngSocialButtons",scope:!0,replace:!0,transclude:!0,template:'<li>                     <a ng-href="{{ctrl.link(options)}}" target="_blank" ng-click="ctrl.clickShare($event, options)" class="ng-social-button">                         <span class="ng-social-icon"></span>                         <span class="ng-social-text" ng-transclude></span>                     </a>                     <span ng-show="count" class="ng-social-counter">{{ count }}</span>                    </li>',controller:function(){},link:function(b,c,d,e){c.addClass("ng-social-odnoklassniki"),e&&(b.options=a,b.ctrl=e,e.init(b,c,a))}}}),angular.module("ngSocial").directive("ngSocialMailru",function(){var a={counter:{url:"http://connect.mail.ru/share_count?url_list={url}&callback=1&func=JSON_CALLBACK",getNumber:function(a){for(var b in a)if(a.hasOwnProperty(b))return a[b].shares}},popup:{url:"http://connect.mail.ru/share?share_url={url}&title={title}",width:550,height:360}};return{restrict:"C",require:"^?ngSocialButtons",scope:!0,replace:!0,transclude:!0,template:'<li>                     <a ng-href="{{ctrl.link(options)}}" target="_blank" ng-click="ctrl.clickShare($event, options)" class="ng-social-button">                         <span class="ng-social-icon"></span>                         <span class="ng-social-text" ng-transclude></span>                     </a>                     <span ng-show="count" class="ng-social-counter">{{ count }}</span>                    </li>',controller:function(){},link:function(b,c,d,e){c.addClass("ng-social-mailru"),e&&(b.options=a,b.ctrl=e,e.init(b,c,a))}}}),angular.module("ngSocial").directive("ngSocialPinterest",function(){var a={counter:{url:"http://api.pinterest.com/v1/urls/count.json?url={url}&callback=JSON_CALLBACK",getNumber:function(a){return a.count}},popup:{url:"http://pinterest.com/pin/create/button/?url={url}&description={title}",width:630,height:270}};return{restrict:"C",require:"^?ngSocialButtons",scope:!0,replace:!0,transclude:!0,template:'<li>                     <a ng-href="{{ctrl.link(options)}}" target="_blank" ng-click="ctrl.clickShare($event, options)" class="ng-social-button">                         <span class="ng-social-icon"></span>                         <span class="ng-social-text" ng-transclude></span>                     </a>                     <span ng-show="count" class="ng-social-counter">{{ count }}</span>                    </li>',controller:function(){},link:function(b,c,d,e){c.addClass("ng-social-pinterest"),e&&(b.options=a,b.ctrl=e,e.init(b,c,a))}}}),angular.module("ngSocial").directive("ngSocialGithubForks",function(){var a={counter:{url:"https://api.github.com/repos/{user}/{repository}?callback=JSON_CALLBACK",getNumber:function(a){return a.data.forks_count}},clickUrl:"https://github.com/{user}/{repository}/"};return{restrict:"C",require:"^?ngSocialButtons",scope:!0,replace:!0,transclude:!0,template:'<li>                     <a ng-href="{{ctrl.link(options)}}" target="_blank" class="ng-social-button">                         <span class="ng-social-icon"></span>                         <span class="ng-social-text" ng-transclude></span>                     </a>                     <span ng-show="count" class="ng-social-counter">{{ count }}</span>                    </li>',controller:function(){},link:function(b,c,d,e){c.addClass("ng-social-github ng-social-github-forks"),e&&(a.urlOptions={user:d.user,repository:d.repository},b.options=a,b.ctrl=e,e.init(b,c,a))}}}),angular.module("ngSocial").directive("ngSocialGithub",function(){var a={counter:{url:"https://api.github.com/repos/{user}/{repository}?callback=JSON_CALLBACK",getNumber:function(a){return a.data.watchers_count}},clickUrl:"https://github.com/{user}/{repository}/"};return{restrict:"C",require:"^?ngSocialButtons",scope:!0,replace:!0,transclude:!0,template:'<li>                     <a ng-href="{{ctrl.link(options)}}" target="_blank" class="ng-social-button">                         <span class="ng-social-icon"></span>                         <span class="ng-social-text" ng-transclude></span>                     </a>                     <span ng-show="count" class="ng-social-counter">{{ count }}</span>                    </li>',controller:function(){},link:function(b,c,d,e){c.addClass("ng-social-github"),e&&(a.urlOptions={user:d.user,repository:d.repository},b.options=a,b.ctrl=e,e.init(b,c,a))}}}),app.directive("ngSocialStumbleupon",["$parse",function(a){"use strict";var b={counter:{url:"{proxy}?url={url}&type=stumbleupon&callback=JSON_CALLBACK",getNumber:function(a){return a.count}},popup:{url:"http://www.stumbleupon.com/submit?url={url}&title={title}",width:800,height:600},track:{name:"StumbleUpon",action:"share"}};return{restrict:"C",require:"^?ngSocialButtons",scope:!0,replace:!0,transclude:!0,template:'<li>                     <a ng-href="{{ctrl.link(options)}}" target="_blank" ng-click="ctrl.clickShare($event, options)" class="ng-social-button">                         <span class="ng-social-icon"></span>                         <span class="ng-social-text" ng-transclude></span>                     </a>                     <span ng-show="count" class="ng-social-counter">{{ count }}</span>                    </li>',link:function(c,d,e,f){if(d.addClass("ng-social-google-plus"),f){var g=a(e.proxyUrl)(c)||"/proxy.php";b.counter.url=b.counter.url.replace("{proxy}",g),c.options=b,c.ctrl=f,f.init(c,d,b)}}}}]),angular.module("ngSocial").run(["$templateCache",function(a){a.put("/views/buttons.html",'<div class="ng-social-container ng-cloak"><ul class="ng-social" ng-transclude></ul></div>')}]);
 /*! ngCkeditor v0.2.1 by Vitalii Savchuk(esvit666@gmail.com) - https://github.com/esvit/ng-ckeditor - New BSD License */
 !function(a,b){return"function"==typeof define&&define.amd?(define(["angular","ckeditor"],function(a){return b(a)}),void 0):b(a)}(angular||null,function(a){var b,c=a.module("ngCkeditor",[]),d=!1;return c.run(["$q","$timeout",function(c,e){function f(){"loaded"==CKEDITOR.status?(d=!0,b.resolve()):f()}if(b=c.defer(),a.isUndefined(CKEDITOR))throw new Error("CKEDITOR not found");CKEDITOR.disableAutoInline=!0,CKEDITOR.on("loaded",f),e(f,100)}]),c.directive("ckeditor",["$timeout","$q",function(c,e){"use strict";return{restrict:"AC",require:["ngModel","^?form"],scope:!1,link:function(f,g,h,i){var j=i[0],k=i[1]||null,l="<p></p>",m="textarea"==g[0].tagName.toLowerCase(),n=[],o=!1;m||g.attr("contenteditable",!0);var p=function(){var b={toolbar:"full",toolbar_full:[{name:"basicstyles",items:["Bold","Italic","Strike","Underline"]},{name:"paragraph",items:["BulletedList","NumberedList","Blockquote"]},{name:"editing",items:["JustifyLeft","JustifyCenter","JustifyRight","JustifyBlock"]},{name:"links",items:["Link","Unlink","Anchor"]},{name:"tools",items:["SpellChecker","Maximize"]},"/",{name:"styles",items:["Format","FontSize","TextColor","PasteText","PasteFromWord","RemoveFormat"]},{name:"insert",items:["Image","Table","SpecialChar"]},{name:"forms",items:["Outdent","Indent"]},{name:"clipboard",items:["Undo","Redo"]},{name:"document",items:["PageBreak","Source"]}],disableNativeSpellChecker:!1,uiColor:"#FAFAFA",height:"400px",width:"100%"};b=a.extend(b,f[h.ckeditor]);var d=m?CKEDITOR.replace(g[0],b):CKEDITOR.inline(g[0],b),i=e.defer();g.bind("$destroy",function(){d.destroy(!1)});var p=function(a){var b=d.getData();""==b&&(b=null),c(function(){(a!==!0||b!=j.$viewValue)&&j.$setViewValue(b),a===!0&&k&&k.$setPristine()},0)},q=function(a){if(n.length){var b=n.pop()||l;o=!1,d.setData(b,function(){p(a),o=!0})}};d.on("change",p),d.on("blur",p),d.on("instanceReady",function(){f.$broadcast("ckeditor.ready"),f.$apply(function(){q(!0)}),d.document.on("keyup",p)}),d.on("customConfigLoaded",function(){i.resolve()}),j.$render=function(){n.push(j.$viewValue),o&&q()}};"loaded"==CKEDITOR.status&&(d=!0),d?p():b.promise.then(p)}}}]),c});
 
