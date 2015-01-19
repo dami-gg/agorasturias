@@ -504,6 +504,52 @@ agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService)
 
   $scope.rows = partitionService.partition(members, 4);
 });
+agorasturiasApp.controller('ApplicationCtrl', 
+    ['$scope',  '$rootScope', '$translate', '$cookieStore', '$location','$http','Data',
+    function ($scope, $rootScope, $translate, $cookieStore, $location, $http, Data) { 
+
+    var langInCookie = $cookieStore.get("lang");
+
+    if (langInCookie !== undefined) {
+      $translate.use(langInCookie);
+    }
+
+    $scope.changeLanguage = function () {
+      if ($translate.use() === 'en') {
+        $translate.use('es');        
+      }  
+      else {
+        $translate.use('en');
+      }
+
+      $cookieStore.put("lang", $translate.use());
+    };
+
+    //initially set those objects to null to avoid undefined error
+    $rootScope.login = {};
+    $rootScope.currentPost = null;
+
+    $rootScope.doLogin = function (user) {
+      Data.post('login', { 
+          username:user.username,
+          password:user.password
+        }).then(function (response) {
+          if (response.status === "success") {
+            $rootScope.authenticated = true;
+            $rootScope.username = response.username;
+            $rootScope.uid = response.uid;
+            $rootScope.appID = response.app_id;
+            $rootScope.email = response.email;
+            $rootScope.name = response.name;
+
+            $location.path('/home');
+          }
+          else {
+            alert(response.message);
+          }
+        });
+      };
+}]);
 agorasturiasApp.factory('Data', ['$http', function ($http) { 
   // This service connects to our REST API
 
@@ -546,6 +592,39 @@ agorasturiasApp.controller('NavigationCtrl',
       };
 }]);
 
+agorasturiasApp.service('partitionService', function() {
+
+  this.partition = function (dataArray, chunkSize) {
+    var result = [];
+
+    for (var i = 0; i < dataArray.length; i += chunkSize) {
+      result.push(dataArray.slice(i, i+chunkSize));
+    }
+
+    return result;
+  };
+});
+agorasturiasApp.filter('htmlSafe',['$sce',function($sce){
+  
+    return $sce.trustAsHtml;
+}]);
+agorasturiasApp.controller('PartnersCtrl', function ($scope, partitionService) {
+
+  var partners = $scope.partners = [];
+
+    $scope.addPartner = function() {
+        partners.push({
+          link: 'http://www.uniovi.es/',
+          logo: 'http://goo.gl/NUL33N'
+        });
+    };
+
+    for (var i=0; i<8; ++i) {
+        $scope.addPartner();
+    }
+
+    $scope.rows = partitionService.partition(partners, 3);
+});
 agorasturiasApp.controller('UsersCtrl', ['$rootScope','$scope','$location','$http','Data',
   function($rootScope,$scope,$location,$http,Data){
 
@@ -574,56 +653,3 @@ agorasturiasApp.controller('UsersCtrl', ['$rootScope','$scope','$location','$htt
       });
     };
 }]);
-agorasturiasApp.service('partitionService', function() {
-
-  this.partition = function (dataArray, chunkSize) {
-    var result = [];
-
-    for (var i = 0; i < dataArray.length; i += chunkSize) {
-      result.push(dataArray.slice(i, i+chunkSize));
-    }
-
-    return result;
-  };
-});
-agorasturiasApp.controller('LanguageSwitcherCtrl', 
-    ['$scope', '$translate', '$cookieStore', function ($scope, $translate, $cookieStore) { 
-
-    var langInCookie = $cookieStore.get("lang");
-
-    if (langInCookie !== undefined) {
-      $translate.use(langInCookie);
-    }
-
-    $scope.changeLanguage = function () {
-      if ($translate.use() === 'en') {
-        $translate.use('es');        
-      }  
-      else {
-        $translate.use('en');
-      }
-
-      $cookieStore.put("lang", $translate.use());
-    };
-}]);
-agorasturiasApp.filter('htmlSafe',['$sce',function($sce){
-  
-    return $sce.trustAsHtml;
-}]);
-agorasturiasApp.controller('PartnersCtrl', function ($scope, partitionService) {
-
-  var partners = $scope.partners = [];
-
-    $scope.addPartner = function() {
-        partners.push({
-          link: 'http://www.uniovi.es/',
-          logo: 'http://goo.gl/NUL33N'
-        });
-    };
-
-    for (var i=0; i<8; ++i) {
-        $scope.addPartner();
-    }
-
-    $scope.rows = partitionService.partition(partners, 3);
-});

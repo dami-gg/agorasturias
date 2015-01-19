@@ -17,7 +17,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
 
-    <body ng-app="agorasturiasApp" ng-controller="LanguageSwitcherCtrl" ng-cloak>
+    <body ng-app="agorasturiasApp" ng-controller="ApplicationCtrl" ng-cloak>
 
         <div class="navbar">
             <div class="container">
@@ -77,12 +77,12 @@
                                 <li><a href="#partners">{{ 'PARTNERS' | translate }}</a></li>
 
                                 <li class="dropdown" ng-if="!authenticated">
-                                    <a ng-controller="UsersCtrl" class="dropdown-toggle" data-toggle="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown">
                                         Login
                                     </a>
                                     <ul class="dropdown-menu login-menu" role="menu">
                                         <div class="dropdown">
-                                            <form name="loginForm" role="form" ng-controller="UsersCtrl">
+                                            <form name="loginForm" role="form">
                                                 <label for="username">Username</label>
                                                 <input id="username" class="form-control" type="text"
                                                     ng-model="user.username" name="username">
@@ -95,7 +95,7 @@
                                         </div>
                                     </ul>
                                 </li>
-                                <li class="dropdown" ng-controller="UsersCtrl" ng-if="authenticated">
+                                <li class="dropdown" ng-if="authenticated">
                                     <a class="dropdown-toggle" data-toggle="dropdown">
                                         {{username}}<span class="caret">
                                     </a>
