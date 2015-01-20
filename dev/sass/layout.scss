@@ -209,12 +209,15 @@ section {
 
 .social-buttons { float: right; margin: 10px 100px 30px; }
 
-#buildings { height:225px; width:100%; background: url('../img/footer.jpg') no-repeat center bottom; }
+#buildings { height:325px; width:100%; background: url('../img/footer.png') no-repeat center bottom; }
 
 #credits { 
 
-    height:120px; width:100%; background-color: #ecedf2; color:black; 
-    padding-right:10%; padding-left:10%; text-align: center; font-weight: bold; }
+    height:120px; width:100%; background-color: #1468c5; color:white; 
+    padding-right:10%; padding-left:10%; text-align: center; font-weight: bold; 
+
+    a, a:hover { color: #e1da29; }
+}
 
 .to-top-button {
     

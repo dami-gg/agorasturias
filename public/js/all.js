@@ -1887,88 +1887,6 @@ agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService)
 
   $scope.rows = partitionService.partition(members, 4);
 });
-agorasturiasApp.factory('Data', ['$http', function ($http) { 
-  // This service connects to our REST API
-
-  var serviceBase = 'api/v1/';
-  var obj = {};
-  obj.get = function (q, object) {
-    return $http.get(serviceBase + q, object).then(function (results) {
-      return results.data;
-    });
-  };
-  obj.post = function (q, object) {
-    return $http.post(serviceBase + q, object).then(function (results) {
-      return results.data;
-    });
-  };
-  obj.put = function (q, object) {
-    return $http.put(serviceBase + q, object).then(function (results) {
-      return results.data;
-    });
-  };
-  obj.delete = function (q) {
-    return $http.delete(serviceBase + q).then(function (results) {
-      return results.data;
-    });
-  };
-
-  return obj;
-}]);
-agorasturiasApp.controller('NavigationCtrl', 
-  ['$scope', '$location', '$state', '$stateParams',
-    function ($scope, $location, $state, $stateParams) {
-
-      $scope.reloadContent = function () {
-        var destinationPath = '/home';
-        if ($location.path() === destinationPath) {
-            $state.transitionTo($state.current, $stateParams, { reload: true, inherit: true, notify: true });
-        } else {
-            $location.path(destinationPath);
-        }
-      };
-}]);
-
-agorasturiasApp.controller('UsersCtrl', ['$rootScope','$scope','$location','$http','Data',
-  function($rootScope,$scope,$location,$http,Data){
-
-  //initially set those objects to null to avoid undefined error
-  $rootScope.login = {};
-  $rootScope.currentPost = null;
-
-  $rootScope.doLogin = function (user) {
-    Data.post('login', { 
-        username:user.username,
-        password:user.password
-      }).then(function (response) {
-        if (response.status === "success") {
-          $rootScope.authenticated = true;
-          $rootScope.username = response.username;
-          $rootScope.uid = response.uid;
-          $rootScope.appID = response.app_id;
-          $rootScope.email = response.email;
-          $rootScope.name = response.name;
-
-          $location.path('/home');
-        }
-        else {
-          alert(response.message);
-        }
-      });
-    };
-}]);
-agorasturiasApp.service('partitionService', function() {
-
-  this.partition = function (dataArray, chunkSize) {
-    var result = [];
-
-    for (var i = 0; i < dataArray.length; i += chunkSize) {
-      result.push(dataArray.slice(i, i+chunkSize));
-    }
-
-    return result;
-  };
-});
 agorasturiasApp.controller('ApplicationCtrl', 
     ['$scope',  '$rootScope', '$translate', '$cookieStore', '$location','$http','Data',
     function ($scope, $rootScope, $translate, $cookieStore, $location, $http, Data) { 
@@ -2015,6 +1933,60 @@ agorasturiasApp.controller('ApplicationCtrl',
         });
       };
 }]);
+agorasturiasApp.factory('Data', ['$http', function ($http) { 
+  // This service connects to our REST API
+
+  var serviceBase = 'api/v1/';
+  var obj = {};
+  obj.get = function (q, object) {
+    return $http.get(serviceBase + q, object).then(function (results) {
+      return results.data;
+    });
+  };
+  obj.post = function (q, object) {
+    return $http.post(serviceBase + q, object).then(function (results) {
+      return results.data;
+    });
+  };
+  obj.put = function (q, object) {
+    return $http.put(serviceBase + q, object).then(function (results) {
+      return results.data;
+    });
+  };
+  obj.delete = function (q) {
+    return $http.delete(serviceBase + q).then(function (results) {
+      return results.data;
+    });
+  };
+
+  return obj;
+}]);
+agorasturiasApp.controller('NavigationCtrl', 
+  ['$scope', '$location', '$state', '$stateParams',
+    function ($scope, $location, $state, $stateParams) {
+
+      $scope.reloadContent = function () {
+        var destinationPath = '/home';
+        if ($location.path() === destinationPath) {
+            $state.transitionTo($state.current, $stateParams, { reload: true, inherit: true, notify: true });
+        } else {
+            $location.path(destinationPath);
+        }
+      };
+}]);
+
+agorasturiasApp.service('partitionService', function() {
+
+  this.partition = function (dataArray, chunkSize) {
+    var result = [];
+
+    for (var i = 0; i < dataArray.length; i += chunkSize) {
+      result.push(dataArray.slice(i, i+chunkSize));
+    }
+
+    return result;
+  };
+});
 agorasturiasApp.filter('htmlSafe',['$sce',function($sce){
   
     return $sce.trustAsHtml;
