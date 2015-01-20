@@ -17,7 +17,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
 
-    <body ng-app="agorasturiasApp" ng-controller="ApplicationCtrl" ng-cloak>
+    <body ng-app="agorasturiasApp" ng-controller="MainCtrl" ng-cloak>
 
         <div class="navbar">
             <div class="container">
@@ -90,7 +90,7 @@
                                                 <input id="password" class="form-control" type="password"
                                                     ng-model="user.password" name="password">
                                                 <input id="sign-in" class="btn btn-primary btn-block"
-                                                    type="submit" value="Sign In" ng-click="doLogin(user)">
+                                                    type="submit" value="Sign In" ng-click="login(user)">
                                               </form>
                                         </div>
                                     </ul>
@@ -106,7 +106,7 @@
                                         </li>
                                         <li><a class="submenu" href="#">Profile</a></li>
                                         <li><a class="submenu" href="#">Shop</a></li>
-                                        <li><a class="submenu" href="#">Logout</a></li>
+                                        <li><a class="submenu" ng-click="logout()">Logout</a></li>
                                     </ul>
                                 </li>
                                 <li><a ui-sref="contact">{{ 'CONTACT' | translate }}</a></li>
