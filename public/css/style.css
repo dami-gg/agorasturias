@@ -1409,7 +1409,8 @@ section.slider {
 
 .thumbnail {
   border: none;
-  box-shadow: none; }
+  box-shadow: none;
+  background-color: #1468b3; }
   .thumbnail img {
     width: 170px;
     height: 170px; }
@@ -1417,25 +1418,32 @@ section.slider {
     text-align: center; }
   .thumbnail .name {
     font-size: 24px; }
+  .thumbnail .caption {
+    color: white; }
+
+.intro {
+  margin-bottom: 25px; }
 
 .social-buttons {
   float: right;
   margin: 10px 100px 30px; }
 
 #buildings {
-  height: 225px;
+  height: 325px;
   width: 100%;
-  background: url("../img/footer.jpg") no-repeat center bottom; }
+  background: url("../img/footer.png") no-repeat center bottom; }
 
 #credits {
   height: 120px;
   width: 100%;
-  background-color: #ecedf2;
-  color: black;
+  background-color: #1468c5;
+  color: white;
   padding-right: 10%;
   padding-left: 10%;
   text-align: center;
   font-weight: bold; }
+  #credits a, #credits a:hover {
+    color: #e1da29; }
 
 .to-top-button {
   display: inline-block;

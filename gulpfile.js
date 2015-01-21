@@ -36,11 +36,11 @@ gulp.task('js', function() {
                 'dev/app/components/book/bookController.js',
                 'dev/app/components/contact/formController.js',
                 'dev/app/components/team/thumbnailsController.js',
+                'dev/app/shared/mainController.js',
+                'dev/app/shared/loginService.js',
                 'dev/app/shared/apiConnectionFactory.js',
                 'dev/app/shared/navigationController.js',
-                'dev/app/shared/usersController.js',
-                'dev/app/shared/partitionService.js',
-                'dev/app/shared/languageSwitcherController.js',
+                'dev/app/shared/partitionService.js',                
                 'dev/app/shared/htmlSafeFilter.js'
             ], { base: './' }))
         .pipe(concat('build.js'))

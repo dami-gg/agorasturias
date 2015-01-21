@@ -21,7 +21,7 @@ $app->post('/login', function() use ($app) {
   // $username = $r->user->username;
   $password = $r->password;
   $username = $r->username;
-  $user = $db->getOneRecord("select uid,username,name,password,email,app_id from users where username='$username'");
+  $user = $db->getOneRecord("select uid,username,name,password,email,app_id,role from users where username='$username'");
   if ($user != NULL) {
     if(passwordHash::check_password($user['password'],$password)){
       $response['status'] = "success";
@@ -31,6 +31,7 @@ $app->post('/login', function() use ($app) {
       $response['email'] = $user['email'];
       $response['app_id'] = $user['app_id'];
       $response['username'] = $user['username'];
+      $response['role'] = $user['role'];
       if (!isset($_SESSION)) {
         session_start();
       }

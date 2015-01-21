@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>Spring Agora Asturias 2015</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>AgorAsturias - AEGEE Spring Agora 2015</title>        
+        <meta name="keywords" content="Agora, Asturias, Oviedo, Gijón, Aegee, Meeting, European, 
+        Students, Forum, Statutory, Events, Europe, Spain, March, April, Participant, Network" />
+        <meta name="description" content="AgorAsturias - AEGEE Spring Agora 2015.
+        Agora is the biannual meeting of 1000 European students ofthe General Assembly of AEGEE – 
+        European Students’ Forum." />
+
         <link rel="shortcut icon" href="public/img/favicon.ico" type="image/x-icon">
     <!-- <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="dev/css/bootstrap.min.css">
@@ -17,7 +23,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
 
-    <body ng-app="agorasturiasApp" ng-controller="LanguageSwitcherCtrl" ng-cloak>
+    <body ng-app="agorasturiasApp" ng-controller="MainCtrl" ng-cloak>
 
         <div class="navbar">
             <div class="container">
@@ -92,12 +98,12 @@
                                 </li>
 
                                 <li class="dropdown" ng-if="!authenticated">
-                                    <a ng-controller="UsersCtrl" class="dropdown-toggle" 
-                                        data-toggle="dropdown" translate="LOGIN">
+                                    <a class="dropdown-toggle" data-toggle="dropdown">
+                                        Login
                                     </a>
                                     <ul class="dropdown-menu login-menu" role="menu">
                                         <div class="dropdown">
-                                            <form name="loginForm" role="form" ng-controller="UsersCtrl">
+                                            <form name="loginForm" role="form">
                                                 <label for="username">Username</label>
                                                 <input id="username" class="form-control" type="text"
                                                     ng-model="user.username" name="username">
@@ -105,12 +111,12 @@
                                                 <input id="password" class="form-control" type="password"
                                                     ng-model="user.password" name="password">
                                                 <input id="sign-in" class="btn btn-primary btn-block"
-                                                    type="submit" value="Sign In" ng-click="doLogin(user)">
+                                                    type="submit" value="Sign In" ng-click="login(user)">
                                               </form>
                                         </div>
                                     </ul>
                                 </li>
-                                <li class="dropdown" ng-controller="UsersCtrl" ng-if="authenticated">
+                                <li class="dropdown" ng-if="authenticated">
                                     <a class="dropdown-toggle" data-toggle="dropdown">
                                         <span ng-bind="username"></span>
                                         <span class="caret"></span>
@@ -122,7 +128,7 @@
                                         </li>
                                         <li><a class="submenu" href="#">Profile</a></li>
                                         <li><a class="submenu" href="#">Shop</a></li>
-                                        <li><a class="submenu" href="#">Logout</a></li>
+                                        <li><a class="submenu" ng-click="logout()">Logout</a></li>
                                     </ul>
                                 </li>
                                 <li>
@@ -155,13 +161,13 @@
             </div>
             <div>
                 <a class="btn btn-social-icon btn-twitter"target="_blank"
-                    href="">
+                    href="https://twitter.com/AEGEE_Oviedo">
                     <i class="fa fa-twitter"></i>
                 </a>
             </div>
             <div>
                 <a class="btn btn-social-icon btn-youtube"target="_blank"
-                    href="">
+                    href="https://www.youtube.com/user/AEGEEoviedo">
                     <i class="fa fa-youtube"></i>
                 </a>
             </div>
