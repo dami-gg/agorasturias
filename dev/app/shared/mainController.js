@@ -61,5 +61,5 @@ agorasturiasApp.controller('MainCtrl',
       Login.role = USER_ROLES.GUEST; 
 
       $location.path('/home');
-    }
+    };
 }]);

@@ -534,17 +534,23 @@ agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService)
 
   var members = $scope.members = [];
 
-  $scope.addMember = function() {
-    members.push({
-      name: 'Alberto Cuesta',
-      position: 'Main organizer',
-      image: 'http://goo.gl/eJvm24',
-      hover: 'http://goo.gl/y2tsTX'
-    });
+  $scope.fillMembers = function() {
+    members.push({ name: 'Alberto', position: 'Main organizer', 
+                    image: 'public/img/team/alberto.png', hover: 'http://goo.gl/y2tsTX'});
+    members.push({ name: 'Juanola', position: 'Incoming', 
+                    image: 'public/img/team/juanola.png', hover: ''});
+    members.push({ name: 'Gerar', position: 'PR', 
+                    image: 'public/img/team/gerar.png', hover: ''});
+    members.push({ name: 'Elena', position: 'PR', 
+                    image: 'public/img/team/elena.png', hover: ''});
+    members.push({ name: 'Dami', position: 'IT', 
+                    image: 'public/img/team/dami.png', hover: ''});
+    members.push({ name: 'Olga', position: 'HR', 
+                    image: 'public/img/team/olga.png', hover: ''});
   };
 
-  for (var i=0; i<7; ++i) {
-    $scope.addMember();
+  if ($scope.members.length === 0) {
+    $scope.fillMembers();
   }
 
   $scope.rows = partitionService.partition(members, 4);
@@ -612,7 +618,7 @@ agorasturiasApp.controller('MainCtrl',
       Login.role = USER_ROLES.GUEST; 
 
       $location.path('/home');
-    }
+    };
 }]);
 agorasturiasApp.factory('LoginService', ['USER_ROLES', function(USER_ROLES) {
     
@@ -687,16 +693,14 @@ agorasturiasApp.controller('PartnersCtrl', function ($scope, partitionService) {
 
   var partners = $scope.partners = [];
 
-    $scope.addPartner = function() {
-        partners.push({
-          link: 'http://www.uniovi.es/',
-          logo: 'http://goo.gl/NUL33N'
-        });
+    $scope.fillPartners = function() {
+        partners.push({ logo: 'public/img/partners/alsa.png', link: 'http://www.alsa.es/' });
+        partners.push({ logo: 'public/img/partners/renfe.png', link: 'http://www.renfe.es/' });
     };
 
-    for (var i=0; i<8; ++i) {
-        $scope.addPartner();
+    if ($scope.partners.length === 0) {
+      $scope.fillPartners();
     }
 
-    $scope.rows = partitionService.partition(partners, 3);
+    $scope.rows = partitionService.partition(partners, 4);
 });

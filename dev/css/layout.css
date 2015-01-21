@@ -246,7 +246,8 @@ section.slider {
 
 .thumbnail {
   border: none;
-  box-shadow: none; }
+  box-shadow: none;
+  background-color: #1468b3; }
   .thumbnail img {
     width: 170px;
     height: 170px; }
@@ -254,6 +255,11 @@ section.slider {
     text-align: center; }
   .thumbnail .name {
     font-size: 24px; }
+  .thumbnail .caption {
+    color: white; }
+
+.intro {
+  margin-bottom: 25px; }
 
 .social-buttons {
   float: right;
