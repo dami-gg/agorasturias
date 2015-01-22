@@ -1,6 +1,6 @@
 body { font-family: Open Sans,Droid Serif,Arial,Georgia,sans-serif; }
 
-h1 { text-align:center; margin-bottom:20px; color:white; }
+h1 { text-align:center; margin-bottom:40px; color:white; }
 h2 { margin: 0; color: white; padding-top: 90px; font-size: 52px; }
 
 .container { padding:10px; }
@@ -109,11 +109,11 @@ h2 { margin: 0; color: white; padding-top: 90px; font-size: 52px; }
 
 #language-switcher { 
 
-    position: absolute; top: 0; right: 75px; 
+    position:absolute; top:10px; right:100px; 
 
-    @media (max-width: 960px) { top: 134px; right: 30px; }
+    @media (max-width: 960px) { top: 134px; right: 60px; }
 
-    @media (max-width: 767px) { top: 98px; right: 10px; }
+    @media (max-width: 767px) { top: 95px; right: 30px; }
 }
 
 .post { 
@@ -207,6 +207,17 @@ section {
     .name { font-size: 24px; }
 
     .caption { color: white; }
+}
+
+#partners {
+
+    .row { margin-bottom:30px; }
+
+    .partner { width:200px; margin-bottom:25px; }
+
+    .item { height:130px; }
+
+    img { width:200px; border:0; }
 }
 
 .intro { margin-bottom: 25px; }

@@ -1,4 +1,4 @@
-<section class="light" ng-controller="PartnersCtrl">
+<section id="partners" class="light" ng-controller="PartnersCtrl">
 
     <div class="container">
 
@@ -9,10 +9,12 @@
         </div>   
         
         <div class="row" ng-repeat="row in rows">
-            <div class="col-xs-6 col-md-4" ng-repeat="item in row">
-                <a href="{{item.link}}" target="_blank">
-                    <img class="img-responsive" ng-src="{{item.logo}}" border="0" width="200" height="200"> 
-                </a>
+            <div class="col-xs-6 col-md-3 item" ng-repeat="item in row">
+                <div class="partner">
+                    <a href="{{item.link}}" target="_blank">
+                        <img class="img-responsive" ng-src="{{item.logo}}"> 
+                    </a>
+                </div>
             </div>
         </div>
 

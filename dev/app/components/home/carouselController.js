@@ -7,9 +7,9 @@ agorasturiasApp.controller('CarouselCtrl', function ($scope) {
         var newWidth = 600 + slides.length;
         slides.push({
           title: ['AEGEE', 'Asturias', 'Gijón'][slides.length % 3],
-          image: ['carousel-aegee.png', 'carousel-asturias.jpg', 'carousel-gijon.jpg'][slides.length % 3],
-          text: ['AEGEE topic description','The Natural Paradise',
-                    'The capital of the Green Coast','Surplus'][slides.length % 3]
+          image: ['carousel-aegee.png', 'carousel-asturias.png', 'carousel-gijon.png'][slides.length % 3],
+          text: ['European Students Forum','The Natural Paradise',
+                    'The capital of the Green Coast'][slides.length % 3]
         });
     };
 

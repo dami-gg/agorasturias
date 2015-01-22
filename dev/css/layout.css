@@ -4,7 +4,7 @@ body {
 
 h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   color: white; }
 
 h2 {
@@ -148,16 +148,16 @@ h2 {
 
 #language-switcher {
   position: absolute;
-  top: 0;
-  right: 75px; }
+  top: 10px;
+  right: 100px; }
   @media (max-width: 960px) {
     #language-switcher {
       top: 134px;
-      right: 30px; } }
+      right: 60px; } }
   @media (max-width: 767px) {
     #language-switcher {
-      top: 98px;
-      right: 10px; } }
+      top: 95px;
+      right: 30px; } }
 
 .post {
   padding: 15px 10px; }
@@ -257,6 +257,17 @@ section.slider {
     font-size: 24px; }
   .thumbnail .caption {
     color: white; }
+
+#partners .row {
+  margin-bottom: 30px; }
+#partners .partner {
+  width: 200px;
+  margin-bottom: 25px; }
+#partners .item {
+  height: 130px; }
+#partners img {
+  width: 200px;
+  border: 0; }
 
 .intro {
   margin-bottom: 25px; }
