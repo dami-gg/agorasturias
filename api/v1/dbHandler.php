@@ -91,10 +91,10 @@ class DbHandler {
 
     $query = "INSERT INTO posts(engTitle, engText,".
     " esTitle, esText, user, user_modified,".
-    " image, header_image) VALUES ('".($post['engTitle']).
+    " image, header_image, create_date, last_modified) VALUES ('".($post['engTitle']).
     "','".($post['engText'])."','".($post['esTitle']).
     "','".($post['esText'])."','".$post['user_id']."','".
-    $post['user_id']."','".$post['image']."','".$post['header_image']."')";
+    $post['user_id']."','".$post['image']."','".$post['header_image']."',NOW(),NOW())";
 
     $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 
@@ -119,7 +119,7 @@ class DbHandler {
     $query = 'UPDATE posts set engTitle = "'.($post["engTitle"]).
     '", engText="'.($post["engText"]).'", esTitle = "'.
     ($post["esTitle"]).'", esText="'.($post["esText"]).
-    '", last_modified = DEFAULT, user_modified = '.$post["modifier_id"].' where id = '.$post["id"];
+    '", last_modified = NOW(), user_modified = '.$post["modifier_id"].' where id = '.$post["id"];
 
     $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 
