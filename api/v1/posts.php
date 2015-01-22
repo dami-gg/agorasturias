@@ -3,6 +3,73 @@
 TODO:SECURE THIS!!!
 */
 
+$app->get('/posts', function() use ($app) {
+
+  $r = json_decode($app->request->getBody());
+
+  $response = array();
+  $db = new DbHandler();
+
+  $posts = $db->getAllRecords('posts');
+
+  if ($posts != NULL) {
+    $response['status'] = "success";
+    foreach($posts as $order => $post){
+      $response['es']['POST_'.$post['id'].'_TITLE'] = base64_decode($post['esTitle']);
+      $response['es']['POST_'.$post['id'].'_TEXT'] = base64_decode($post['esText']);
+      $response['en']['POST_'.$post['id'].'_TITLE'] = base64_decode($post['engTitle']);
+      $response['en']['POST_'.$post['id'].'_TEXT'] = base64_decode($post['engText']);
+    }
+    unset($post);
+  }
+  else {
+    $response['status'] = "error";
+    $response['message'] = "Error when trying to access the DB";
+    echoResponse(200,$response);
+    return;
+  }
+
+  $sections = $db->getAllRecords('secciones');
+
+  if($sections != NULL){
+    foreach($sections as $order => $section){
+      $response['es']['SECTION_'.$section['seccion'].'_TITLE'] = $section['esTitle'];
+      $response['es']['SECTION_'.$section['seccion'].'_TEXT'] = $section['esText'];
+      $response['en']['SECTION_'.$section['seccion'].'_TITLE'] = $section['engTitle'];
+      $response['en']['SECTION_'.$section['seccion'].'_TEXT'] = $section['engText'];
+    }
+    unset($section);
+  }
+  else {
+    $response['status'] = "error";
+    $response['message'] = "Error when trying to access the DB";
+    echoResponse(200,$response);
+    return;
+  }
+
+  $menus = $db->getAllRecords('menus');
+
+  if($menus != NULL){
+    foreach($menus as $order => $menu){
+      $response['es'][$menu['name'].'_TEXT'] = $menu['es_text'];
+      $response['en'][$menu['name'].'_TEXT'] = $menu['en_text'];
+    }
+    unset($menu);
+  }
+  else {
+    $response['status'] = "error";
+    $response['message'] = "Error when trying to access the DB";
+    echoResponse(200,$response);
+    return;
+  }
+
+  var_dump($response);
+
+  echoResponse(200,$response);
+
+  return;
+
+});
 
 $app->get('/posts/:lang/:order/:page/:resources',
 function($lang,$order,$page,$resources) use ($app) {

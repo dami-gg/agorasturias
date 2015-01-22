@@ -20,6 +20,20 @@ class DbHandler {
     return $r->fetch_assoc();
   }
 
+  /* To get all records from one given table */
+  public function getAllRecords($table) {
+
+    $results = array();
+
+    $r = $this->conn->query('select * from '.$table) or die ($this->conn->error.__LINE__);
+
+    while($row = $r->fetch_assoc()){
+      $results[] = $row;
+    }
+
+    return $results;
+  }
+
   /* Returns the number of rows in a given table */
   public function getNumRecords($table){
     $query = "select count(*) as count from ".$table;
@@ -31,7 +45,7 @@ class DbHandler {
   /* Returns an associative array with all records requested
   *   Requires:
   *   $order_field -> Field to order
-  *   $order ->       Order (AST or DESC)
+  *   $order ->       Order (ASC or DESC)
   *   $resources ->   Number of items requested
   *   $page ->        Order of page (being first page number 1)
   * TODO: Check that order field is correct, check $resources and $page...
