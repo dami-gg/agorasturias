@@ -179,9 +179,9 @@ agorasturiasApp.controller('CarouselCtrl', function ($scope) {
         var newWidth = 600 + slides.length;
         slides.push({
           title: ['AEGEE', 'Asturias', 'Gijón'][slides.length % 3],
-          image: ['carousel-aegee.png', 'carousel-asturias.jpg', 'carousel-gijon.jpg'][slides.length % 3],
-          text: ['AEGEE topic description','The Natural Paradise',
-                    'The capital of the Green Coast','Surplus'][slides.length % 3]
+          image: ['carousel-aegee.png', 'carousel-asturias.png', 'carousel-gijon.png'][slides.length % 3],
+          text: ['European Students Forum','The Natural Paradise',
+                    'The capital of the Green Coast'][slides.length % 3]
         });
     };
 
@@ -708,6 +708,13 @@ agorasturiasApp.controller('PartnersCtrl', function ($scope, partitionService) {
   var partners = $scope.partners = [];
 
     $scope.fillPartners = function() {
+        
+        partners.push({ logo: 'public/img/partners/uniovi.png', link: 'http://www.uniovi.es/' });
+        partners.push({ logo: 'public/img/partners/ayto-gijon.png', link: 'http://www.gijon.es/' });
+        partners.push({ logo: 'public/img/partners/epi.png', link: 'http://www.epigijon.uniovi.es/' });
+        partners.push({ logo: 'public/img/partners/laboral.png', link: 'http://www.laboralciudaddelacultura.com/' });
+        partners.push({ logo: 'public/img/partners/oficongresos.png', link: 'http://congresos.gijon.es/' });
+        partners.push({ logo: 'public/img/partners/conseyu.png', link: 'http://www.cmpa.es/' });
         partners.push({ logo: 'public/img/partners/alsa.png', link: 'http://www.alsa.es/' });
         partners.push({ logo: 'public/img/partners/renfe.png', link: 'http://www.renfe.es/' });
     };

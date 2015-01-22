@@ -1562,9 +1562,9 @@ agorasturiasApp.controller('CarouselCtrl', function ($scope) {
         var newWidth = 600 + slides.length;
         slides.push({
           title: ['AEGEE', 'Asturias', 'Gijón'][slides.length % 3],
-          image: ['carousel-aegee.png', 'carousel-asturias.jpg', 'carousel-gijon.jpg'][slides.length % 3],
-          text: ['AEGEE topic description','The Natural Paradise',
-                    'The capital of the Green Coast','Surplus'][slides.length % 3]
+          image: ['carousel-aegee.png', 'carousel-asturias.png', 'carousel-gijon.png'][slides.length % 3],
+          text: ['European Students Forum','The Natural Paradise',
+                    'The capital of the Green Coast'][slides.length % 3]
         });
     };
 
@@ -1920,29 +1920,29 @@ agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService)
   $scope.fillMembers = function() {
     members.push({ name: 'Alberto', position: 'Main organizer', 
                     image: 'public/img/team/alberto.png', hover: 'http://goo.gl/y2tsTX'});
-    members.push({ name: 'Juanola', position: 'Incoming', 
+    members.push({ name: 'Juanola', position: 'Incoming responsible', 
                     image: 'public/img/team/juanola.png', hover: ''});
     members.push({ name: 'Laura', position: 'Treasurer', 
                     image: 'public/img/team/laura.png', hover: ''});
-    members.push({ name: 'Dami', position: 'IT', 
+    members.push({ name: 'Dami', position: 'Information technology', 
                     image: 'public/img/team/dami.png', hover: ''});
-    members.push({ name: 'Gerar', position: 'PR', 
+    members.push({ name: 'Gerar', position: 'Public relations', 
                     image: 'public/img/team/gerar.png', hover: ''});
-    members.push({ name: 'Elena', position: 'PR', 
+    members.push({ name: 'Elena', position: 'Pubplic relations', 
                     image: 'public/img/team/elena.png', hover: ''});
-    members.push({ name: 'Sora', position: 'FR', 
+    members.push({ name: 'Sora', position: 'Fundraising', 
                     image: 'public/img/team/sora.png', hover: ''});
-    members.push({ name: 'Víctor', position: 'FR', 
+    members.push({ name: 'Víctor', position: 'Fundraising', 
                     image: 'public/img/team/victor.png', hover: ''});
     members.push({ name: 'Alba', position: 'Meals responsible', 
                     image: 'public/img/team/alba.png', hover: ''});
     members.push({ name: 'Santi', position: 'Social programme', 
                     image: 'public/img/team/santi.png', hover: ''});
-    members.push({ name: 'Alberto', position: 'HR', 
+    members.push({ name: 'Alberto', position: 'Human resources', 
                     image: 'public/img/team/albertoHR.png', hover: ''});
-    members.push({ name: 'Olga', position: 'HR', 
+    members.push({ name: 'Olga', position: 'Human resources', 
                     image: 'public/img/team/olga.png', hover: ''});
-    members.push({ name: 'Marcos', position: 'AEGEE 30 anniv.', 
+    members.push({ name: 'Marcos', position: 'AEGEE 30th anniversary', 
                     image: 'public/img/team/marcos.png', hover: ''});
   };
 
@@ -2091,6 +2091,13 @@ agorasturiasApp.controller('PartnersCtrl', function ($scope, partitionService) {
   var partners = $scope.partners = [];
 
     $scope.fillPartners = function() {
+        
+        partners.push({ logo: 'public/img/partners/uniovi.png', link: 'http://www.uniovi.es/' });
+        partners.push({ logo: 'public/img/partners/ayto-gijon.png', link: 'http://www.gijon.es/' });
+        partners.push({ logo: 'public/img/partners/epi.png', link: 'http://www.epigijon.uniovi.es/' });
+        partners.push({ logo: 'public/img/partners/laboral.png', link: 'http://www.laboralciudaddelacultura.com/' });
+        partners.push({ logo: 'public/img/partners/oficongresos.png', link: 'http://congresos.gijon.es/' });
+        partners.push({ logo: 'public/img/partners/conseyu.png', link: 'http://www.cmpa.es/' });
         partners.push({ logo: 'public/img/partners/alsa.png', link: 'http://www.alsa.es/' });
         partners.push({ logo: 'public/img/partners/renfe.png', link: 'http://www.renfe.es/' });
     };
