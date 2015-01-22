@@ -1922,14 +1922,28 @@ agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService)
                     image: 'public/img/team/alberto.png', hover: 'http://goo.gl/y2tsTX'});
     members.push({ name: 'Juanola', position: 'Incoming', 
                     image: 'public/img/team/juanola.png', hover: ''});
+    members.push({ name: 'Laura', position: 'Treasurer', 
+                    image: 'public/img/team/laura.png', hover: ''});
+    members.push({ name: 'Dami', position: 'IT', 
+                    image: 'public/img/team/dami.png', hover: ''});
     members.push({ name: 'Gerar', position: 'PR', 
                     image: 'public/img/team/gerar.png', hover: ''});
     members.push({ name: 'Elena', position: 'PR', 
                     image: 'public/img/team/elena.png', hover: ''});
-    members.push({ name: 'Dami', position: 'IT', 
-                    image: 'public/img/team/dami.png', hover: ''});
+    members.push({ name: 'Sora', position: 'FR', 
+                    image: 'public/img/team/sora.png', hover: ''});
+    members.push({ name: 'Víctor', position: 'FR', 
+                    image: 'public/img/team/victor.png', hover: ''});
+    members.push({ name: 'Alba', position: 'Meals responsible', 
+                    image: 'public/img/team/alba.png', hover: ''});
+    members.push({ name: 'Santi', position: 'Social programme', 
+                    image: 'public/img/team/santi.png', hover: ''});
+    members.push({ name: 'Alberto', position: 'HR', 
+                    image: 'public/img/team/albertoHR.png', hover: ''});
     members.push({ name: 'Olga', position: 'HR', 
                     image: 'public/img/team/olga.png', hover: ''});
+    members.push({ name: 'Marcos', position: 'AEGEE 30 anniv.', 
+                    image: 'public/img/team/marcos.png', hover: ''});
   };
 
   if ($scope.members.length === 0) {
@@ -2076,7 +2090,7 @@ agorasturiasApp.controller('PartnersCtrl', function ($scope, partitionService) {
 
   var partners = $scope.partners = [];
 
-    $scope.addPartner = function() {
+    $scope.fillPartners = function() {
         partners.push({ logo: 'public/img/partners/alsa.png', link: 'http://www.alsa.es/' });
         partners.push({ logo: 'public/img/partners/renfe.png', link: 'http://www.renfe.es/' });
     };
