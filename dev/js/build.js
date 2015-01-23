@@ -161,7 +161,7 @@ agorasturiasApp.controller('CarouselCtrl', function ($scope) {
         $scope.addSlide();
     }
 });
-agorasturiasApp.controller('PostsCtrl', 
+agorasturiasApp.controller('PostsCtrl',
   ['$rootScope', '$scope', '$location', '$anchorScroll', 'Data', '$translate', '$cookieStore',
     function ($rootScope, $scope, $location, $anchorScroll, Data, $translate, $cookieStore) {
 
@@ -174,7 +174,7 @@ agorasturiasApp.controller('PostsCtrl',
       $scope.currentPage = 1;
     }
 
-    $scope.itemsPerPage = 5;  
+    $scope.itemsPerPage = 5;
 
     $scope.setPage = function (pageNumber) {
         $scope.currentPage = pageNumber;
@@ -209,27 +209,25 @@ agorasturiasApp.controller('PostsCtrl',
     };
 
     $scope.openPost = function(post){
-      $cookieStore.put('post', post);
+      $cookieStore.put('post', post.id);
 
       $rootScope.currentPost = angular.copy(post);
       $location.path ('/post/' + post.id);
     };
 }]);
 
-agorasturiasApp.controller('PostViewerCtrl', 
+agorasturiasApp.controller('PostViewerCtrl',
   ['$rootScope', '$scope', '$location', '$anchorScroll', 'Data', '$translate', '$cookieStore', '$stateParams',
     function ($rootScope, $scope, $location, $anchorScroll, Data, $translate, $cookieStore, $stateParams) {
 
     var paramPostId = $stateParams.postId,
         postInCookie = $cookieStore.get("post");
 
-    if (postInCookie !== undefined && postInCookie.id === paramPostId) {
-      $rootScope.currentPost = postInCookie;
-    }    
-    else {      
-      $rootScope.currentPost = getPostById(paramPostId);
-      $cookieStore.put('post', $rootScope.currentPost);
+    if (postInCookie === undefined || postInCookie !== paramPostId) {
+      $cookieStore.put('post', $rootScope.currentPost.id);
     }
+
+    $rootScope.currentPost = getPostById(paramPostId);
 
     $scope.currentUrl = document.location.href;
 
@@ -688,7 +686,7 @@ agorasturiasApp.controller('PartnersCtrl', function ($scope, partitionService) {
         partners.push({ logo: 'public/img/partners/oficongresos.png', link: 'http://congresos.gijon.es/' });
         partners.push({ logo: 'public/img/partners/conseyu.png', link: 'http://www.cmpa.es/' });
         partners.push({ logo: 'public/img/partners/alsa.png', link: 'http://www.alsa.es/' });
-        partners.push({ logo: 'public/img/partners/renfe.png', link: 'http://www.renfe.com/' });
+        partners.push({ logo: 'public/img/partners/renfe.png', link: 'http://www.renfe.es/' });
     };
 
     if ($scope.partners.length === 0) {

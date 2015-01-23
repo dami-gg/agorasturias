@@ -1,17 +1,15 @@
-agorasturiasApp.controller('PostViewerCtrl', 
+agorasturiasApp.controller('PostViewerCtrl',
   ['$rootScope', '$scope', '$location', '$anchorScroll', 'Data', '$translate', '$cookieStore', '$stateParams',
     function ($rootScope, $scope, $location, $anchorScroll, Data, $translate, $cookieStore, $stateParams) {
 
     var paramPostId = $stateParams.postId,
         postInCookie = $cookieStore.get("post");
 
-    if (postInCookie !== undefined && postInCookie.id === paramPostId) {
-      $rootScope.currentPost = postInCookie;
-    }    
-    else {      
-      $rootScope.currentPost = getPostById(paramPostId);
-      $cookieStore.put('post', $rootScope.currentPost);
+    if (postInCookie === undefined || postInCookie !== paramPostId) {
+      $cookieStore.put('post', $rootScope.currentPost.id);
     }
+
+    $rootScope.currentPost = getPostById(paramPostId);
 
     $scope.currentUrl = document.location.href;
 

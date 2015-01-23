@@ -10,7 +10,7 @@
     <div class="col-xs-7 col-md-9" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
       <p class="lead" translate="{{currentPost.title}}"></p>
 
-      <div ng-bind-html="currentPost.text | translate | limitTo: 1000 | htmlSafe"></div>
+      <div ng-bind-html="currentPost.text | translate | htmlSafe"></div>
     </div>
     <div class="col-xs-5 col-md-3" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
       <img class="img-responsive" ng-src="{{currentPost.image}}" border="0" width="200" height="284"

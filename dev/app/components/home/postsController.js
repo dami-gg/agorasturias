@@ -1,4 +1,4 @@
-agorasturiasApp.controller('PostsCtrl', 
+agorasturiasApp.controller('PostsCtrl',
   ['$rootScope', '$scope', '$location', '$anchorScroll', 'Data', '$translate', '$cookieStore',
     function ($rootScope, $scope, $location, $anchorScroll, Data, $translate, $cookieStore) {
 
@@ -11,7 +11,7 @@ agorasturiasApp.controller('PostsCtrl',
       $scope.currentPage = 1;
     }
 
-    $scope.itemsPerPage = 5;  
+    $scope.itemsPerPage = 5;
 
     $scope.setPage = function (pageNumber) {
         $scope.currentPage = pageNumber;
@@ -46,7 +46,7 @@ agorasturiasApp.controller('PostsCtrl',
     };
 
     $scope.openPost = function(post){
-      $cookieStore.put('post', post);
+      $cookieStore.put('post', post.id);
 
       $rootScope.currentPost = angular.copy(post);
       $location.path ('/post/' + post.id);
