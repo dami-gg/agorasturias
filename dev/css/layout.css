@@ -332,6 +332,9 @@ section.slider {
   font-weight: bold; }
   #credits a, #credits a:hover {
     color: #e1da29; }
+  #credits .disclaimer {
+    margin-top: 20px;
+    font-size: 10px; }
 
 .to-top-button {
   display: inline-block;

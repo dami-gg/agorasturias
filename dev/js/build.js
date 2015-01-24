@@ -123,7 +123,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
 );
 
 agorasturiasApp.run(
-  ['$state','$rootScope', 'LoginService', 'ACCESS_GROUPS', 'USER_ROLES', 
+  ['$state', '$rootScope', 'LoginService', 'ACCESS_GROUPS', 'USER_ROLES', 
   function($state, $rootScope, Login, ACCESS_GROUPS, USER_ROLES) {
     
     $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
@@ -139,6 +139,8 @@ agorasturiasApp.run(
         e.preventDefault();
         $state.go('home');
       }
+
+      $rootScope.isHomePage = toState.url === "/home";
     });
 }]);
 
