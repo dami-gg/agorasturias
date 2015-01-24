@@ -52,9 +52,15 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.ALL
             })
 
-            .state('agora-for-dummies', {
-                url : '/agora-for-dummies',
-                templateUrl : 'public/views/agora-for-dummies.html',
+            .state('agora', {
+                url : '/agora',
+                templateUrl : 'public/views/agora.html',
+                access: ACCESS_GROUPS.ALL
+            })
+
+            .state('info', {
+                url  : '/info',
+                templateUrl : 'public/views/info.html',
                 access: ACCESS_GROUPS.ALL
             })
 
@@ -68,13 +74,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 url : '/pre-events',
                 templateUrl : 'public/views/pre-events.html',
                 access: ACCESS_GROUPS.ALL
-            })
-
-            .state('info', {
-                url  : '/info',
-                templateUrl : 'public/views/info.html',
-                access: ACCESS_GROUPS.ALL
-            })
+            })            
 
             .state('partners', {
                 url  : '/partners',
@@ -366,17 +366,17 @@ agorasturiasApp.controller('BookCtrl', function ($scope) {
   $scope.index = 0;
 
   $scope.images = [
-    'public/img/agora-for-dummies-page-1.jpg',
-    'public/img/agora-for-dummies-page-2.jpg',
-    'public/img/agora-for-dummies-page-3.jpg',
-    'public/img/agora-for-dummies-page-4.jpg',
-    'public/img/agora-for-dummies-page-5.jpg',
-    'public/img/agora-for-dummies-page-6.jpg',
-    'public/img/agora-for-dummies-page-7.jpg',
-    'public/img/agora-for-dummies-page-8.jpg',
-    'public/img/agora-for-dummies-page-9.jpg',
-    'public/img/agora-for-dummies-page-10.jpg',
-    'public/img/agora-for-dummies-page-11.jpg',
+    'public/img/agora/agora-for-dummies-page-1.jpg',
+    'public/img/agora/agora-for-dummies-page-2.jpg',
+    'public/img/agora/agora-for-dummies-page-3.jpg',
+    'public/img/agora/agora-for-dummies-page-4.jpg',
+    'public/img/agora/agora-for-dummies-page-5.jpg',
+    'public/img/agora/agora-for-dummies-page-6.jpg',
+    'public/img/agora/agora-for-dummies-page-7.jpg',
+    'public/img/agora/agora-for-dummies-page-8.jpg',
+    'public/img/agora/agora-for-dummies-page-9.jpg',
+    'public/img/agora/agora-for-dummies-page-10.jpg',
+    'public/img/agora/agora-for-dummies-page-11.jpg',
   ];
 
 }).directive('wallopSlider', function () {

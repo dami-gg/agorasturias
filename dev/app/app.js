@@ -52,9 +52,15 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.ALL
             })
 
-            .state('agora-for-dummies', {
-                url : '/agora-for-dummies',
-                templateUrl : 'public/views/agora-for-dummies.html',
+            .state('agora', {
+                url : '/agora',
+                templateUrl : 'public/views/agora.html',
+                access: ACCESS_GROUPS.ALL
+            })
+
+            .state('info', {
+                url  : '/info',
+                templateUrl : 'public/views/info.html',
                 access: ACCESS_GROUPS.ALL
             })
 
@@ -68,13 +74,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 url : '/pre-events',
                 templateUrl : 'public/views/pre-events.html',
                 access: ACCESS_GROUPS.ALL
-            })
-
-            .state('info', {
-                url  : '/info',
-                templateUrl : 'public/views/info.html',
-                access: ACCESS_GROUPS.ALL
-            })
+            })            
 
             .state('partners', {
                 url  : '/partners',

@@ -1,17 +1,17 @@
 @charset "UTF-8";
 body {
-  font-family: Open Sans,Droid Serif,Arial,Georgia,sans-serif; }
+  font-family: Open Sans,Droid Serif,Arial,Georgia,sans-serif;
+  text-align: justify; }
 
 h1 {
   text-align: center;
   margin-bottom: 40px;
   color: white; }
 
-h2 {
-  margin: 0;
-  color: white;
-  padding-top: 90px;
-  font-size: 52px; }
+h2, h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: white; }
 
 .container {
   padding: 10px; }
@@ -47,6 +47,12 @@ h2 {
     margin-left: 0;
     padding: 15px;
     min-height: 110px; }
+    @media (max-width: 370px) {
+      .navbar .navbar-brand {
+        padding: 0; } }
+    @media (max-width: 340px) {
+      .navbar .navbar-brand .logo {
+        width: 90%; } }
   .navbar .navbar-collapse {
     float: left;
     padding-top: 35px;
@@ -124,6 +130,9 @@ h2 {
     #social-buttons {
       top: 60px;
       right: 30px; } }
+  @media (max-width: 340px) {
+    #social-buttons {
+      display: none; } }
   #social-buttons div {
     width: 25px;
     cursor: pointer;
@@ -158,6 +167,9 @@ h2 {
     #language-switcher {
       top: 95px;
       right: 30px; } }
+  @media (max-width: 340px) {
+    #language-switcher {
+      top: 60px; } }
 
 .post {
   padding: 15px 10px; }
@@ -275,6 +287,34 @@ section.slider {
 .social-buttons {
   float: right;
   margin: 10px 100px 30px; }
+
+#agora {
+  padding-bottom: 50px; }
+  #agora .left-part {
+    padding: 0; }
+  #agora .right-part img {
+    margin: 0 auto; }
+
+.article {
+  padding-bottom: 50px;
+  font-size: 16px; }
+  #agora .article {
+    padding-bottom: 0; }
+  .article p {
+    margin: 25px 0; }
+    .article p span {
+      font-size: 20px;
+      font-weight: bold; }
+  .article .img-wrapper {
+    margin: 25px 0; }
+    .article .img-wrapper img {
+      margin: 0 auto; }
+    .article .img-wrapper .subtitle {
+      margin: 10px 0;
+      font-size: 14px;
+      text-align: center; }
+  .article ul {
+    padding-left: 25px; }
 
 #buildings {
   height: 325px;
