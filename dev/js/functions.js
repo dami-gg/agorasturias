@@ -25,4 +25,12 @@ jQuery(document).ready(function($){
         );
     });
 
+    $(document).click(function (event) {
+        var _clickover = $(event.target),
+            _opened = $(".navbar-collapse").hasClass("navbar-collapse collapse in");
+        if (_opened === true && _clickover.hasClass("navbar-toggle") === false) {
+            $("button.navbar-toggle").click();
+        }
+    });
+
 });

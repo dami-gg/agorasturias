@@ -1946,31 +1946,31 @@ agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService)
   $scope.fillMembers = function() {
     members.push({ name: 'Alberto', position: 'MAIN_ORGANIZER', 
                     image: 'public/img/team/alberto.png', hover: 'http://goo.gl/y2tsTX'});
-    members.push({ name: 'Juanola', position: 'Incoming responsible', 
+    members.push({ name: 'Juanola', position: 'INCOMING', 
                     image: 'public/img/team/juanola.png', hover: ''});
-    members.push({ name: 'Laura', position: 'Treasurer', 
+    members.push({ name: 'Laura', position: 'TREASURER', 
                     image: 'public/img/team/laura.png', hover: ''});
-    members.push({ name: 'Dami', position: 'Information technology', 
+    members.push({ name: 'Dami', position: 'IT', 
                     image: 'public/img/team/dami.png', hover: ''});
-    members.push({ name: 'Gerar', position: 'Public relations', 
+    members.push({ name: 'Gerar', position: 'PR', 
                     image: 'public/img/team/gerar.png', hover: ''});
-    members.push({ name: 'Elena', position: 'Public relations', 
+    members.push({ name: 'Elena', position: 'PR', 
                     image: 'public/img/team/elena.png', hover: ''});
-    members.push({ name: 'Sora', position: 'Fundraising', 
+    members.push({ name: 'Sora', position: 'FR', 
                     image: 'public/img/team/sora.png', hover: ''});
-    members.push({ name: 'Víctor', position: 'Fundraising', 
+    members.push({ name: 'Víctor', position: 'FR', 
                     image: 'public/img/team/victor.png', hover: ''});
-    members.push({ name: 'Alba', position: 'Meals responsible', 
+    members.push({ name: 'Alba', position: 'MEALS', 
                     image: 'public/img/team/alba.png', hover: ''});
-    members.push({ name: 'Santi', position: 'Social programme', 
+    members.push({ name: 'Santi', position: 'SOCIAL_PROGRAMME', 
                     image: 'public/img/team/santi.png', hover: ''});
-    members.push({ name: 'Alberto', position: 'Human resources', 
+    members.push({ name: 'Alberto', position: 'HR', 
                     image: 'public/img/team/albertoHR.png', hover: ''});
-    members.push({ name: 'Olga', position: 'Human resources', 
+    members.push({ name: 'Olga', position: 'HR', 
                     image: 'public/img/team/olga.png', hover: ''});
-    members.push({ name: 'Marcos', position: 'AEGEE 30th anniversary', 
+    members.push({ name: 'Marcos', position: 'ANNIVERSARY_RESPONSIBLE', 
                     image: 'public/img/team/marcos.png', hover: ''});
-    members.push({ name: 'Jorge', position: 'Logistics', 
+    members.push({ name: 'Jorge', position: 'LOGISTICS', 
                     image: 'public/img/team/jorge.png', hover: ''});
   };
 
@@ -2161,6 +2161,14 @@ jQuery(document).ready(function($){
             scrollTop: 0 ,
             }, scroll_top_duration
         );
+    });
+
+    $(document).click(function (event) {
+        var _clickover = $(event.target),
+            _opened = $(".navbar-collapse").hasClass("navbar-collapse collapse in");
+        if (_opened === true && _clickover.hasClass("navbar-toggle") === false) {
+            $("button.navbar-toggle").click();
+        }
     });
 
 });
