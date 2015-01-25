@@ -1215,7 +1215,8 @@ h2, h3 {
         padding: 0; } }
     @media (max-width: 340px) {
       .navbar .navbar-brand .logo {
-        width: 90%; } }
+        width: 90%;
+        margin-top: -48px; } }
   .navbar .navbar-collapse {
     float: left;
     padding-top: 35px;
@@ -1332,7 +1333,7 @@ h2, h3 {
       right: 30px; } }
   @media (max-width: 340px) {
     #language-switcher {
-      top: 60px; } }
+      top: 74px; } }
 
 .post {
   padding: 15px 10px; }

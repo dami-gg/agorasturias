@@ -34,7 +34,7 @@ h2, h3 { text-align:center; margin-bottom:20px; color: white; }
 
         .logo {
 
-            @media (max-width: 340px) { width:90%; }
+            @media (max-width: 340px) { width:90%; margin-top:-48px; }
         }
     }
 
@@ -124,7 +124,7 @@ h2, h3 { text-align:center; margin-bottom:20px; color: white; }
 
     @media (max-width: 767px) { top: 95px; right: 30px; }
 
-    @media (max-width: 340px) { top: 60px; }
+    @media (max-width: 340px) { top: 74px; }
 }
 
 .post { 
