@@ -54,19 +54,22 @@ gulp.task('js', function() {
         .pipe(addsrc('./dev/lib/ckeditor/ckeditor.js'))        
         .pipe(order([
                 'dev/lib/jquery.min-1.11.1.js',
-                'dev/lib/bootstrap.min.js',
                 'dev/lib/angular.min-1.2.25.js',
                 'dev/lib/angular-ui-router.min-0.2.8.js',
                 'dev/lib/angular-translate.min.js',
                 'dev/lib/angular-translate-loader-static-files.min.js',
                 'dev/lib/angular-translate-loader-url.min.js',
-                'dev/lib/angular-translate-storage-cookie.min.js',
                 'dev/lib/angular-cookies.min.js',
-                'dev/lib/angular-route.min.js',
-                'dev/lib/angular.social.min.js',
+                'dev/lib/angular-resource.min.js',
+                'dev/lib/angular-sanitize.min.js',
+                'dev/lib/angular-social.min.js',
+                'dev/lib/angular-translate-storage-cookie.min.js',
+                'dev/lib/bootstrap.min.js',
                 'dev/lib/ui-bootstrap-tpls-0.11.2.min.js',
                 'dev/lib/wallop-slider-directive.js',
                 'dev/lib/ckeditor/ckeditor.js',
+                'dev/lib/ng-ckeditor.min.js', 
+                'dev/lib/angular-file-upload.min.js',                
                 'dev/js/build.js',
                 'dev/js/functions.js'
             ], { base: './' }))
