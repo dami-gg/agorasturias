@@ -269,6 +269,15 @@ section {
     ul { padding-left:25px; }
 }
 
+#contact { 
+
+    padding-bottom:50px; 
+
+    a { cursor: pointer; color: yellow; }
+
+    textarea { min-height: 120px; }
+}
+
 #buildings { height:325px; width:100%; background: url('../img/footer.png') no-repeat center bottom; }
 
 #credits { 

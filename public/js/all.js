@@ -1798,7 +1798,7 @@ agorasturiasApp.controller('FileUploaderCtrl',
 
 }]);
 
-agorasturiasApp.controller('BookCtrl', ['$translate', function ($scope, $translate) {
+agorasturiasApp.controller('BookCtrl', ['$scope', '$translate', function ($scope, $translate) {
 
   $scope.index = 0;
   $scope.images = [
@@ -1933,7 +1933,8 @@ agorasturiasApp.controller('FormCtrl', function ($scope) {
         $scope.submitted = true;
 
         if (isValid) {
-            alert('our form is amazing');
+            
+            
         }
 
     };
@@ -1943,7 +1944,7 @@ agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService)
   var members = $scope.members = [];
 
   $scope.fillMembers = function() {
-    members.push({ name: 'Alberto', position: 'Main organizer', 
+    members.push({ name: 'Alberto', position: 'MAIN_ORGANIZER', 
                     image: 'public/img/team/alberto.png', hover: 'http://goo.gl/y2tsTX'});
     members.push({ name: 'Juanola', position: 'Incoming responsible', 
                     image: 'public/img/team/juanola.png', hover: ''});
@@ -1953,7 +1954,7 @@ agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService)
                     image: 'public/img/team/dami.png', hover: ''});
     members.push({ name: 'Gerar', position: 'Public relations', 
                     image: 'public/img/team/gerar.png', hover: ''});
-    members.push({ name: 'Elena', position: 'Pubplic relations', 
+    members.push({ name: 'Elena', position: 'Public relations', 
                     image: 'public/img/team/elena.png', hover: ''});
     members.push({ name: 'Sora', position: 'Fundraising', 
                     image: 'public/img/team/sora.png', hover: ''});
@@ -1969,6 +1970,8 @@ agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService)
                     image: 'public/img/team/olga.png', hover: ''});
     members.push({ name: 'Marcos', position: 'AEGEE 30th anniversary', 
                     image: 'public/img/team/marcos.png', hover: ''});
+    members.push({ name: 'Jorge', position: 'Logistics', 
+                    image: 'public/img/team/jorge.png', hover: ''});
   };
 
   if ($scope.members.length === 0) {

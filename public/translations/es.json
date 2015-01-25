@@ -33,5 +33,20 @@
     "AGORA_2" : "<p> Siendo la asamblea general de la mayor asociación juvenil de Europa, el Ágora es una de las mayores reuniones de jóvenes del continente que se puede encontrar en nuestros días. </p>",
     "AGORA_3" : "<p> Además, en abril de 2015, se celebrará el 30 aniversario de la fundación de AEGEE-Europa, para el cual se celebrarán diversos actos paralelos relacionados con el acontecimiento. Por este motivo, el Ágora en Asturias adquiere aún más relevancia e impacto dentro de nuestra asociación. </p>",
 
-    "COMING_SOON" : "Este contenido se publicará próximamente"
+    "ORGANIZERS" : "Equipo organizador del AgorAsturias",
+    "MAIN_ORGANIZER" : "Organizador principal",
+    "INCOMING" : "Responsable de recepción",
+    "TREASURER" : "Tesorera",
+    "IT" : "Informático",
+    "PR" : "Relaciones públicas",
+    "HR" : "Recursos humanos",
+    "FR" : "Financiación",
+    "MEALS" : "Responsable de comidas",
+    "SOCIAL_PROGRAMME" : "Programa social",
+    "ANNIVERSARY_RESPONSIBLE" : "30º aniversario AEGEE",
+    "LOGISTICS" : "Logística",
+
+    "COMING_SOON" : "Este contenido se publicará próximamente",
+    "EMAIL" : "Puedes consultarnos cualquier duda a través de nuestro e-mail ",
+    "FORM" : "También puedes hacerlo mediante el siguiente formulario"
 }

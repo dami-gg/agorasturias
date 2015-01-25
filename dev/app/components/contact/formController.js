@@ -5,7 +5,8 @@ agorasturiasApp.controller('FormCtrl', function ($scope) {
         $scope.submitted = true;
 
         if (isValid) {
-            alert('our form is amazing');
+            
+            
         }
 
     };

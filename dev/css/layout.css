@@ -316,6 +316,14 @@ section.slider {
   .article ul {
     padding-left: 25px; }
 
+#contact {
+  padding-bottom: 50px; }
+  #contact a {
+    cursor: pointer;
+    color: yellow; }
+  #contact textarea {
+    min-height: 120px; }
+
 #buildings {
   height: 325px;
   width: 100%;

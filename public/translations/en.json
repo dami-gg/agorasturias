@@ -32,5 +32,20 @@
     "AGORA_2" : "<p> Being the general assembly of the largest youth association in Europe, the Agora is one of the biggest youth meetings of the continent that can be found in our days. </p>",
     "AGORA_3" : "<p> In addition, in April 2015, the 30th anniversary of AEGEE-Europe’s foundation will be celebrated, for which different events will take place, parallel to the meeting. For this reason, the Agora in Asturias assumes even more relevance and impact within our association. </p>",
 
-    "COMING_SOON" : "This content will be published soon"
+    "ORGANIZERS" : "AgorAsturias core team",
+    "MAIN_ORGANIZER" : "Main organizer",
+    "INCOMING" : "Incoming responsible",
+    "TREASURER" : "Treasurer",
+    "IT" : "Information technology",
+    "PR" : "Public relations",
+    "HR" : "Human resources",
+    "FR" : "Fundraising",
+    "MEALS" : "Meals responsible",
+    "SOCIAL_PROGRAMME" : "Social programme",
+    "ANNIVERSARY_RESPONSIBLE" : "AEGEE 30th anniversary",
+    "LOGISTICS" : "Logistics",
+
+    "COMING_SOON" : "This content will be published soon",
+    "EMAIL" : "Feel free to send us an email with your doubts to ",
+    "FORM" : "You can also do it through the next form"
 }

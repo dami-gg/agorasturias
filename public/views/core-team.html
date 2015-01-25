@@ -2,7 +2,7 @@
 
     <div class="container">
 
-        <h1>AgorAsturias core team</h1>
+        <h1 translate="ORGANIZERS"></h1>
 
         <div class="row" ng-repeat="row in rows">
             <div class="col-xs-6 col-md-3" ng-repeat="item in row">
@@ -11,7 +11,7 @@
                         class="img-circle"> <!-- ng-mouseenter="image = item.hover" ng-mouseleave="image = item.image" -->                           
                     <div class="caption">
                         <p class="name">{{item.name}}</p>
-                        <p class="position">{{item.position}}</p>
+                        <p class="position" translate="{{item.position}}"></p>
                     </div>
                 </div>
             </div>
