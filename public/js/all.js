@@ -1798,25 +1798,26 @@ agorasturiasApp.controller('FileUploaderCtrl',
 
 }]);
 
-agorasturiasApp.controller('BookCtrl', function ($scope) {
+agorasturiasApp.controller('BookCtrl', ['$translate', function ($scope, $translate) {
 
   $scope.index = 0;
-
   $scope.images = [
-    'public/img/agora/agora-for-dummies-page-1.jpg',
-    'public/img/agora/agora-for-dummies-page-2.jpg',
-    'public/img/agora/agora-for-dummies-page-3.jpg',
-    'public/img/agora/agora-for-dummies-page-4.jpg',
-    'public/img/agora/agora-for-dummies-page-5.jpg',
-    'public/img/agora/agora-for-dummies-page-6.jpg',
-    'public/img/agora/agora-for-dummies-page-7.jpg',
-    'public/img/agora/agora-for-dummies-page-8.jpg',
-    'public/img/agora/agora-for-dummies-page-9.jpg',
-    'public/img/agora/agora-for-dummies-page-10.jpg',
-    'public/img/agora/agora-for-dummies-page-11.jpg',
+    'public/img/agora/' + $translate.use() + '/agora-for-dummies-page-1.jpg',
+    'public/img/agora/' + $translate.use() + '/agora-for-dummies-page-2.jpg',
+    'public/img/agora/' + $translate.use() + '/agora-for-dummies-page-3.jpg',
+    'public/img/agora/' + $translate.use() + '/agora-for-dummies-page-4.jpg',
+    'public/img/agora/' + $translate.use() + '/agora-for-dummies-page-5.jpg',
+    'public/img/agora/' + $translate.use() + '/agora-for-dummies-page-6.jpg',
+    'public/img/agora/' + $translate.use() + '/agora-for-dummies-page-7.jpg',
+    'public/img/agora/' + $translate.use() + '/agora-for-dummies-page-8.jpg',
+    'public/img/agora/' + $translate.use() + '/agora-for-dummies-page-9.jpg',
+    'public/img/agora/' + $translate.use() + '/agora-for-dummies-page-10.jpg',
+    'public/img/agora/' + $translate.use() + '/agora-for-dummies-page-11.jpg'
   ];
 
-}).directive('wallopSlider', function () {
+  $scope.filelocation = '../files/' + $translate.use() + '/Agora-for-dummies.pdf';
+
+}]).directive('wallopSlider', function () {
     return {
       template: '<div class="wallop-slider {{animationClass}}"><ul class="wallop-slider__list"><li class="wallop-slider__item {{itemClasses[$index]}}" ng-repeat="i in images"><img ng-src="{{i}}"></li></ul><button ng-show="images.length>1" class="st-button wallop-slider__btn wallop-slider__btn--previous btn btn-success btn--previous" ng-disabled="prevDisabled" ng-click="onPrevButtonClicked()">Previous</button><button ng-show="images.length>1" class="st-button wallop-slider__btn wallop-slider__btn--next btn btn-success btn--next" ng-disabled="nextDisabled" ng-click="onNextButtonClicked()">Next</button></div>',
       restrict: 'EA',

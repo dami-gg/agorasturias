@@ -28,9 +28,9 @@
 
     <h2>Agora for dummies</h2>
 
-    <div class="container">
+    <div class="container" ng-controller="BookCtrl">
 
-        <div class="col-sm-8 col-sm-offset-2" ng-controller="BookCtrl">
+        <div class="col-sm-8 col-sm-offset-2">
             <wallop-slider
                 data-images="images" data-animation="rotate" data-current-item-index="index" 
                 data-on-previous="updateTsPrevious()" data-on-next="updateTsNext()">
@@ -38,11 +38,13 @@
         </div>
 
     </div>
-    
-    <div class="container">
+
+    <div class="container" ng-controller="BookCtrl">
+
         <div class="link-wrap">
-            <a href="../files/Agora-for-dummies.pdf" target="_blank">Download as pdf</a>
+            <a href="{{filelocation}}" target="_blank">Download as pdf</a>
         </div>
+
     </div>
 
 </section>

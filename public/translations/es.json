@@ -6,7 +6,7 @@
     "AGORA": "Ágora",    
     "AGORA_FOR_DUMMIES": "¿Qué es un ágora?",
     "GENERAL_INFORMATION": "Información general",
-    "EVENT_TIMETABLE": "Calendario de eventos",
+    "EVENT_TIMETABLE": "Calendario del evento",
     "PRE_EVENTS": "Preeventos",
     "PARTNERS": "Colaboradores",
     "CONTACT": "Contacto",
@@ -31,5 +31,7 @@
 
     "AGORA_1" : "<p> El Ágora es la Asamblea General de la asociación. Se celebra dos veces cada año, una en primavera y otra en otoño. </p><p> Además de todas las elecciones y decisiones sobre los cambios en los estatutos y reglas internas, el Ágora también sirve como punto de encuentro de todos los miembros más activos de la asociación. Se organizan: </p><ul> <li> <p> Ferias (AEGEE Fair) para dar a conocer los proyectos de AEGEE, junto con las universidades, entidades y empresas que apoyan y/o patrocinan AEGEE-Europa y la sede local organizadora. </p><p> Talleres y cursos de formación sobre las más diversas temáticas, siempre centradas en temas de juventud, medio ambiente, derechos humanos, política europea o gestión de asociaciones juveniles, ONGs, proyectos y otros más dedicados a la superación personal de los miembros de AEGEE y que dotan de aptitudes como puede ser el desarrollo de las dotes de liderazgo, mejorar la capacidad de hablar en público, etc. </p></li></ul>",
     "AGORA_2" : "<p> Siendo la asamblea general de la mayor asociación juvenil de Europa, el Ágora es una de las mayores reuniones de jóvenes del continente que se puede encontrar en nuestros días. </p>",
-    "AGORA_3" : "<p> Además, en abril de 2015, se celebrará el 30 aniversario de la fundación de AEGEE-Europa, para el cual se celebrarán diversos actos paralelos relacionados con el acontecimiento. Por este motivo, el Ágora en Asturias adquiere aún más relevancia e impacto dentro de nuestra asociación. </p>"
+    "AGORA_3" : "<p> Además, en abril de 2015, se celebrará el 30 aniversario de la fundación de AEGEE-Europa, para el cual se celebrarán diversos actos paralelos relacionados con el acontecimiento. Por este motivo, el Ágora en Asturias adquiere aún más relevancia e impacto dentro de nuestra asociación. </p>",
+
+    "COMING_SOON" : "Este contenido se publicará próximamente"
 }
