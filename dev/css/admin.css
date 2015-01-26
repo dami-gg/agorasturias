@@ -15,3 +15,6 @@
   color: black; }
 #file-uploader .file-name {
   text-align: center; }
+#file-uploader .file-url {
+  text-align: center;
+  font-size: 8px; }
