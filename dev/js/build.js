@@ -1,7 +1,7 @@
 // create the module including ngRoute for all the routing needs
 var agorasturiasApp = angular.module('agorasturiasApp',
-  ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngSanitize',
-    'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'ngSocial']);
+  ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngSanitize', 
+    'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'socialLinks']);
 
 agorasturiasApp.constant("USER_ROLES", {
   "GUEST" : "guest",
@@ -492,7 +492,7 @@ agorasturiasApp.controller('BookCtrl', ['$scope', '$translate', function ($scope
       }
     };
 });
-agorasturiasApp.controller('FormCtrl', function ($scope) {
+agorasturiasApp.controller('FormCtrl', ['$scope', '$http', function ($scope, $http) {
 
     $scope.submitForm = function(isValid) {
 
@@ -500,11 +500,23 @@ agorasturiasApp.controller('FormCtrl', function ($scope) {
 
         if (isValid) {
             
+            $http.post('/mail', 
+
+                { email: $scope.email, message: $scope.message })
+
+                .success(function(data, status, headers, config) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                })
+                .error(function(data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
             
         }
 
     };
-});
+}]);
 agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService) {
 
   var members = $scope.members = [];
