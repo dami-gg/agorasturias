@@ -112,11 +112,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.ADMIN
             });
 
-      // $translateProvider.useStaticFilesLoader({
-      //   prefix: 'public/translations/',
-      //   suffix: '.json'
-      // });
-      $translateProvider.useUrlLoader('posts');
+      $translateProvider.useUrlLoader('api/v1/translate');
 
       $translateProvider.preferredLanguage('en');
       $translateProvider.useCookieStorage();

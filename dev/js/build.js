@@ -112,11 +112,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.ADMIN
             });
 
-      // $translateProvider.useStaticFilesLoader({
-      //   prefix: 'public/translations/',
-      //   suffix: '.json'
-      // });
-      $translateProvider.useUrlLoader('posts');
+      $translateProvider.useUrlLoader('api/v1/translate');
 
       $translateProvider.preferredLanguage('en');
       $translateProvider.useCookieStorage();
@@ -155,8 +151,8 @@ agorasturiasApp.controller('CarouselCtrl', function ($scope) {
         slides.push({
           title: ['AEGEE', 'Asturias', 'Gijón'][slides.length % 3],
           image: ['carousel-aegee.png', 'carousel-asturias.png', 'carousel-gijon.png'][slides.length % 3],
-          text: ['European Students Forum','The Natural Paradise',
-                    'The capital of the Green Coast'][slides.length % 3]
+          text: ['EUROPEAN_FORUM','NATURAL_PARADISE',
+                    'GREEN_COAST_CAPITAL'][slides.length % 3]
         });
     };
 
@@ -495,15 +491,15 @@ agorasturiasApp.controller('BookCtrl', ['$scope', '$translate', function ($scope
 agorasturiasApp.controller('FormCtrl', ['$scope', 'Data',
   function ($scope, Data) {
 
-      Data.push('mail',contact)
-      .then(function(response){
-        if(response.status==="success"){
-          alert("Email sent correctly");
-        }
-        else
-          alert(response.message);
+      Data.push('mail', contact)
+        .then(function(response) {
+          if(response.status === "success"){
+            alert("Email sent correctly");
+          }
+          else {
+            alert(response.message);
+          }
       });
-  }
 }]);
 
 agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService) {
