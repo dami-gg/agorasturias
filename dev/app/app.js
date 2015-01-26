@@ -1,7 +1,7 @@
 // create the module including ngRoute for all the routing needs
 var agorasturiasApp = angular.module('agorasturiasApp',
-  ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngSanitize',
-    'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'ngSocial']);
+  ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngSanitize', 
+    'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'socialLinks']);
 
 agorasturiasApp.constant("USER_ROLES", {
   "GUEST" : "guest",
