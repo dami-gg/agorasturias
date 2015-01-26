@@ -1500,6 +1500,8 @@ section.slider {
     color: yellow; }
   #contact textarea {
     min-height: 120px; }
+  #contact .help-block {
+    color: yellow; }
 
 #buildings {
   height: 325px;

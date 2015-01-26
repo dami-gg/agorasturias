@@ -12740,9 +12740,9 @@ agorasturiasApp.controller('CarouselCtrl', [
           'carousel-gijon.png'
         ][slides.length % 3],
         text: [
-          'European Students Forum',
-          'The Natural Paradise',
-          'The capital of the Green Coast'
+          'EUROPEAN_FORUM',
+          'NATURAL_PARADISE',
+          'GREEN_COAST_CAPITAL'
         ][slides.length % 3]
       });
     };
@@ -13037,15 +13037,24 @@ agorasturiasApp.controller('BookCtrl', [
 });
 agorasturiasApp.controller('FormCtrl', [
   '$scope',
-  'Data',
-  function ($scope, Data) {
-    Data.push('mail', contact).then(function (response) {
-      if (response.status === 'success') {
-        alert('Email sent correctly');
-      } else {
-        alert(response.message);
+  '$http',
+  function ($scope, $http) {
+    $scope.submitForm = function (isValid, contact) {
+      if (isValid) {
+        $http({
+          url: 'api/v1/mail',
+          method: 'POST',
+          data: {
+            email: contact.email,
+            message: contact.message
+          }
+        }).success(function (response) {
+          alert('Email sent correctly');
+        }).error(function (response) {
+          alert('An error occured');
+        });
       }
-    });
+    };
   }
 ]);
 agorasturiasApp.controller('ThumbnailsCtrl', [

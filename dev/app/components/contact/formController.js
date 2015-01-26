@@ -1,13 +1,20 @@
-agorasturiasApp.controller('FormCtrl', ['$scope', 'Data',
-  function ($scope, Data) {
+agorasturiasApp.controller('FormCtrl', ['$scope', '$http', function ($scope, $http) {
 
-      Data.push('mail', contact)
-        .then(function(response) {
-          if(response.status === "success"){
-            alert("Email sent correctly");
-          }
-          else {
-            alert(response.message);
-          }
+  $scope.contact = {};
+
+  $scope.submitForm = function(isValid) {
+
+    if (isValid) {
+
+      $http({
+        url: "api/v1/mail", 
+        method: "POST",
+        data: { email: $scope.contact.email, message: $scope.contact.message }
+       }).success(function(response) {
+          alert("Email sent correctly");
+      }).error(function(response) {
+          alert("An error occured");
       });
+    }
+  };
 }]);
