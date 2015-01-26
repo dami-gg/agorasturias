@@ -65,7 +65,7 @@ $app->get('/posts', function() use ($app) {
 
   var_dump($response);
 
-  if($r['lang']=='es')
+  if($_GET['lang']=='es')
     echoResponse(200,$response['es']);
   else
     echoResponse(200,$response['en']);
