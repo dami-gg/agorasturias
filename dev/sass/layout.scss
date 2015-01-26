@@ -233,7 +233,21 @@ section {
 
 .intro { margin-bottom: 25px; }
 
-.social-buttons { float: right; margin: 10px 100px 30px; }
+#post-viewer {
+
+    .social-share-buttons { 
+
+        float: right; margin-right:175px; margin-bottom:20px; font-size:40px; 
+
+        a, a:hover { text-decoration:none; }
+
+        .fa-facebook-square { color:inherit; }
+
+        .fa-twitter-square { color:inherit; }
+
+        .fa-google-plus-square { color:inherit; }
+    }
+}
 
 #agora { 
 
