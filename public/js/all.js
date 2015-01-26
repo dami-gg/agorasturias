@@ -12644,7 +12644,11 @@ var agorasturiasApp = angular.module('agorasturiasApp', [
     'pascalprecht.translate',
     'angularFileUpload',
     'ngCookies',
+<<<<<<< HEAD
     'ngSocial'
+=======
+    'socialLinks'
+>>>>>>> 7b31582bc7fa80a2d0faac9cd3831bf1fe75a0f8
   ]);
 agorasturiasApp.constant('USER_ROLES', {
   'GUEST': 'guest',
@@ -13070,10 +13074,24 @@ agorasturiasApp.controller('BookCtrl', [
 });
 agorasturiasApp.controller('FormCtrl', [
   '$scope',
+<<<<<<< HEAD
   function ($scope) {
     $scope.submitForm = function (isValid) {
       $scope.submitted = true;
       if (isValid) {
+=======
+  '$http',
+  function ($scope, $http) {
+    $scope.submitForm = function (isValid) {
+      $scope.submitted = true;
+      if (isValid) {
+        $http.post('/mail', {
+          email: $scope.email,
+          message: $scope.message
+        }).success(function (data, status, headers, config) {
+        }).error(function (data, status, headers, config) {
+        });
+>>>>>>> 7b31582bc7fa80a2d0faac9cd3831bf1fe75a0f8
       }
     };
   }
