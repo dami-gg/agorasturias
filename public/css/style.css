@@ -1448,9 +1448,19 @@ section.slider {
 .intro {
   margin-bottom: 25px; }
 
-.social-buttons {
+#post-viewer .social-share-buttons {
   float: right;
-  margin: 10px 100px 30px; }
+  margin-right: 175px;
+  margin-bottom: 20px;
+  font-size: 40px; }
+  #post-viewer .social-share-buttons a, #post-viewer .social-share-buttons a:hover {
+    text-decoration: none; }
+  #post-viewer .social-share-buttons .fa-facebook-square {
+    color: inherit; }
+  #post-viewer .social-share-buttons .fa-twitter-square {
+    color: inherit; }
+  #post-viewer .social-share-buttons .fa-google-plus-square {
+    color: inherit; }
 
 #agora {
   padding-bottom: 50px; }

@@ -1,11 +1,11 @@
-<section ng-controller="PostViewerCtrl" class="light">
-  <div class="social-buttons">
-    <ul ng-social-buttons data-url="currentUrl" data-title="currentPost.title" data-description="FILL"
-       data-image="'http://IMAGE-TEST.jpg'">
-      <li class="ng-social-facebook">Facebook</li>
-      <li class="ng-social-twitter">Twitter</li>
-    </ul>
+<section id="post-viewer" ng-controller="PostViewerCtrl" class="light">
+  
+  <div class="social-share-buttons">
+    <a class="fa fa-facebook-square ng-scope" rel="nofollow" social-facebook></a>
+    <a class="fa fa-twitter-square ng-isolate-scope" rel="nofollow" social-twitter></a>    
+    <a class="fa fa-google-plus-square ng-scope" rel="nofollow" social-gplus></a>   
   </div>
+  
   <div class="post container">
     <div class="col-xs-7 col-md-9" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
       <p class="lead" translate="{{currentPost.title}}"></p>
@@ -17,4 +17,5 @@
         style="border: 2px solid black;"></img>
     </div>
   </div>
+
 </section>

@@ -10,7 +10,8 @@ var jshint = require('gulp-jshint'),
     order = require('gulp-order'),
     addsrc = require('gulp-add-src'),
     notify = require('gulp-notify'),
-    minifyCSS = require('gulp-minify-css');
+    minifyCSS = require('gulp-minify-css'),
+    ngmin = require('gulp-ngmin');
 
 // Concatenate & Minify JS
 gulp.task('js', function() {
@@ -62,7 +63,7 @@ gulp.task('js', function() {
                 'dev/lib/angular-cookies.min.js',
                 'dev/lib/angular-resource.min.js',
                 'dev/lib/angular-sanitize.min.js',
-                'dev/lib/angular-social.min.js',
+                'dev/lib/angular-social-links.js',
                 'dev/lib/angular-translate-storage-cookie.min.js',
                 'dev/lib/bootstrap.min.js',
                 'dev/lib/ui-bootstrap-tpls-0.11.2.min.js',
@@ -74,8 +75,9 @@ gulp.task('js', function() {
                 'dev/js/functions.js'
             ], { base: './' }))
         .pipe(concat('all.js'))
+        .pipe(ngmin())
         .pipe(gulp.dest('public/js'))
-        .pipe(uglify())
+        .pipe(uglify({mangle: false}))
         .pipe(rename('all.min.js'))
         .pipe(gulp.dest('public/js'))
         .pipe(notify({ message: 'JS ALL task complete' }));
