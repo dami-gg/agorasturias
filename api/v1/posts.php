@@ -3,7 +3,7 @@
 TODO:SECURE THIS!!!
 */
 
-$app->get('/posts', function() use ($app) {
+$app->get('/translate', function() use ($app) {
 
   $r = json_decode($app->request->getBody());
 
@@ -62,8 +62,6 @@ $app->get('/posts', function() use ($app) {
     echoResponse(200,$response);
     return;
   }
-
-  var_dump($response);
 
   if($_GET['lang']=='es')
     echoResponse(200,$response['es']);
