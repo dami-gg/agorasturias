@@ -1,6 +1,6 @@
 // create the module including ngRoute for all the routing needs
 var agorasturiasApp = angular.module('agorasturiasApp',
-  ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngSanitize', 
+  ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngSanitize',
     'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'ngSocial']);
 
 agorasturiasApp.constant("USER_ROLES", {
@@ -17,7 +17,7 @@ agorasturiasApp.constant("ACCESS_GROUPS", {
 
 // configure the routes
 agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translateProvider, ACCESS_GROUPS) {
-        
+
         $urlRouterProvider.otherwise('/home');
 
         $stateProvider
@@ -74,7 +74,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 url : '/pre-events',
                 templateUrl : 'public/views/pre-events.html',
                 access: ACCESS_GROUPS.ALL
-            })            
+            })
 
             .state('partners', {
                 url  : '/partners',
@@ -92,7 +92,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 url  : '/account',
                 templateUrl : 'public/views/account.html',
                 access: ACCESS_GROUPS.LOGGED
-            })  
+            })
 
             .state('new-post',{
                 url:'/new-post',
@@ -112,10 +112,11 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.ADMIN
             });
 
-      $translateProvider.useStaticFilesLoader({
-        prefix: 'public/translations/',
-        suffix: '.json'
-      });
+      // $translateProvider.useStaticFilesLoader({
+      //   prefix: 'public/translations/',
+      //   suffix: '.json'
+      // });
+      $translateProvider.useUrlLoader('posts');
 
       $translateProvider.preferredLanguage('en');
       $translateProvider.useCookieStorage();
@@ -123,19 +124,19 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
 );
 
 agorasturiasApp.run(
-  ['$state', '$rootScope', 'LoginService', 'ACCESS_GROUPS', 'USER_ROLES', 
+  ['$state', '$rootScope', 'LoginService', 'ACCESS_GROUPS', 'USER_ROLES',
   function($state, $rootScope, Login, ACCESS_GROUPS, USER_ROLES) {
-    
+
     $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
 
       if (toState.access === ACCESS_GROUPS.LOGGED && Login.role === USER_ROLES.GUEST) {
-      
+
         e.preventDefault();
         $state.go('home');
       }
 
       if (toState.access === ACCESS_GROUPS.ADMIN && Login.role !== USER_ROLES.ADMIN) {
-        
+
         e.preventDefault();
         $state.go('home');
       }

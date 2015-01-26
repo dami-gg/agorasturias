@@ -4,8 +4,7 @@ TODO:Make authentication secure
 */
 $app->get('/images/gallery', function() {
 
-  $rel = 'http://localhost/agorasturias/public/img';
-  //$dir = 'C:\\wamp\\www\\agorasturias\\public\img\\';
+  $rel = '/public/img';
   $dir = '..'.DS.'..'.DS.'public'.DS.'img'.DS;
 
 

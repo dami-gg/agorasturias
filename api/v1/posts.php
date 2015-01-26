@@ -16,9 +16,9 @@ $app->get('/posts', function() use ($app) {
     $response['status'] = "success";
     foreach($posts as $order => $post){
       $response['es']['POST_'.$post['id'].'_TITLE'] = base64_decode($post['esTitle']);
-      $response['es']['POST_'.$post['id'].'_TEXT'] = base64_decode($post['esText']);
+      $response['es']['POST_'.$post['id'].'_BODY'] = base64_decode($post['esText']);
       $response['en']['POST_'.$post['id'].'_TITLE'] = base64_decode($post['engTitle']);
-      $response['en']['POST_'.$post['id'].'_TEXT'] = base64_decode($post['engText']);
+      $response['en']['POST_'.$post['id'].'_BODY'] = base64_decode($post['engText']);
     }
     unset($post);
   }
@@ -33,10 +33,10 @@ $app->get('/posts', function() use ($app) {
 
   if($sections != NULL){
     foreach($sections as $order => $section){
-      $response['es']['SECTION_'.$section['seccion'].'_TITLE'] = $section['esTitle'];
-      $response['es']['SECTION_'.$section['seccion'].'_TEXT'] = $section['esText'];
-      $response['en']['SECTION_'.$section['seccion'].'_TITLE'] = $section['engTitle'];
-      $response['en']['SECTION_'.$section['seccion'].'_TEXT'] = $section['engText'];
+      $response['es'][$section['seccion']] = $section['esTitle'];
+      $response['es'][$section['seccion']] = $section['esText'];
+      $response['en'][$section['seccion']] = $section['engTitle'];
+      $response['en'][$section['seccion']] = $section['engText'];
     }
     unset($section);
   }
@@ -51,8 +51,8 @@ $app->get('/posts', function() use ($app) {
 
   if($menus != NULL){
     foreach($menus as $order => $menu){
-      $response['es'][$menu['name'].'_TEXT'] = $menu['es_text'];
-      $response['en'][$menu['name'].'_TEXT'] = $menu['en_text'];
+      $response['es'][$menu['name']] = $menu['es_text'];
+      $response['en'][$menu['name']] = $menu['en_text'];
     }
     unset($menu);
   }
@@ -65,7 +65,10 @@ $app->get('/posts', function() use ($app) {
 
   var_dump($response);
 
-  echoResponse(200,$response);
+  if($r['lang']=='es')
+    echoResponse(200,$response['es']);
+  else
+    echoResponse(200,$response['en']);
 
   return;
 

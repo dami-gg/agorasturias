@@ -40,7 +40,7 @@ gulp.task('js', function() {
                 'dev/app/shared/loginService.js',
                 'dev/app/shared/apiConnectionFactory.js',
                 'dev/app/shared/navigationController.js',
-                'dev/app/shared/partitionService.js',                
+                'dev/app/shared/partitionService.js',
                 'dev/app/shared/htmlSafeFilter.js'
             ], { base: './' }))
         .pipe(concat('build.js'))
@@ -51,7 +51,6 @@ gulp.task('js', function() {
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
         .pipe(addsrc('./dev/lib/*.js'))
-        .pipe(addsrc('./dev/lib/ckeditor/ckeditor.js'))        
         .pipe(order([
                 'dev/lib/jquery.min-1.11.1.js',
                 'dev/lib/angular.min-1.2.25.js',
@@ -67,9 +66,8 @@ gulp.task('js', function() {
                 'dev/lib/bootstrap.min.js',
                 'dev/lib/ui-bootstrap-tpls-0.11.2.min.js',
                 'dev/lib/wallop-slider-directive.js',
-                'dev/lib/ckeditor/ckeditor.js',
-                'dev/lib/ng-ckeditor.min.js', 
-                'dev/lib/angular-file-upload.min.js',                
+                'dev/lib/angular-file-upload.min.js',
+                'dev/lib/ng-ckeditor.min.js',
                 'dev/js/build.js',
                 'dev/js/functions.js'
             ], { base: './' }))
