@@ -12,7 +12,7 @@ $app->get('/translate', function() use ($app) {
 
   $posts = $db->getAllRecords('posts');
 
-  if ($posts != NULL) {
+  if (!$db->_error()) {
     $response['status'] = "success";
     foreach($posts as $order => $post){
       $response['es']['POST_'.$post['id'].'_TITLE'] = base64_decode($post['esTitle']);
@@ -24,14 +24,14 @@ $app->get('/translate', function() use ($app) {
   }
   else {
     $response['status'] = "error";
-    $response['message'] = "Error when trying to access the DB";
+    $response['message'] = $db->getLastError();
     echoResponse(200,$response);
     return;
   }
 
   $sections = $db->getAllRecords('secciones');
 
-  if($sections != NULL){
+  if(!$db->_error()){
     foreach($sections as $order => $section){
       $response['es'][$section['seccion']] = $section['esTitle'];
       $response['es'][$section['seccion']] = $section['esText'];
@@ -42,14 +42,14 @@ $app->get('/translate', function() use ($app) {
   }
   else {
     $response['status'] = "error";
-    $response['message'] = "Error when trying to access the DB";
+    $response['message'] = $db->getLastError();
     echoResponse(200,$response);
     return;
   }
 
   $menus = $db->getAllRecords('menus');
 
-  if($menus != NULL){
+  if(!$db->_error()){
     foreach($menus as $order => $menu){
       $response['es'][$menu['name']] = $menu['es_text'];
       $response['en'][$menu['name']] = $menu['en_text'];
@@ -58,7 +58,7 @@ $app->get('/translate', function() use ($app) {
   }
   else {
     $response['status'] = "error";
-    $response['message'] = "Error when trying to access the DB";
+    $response['message'] = $db->getLastError();
     echoResponse(200,$response);
     return;
   }
@@ -82,32 +82,22 @@ function($lang,$order,$page,$resources) use ($app) {
 
   $posts = $db->getPostsRange('create_date',$order,$resources,$page);
 
-  if ($posts != NULL) {
-      $response['status'] = "success";
+  if (!$db->_error()) {
+    $response['status'] = "success";
 
-      foreach($posts as $order => $post){
-        if($lang == 'es'){
-          $posts[$order]['title'] = base64_decode($post['esTitle']);
-          $posts[$order]['text'] = base64_decode($post['esText']);
-        }
-        else{
-          $posts[$order]['title'] = base64_decode($post['engTitle']);
-          $posts[$order]['text'] = base64_decode($post['engText']);
-        }
+    foreach($posts as $order => $post){
 
-        $posts[$order]['esTitle'] = base64_decode($post['esTitle']);
-        $posts[$order]['esText'] = base64_decode($post['esText']);
-        $posts[$order]['engTitle'] = base64_decode($post['engTitle']);
-        $posts[$order]['engText'] = base64_decode($post['engText']);
-      }
-      unset($post);
+      $posts[$order]['title'] = 'POST_'.$post['id'].'_TITLE';
+      $posts[$order]['text'] = 'POST_'.$post['id'].'_BODY';
+    }
+    unset($post);
 
-      $response['posts'] = $posts;
-      $response['total_posts'] = $db->getNumRecords("posts");
+    $response['posts'] = $posts;
+    $response['total_posts'] = $db->getNumRecords("posts");
   }
   else {
     $response['status'] = "error";
-    $response['message'] = "Error when trying to access the DB";
+    $response['message'] = $db->getLastError();
   }
 
   echoResponse(200,$response);
@@ -140,12 +130,11 @@ $app->post('/posts', function() use ($app){
     ' from posts p'.
     ' inner join users u on u.uid = p.user'.
     ' inner join users u2 on u2.uid = p.user_modified'.
-    ' inner join languages l on (l.id = p.language or p.language is NULL)'.
     ' where p.id = '.$new_post_id;
 
     $new_post = $db->getOneRecord($query);
 
-    if(!is_null($new_post)){
+    if(!$db->_error()){
       $new_post['engTitle'] = base64_decode($new_post['engTitle']);
       $new_post['engText'] = base64_decode($new_post['engText']);
       $new_post['esTitle'] = base64_decode($new_post['esTitle']);
@@ -157,12 +146,12 @@ $app->post('/posts', function() use ($app){
     }
     else {
       $response['status']="Error";
-      $response['message']="Error al extraer el nuevo post";
+      $response['message']=$db->getLastError();
     }
   }
   else{
     $response['status']="Error";
-    $response['message']="Error insertando el nuevo post";
+    $response['message']=$db->getLastError();
   }
 
   echoResponse(200,$response);
@@ -190,7 +179,7 @@ $app->put('/posts/:id', function($id) use ($app){
   }
   else{
     $response["status"]="Error";
-    $response["message"]="Error actualizando el registro";
+    $response["message"]=$db->getLastError();
   }
 
   echoResponse(200,$response);
@@ -209,7 +198,7 @@ $app->delete('/posts/:id', function($id) use ($app){
   }
   else{
     $response["status"]="Error";
-    $response["message"]="Error borrando el registro";
+    $response["message"]=$db->getLastError();
   }
 
   echoResponse(200,$response);
@@ -226,21 +215,17 @@ function($id,$lang) use ($app) {
 
   $post = $db->getPostById($id);
 
-  if ($post != NULL) {
-      $response['status'] = "success";
+  if (!$db->_error()) {
+    $response['status'] = "success";
 
-      if($lang == 'es'){
-        $response['title'] = base64_decode($post['esTitle']);
-        $response['text'] = base64_decode($post['esText']);
-      }
-      else{
-        $response['title'] = base64_decode($post['engTitle']);
-        $response['text'] = base64_decode($post['engText']);
-      }
+    $response['title'] = 'POST_'.$id.'_TITLE';
+    $response['text'] = 'POST_'.$id.'_BODY';
+    $response['image'] = $post['image'];
+
   }
   else {
     $response['status'] = "error";
-    $response['message'] = "Error when trying to access the DB";
+    $response['message'] = $db->getLastError();
   }
 
   echoResponse(200,$response);

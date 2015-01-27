@@ -13039,14 +13039,15 @@ agorasturiasApp.controller('FormCtrl', [
   '$scope',
   '$http',
   function ($scope, $http) {
-    $scope.submitForm = function (isValid, contact) {
+    $scope.contact = {};
+    $scope.submitForm = function (isValid) {
       if (isValid) {
         $http({
           url: 'api/v1/mail',
           method: 'POST',
           data: {
-            email: contact.email,
-            message: contact.message
+            email: $scope.contact.email,
+            message: $scope.contact.message
           }
         }).success(function (response) {
           alert('Email sent correctly');

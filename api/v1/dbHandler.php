@@ -14,6 +14,15 @@ class DbHandler {
     $this->conn = $db->connect();
   }
 
+  public function getLastError(){
+    $message = mysqli_errno($this->conn).":".mysqli_error($this->conn);
+    return $message;
+  }
+
+  public function _error(){
+    return mysqli_errno($this->conn) != 0;
+  }
+
   /* For queries where we want only the first row */
   public function getOneRecord($query) {
     $r = $this->conn->query($query.' LIMIT 1') or die($this->conn->error.__LINE__);
@@ -60,15 +69,8 @@ class DbHandler {
     $offset = $resources * ($page-1) - 1;
     $offset = ($offset>=0?$offset:0);
 
-    $query = 'select distinct p.id, p.engTitle as engTitle,'.
-    ' p.esText as esText, p.esTitle as esTitle,'.
-    ' p.engText as engText, p.create_date as create_date, p.last_modified as last_modified,'.
-    ' u.username as username, u.uid as user_id, u2.username as modifier_username,'.
-    ' u2.uid as modifier_id, p.image as image, p.header_image as header_image'.
-    ' from posts p'.
-    ' inner join users u on u.uid = p.user'.
-    ' inner join users u2 on u2.uid = p.user_modified'.
-    ' inner join languages l on (l.id = p.language or p.language is NULL)'.
+    $query = 'select distinct p.id as id, p.create_date as create_date, p.image as image,'.
+    ' p.header_image as header_image from posts p'.
     ' order by '.$order_field.' '.$order.
     ' LIMIT '.$offset.','.$resources;
 
@@ -154,7 +156,7 @@ class DbHandler {
   public function getPostById($id){
 
     $query = "SELECT p.engTitle as engTitle, p.esText as esText,".
-    " p.esTitle as esTitle, p.engText as engText".
+    " p.esTitle as esTitle, p.engText as engText, p.image as image".
     " FROM posts p WHERE p.id = ".$id;
 
     $r = $this->conn->query($query) or die($this->conn->error.__LINE__);

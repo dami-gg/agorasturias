@@ -19,7 +19,7 @@
       $response['message'] = "Email sent successfully";
     } else {
       $response['status'] = "error";
-      $response['message'] = "An error occured whiel sending the email";
+      $response['message'] = "An error occured while sending the email";
     }
 
     echoResponse(200,$response);
