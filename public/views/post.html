@@ -1,11 +1,11 @@
 <section id="post-viewer" ng-controller="PostViewerCtrl" class="light">
-  
+
   <div class="social-share-buttons">
     <a class="fa fa-facebook-square ng-scope" rel="nofollow" social-facebook></a>
-    <a class="fa fa-twitter-square ng-isolate-scope" rel="nofollow" social-twitter></a>    
-    <a class="fa fa-google-plus-square ng-scope" rel="nofollow" social-gplus></a>   
+    <a class="fa fa-twitter-square ng-isolate-scope" rel="nofollow" social-twitter></a>
+    <a class="fa fa-google-plus-square ng-scope" rel="nofollow" social-gplus></a>
   </div>
-  
+
   <div class="post container">
     <div ng-class="{ 'col-xs-7 col-md-9': post.image !== '' && post.image !== undefined }"
 			ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
@@ -13,7 +13,7 @@
 
       <div ng-bind-html="currentPost.text | translate | htmlSafe"></div>
     </div>
-    <div ng-if="post.image !== '' && post.image !=== undefined"
+    <div ng-if="currentPost.image !== '' && currentPost.image !== undefined"
 			class="col-xs-5 col-md-3" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
       <img class="img-responsive" ng-src="{{currentPost.image}}" border="0" width="200" height="284"></img>
     </div>

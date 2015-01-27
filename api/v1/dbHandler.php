@@ -120,13 +120,14 @@ class DbHandler {
   */
   public function updatePost($json_post){
     $post = json_decode($json_post,true);
-    $query = "select uid from users where username = '".$post['username']."'";
+    $query = "select uid from users where username = '".$post['modifier_username']."'";
     $user = $this->getOneRecord($query);
 
     $query = 'UPDATE posts set engTitle = "'.($post["engTitle"]).
     '", engText="'.($post["engText"]).'", esTitle = "'.
     ($post["esTitle"]).'", esText="'.($post["esText"]).
-    '", last_modified = NOW(), user_modified = '.$user['uid'].' where id = '.$post["id"];
+    '", last_modified = NOW(), user_modified = '.$user['uid'].
+    ', image = "'.$post["image"].'" where id = '.$post["id"];
 
     $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 

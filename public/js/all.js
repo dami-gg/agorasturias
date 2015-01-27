@@ -12787,7 +12787,19 @@ agorasturiasApp.controller('PostsCtrl', [
       $anchorScroll();
     };
     $scope.editPost = function (post) {
-      $rootScope.currentPost = angular.copy(post);
+      var res = post.title.split('_');
+      var postId = res[1];
+      Data.get('posts/' + postId).then(function (response) {
+        if (response.status === 'success') {
+          $rootScope.currentPost = {
+            id: postId,
+            title: response.title,
+            text: response.text,
+            image: response.image
+          };
+        }
+      });
+      // $rootScope.currentPost = angular.copy(post);
       $location.path('/edit-post');
     };
     $scope.openPost = function (post) {
@@ -12814,12 +12826,13 @@ agorasturiasApp.controller('PostViewerCtrl', [
     $rootScope.currentPost = getPostById(paramPostId);
     $scope.currentUrl = document.location.href;
     function getPostById(postId) {
-      Data.get('posts/' + postId + '/' + $translate.use()).then(function (response) {
+      Data.get('posts/' + postId).then(function (response) {
         if (response.status === 'success') {
           $rootScope.currentPost = {
             id: postId,
             title: response.title,
-            text: response.text
+            text: response.text,
+            image: response.image
           };
         }
       });
@@ -12844,7 +12857,6 @@ agorasturiasApp.controller('NewPostCtrl', [
       newPost.modifier_username = $scope.username;
       newPost.user_id = $scope.uid;
       newPost.modifier_id = $scope.uid;
-      newPost.image = '';
       newPost.header_image = '';
       Data.post('posts', { post: JSON.stringify(newPost) }).then(function (response) {
         if (response.status === 'success') {
@@ -13037,19 +13049,12 @@ agorasturiasApp.controller('BookCtrl', [
 });
 agorasturiasApp.controller('FormCtrl', [
   '$scope',
-  '$http',
-  function ($scope, $http) {
+  'Data',
+  function ($scope, Data) {
     $scope.contact = {};
-    $scope.submitForm = function (isValid) {
+    $scope.submitForm = function (isValid, contact) {
       if (isValid) {
-        $http({
-          url: 'api/v1/mail',
-          method: 'POST',
-          data: {
-            email: $scope.contact.email,
-            message: $scope.contact.message
-          }
-        }).success(function (response) {
+        Data.post('api/v1/mail', contact).success(function (response) {
           alert('Email sent correctly');
         }).error(function (response) {
           alert('An error occured');

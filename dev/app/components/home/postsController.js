@@ -41,7 +41,19 @@ agorasturiasApp.controller('PostsCtrl',
     };
 
     $scope.editPost = function(post){
-      $rootScope.currentPost = angular.copy(post);
+      var res = post.title.split('_');
+      var postId = res[1];
+      Data.get('posts/' + postId)
+      .then(function(response){
+
+        if(response.status === "success"){
+          $rootScope.currentPost = {id: postId, title: response.title,
+            text: response.text, image: response.image, esTitle:response.esTitle,
+            esText: response.esText, engTitle: response.engTitle, engText: response.engText };
+        }
+
+      });
+      // $rootScope.currentPost = angular.copy(post);
       $location.path ('/edit-post');
     };
 

@@ -205,8 +205,8 @@ $app->delete('/posts/:id', function($id) use ($app){
 
 });
 
-$app->get('/posts/:id/:lang',
-function($id,$lang) use ($app) {
+$app->get('/posts/:id',
+function($id) use ($app) {
 
   $r = json_decode($app->request->getBody());
 
@@ -221,6 +221,10 @@ function($id,$lang) use ($app) {
     $response['title'] = 'POST_'.$id.'_TITLE';
     $response['text'] = 'POST_'.$id.'_BODY';
     $response['image'] = $post['image'];
+    $response['esTitle'] = base64_decode($post['esTitle']);
+    $response['esText'] = base64_decode($post['esText']);
+    $response['engTitle'] = base64_decode($post['engTitle']);
+    $response['engText'] = base64_decode($post['engText']);
 
   }
   else {

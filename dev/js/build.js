@@ -203,7 +203,19 @@ agorasturiasApp.controller('PostsCtrl',
     };
 
     $scope.editPost = function(post){
-      $rootScope.currentPost = angular.copy(post);
+      var res = post.title.split('_');
+      var postId = res[1];
+      Data.get('posts/' + postId)
+      .then(function(response){
+
+        if(response.status === "success"){
+          $rootScope.currentPost = {id: postId, title: response.title,
+            text: response.text, image: response.image, esTitle:response.esTitle,
+            esText: response.esText, engTitle: response.engTitle, engText: response.engText };
+        }
+
+      });
+      // $rootScope.currentPost = angular.copy(post);
       $location.path ('/edit-post');
     };
 
@@ -231,11 +243,12 @@ agorasturiasApp.controller('PostViewerCtrl',
     $scope.currentUrl = document.location.href;
 
     function getPostById (postId) {
-      Data.get('posts/' + postId + '/' + $translate.use())
+      Data.get('posts/' + postId)
       .then(function(response){
 
         if(response.status === "success"){
-          $rootScope.currentPost = {id: postId, title: response.title, text: response.text };
+          $rootScope.currentPost = {id: postId, title: response.title,
+            text: response.text, image: response.image };
         }
 
       });
@@ -259,7 +272,6 @@ agorasturiasApp.controller('NewPostCtrl',['$location','$scope','Data', function(
     newPost.modifier_username = $scope.username;
     newPost.user_id = $scope.uid;
     newPost.modifier_id = $scope.uid;
-    newPost.image = '';
     newPost.header_image = '';
 
     Data.post('posts',{
@@ -277,6 +289,7 @@ agorasturiasApp.controller('NewPostCtrl',['$location','$scope','Data', function(
   };
 
 }]);
+
 agorasturiasApp.controller('EditPostCtrl',['$location','$scope','Data',
   function($location,$scope,Data){
 

@@ -10,7 +10,6 @@ agorasturiasApp.controller('NewPostCtrl',['$location','$scope','Data', function(
     newPost.modifier_username = $scope.username;
     newPost.user_id = $scope.uid;
     newPost.modifier_id = $scope.uid;
-    newPost.image = '';
     newPost.header_image = '';
 
     Data.post('posts',{

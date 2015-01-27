@@ -14,11 +14,12 @@ agorasturiasApp.controller('PostViewerCtrl',
     $scope.currentUrl = document.location.href;
 
     function getPostById (postId) {
-      Data.get('posts/' + postId + '/' + $translate.use())
+      Data.get('posts/' + postId)
       .then(function(response){
 
         if(response.status === "success"){
-          $rootScope.currentPost = {id: postId, title: response.title, text: response.text };
+          $rootScope.currentPost = {id: postId, title: response.title,
+            text: response.text, image: response.image };
         }
 
       });
