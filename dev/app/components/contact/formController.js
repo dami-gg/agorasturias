@@ -6,7 +6,7 @@ agorasturiasApp.controller('FormCtrl', ['$scope', 'Data', function ($scope, Data
 
     if (isValid) {
 
-      Data.post("api/v1/mail", contact)
+      Data.post("mail", contact)
       .success(function(response) {
           alert("Email sent correctly");
       }).error(function(response) {

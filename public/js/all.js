@@ -12795,7 +12795,11 @@ agorasturiasApp.controller('PostsCtrl', [
             id: postId,
             title: response.title,
             text: response.text,
-            image: response.image
+            image: response.image,
+            esTitle: response.esTitle,
+            esText: response.esText,
+            engTitle: response.engTitle,
+            engText: response.engText
           };
         }
       });

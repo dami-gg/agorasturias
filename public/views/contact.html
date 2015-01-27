@@ -9,11 +9,11 @@
             <a href="mailto:info@agorasturias.com">info@agorasturias.com</a>
         </p>
 
-        <!-- <p translate="FORM"></p> -->
+        <p ng-if="authenticated" translate="FORM"></p>
 
     </div>
-<!--
-    <div class="container">
+
+    <div ng-if="authenticated" class="container">
 
         <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12" ng-controller="FormCtrl">
 
@@ -55,5 +55,5 @@
 
         </div>
     </div>
-    -->
+    
 </section>
