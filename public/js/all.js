@@ -13331,6 +13331,10 @@ agorasturiasApp.controller('PartnersCtrl', [
         link: 'http://www.cmpa.es/'
       });
       partners.push({
+        logo: 'public/img/partners/kemphor.png',
+        link: 'http://www.kemphor.com/'
+      });
+      partners.push({
         logo: 'public/img/partners/alsa.png',
         link: 'http://www.alsa.es/'
       });
