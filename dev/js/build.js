@@ -58,9 +58,15 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.ALL
             })
 
-            .state('info', {
-                url  : '/info',
-                templateUrl : 'public/views/info.html',
+            .state('how-to-apply', {
+                url  : '/how-to-apply',
+                templateUrl : 'public/views/how-to-apply.html',
+                access: ACCESS_GROUPS.ALL
+            })
+
+            .state('how-to-get-there', {
+                url  : '/how-to-get-there',
+                templateUrl : 'public/views/how-to-get-there.html',
                 access: ACCESS_GROUPS.ALL
             })
 

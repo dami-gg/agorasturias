@@ -291,6 +291,8 @@ section {
     }    
 
     ul { padding-left:25px; }
+
+    a { color:yellow; }
 }
 
 #contact { 
@@ -308,7 +310,7 @@ section {
 
 #credits { 
 
-    height:130px; width:100%; background-color: #1468c5; color:white; 
+    height:130px; width:100%; background-color: #1468c5; color:white; padding-top:20px;
     padding-right:10%; padding-left:10%; text-align: center; font-weight: bold; 
 
     @media only screen and (max-width:1024px) { height:150px; }
