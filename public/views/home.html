@@ -1,47 +1,47 @@
 <div ng-controller="PostsCtrl">
 
-    <section class="slider" ng-show="currentPage == 1">
-        <div class="carousel container">
-            <div ng-controller="CarouselCtrl">
-                <carousel interval="interval">
-                    <slide ng-repeat="slide in slides" active="slide.active">
-                        <div class="teaser"
-                            ng-style="{'background-image': 'url(public/img/{{ slide.image }})'}"></div>
-                        <div class="carousel-caption">
-                            <p class="title">{{slide.title}}</h2>
-                            <p class="text" translate="{{slide.text}}"></p>
-                        </div>
-                    </slide>
-                </carousel>
-            </div>
+  <section class="slider" ng-show="currentPage == 1">
+    <div class="carousel container">
+      <div ng-controller="CarouselCtrl">
+        <carousel interval="interval">
+          <slide ng-repeat="slide in slides" active="slide.active">
+            <div class="teaser"
+            ng-style="{'background-image': 'url(public/img/{{ slide.image }})'}"></div>
+            <div class="carousel-caption">
+              <p class="title">{{slide.title}}</h2>
+                <p class="text" translate="{{slide.text}}"></p>
+              </div>
+            </slide>
+          </carousel>
         </div>
+      </div>
     </section>
 
     <section ng-repeat="post in pagedPosts" ng-class-even="'light'" ng-class-odd="'dark'">
-        <div class="post container">
-            <div class="row">  
-				<div ng-class="{ 'col-xs-7 col-md-9': post.image !== '' && post.image !== undefined }" 
-						ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
-                    <p class="lead" ng-click="openPost(post)">{{post.title}}</p>
+      <div class="post container">
+        <div class="row">
+          <div ng-class="{ 'col-xs-7 col-md-9': post.image !== '' && post.image !== undefined }"
+          ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
+          <p class="lead" ng-click="openPost(post)" translate={{post.title}}></p>
 
-                    <a ng-if="authenticated" ng-click="editPost(post)">Edit</a>
+          <a ng-if="authenticated" ng-click="editPost(post)">Edit</a>
 
-                    <div ng-bind-html="post.text | translate | limitTo: 1000 | htmlSafe"></div>
+          <div ng-bind-html="post.text | translate | limitTo: 1000 | htmlSafe"></div>
 
-                    <button ng-if="post.text.length > 1000" class="btn btn-success btn-sm"
-                        ng-click="openPost(post)" translate="SHOW_MORE"></button>
-                </div>
-                <div ng-if="post.image !== '' && post.image !=== undefined" 
-					class="col-xs-5 col-md-3" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
-                    <img class="img-responsive" ng-src="{{post.image}}" border="0" width="200" height="284"></img>
-                </div>
-            </div>
+          <button class="btn btn-success btn-sm"
+          ng-click="openPost(post)" translate="SHOW_MORE"></button>
         </div>
-    </section>
-
-    <div class="text-center">
-        <pagination total-items="totalItems" items-per-page="itemsPerPage"
-            ng-model="currentPage" ng-change="pageChanged(); gotoTop();">
-        </pagination>
+        <div ng-if="post.image !== '' && post.image !=== undefined"
+        class="col-xs-5 col-md-3" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
+        <img class="img-responsive" ng-src="{{post.image}}" border="0" width="200" height="284"></img>
+      </div>
     </div>
+  </div>
+</section>
+
+<div class="text-center">
+  <pagination total-items="totalItems" items-per-page="itemsPerPage"
+  ng-model="currentPage" ng-change="pageChanged(); gotoTop();">
+</pagination>
+</div>
 </div>

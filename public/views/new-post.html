@@ -5,6 +5,10 @@
         <input class="btn btn-default" id="submit1"
           value="OK" ng-click="doNewPost(insertedPost)">
 
+        <p><strong>URL a la imagen del post:</strong></p>
+        <input class="form-control" type="text" ng-model="insertedPost.image"
+          id="image" name="image">
+          
         <p><strong>Versión en inglés del post</strong></p>
         <p><i>(esta es obligatoria al menos, será la versión por defecto)</i>
 
