@@ -13058,7 +13058,7 @@ agorasturiasApp.controller('FormCtrl', [
     $scope.contact = {};
     $scope.submitForm = function (isValid, contact) {
       if (isValid) {
-        Data.post('api/v1/mail', contact).success(function (response) {
+        Data.post('mail', contact).success(function (response) {
           alert('Email sent correctly');
         }).error(function (response) {
           alert('An error occured');

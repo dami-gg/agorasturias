@@ -1430,6 +1430,10 @@ section.slider {
   .thumbnail img {
     width: 170px;
     height: 170px; }
+    @media only screen and (max-width: 500px) {
+      .thumbnail img {
+        width: 150px;
+        height: 150px; } }
   .thumbnail p {
     text-align: center; }
   .thumbnail .name {
@@ -1447,6 +1451,9 @@ section.slider {
 #partners img {
   width: 200px;
   border: 0; }
+  @media only screen and (max-width: 500px) {
+    #partners img {
+      width: 150px; } }
 
 .intro {
   margin-bottom: 25px; }
@@ -1517,6 +1524,12 @@ section.slider {
   padding-left: 10%;
   text-align: center;
   font-weight: bold; }
+  @media only screen and (max-width: 1024px) {
+    #credits {
+      height: 150px; } }
+  @media only screen and (max-width: 500px) {
+    #credits {
+      height: 220px; } }
   #credits a, #credits a:hover {
     color: #e1da29; }
   #credits .disclaimer {

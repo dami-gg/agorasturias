@@ -211,7 +211,12 @@ section {
 
     border: none; box-shadow: none; background-color: #1468b3;
 
-    img { width:170px; height:170px; }
+    img { 
+
+        width:170px; height:170px; 
+
+        @media only screen and (max-width:500px) { width:150px; height:150px;  }
+    }
 
     p { text-align: center; }
 
@@ -228,7 +233,12 @@ section {
 
     .item { height:130px; }
 
-    img { width:200px; border:0; }
+    img { 
+
+        width:200px; border:0; 
+
+        @media only screen and (max-width:500px) { width:150px; }
+    }
 }
 
 .intro { margin-bottom: 25px; }
@@ -300,6 +310,10 @@ section {
 
     height:130px; width:100%; background-color: #1468c5; color:white; 
     padding-right:10%; padding-left:10%; text-align: center; font-weight: bold; 
+
+    @media only screen and (max-width:1024px) { height:150px; }
+
+    @media only screen and (max-width:500px) { height:220px; }
 
     a, a:hover { color: #e1da29; }
 
