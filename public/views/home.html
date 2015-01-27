@@ -19,22 +19,21 @@
 
     <section ng-repeat="post in pagedPosts" ng-class-even="'light'" ng-class-odd="'dark'">
         <div class="post container">
-            <div class="row">
-                <div class="col-xs-7 col-md-9" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
-                    <p class="lead" ng-click="openPost(post)" translate="{{post.title}}"></p>
+            <div class="row">  
+				<div ng-class="{ 'col-xs-7 col-md-9': post.image !== '' && post.image !== undefined }" 
+						ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
+                    <p class="lead" ng-click="openPost(post)">{{post.title}}</p>
 
                     <a ng-if="authenticated" ng-click="editPost(post)">Edit</a>
 
                     <div ng-bind-html="post.text | translate | limitTo: 1000 | htmlSafe"></div>
 
                     <button ng-if="post.text.length > 1000" class="btn btn-success btn-sm"
-                        ng-click="openPost(post)">
-                        Show more
-                    </button>
+                        ng-click="openPost(post)" translate="SHOW_MORE"></button>
                 </div>
-                <div class="col-xs-5 col-md-3" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
-                    <img class="img-responsive" ng-src="{{post.image}}" border="0" width="200" height="284"
-                        style="border: 2px solid black;"></img>
+                <div ng-if="post.image !== '' && post.image !=== undefined" 
+					class="col-xs-5 col-md-3" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
+                    <img class="img-responsive" ng-src="{{post.image}}" border="0" width="200" height="284"></img>
                 </div>
             </div>
         </div>
