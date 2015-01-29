@@ -189,13 +189,8 @@ agorasturiasApp.controller('PostsCtrl',
     $scope.pageChanged = function() {
       var currentPageInCookie = $cookieStore.get("currentPage");
 
-      if (currentPageInCookie !== undefined) {
-        $scope.lastPageLoaded = currentPageInCookie;
-      }
-      else {
-        $scope.lastPageLoaded = $scope.currentPage;
-      }
-      
+      $scope.lastPageLoaded = $scope.currentPage;
+
       Data.get('posts/' + $translate.use() + '/desc/' + $scope.currentPage + '/' + $scope.itemsPerPage)
       .then(function(response){
 

@@ -61,7 +61,7 @@ $app->post('/upload', function(){
   {
     $tmp = $_FILES['file']['tmp_name'];
     $dest = $dir_img . $_FILES['file']['name'];
-    copy($tmp, $dest);
+    move_uploaded_file($tmp, $dest);
 
     $file = $rel_img.$_FILES['file']['name'];
 
@@ -70,7 +70,7 @@ $app->post('/upload', function(){
   else {
     $tmp = $_FILES['file']['tmp_name'];
     $dest = $dir_file . $_FILES['file']['name'];
-    copy($tmp, $dest);
+    move_uploaded_file($tmp, $dest);
 
     $file = $rel_file.$_FILES['file']['name'];
 
