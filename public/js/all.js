@@ -12775,8 +12775,7 @@ agorasturiasApp.controller('PostsCtrl', [
       $scope.currentPage = pageNumber;
       $cookieStore.put('currentPage', pageNumber);
     };
-    $scope.pageChanged = function () {
-      $scope.lastPageLoaded = angular.copy($scope.currentPage);
+    $scope.handlePageChange = function () {
       Data.get('posts/' + $translate.use() + '/desc/' + $scope.currentPage + '/' + $scope.itemsPerPage).then(function (response) {
         if (response.status === 'success') {
           $scope.posts = response.posts;
@@ -12784,8 +12783,18 @@ agorasturiasApp.controller('PostsCtrl', [
           $scope.pagedPosts = $scope.posts;
         }
       });
-      $cookieStore.put('currentPage', $scope.lastPageLoaded);
-    }();
+      $cookieStore.put('currentPage', $scope.currentPage);
+    };
+    $scope.pageChanged = function () {
+      var currentPageInCookie = $cookieStore.get('currentPage');
+      if (currentPageInCookie !== undefined) {
+        $scope.currentPage = currentPageInCookie;
+      } else {
+        $scope.currentPage = 1;
+      }
+      $scope.handlePageChange();
+    };
+    $scope.pageChanged();
     $scope.gotoTop = function () {
       $location.hash('menu-wrapper');
       $anchorScroll();
