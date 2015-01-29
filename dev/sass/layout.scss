@@ -293,6 +293,13 @@ section {
     ul { padding-left:25px; }
 
     a { color:yellow; }
+
+    #pre-events & { 
+
+        padding-bottom:30px; 
+
+        &.extra { padding-top:30px; }
+    }
 }
 
 #contact { 

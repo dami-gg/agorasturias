@@ -335,6 +335,10 @@ section.slider {
     padding-left: 25px; }
   .article a {
     color: yellow; }
+  #pre-events .article {
+    padding-bottom: 30px; }
+    #pre-events .article.extra {
+       padding-top: 30px; }
 
 #contact {
   padding-bottom: 50px; }
