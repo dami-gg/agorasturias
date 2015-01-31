@@ -214,7 +214,54 @@ section {
 
         a { color:yellow; }
 
-        img-wrapper { margin-top:50px; }
+        .lead {
+
+            font-size:26px;
+
+            @media only screen and (max-width:550px) { text-align:center; }
+        } 
+
+        .post-body {
+
+            float:left;
+
+            .text-wrap-right { 
+
+                float:right; margin: 10px 10px 20px 40px; 
+
+                @media only screen and (max-width:670px) { margin-left:20px; }
+
+                @media only screen and (max-width:550px) { float:none; margin:10px auto; }
+            }
+
+            .text-wrap-left { 
+
+                float:left; margin: 10px 40px 20px 10px;
+
+                @media only screen and (max-width:670px) { margin-right:20px; }
+
+                @media only screen and (max-width:550px) { float:none; margin:10px auto; }
+            }
+
+            button { 
+
+                font-size: 14px; margin: 15px 0;
+
+                @media only screen and (max-width:550px) { 
+
+                    float:none; position: relative; left: 50%; margin-left: -46px; 
+                }
+
+                &.right { 
+
+                    float:right; 
+
+                    @media only screen and (max-width:550px) { float:none; }
+                }
+
+                
+            }
+        }    
     }
 }
 
@@ -287,6 +334,8 @@ section {
         a { color:yellow; }
 
         .lead {
+
+            font-size:26px;
 
             @media only screen and (max-width:550px) { text-align:center; }
         }

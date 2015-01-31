@@ -243,8 +243,47 @@ section.slider {
   background-position: center center; }
 #homepage .post a {
   color: yellow; }
-#homepage .post img-wrapper {
-  margin-top: 50px; }
+#homepage .post .lead {
+  font-size: 26px; }
+  @media only screen and (max-width: 550px) {
+    #homepage .post .lead {
+      text-align: center; } }
+#homepage .post .post-body {
+  float: left; }
+  #homepage .post .post-body .text-wrap-right {
+    float: right;
+    margin: 10px 10px 20px 40px; }
+    @media only screen and (max-width: 670px) {
+      #homepage .post .post-body .text-wrap-right {
+        margin-left: 20px; } }
+    @media only screen and (max-width: 550px) {
+      #homepage .post .post-body .text-wrap-right {
+        float: none;
+        margin: 10px auto; } }
+  #homepage .post .post-body .text-wrap-left {
+    float: left;
+    margin: 10px 40px 20px 10px; }
+    @media only screen and (max-width: 670px) {
+      #homepage .post .post-body .text-wrap-left {
+        margin-right: 20px; } }
+    @media only screen and (max-width: 550px) {
+      #homepage .post .post-body .text-wrap-left {
+        float: none;
+        margin: 10px auto; } }
+  #homepage .post .post-body button {
+    font-size: 14px;
+    margin: 15px 0; }
+    @media only screen and (max-width: 550px) {
+      #homepage .post .post-body button {
+        float: none;
+        position: relative;
+        left: 50%;
+        margin-left: -46px; } }
+    #homepage .post .post-body button.right {
+      float: right; }
+      @media only screen and (max-width: 550px) {
+        #homepage .post .post-body button.right {
+          float: none; } }
 
 .wallop-slider__list {
   padding-left: 0; }
@@ -316,9 +355,11 @@ section.slider {
       text-align: center; } }
 #post-viewer .post a {
   color: yellow; }
-@media only screen and (max-width: 550px) {
-  #post-viewer .post .lead {
-    text-align: center; } }
+#post-viewer .post .lead {
+  font-size: 26px; }
+  @media only screen and (max-width: 550px) {
+    #post-viewer .post .lead {
+      text-align: center; } }
 #post-viewer .post .post-body {
   float: left; }
   #post-viewer .post .post-body .text-wrap {
