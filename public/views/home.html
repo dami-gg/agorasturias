@@ -1,4 +1,4 @@
-<div ng-controller="PostsCtrl">
+<div id="homepage" ng-controller="PostsCtrl">
 
   <section class="slider" ng-show="currentPage == 1">
     <div class="carousel container">
@@ -36,9 +36,9 @@
         </div>
         
         <div ng-if="post.image !== '' && post.image !== undefined"
-        class="col-xs-5 col-md-3" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
+        class="col-xs-5 col-md-3 img-wrapper" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
         
-          <img class="img-responsive" ng-src="{{post.image}}" border="0" width="200" height="284"></img>
+          <img class="img-responsive" ng-src="{{post.image}}" border="0" width="200"></img>
         
         </div>
       </div>

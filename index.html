@@ -41,10 +41,10 @@
 
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav pull-right">
-                                <li>
+                                <li class="short">
                                     <a ui-sref="home" translate="HOME" ng-click="reloadContent()"></a>
                                 </li>
-                                <li class="dropdown">
+                                <li class="dropdown long">
                                     <a class="dropdown-toggle" data-toggle="dropdown">
                                         <span translate="ABOUT"></span>
                                         <span class="caret"></span>
@@ -66,7 +66,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                
+                                                                
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown">
                                         <span translate="AGORA"></span>
@@ -79,16 +79,6 @@
                                             </a>
                                         </li>
                                         <li>
-                                          <a class="submenu" href="#how-to-apply"
-                                            translate="HOW_TO_APPLY">
-                                          </a>
-                                        </li>
-                                        <li>
-                                          <a class="submenu" href="#how-to-get-there"
-                                            translate="HOW_TO_GET_THERE">
-                                          </a>
-                                        </li>
-                                        <li>
                                             <a class="submenu" href="#event-timetable"
                                                 translate="EVENT_TIMETABLE">
                                             </a>
@@ -99,12 +89,32 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
+
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown">
+                                        <span>Info</span>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                          <a class="submenu" href="#how-to-apply"
+                                            translate="HOW_TO_APPLY">
+                                          </a>
+                                        </li>
+                                        <li>
+                                          <a class="submenu" href="#how-to-get-there"
+                                            translate="HOW_TO_GET_THERE">
+                                          </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="long">
                                     <a href="#partners" translate="PARTNERS">
                                     </a>
                                 </li>
 
-                                <li class="dropdown" ng-if="!authenticated">
+                                <li class="dropdown short" ng-if="!authenticated">
                                     <a class="dropdown-toggle" data-toggle="dropdown">
                                         Login
                                     </a>

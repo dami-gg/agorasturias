@@ -23,7 +23,7 @@ h2, h3 {
   margin-bottom: 0;
   padding-bottom: 10px;
   padding-right: 20px; }
-  @media (max-width: 960px) {
+  @media (max-width: 1075px) {
     .navbar {
       padding-right: 0; } }
   .navbar .container {
@@ -57,21 +57,16 @@ h2, h3 {
   .navbar .navbar-collapse {
     float: left;
     padding-top: 35px;
-    padding-right: 30px; }
-    @media (max-width: 960px) {
+    padding-right: 30px;
+     /*  @media (max-width: 767px) { 
+
+            position: absolute; background-color: white; z-index: 100; right: 55px; top: 40px;
+            padding: 0 20px; border: 1px solid #3d6497; width: auto;
+        }*/ }
+    @media (max-width: 1075px) {
       .navbar .navbar-collapse {
         width: 100%;
         padding: 0; } }
-    @media (max-width: 767px) {
-      .navbar .navbar-collapse {
-        position: absolute;
-        background-color: white;
-        z-index: 100;
-        right: 55px;
-        top: 40px;
-        padding: 0 20px;
-        border: 1px solid #3d6497;
-        width: auto; } }
     @media (max-width: 500px) {
       .navbar .navbar-collapse {
         margin-right: 0;
@@ -79,7 +74,7 @@ h2, h3 {
 
 #menu-wrapper {
   float: right; }
-  @media (max-width: 960px) {
+  @media (max-width: 1075px) {
     #menu-wrapper {
       float: left;
       width: 100%; } }
@@ -87,7 +82,7 @@ h2, h3 {
     #menu-wrapper {
       float: right;
       width: auto; } }
-  @media (max-width: 960px) {
+  @media (max-width: 1075px) {
     #menu-wrapper .navbar-nav {
       width: 100%;
       background-color: #428bca;
@@ -100,15 +95,21 @@ h2, h3 {
   #menu-wrapper .navbar-nav li {
     font-size: 20px;
     text-align: center; }
-    @media (max-width: 960px) {
+    @media (max-width: 1075px) {
       #menu-wrapper .navbar-nav li {
-        width: 16%;
+        width: 14.2%;
         font-size: 18px; } }
     @media (max-width: 767px) {
       #menu-wrapper .navbar-nav li {
         width: auto;
         text-align: left; } }
-    @media (max-width: 960px) {
+    @media (max-width: 920px) {
+      #menu-wrapper .navbar-nav li.short {
+        width: 11%; } }
+    @media (max-width: 920px) {
+      #menu-wrapper .navbar-nav li.long {
+        width: 17%; } }
+    @media (max-width: 1075px) {
       #menu-wrapper .navbar-nav li a {
         color: white;
         padding: 8px; } }
@@ -123,7 +124,7 @@ h2, h3 {
   position: absolute;
   top: 15px;
   right: 15px; }
-  @media (max-width: 960px) {
+  @media (max-width: 1075px) {
     #social-buttons {
       top: 76px;
       right: 55px; } }
@@ -138,7 +139,7 @@ h2, h3 {
     width: 25px;
     cursor: pointer;
     text-align: center; }
-    @media (max-width: 960px) {
+    @media (max-width: 1075px) {
       #social-buttons div {
         float: left;
         padding-left: 25px;
@@ -160,7 +161,7 @@ h2, h3 {
   position: absolute;
   top: 10px;
   right: 100px; }
-  @media (max-width: 960px) {
+  @media (max-width: 1075px) {
     #language-switcher {
       top: 134px;
       right: 60px; } }
@@ -182,7 +183,7 @@ h2, h3 {
   cursor: pointer; }
   .dropdown:hover .dropdown-menu {
     /* Make navigation toggle only on desktop */ }
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: 792px) {
       .dropdown:hover .dropdown-menu {
         display: block; } }
   .dropdown .login-menu {
@@ -213,27 +214,26 @@ section.slider {
 .left {
   float: left; }
 
-.carousel {
+#homepage .carousel {
   padding: 0;
   width: 100%;
   height: 400px;
   max-width: 100%;
   margin: 0 auto;
   cursor: pointer; }
-  .carousel .item {
+  #homepage .carousel .item {
     text-align: center;
     height: 400px !important; }
-  .carousel .title {
+  #homepage .carousel .title {
     font-size: 32px; }
-  .carousel .text {
+  #homepage .carousel .text {
     font-size: 20px; }
-  .carousel .carousel-control.left, .carousel .carousel-control.right {
+  #homepage .carousel .carousel-control.left, #homepage .carousel .carousel-control.right {
     background-image: inherit; }
     @media (max-width: 767px) {
-      .carousel .carousel-control.left, .carousel .carousel-control.right {
+      #homepage .carousel .carousel-control.left, #homepage .carousel .carousel-control.right {
         display: none; } }
-
-.teaser {
+#homepage .teaser {
   height: 400px;
   margin: auto;
   -webkit-background-size: cover;
@@ -241,6 +241,10 @@ section.slider {
   -o-background-size: cover;
   background-size: cover;
   background-position: center center; }
+#homepage .post a {
+  color: yellow; }
+#homepage .post img-wrapper {
+  margin-top: 50px; }
 
 .wallop-slider__list {
   padding-left: 0; }
@@ -305,6 +309,28 @@ section.slider {
     color: inherit; }
   #post-viewer .social-share-buttons .fa-google-plus-square {
     color: inherit; }
+  @media only screen and (max-width: 550px) {
+    #post-viewer .social-share-buttons {
+      float: none;
+      margin: 0 auto;
+      text-align: center; } }
+#post-viewer .post a {
+  color: yellow; }
+@media only screen and (max-width: 550px) {
+  #post-viewer .post .lead {
+    text-align: center; } }
+#post-viewer .post .post-body {
+  float: left; }
+  #post-viewer .post .post-body .text-wrap {
+    float: right;
+    margin: 10px 70px 30px 40px; }
+    @media only screen and (max-width: 670px) {
+      #post-viewer .post .post-body .text-wrap {
+        margin: 10px 20px 20px 30px; } }
+    @media only screen and (max-width: 550px) {
+      #post-viewer .post .post-body .text-wrap {
+        float: none;
+        margin: 20px auto; } }
 
 #agora {
   padding-bottom: 50px; }
@@ -403,7 +429,7 @@ section.slider {
     -webkit-transition: opacity .3s 0s, visibility 0s 0s;
     -moz-transition: opacity .3s 0s, visibility 0s 0s;
     transition: opacity .3s 0s, visibility 0s 0s; }
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 792px) {
     .to-top-button {
       right: 20px;
       bottom: 20px; } }

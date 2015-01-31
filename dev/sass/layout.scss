@@ -11,7 +11,7 @@ h2, h3 { text-align:center; margin-bottom:20px; color: white; }
    
     margin-bottom:0; padding-bottom:10px; padding-right:20px;
 
-    @media (max-width: 960px) { padding-right:0; }
+    @media (max-width: 1075px) { padding-right:0; }
 
     .container { min-height:100px; padding:0; width:100%; }
 
@@ -42,13 +42,13 @@ h2, h3 { text-align:center; margin-bottom:20px; color: white; }
 
         float:left; padding-top:35px; padding-right:30px;
 
-        @media (max-width: 960px) { width:100%; padding:0; }
+        @media (max-width: 1075px) { width:100%; padding:0; }
 
-        @media (max-width: 767px) { 
+     /*  @media (max-width: 767px) { 
 
             position: absolute; background-color: white; z-index: 100; right: 55px; top: 40px;
             padding: 0 20px; border: 1px solid #3d6497; width: auto;
-        }
+        }*/
 
         @media (max-width: 500px) { margin-right:0; padding-top: 0px; }
     }
@@ -58,13 +58,13 @@ h2, h3 { text-align:center; margin-bottom:20px; color: white; }
 
     float:right; 
 
-    @media (max-width: 960px) { float: left; width: 100%; }
+    @media (max-width: 1075px) { float: left; width: 100%; }
 
     @media (max-width: 767px) { float: right; width: auto; }
 
     .navbar-nav {
 
-        @media (max-width: 960px) { width: 100%; background-color: #428bca; color: white; }
+        @media (max-width: 1075px) { width: 100%; background-color: #428bca; color: white; }
 
         @media (max-width: 767px) { width: auto; margin: 0; background-color: white; }
 
@@ -72,13 +72,25 @@ h2, h3 { text-align:center; margin-bottom:20px; color: white; }
 
             font-size: 20px; text-align: center; 
 
-            @media (max-width: 960px) { width: 16%; font-size: 18px; }
+            @media (max-width: 1075px) { width: 14.2%; font-size: 18px; }
 
             @media (max-width: 767px) { width: auto; text-align: left; }
 
+            &.short {
+
+                @media (max-width: 920px) { width:11%; }
+
+            }
+
+            &.long {
+
+                @media (max-width: 920px) { width:17%; }
+
+            }
+
             a {
 
-                @media (max-width: 960px) { color: white; padding: 8px; }
+                @media (max-width: 1075px) { color: white; padding: 8px; }
 
                 @media (max-width: 767px) { color: #428bca; }
             }
@@ -92,7 +104,7 @@ h2, h3 { text-align:center; margin-bottom:20px; color: white; }
 
     position: absolute; top: 15px; right: 15px;
 
-    @media (max-width: 960px) { top: 76px; right: 55px; }
+    @media (max-width: 1075px) { top: 76px; right: 55px; }
 
     @media (max-width: 767px) { top: 60px; right: 30px; }
 
@@ -102,7 +114,7 @@ h2, h3 { text-align:center; margin-bottom:20px; color: white; }
 
         width: 25px; cursor: pointer; text-align: center;
 
-        @media (max-width: 960px) { float: left; padding-left: 25px; width: auto; }
+        @media (max-width: 1075px) { float: left; padding-left: 25px; width: auto; }
 
         @media (max-width: 767px) { padding-left: 20px; }
     }
@@ -120,7 +132,7 @@ h2, h3 { text-align:center; margin-bottom:20px; color: white; }
 
     position:absolute; top:10px; right:100px; 
 
-    @media (max-width: 960px) { top: 134px; right: 60px; }
+    @media (max-width: 1075px) { top: 134px; right: 60px; }
 
     @media (max-width: 767px) { top: 95px; right: 30px; }
 
@@ -141,7 +153,7 @@ h2, h3 { text-align:center; margin-bottom:20px; color: white; }
     &:hover .dropdown-menu { 
 
         /* Make navigation toggle only on desktop */
-        @media only screen and (min-width : 768px) { display: block; }
+        @media only screen and (min-width : 792px) { display: block; }
     }
 
     .login-menu { 
@@ -175,26 +187,36 @@ section {
 .right { float:right; }
 .left { float:left; }
 
-.carousel { 
-    
-    padding:0; width:100%; height:400px; max-width:100%; margin:0 auto; cursor: pointer;
+#homepage {
 
-    .item { text-align: center; height: 400px !important; }
+    .carousel { 
+        
+        padding:0; width:100%; height:400px; max-width:100%; margin:0 auto; cursor: pointer;
 
-    .title { font-size: 32px; }
+        .item { text-align: center; height: 400px !important; }
 
-    .text { font-size: 20px; }
+        .title { font-size: 32px; }
 
-    .carousel-control.left, .carousel-control.right { 
+        .text { font-size: 20px; }
 
-        background-image:inherit; 
+        .carousel-control.left, .carousel-control.right { 
 
-        @media (max-width: 767px) { display: none; }
+            background-image:inherit; 
+
+            @media (max-width: 767px) { display: none; }
+        }
+    }
+
+    .teaser { height:400px; margin:auto; -webkit-background-size: cover; -moz-background-size: cover;
+                -o-background-size: cover; background-size: cover; background-position: center center; }
+
+     .post {
+
+        a { color:yellow; }
+
+        img-wrapper { margin-top:50px; }
     }
 }
-
-.teaser { height:400px; margin:auto; -webkit-background-size: cover; -moz-background-size: cover;
-            -o-background-size: cover; background-size: cover; background-position: center center; }
 
 .wallop-slider__list { padding-left: 0; }
 .wallop-slider__btn--previous { float:left; }
@@ -256,6 +278,32 @@ section {
         .fa-twitter-square { color:inherit; }
 
         .fa-google-plus-square { color:inherit; }
+
+        @media only screen and (max-width:550px) { float:none; margin:0 auto; text-align:center; }
+    }
+
+     .post {
+
+        a { color:yellow; }
+
+        .lead {
+
+            @media only screen and (max-width:550px) { text-align:center; }
+        }
+
+        .post-body {
+
+            float:left;
+
+            .text-wrap { 
+
+                float:right; margin: 10px 70px 30px 40px; 
+
+                @media only screen and (max-width:670px) { margin: 10px 20px 20px 30px; }
+
+                @media only screen and (max-width:550px) { float:none; margin:20px auto; }
+            }
+        }        
     }
 }
 
@@ -346,7 +394,7 @@ section {
         transition: opacity .3s 0s, visibility 0s 0s;
     }
 
-    @media only screen and (min-width: 768px) { right: 20px; bottom: 20px; }
+    @media only screen and (min-width: 792px) { right: 20px; bottom: 20px; }
 
     @media only screen and (min-width: 1024px) { height: 60px; width: 60px; right: 30px; bottom: 30px; }
 }

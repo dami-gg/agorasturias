@@ -7,16 +7,15 @@
   </div>
 
   <div class="post container">
-    <div ng-class="(currentPost.image !== '') ? 'col-xs-7 col-md-9' : '' "
-			ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
-      <p class="lead" translate="{{currentPost.title}}"></p>
+    
+    <p class="lead" translate="{{currentPost.title}}"></p>
 
-      <div ng-bind-html="currentPost.text | translate | htmlSafe"></div>
+    <div class="post-body">
+      <img class="img-responsive text-wrap" ng-src="{{currentPost.image}}" border="0" width="200"></img>
+
+      <p ng-bind-html="currentPost.text | translate | htmlSafe"></p>
     </div>
-    <div ng-if=" currentPost.image !== '' "
-			class="col-xs-5 col-md-3" ng-class-even="'pull-right'" ng-class-odd="'pull-left'">
-      <img class="img-responsive" ng-src="{{currentPost.image}}" border="0" width="200" height="284"></img>
-    </div>
+
   </div>
 
 </section>
