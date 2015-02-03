@@ -191,6 +191,20 @@ class DbHandler {
     }
   }
 
+  public function setSession($userdata){
+    if(isset($userdata)){
+      $_SESSION['uid'] = $userdata['uid'];
+      $_SESSION['role'] = $userdata['role'];
+      $_SESSION['name'] = $userdata['name'];
+      $_SESSION['username'] = $userdata['username'];
+      $_SESSION['email'] = $userdata['email'];
+      return true;
+    }
+
+    return false;
+
+  }
+
   public function getSession(){
     if (!isset($_SESSION)) {
       session_start();
@@ -201,12 +215,16 @@ class DbHandler {
       $sess["uid"] = $_SESSION['uid'];
       $sess["name"] = $_SESSION['name'];
       $sess["email"] = $_SESSION['email'];
+      $sess["role"] = $_SESSION['role'];
+      $sess["username"] = $_SESSION['username'];
     }
     else
     {
       $sess["uid"] = '';
       $sess["name"] = 'Guest';
       $sess["email"] = '';
+      $sess["role"] = '';
+      $sess["username"] = '';
     }
     return $sess;
   }
@@ -219,6 +237,8 @@ class DbHandler {
       unset($_SESSION['uid']);
       unset($_SESSION['name']);
       unset($_SESSION['email']);
+      unset($_SESSION['username']);
+      unset($_SESSION['role']);
       $info='info';
       if(isSet($_COOKIE[$info]))
       {

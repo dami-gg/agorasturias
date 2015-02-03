@@ -8,6 +8,8 @@ $app->get('/session', function() {
   $response["uid"] = $session['uid'];
   $response["email"] = $session['email'];
   $response["name"] = $session['name'];
+  $response["role"] = $session['role'];
+  $response["username"] = $session['username'];
   echoResponse(200, json_encode($session));
 });
 

@@ -3,7 +3,7 @@
   require_once '.././libs/Slim/Slim.php';
 
   $app->post('/mail', function () use($app){
-    $r = json_decode($app->request->getBody());
+    $r = json_decode($app->request->getBody(), true);
     $response = array();
 
     $mail_to_send_to = "incoming@agorasturias.org";
