@@ -294,11 +294,11 @@ section {
     .caption { color: white; }
 }
 
-#partners {
+#sponsors {
 
     .row { margin-bottom:30px; }
 
-    .partner { width:200px; margin-bottom:25px; }
+    .sponsor { width:200px; margin-bottom:25px; }
 
     .item { height:130px; }
 
@@ -375,7 +375,9 @@ section {
 
         margin:25px 0; 
 
-        span { font-size: 20px; font-weight: bold; }
+        span { font-size:20px; font-weight:bold; }
+
+        .language { font-size:16px; font-weight:normal; }
     }
 
     .img-wrapper { 

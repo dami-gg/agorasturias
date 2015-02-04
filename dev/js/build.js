@@ -70,6 +70,12 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.ALL
             })
 
+            .state('press', {
+                url  : '/press',
+                templateUrl : 'public/views/press.html',
+                access: ACCESS_GROUPS.ALL
+            })
+
             .state('event-timetable', {
                 url : '/event-timetable',
                 templateUrl : 'public/views/event-timetable.html',
@@ -82,9 +88,15 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.ALL
             })
 
-            .state('partners', {
-                url  : '/partners',
-                templateUrl : 'public/views/partners.html',
+            .state('sponsors', {
+                url  : '/sponsors',
+                templateUrl : 'public/views/sponsors.html',
+                access: ACCESS_GROUPS.ALL
+            })
+
+            .state('patrons', {
+                url  : '/patrons',
+                templateUrl : 'public/views/patrons.html',
                 access: ACCESS_GROUPS.ALL
             })
 
@@ -266,6 +278,31 @@ agorasturiasApp.controller('PostViewerCtrl',
     };
 }]);
 
+agorasturiasApp.controller('SponsorsCtrl', function ($scope, partitionService) {
+
+  var sponsors = $scope.sponsors = [];
+
+    $scope.fillsponsors = function() {
+        
+        sponsors.push({ logo: 'public/img/sponsors/uniovi.png', link: 'http://www.uniovi.es/' });
+        sponsors.push({ logo: 'public/img/sponsors/ayto-gijon.png', link: 'http://www.gijon.es/' });
+        sponsors.push({ logo: 'public/img/sponsors/epi.png', link: 'http://www.epigijon.uniovi.es/' });
+        sponsors.push({ logo: 'public/img/sponsors/laboral.png', link: 'http://www.laboralciudaddelacultura.com/' });
+        sponsors.push({ logo: 'public/img/sponsors/oficongresos.png', link: 'http://congresos.gijon.es/' });
+        sponsors.push({ logo: 'public/img/sponsors/conseyu.png', link: 'http://www.cmpa.es/' });
+        sponsors.push({ logo: 'public/img/sponsors/aviles.png', link: 'http://aviles.es/web/turismo/' });
+        sponsors.push({ logo: 'public/img/sponsors/gijon-deporte.png', link: 'http://deporte.gijon.es/' });
+        sponsors.push({ logo: 'public/img/sponsors/kemphor.png', link: 'http://www.kemphor.com/' });
+        sponsors.push({ logo: 'public/img/sponsors/alsa.png', link: 'http://www.alsa.es/' });
+        sponsors.push({ logo: 'public/img/sponsors/renfe.png', link: 'http://www.renfe.es/' });
+    };
+
+    if ($scope.sponsors.length === 0) {
+      $scope.fillsponsors();
+    }
+
+    $scope.rows = partitionService.partition(sponsors, 4);
+});
 agorasturiasApp.controller('NewPostCtrl',['$location','$scope','Data', function($location,$scope,Data){
 
   $scope.editorOptions = {
@@ -700,26 +737,3 @@ agorasturiasApp.filter('htmlSafe',['$sce',function($sce){
   
     return $sce.trustAsHtml;
 }]);
-agorasturiasApp.controller('PartnersCtrl', function ($scope, partitionService) {
-
-  var partners = $scope.partners = [];
-
-    $scope.fillPartners = function() {
-        
-        partners.push({ logo: 'public/img/partners/uniovi.png', link: 'http://www.uniovi.es/' });
-        partners.push({ logo: 'public/img/partners/ayto-gijon.png', link: 'http://www.gijon.es/' });
-        partners.push({ logo: 'public/img/partners/epi.png', link: 'http://www.epigijon.uniovi.es/' });
-        partners.push({ logo: 'public/img/partners/laboral.png', link: 'http://www.laboralciudaddelacultura.com/' });
-        partners.push({ logo: 'public/img/partners/oficongresos.png', link: 'http://congresos.gijon.es/' });
-        partners.push({ logo: 'public/img/partners/conseyu.png', link: 'http://www.cmpa.es/' });
-        partners.push({ logo: 'public/img/partners/kemphor.png', link: 'http://www.kemphor.com/' });
-        partners.push({ logo: 'public/img/partners/alsa.png', link: 'http://www.alsa.es/' });
-        partners.push({ logo: 'public/img/partners/renfe.png', link: 'http://www.renfe.es/' });
-    };
-
-    if ($scope.partners.length === 0) {
-      $scope.fillPartners();
-    }
-
-    $scope.rows = partitionService.partition(partners, 4);
-});

@@ -30,7 +30,7 @@ gulp.task('js', function() {
                 'dev/app/components/home/carouselController.js',
                 'dev/app/components/home/postsController.js',
                 'dev/app/components/home/postViewerController.js',
-                'dev/app/components/partners/postsController.js',
+                'dev/app/components/partners/sponsorsController.js',
                 'dev/app/components/admin/newPostController.js',
                 'dev/app/components/admin/editPostController.js',
                 'dev/app/components/admin/fileUploaderController.js',
@@ -102,9 +102,10 @@ gulp.task('css', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    //gulp.watch('dev/app/*/*/*.js', ['js']);
-    //gulp.watch('dev/app/*.js', ['js']);
-    //gulp.watch('dev/js/functions.js', ['js']);
+    gulp.watch('dev/app/shared/*.js', ['js']);
+    gulp.watch('dev/app/components/*/*.js', ['js']);
+    gulp.watch('dev/app/*.js', ['js']);
+    gulp.watch('dev/js/functions.js', ['js']);
     gulp.watch('dev/sass/*.scss', ['sass']);
     gulp.watch('dev/css/*.css', ['css']);
 });
