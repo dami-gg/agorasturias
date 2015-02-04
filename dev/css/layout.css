@@ -57,16 +57,21 @@ h2, h3 {
   .navbar .navbar-collapse {
     float: left;
     padding-top: 35px;
-    padding-right: 30px;
-     /*  @media (max-width: 767px) { 
-
-            position: absolute; background-color: white; z-index: 100; right: 55px; top: 40px;
-            padding: 0 20px; border: 1px solid #3d6497; width: auto;
-        }*/ }
+    padding-right: 30px; }
     @media (max-width: 1075px) {
       .navbar .navbar-collapse {
         width: 100%;
         padding: 0; } }
+    @media (max-width: 767px) {
+      .navbar .navbar-collapse {
+        position: absolute;
+        background-color: white;
+        z-index: 100;
+        right: 55px;
+        top: 40px;
+        padding: 0 20px;
+        border: 1px solid #3d6497;
+        width: auto; } }
     @media (max-width: 500px) {
       .navbar .navbar-collapse {
         margin-right: 0;
@@ -103,19 +108,23 @@ h2, h3 {
       #menu-wrapper .navbar-nav li {
         width: auto;
         text-align: left; } }
-    @media (max-width: 920px) {
+    @media (max-width: 920px) and (min-width: 767px) {
       #menu-wrapper .navbar-nav li.short {
         width: 11%; } }
-    @media (max-width: 920px) {
+    @media (max-width: 920px) and (min-width: 767px) {
       #menu-wrapper .navbar-nav li.long {
         width: 17%; } }
-    @media (max-width: 1075px) {
+    @media (max-width: 1075px) and (min-width: 767px) {
       #menu-wrapper .navbar-nav li a {
         color: white;
         padding: 8px; } }
-    @media (max-width: 767px) {
-      #menu-wrapper .navbar-nav li a {
-        color: #428bca; } }
+    #menu-wrapper .navbar-nav li a:hover, #menu-wrapper .navbar-nav li a:focus {
+      background-color: #428bca;
+      color: white; }
+      @media (max-width: 1075px) and (min-width: 767px) {
+        #menu-wrapper .navbar-nav li a:hover, #menu-wrapper .navbar-nav li a:focus {
+          color: #428bca;
+          background-color: white; } }
     #menu-wrapper .navbar-nav li .submenu {
       text-align: left;
       color: black; }
@@ -186,6 +195,10 @@ h2, h3 {
     @media only screen and (min-width: 792px) {
       .dropdown:hover .dropdown-menu {
         display: block; } }
+  .dropdown .dropdown-menu li a:focus, .dropdown .dropdown-menu li a:hover {
+    background-color: #428bca;
+    color: white;
+    background-image: none; }
   .dropdown .login-menu {
     padding: 10px; }
     .dropdown .login-menu input {

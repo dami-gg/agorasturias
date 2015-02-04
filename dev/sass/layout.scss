@@ -44,11 +44,11 @@ h2, h3 { text-align:center; margin-bottom:20px; color: white; }
 
         @media (max-width: 1075px) { width:100%; padding:0; }
 
-     /*  @media (max-width: 767px) { 
+        @media (max-width: 767px) { 
 
             position: absolute; background-color: white; z-index: 100; right: 55px; top: 40px;
             padding: 0 20px; border: 1px solid #3d6497; width: auto;
-        }*/
+        }
 
         @media (max-width: 500px) { margin-right:0; padding-top: 0px; }
     }
@@ -78,21 +78,30 @@ h2, h3 { text-align:center; margin-bottom:20px; color: white; }
 
             &.short {
 
-                @media (max-width: 920px) { width:11%; }
-
+                @media (max-width: 920px) and (min-width: 767px) { width:11%; }
             }
 
             &.long {
 
-                @media (max-width: 920px) { width:17%; }
-
+                @media (max-width: 920px) and (min-width: 767px) { width:17%; }
             }
 
             a {
 
-                @media (max-width: 1075px) { color: white; padding: 8px; }
+                @media (max-width: 1075px) and (min-width: 767px) { 
 
-                @media (max-width: 767px) { color: #428bca; }
+                    color: white; padding: 8px; 
+                }
+
+                &:hover, &:focus {
+
+                    background-color: #428bca; color: white;
+
+                    @media (max-width: 1075px) and (min-width: 767px) { 
+
+                        color: #428bca; background-color: white; 
+                    }
+                }
             }
 
             .submenu { text-align: left; color: black;}
@@ -154,6 +163,17 @@ h2, h3 { text-align:center; margin-bottom:20px; color: white; }
 
         /* Make navigation toggle only on desktop */
         @media only screen and (min-width : 792px) { display: block; }
+    }
+
+    .dropdown-menu {
+
+        li a {
+
+            &:focus, &:hover {
+
+                background-color: #428bca; color: white; background-image: none;
+            }
+        }
     }
 
     .login-menu { 
