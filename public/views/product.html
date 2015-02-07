@@ -6,22 +6,17 @@
 
         <div>
 
-            <p class="text-info">
-                <img ng-src="{{product.img}}" alt="{{product.name}}"/>
-                {{product.name}}: {{product.description}}<br />
-            </p>
-
             <div class="container-fluid">
                 <div class="row-fluid">
-                    <div class="span8">
+                    <div class="col-xs-4 col-md-8">
 
                         <table class="table table-bordered">
 
-                            <tr class="well">
-                                <td class="right" colspan="3" >
-                                    <a href="#basket" title="Go to basket" 
+                            <tr>
+                                <td class="right" colspan="3">
+                                    <a ng-click="goToBasket()" title="Go to basket" 
                                         ng-disabled="cart.getTotalCount() < 1">
-                                        <i class="icon-shopping-cart" />
+                                        <i class="fa fa-shopping-cart" />
                                         <b>{{basket.getTotalCount()}}</b> items, 
                                         <b>{{basket.getTotalPrice() | currency}}</b>
                                         <span ng-show="basket.getTotalCount(product.id) > 0"><br />
@@ -31,37 +26,42 @@
                                 </td>
                             </tr>
 
-                           <tr class="well">
-                                <td class="right" colspan="3" >
-                                    <a href="#basket" title="Go to basket" 
-                                        ng-disabled="basket.getTotalCount() < 1">
-                                        <i class="icon-shopping-cart" />
-                                        <b>{{basket.getTotalCount()}}</b> items, <b>{{basket.getTotalPrice() | currency}}</b>
-                                        <span ng-show="basket.getTotalCount(product.id) > 0"><br />
-                                            This item is in the basket
-                                        </span>
-                                    </a>
+                            <tr>
+                                <td class="center">
+                                  <b>{{product.name}}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="center">
+                                  <img ng-src="{{product.image}}" alt="{{product.name}}" />
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    {{product.description}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="right">
+                                  {{product.price | currency}}
                                 </td>
                             </tr>
 
                         </table>
                     </div>
 
-                    <div class="span4">
-                        <button 
-                            class="btn btn-block btn-success" 
+                    <div <div class="col-xs-2 col-md-4">
+                        <button class="btn btn-block btn-success" 
                             ng-click="basket.addItem(product.id, product.name, product.price, 1)">
                             <i class="icon-shopping-cart icon-white" /> Add to basket
                         </button>
-                        <button 
-                            class="btn btn-block btn-danger" 
+                        <button class="btn btn-block btn-danger" 
                             ng-click="basket.addItem(product.id, product.name, product.price, -10000)"
                             ng-disabled="basket.getTotalCount(product.id) < 1">
                             <i class="icon-trash icon-white" /> Remove from basket
                         </button>
-                        <button 
-                            class="btn btn-block" 
-                            onclick="window.location.href=''">
+                        <button class="btn btn-block" ng-click="goToShop()">
                             <i class="icon-chevron-left" /> Back to shop
                         </button>
                     </div>

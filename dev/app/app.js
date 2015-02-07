@@ -147,13 +147,13 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
             .state('shop',{
                 url:'/shop',
                 templateUrl : 'public/views/shop.html',
-                access: ACCESS_GROUPS.ALL
+                access: ACCESS_GROUPS.LOGGED
             })
 
             .state('product',{
                 url:'/product/:productId',
                 templateUrl : 'public/views/product.html',
-                access: ACCESS_GROUPS.ALL
+                access: ACCESS_GROUPS.LOGGED
             })
 
             .state('basket',{

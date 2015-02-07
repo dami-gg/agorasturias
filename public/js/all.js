@@ -12728,7 +12728,7 @@ agorasturiasApp.config([
     }).state('basket', {
       url: '/basket',
       templateUrl: 'public/views/basket.html',
-      access: ACCESS_GROUPS.LOGGED
+      access: ACCESS_GROUPS.ALL
     }).state('checkout', {
       url: '/checkout',
       templateUrl: 'public/views/checkout.html',
@@ -13271,9 +13271,9 @@ function product(id, name, description, price, image) {
 }
 function shop() {
   this.products = [
-    new product(1, 'MATRESS', '', '19.75', 'public/img/team/alberto.png'),
-    new product(2, 'SLEEPING BAG', '', '9.75', 'public/img/team/alberto.png'),
-    new product(3, 'T-SHIRT', '', '12', 'public/img/team/alberto.png')
+    new product(1, 'MATRESS', '', '19.75', 'public/img/shop/mattress.png'),
+    new product(2, 'SLEEPING BAG', '', '9.75', 'public/img/shop/mattress.png'),
+    new product(3, 'T-SHIRT', '', '12', 'public/img/shop/mattress.png')
   ];
 }
 shop.prototype.getProduct = function (id) {
@@ -13401,13 +13401,27 @@ agorasturiasApp.controller('ShopCtrl', [
   '$scope',
   '$stateParams',
   'ShopService',
-  function ($scope, $stateParams, ShopService) {
+  '$location',
+  function ($scope, $stateParams, ShopService, $location) {
     $scope.shop = ShopService.shop;
     $scope.basket = ShopService.basket;
     var _productId = $stateParams.productId;
     if (_productId !== null) {
-      $scope.product = $scope.shop.getProduct(_productId);
+      if (isNaN(_productId)) {
+        $location.path('/shop');
+      } else {
+        $scope.product = $scope.shop.getProduct(parseInt(_productId));
+      }
     }
+    $scope.goToShop = function () {
+      $location.path('/shop');
+    };
+    $scope.openProductDescription = function (productId) {
+      $location.path('/product/' + productId);
+    };
+    $scope.goToBasket = function () {
+      $location.path('/basket');
+    };
   }
 ]);
 agorasturiasApp.factory('ShopService', function () {

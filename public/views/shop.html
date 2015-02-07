@@ -14,9 +14,9 @@
 
                 <tr class="well">
                     <td class="right" colspan="4" >
-                        <a href="#basket" title="Go to the basket"
+                        <a ng-click="goToBasket()" title="Go to the basket"
                             ng-disabled="basket.getTotalCount() < 1">
-                            <i class="icon-shopping-cart" />
+                            <i class="fa fa-shopping-cart" />
                             <b>{{basket.getTotalCount()}}</b> items,
                             <b>{{basket.getTotalPrice() | currency}}</b>
                         </a>
@@ -28,7 +28,7 @@
                       <img ng-src="{{product.image}}" alt="{{product.name}}" />
                     </td>
                     <td>
-                      <a href="#products/{{product.id}}"><b>{{product.name}}</b></a>
+                      <a ng-click="openProductDescription(product.id)"><b>{{product.name}}</b></a>
                       <br />{{product.description}}
                     </td>
                     <td class="right">
@@ -43,9 +43,9 @@
 
                 <tr class="well">
                     <td class="right" colspan="4">
-                      <a href="#basket" title="Go to basket"
+                      <a ng-click="goToBasket()" title="Go to basket"
                          ng-disabled="basket.getTotalCount() < 1">
-                         <i class="icon-shopping-cart" />
+                         <i class="fa fa-shopping-cart" />
                          <b>{{basket.getTotalCount()}}</b> items,
                          <b>{{basket.getTotalPrice() | currency}}</b>
                       </a>

@@ -147,13 +147,13 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
             .state('shop',{
                 url:'/shop',
                 templateUrl : 'public/views/shop.html',
-                access: ACCESS_GROUPS.ALL
+                access: ACCESS_GROUPS.LOGGED
             })
 
             .state('product',{
                 url:'/product/:productId',
                 templateUrl : 'public/views/product.html',
-                access: ACCESS_GROUPS.ALL
+                access: ACCESS_GROUPS.LOGGED
             })
 
             .state('basket',{
@@ -805,7 +805,7 @@ function basketItem(id, name, price, quantity) {
     this.price = price * 1;
     this.quantity = quantity * 1;
 }
-agorasturiasApp.controller('ShopCtrl', function ($scope, $stateParams, ShopService) {
+agorasturiasApp.controller('ShopCtrl', function ($scope, $stateParams, ShopService, $location) {
 
     $scope.shop = ShopService.shop;
     $scope.basket = ShopService.basket;
@@ -814,8 +814,25 @@ agorasturiasApp.controller('ShopCtrl', function ($scope, $stateParams, ShopServi
 
     if (_productId !== null) {
     
-        $scope.product = $scope.shop.getProduct(_productId);
+        if (isNaN(_productId)) {
+            $location.path ('/shop');
+        }
+        else {
+            $scope.product = $scope.shop.getProduct(parseInt(_productId));
+        }
     }
+
+    $scope.goToShop = function() {
+        $location.path ('/shop');
+    };
+
+    $scope.openProductDescription = function(productId) {
+        $location.path ('/product/' + productId);
+    };
+
+    $scope.goToBasket = function() {
+        $location.path ('/basket');
+    };
 });
 agorasturiasApp.factory('ShopService', function() {
     
