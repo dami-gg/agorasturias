@@ -423,6 +423,16 @@ section.slider {
     #pre-events .article.extra {
        padding-top: 30px; }
 
+#shop td {
+  vertical-align: middle; }
+  #shop td a {
+     color: yellow; }
+  #shop td.center {
+    text-align: center; }
+  #shop td.right {
+    float: none;
+    text-align: right; }
+
 #contact {
   padding-bottom: 50px; }
   #contact a {

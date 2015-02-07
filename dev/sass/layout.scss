@@ -421,6 +421,20 @@ section {
     }
 }
 
+#shop {
+
+    td {
+
+        vertical-align: middle;
+
+        a { color: yellow; }
+
+        &.center { text-align:center; }
+
+        &.right { float:none; text-align:right; }
+    }
+}
+
 #contact { 
 
     padding-bottom:50px; 

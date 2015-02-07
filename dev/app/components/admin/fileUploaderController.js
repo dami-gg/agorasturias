@@ -1,5 +1,5 @@
 agorasturiasApp.controller('FileUploaderCtrl', 
-  ['$scope', '$upload', 'Data', 'partitionService', function($scope, $upload, Data, partitionService) {
+  ['$scope', '$upload', 'Data', 'PartitionService', function($scope, $upload, Data, PartitionService) {
 
   $scope.$watch('files', function(files) {
 
@@ -35,7 +35,7 @@ agorasturiasApp.controller('FileUploaderCtrl',
             files.push(response.files[i]);
           }
 
-          $scope.rows = partitionService.partition(files, 6);
+          $scope.rows = PartitionService.partition(files, 6);
         }         
       });
   }

@@ -1,0 +1,59 @@
+<section id="shop" class="light" ng-controller="ShopCtrl">
+
+    <div class="container">
+
+        <h1 translate="SHOP"></h1>
+
+        <div>
+
+            <p>Please select the products you want….<br /></p>
+
+            <p>Search: <input ng-model="search"></p>
+
+            <table class="table table-bordered">
+
+                <tr class="well">
+                    <td class="right" colspan="4" >
+                        <a href="#basket" title="Go to the basket"
+                            ng-disabled="basket.getTotalCount() < 1">
+                            <i class="icon-shopping-cart" />
+                            <b>{{basket.getTotalCount()}}</b> items,
+                            <b>{{basket.getTotalPrice() | currency}}</b>
+                        </a>
+                    </td>
+                </tr>
+
+                <tr ng-repeat="product in shop.products | orderBy:'id' | filter:search" >
+                    <td class="center">
+                      <img ng-src="{{product.image}}" alt="{{product.name}}" />
+                    </td>
+                    <td>
+                      <a href="#products/{{product.id}}"><b>{{product.name}}</b></a>
+                      <br />{{product.description}}
+                    </td>
+                    <td class="right">
+                      {{product.price | currency}}
+                    </td>
+                    <td class="center">
+                      <a ng-click="basket.addItem(product.id, product.name, product.price, 1)">
+                         Add to basket
+                      </a>
+                    </td>
+                </tr>
+
+                <tr class="well">
+                    <td class="right" colspan="4">
+                      <a href="#basket" title="Go to basket"
+                         ng-disabled="basket.getTotalCount() < 1">
+                         <i class="icon-shopping-cart" />
+                         <b>{{basket.getTotalCount()}}</b> items,
+                         <b>{{basket.getTotalPrice() | currency}}</b>
+                      </a>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+</section>

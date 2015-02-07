@@ -1,4 +1,4 @@
-agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService) {
+agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, PartitionService) {
 
   var members = $scope.members = [];
 
@@ -37,5 +37,5 @@ agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService)
     $scope.fillMembers();
   }
 
-  $scope.rows = partitionService.partition(members, 4);
+  $scope.rows = PartitionService.partition(members, 4);
 });

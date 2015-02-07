@@ -1,0 +1,73 @@
+<section id="shop" class="light" ng-controller="ShopCtrl">
+
+    <div class="container">
+
+        <h1 translate="SHOP"></h1>
+
+        <div>
+
+            <p class="text-info">
+                <img ng-src="{{product.img}}" alt="{{product.name}}"/>
+                {{product.name}}: {{product.description}}<br />
+            </p>
+
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span8">
+
+                        <table class="table table-bordered">
+
+                            <tr class="well">
+                                <td class="right" colspan="3" >
+                                    <a href="#basket" title="Go to basket" 
+                                        ng-disabled="cart.getTotalCount() < 1">
+                                        <i class="icon-shopping-cart" />
+                                        <b>{{basket.getTotalCount()}}</b> items, 
+                                        <b>{{basket.getTotalPrice() | currency}}</b>
+                                        <span ng-show="basket.getTotalCount(product.id) > 0"><br />
+                                            This item is in the basket
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+
+                           <tr class="well">
+                                <td class="right" colspan="3" >
+                                    <a href="#basket" title="Go to basket" 
+                                        ng-disabled="basket.getTotalCount() < 1">
+                                        <i class="icon-shopping-cart" />
+                                        <b>{{basket.getTotalCount()}}</b> items, <b>{{basket.getTotalPrice() | currency}}</b>
+                                        <span ng-show="basket.getTotalCount(product.id) > 0"><br />
+                                            This item is in the basket
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+                    <div class="span4">
+                        <button 
+                            class="btn btn-block btn-success" 
+                            ng-click="basket.addItem(product.id, product.name, product.price, 1)">
+                            <i class="icon-shopping-cart icon-white" /> Add to basket
+                        </button>
+                        <button 
+                            class="btn btn-block btn-danger" 
+                            ng-click="basket.addItem(product.id, product.name, product.price, -10000)"
+                            ng-disabled="basket.getTotalCount(product.id) < 1">
+                            <i class="icon-trash icon-white" /> Remove from basket
+                        </button>
+                        <button 
+                            class="btn btn-block" 
+                            onclick="window.location.href=''">
+                            <i class="icon-chevron-left" /> Back to shop
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

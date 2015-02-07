@@ -1,4 +1,4 @@
-agorasturiasApp.service('partitionService', function() {
+agorasturiasApp.service('PartitionService', function() {
 
   this.partition = function (dataArray, chunkSize) {
     var result = [];

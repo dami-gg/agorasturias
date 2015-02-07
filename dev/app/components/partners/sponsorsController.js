@@ -1,4 +1,4 @@
-agorasturiasApp.controller('SponsorsCtrl', function ($scope, partitionService) {
+agorasturiasApp.controller('SponsorsCtrl', function ($scope, PartitionService) {
 
   var sponsors = $scope.sponsors = [];
 
@@ -21,5 +21,5 @@ agorasturiasApp.controller('SponsorsCtrl', function ($scope, partitionService) {
       $scope.fillsponsors();
     }
 
-    $scope.rows = partitionService.partition(sponsors, 4);
+    $scope.rows = PartitionService.partition(sponsors, 4);
 });

@@ -6,13 +6,15 @@ var agorasturiasApp = angular.module('agorasturiasApp',
 agorasturiasApp.constant("USER_ROLES", {
   "GUEST" : "guest",
   "USER" : "user",
+  "EDITOR" : "editor",
   "ADMIN" : "admin"
 });
 
 agorasturiasApp.constant("ACCESS_GROUPS", {
   "ALL" : "all",
   "LOGGED" : "logged",
-  "ADMIN" : "admin"
+  "EDITORS" : "editors",
+  "ADMINS" : "admins"
 });
 
 // configure the routes
@@ -115,20 +117,58 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
             .state('new-post',{
                 url:'/new-post',
                 templateUrl : 'public/views/new-post.html',
-                access: ACCESS_GROUPS.ADMIN
+                access: ACCESS_GROUPS.EDITORS
             })
 
             .state('edit-post',{
                 url:'/edit-post',
                 templateUrl : 'public/views/edit-post.html',
-                access: ACCESS_GROUPS.ADMIN
+                access: ACCESS_GROUPS.EDITORS
             })
 
             .state('file-uploader',{
                 url:'/file-uploader',
                 templateUrl : 'public/views/file-uploader.html',
-                access: ACCESS_GROUPS.ADMIN
-            });
+                access: ACCESS_GROUPS.ADMINS
+            })
+
+            .state('accounts-manager',{
+                url:'/accounts-manager',
+                templateUrl : 'public/views/accounts-manager.html',
+                access: ACCESS_GROUPS.ADMINS
+            })
+
+            .state('profile',{
+                url:'/profile',
+                templateUrl : 'public/views/profile.html',
+                access: ACCESS_GROUPS.ALL
+            })
+
+            .state('shop',{
+                url:'/shop',
+                templateUrl : 'public/views/shop.html',
+                access: ACCESS_GROUPS.ALL
+            })
+
+            .state('product',{
+                url:'/product/:productId',
+                templateUrl : 'public/views/product.html',
+                access: ACCESS_GROUPS.ALL
+            })
+
+            .state('basket',{
+                url:'/basket',
+                templateUrl : 'public/views/basket.html',
+                access: ACCESS_GROUPS.LOGGED
+            })
+
+            .state('checkout',{
+                url:'/checkout',
+                templateUrl : 'public/views/checkout.html',
+                access: ACCESS_GROUPS.LOGGED
+            })
+
+            ;
 
       $translateProvider.useUrlLoader('api/v1/translate');
 
@@ -143,18 +183,21 @@ agorasturiasApp.run(
 
     $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
 
-      if (toState.access === ACCESS_GROUPS.LOGGED && Login.role === USER_ROLES.GUEST) {
+        if (Login.role !== USER_ROLES.ADMIN) {
 
-        e.preventDefault();
-        $state.go('home');
-      }
+          if (toState.access === ACCESS_GROUPS.LOGGED && Login.role === USER_ROLES.GUEST) {
 
-      if (toState.access === ACCESS_GROUPS.ADMIN && Login.role !== USER_ROLES.ADMIN) {
+            e.preventDefault();
+            $state.go('home');
+          }
 
-        e.preventDefault();
-        $state.go('home');
-      }
+          if (toState.access === ACCESS_GROUPS.EDITORS && Login.role !== USER_ROLES.EDITOR) {
 
-      $rootScope.isHomePage = toState.url === "/home";
+            e.preventDefault();
+            $state.go('home');
+          }
+        }
+
+        $rootScope.isHomePage = toState.url === "/home";
     });
 }]);

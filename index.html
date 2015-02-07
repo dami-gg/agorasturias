@@ -161,9 +161,10 @@
                                         <li ng-if="username === 'admin'">
                                             <a class="submenu" href="#new-post">New post</a>
                                             <a class="submenu" href="#file-uploader">Upload files</a>
+                                            <a class="submenu" href="#accounts-manager">Accounts manager</a>
                                         </li>
-                                        <li><a class="submenu" href="#">Profile</a></li>
-                                        <li><a class="submenu" href="#">Shop</a></li>
+                                        <li><a class="submenu" href="#profile" translate="PROFILE"></a></li>
+                                        <li><a class="submenu" href="#shop" translate="SHOP"></a></li>
                                         <li><a class="submenu" ng-click="logout()">Logout</a></li>
                                     </ul>
                                 </li>
@@ -260,8 +261,8 @@
     <script src="dev/js/functions.js"></script>
 
     <!-- Production
-    <script src="public/js/ckeditor/ckeditor.js"></script>
     <script src="public/js/all.min.js"></script>
+    <script src="public/js/ckeditor/ckeditor.js"></script>    
 -->
     <!-- Google analytics -->
     <script>

@@ -20,6 +20,7 @@ gulp.task('js', function() {
         .pipe(jshint.reporter('default'))
         .pipe(addsrc('./dev/app/components/home/*.js'))
         .pipe(addsrc('./dev/app/components/admin/*.js'))
+        .pipe(addsrc('./dev/app/components/shop/*.js'))
         .pipe(addsrc('./dev/app/components/partners/*.js'))
         .pipe(addsrc('./dev/app/components/book/*.js'))
         .pipe(addsrc('./dev/app/components/contact/*.js'))
@@ -37,6 +38,11 @@ gulp.task('js', function() {
                 'dev/app/components/book/bookController.js',
                 'dev/app/components/contact/formController.js',
                 'dev/app/components/team/thumbnailsController.js',
+                'dev/app/components/shop/product.js',
+                'dev/app/components/shop/shop.js',                
+                'dev/app/components/shop/basket.js',
+                'dev/app/components/shop/shopController.js',
+                'dev/app/components/shop/shopService.js',                
                 'dev/app/shared/mainController.js',
                 'dev/app/shared/loginService.js',
                 'dev/app/shared/apiConnectionFactory.js',

@@ -1,0 +1,111 @@
+<section id="shop" class="light" ng-controller="ShopCtrl">
+
+    <div class="container">
+
+        <h1 translate="SHOP"></h1>
+
+        <div>
+
+            <p class="text-info">
+                This is your basket. Here you can edit the items, 
+                go back to the shop, clear the basket or check out.
+            </p>
+
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span8">
+
+                        ¡<table class="table table-bordered">
+
+                            <tr class="well">
+                                <td><b>Item</b></td>
+                                <td class="center"><b>Quantity</b></td>
+                                <td class="right"><b>Price</b></td>
+                                <td />
+                            </tr>
+
+                            <tr ng-hide="basket.getTotalCount() > 0" >
+                                <td class="center" colspan="4">
+                                    Your basket is empty.
+                                </td>
+                            </tr>
+
+                            <tr ng-repeat="item in basket.items | orderBy:'name'">
+                                <td>{{item.name}}</td>
+                                <td class="center">
+                                  <div class="input-append">
+                                    <input class="span3 text-center" type="tel" 
+                                        ng-model="item.quantity" 
+                                        ng-change="basket.saveItems()" />
+                                    <button class="btn btn-success" type="button" 
+                                        ng-disabled="item.quantity >= 1000"
+                                        ng-click="basket.addItem(item.id, item.name, item.price, +1)">
+                                        +
+                                    </button>
+                                    <button class="btn btn-inverse" type="button" 
+                                        ng-disabled="item.quantity <= 1"
+                                        ng-click="basket.addItem(item.id, item.name, item.price, -1)">
+                                        -
+                                    </button>
+                                  </div>
+                                </td>
+                                <td class="right">{{item.price * item.quantity | currency}}</td>
+                                <td class="center" title="Eemove from basket">
+                                    <a ng-click="basket.addItem(item.id, item.name, item.price, -10000000)" >
+                                        <i class="icon-remove" />
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr class="well">
+                                <td><b>Total</b></td>
+                                <td class="center"><b>{{basket.getTotalCount()}}</b></td>
+                                <td class="right"><b>{{basket.getTotalPrice() | currency}}</b></td>
+                                <td />
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="span4">
+                        <p class="text-info">
+                            <button class="btn btn-block" 
+                                onclick="window.location.href='#shop'">
+                                <i class="icon-chevron-left" /> Back to shop
+                            </button>
+                            <button 
+                                class="btn btn-block btn-danger" 
+                                ng-click="basket.clearItems()" 
+                                ng-disabled="basket.getTotalCount() < 1" >
+                                <i class="icon-trash icon-white" /> Clear basket
+                            </button>
+                        </p>
+
+                        <br /><br />
+
+                        <p class="text-info">
+                            <button
+                                class="btn btn-block btn-primary"
+                                ng-click="basket.checkout('PayPal')"
+                                ng-disabled="basket.getTotalCount() < 1">
+                                <i class="icon-ok icon-white" /> Check out using PayPal
+                            </button>
+                        </p>
+
+                        <br /><br />
+
+                        <p class="text-info">
+                            <button 
+                                class="btn btn-block btn-link"
+                                ng-click="basket.checkout('PayPal')"
+                                ng-disabled="basket.getTotalCount() < 1" >
+                                <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="checkout PayPal"/>
+                            </button>    
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</section>

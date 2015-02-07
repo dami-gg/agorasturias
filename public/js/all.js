@@ -12620,12 +12620,14 @@ var agorasturiasApp = angular.module('agorasturiasApp', [
 agorasturiasApp.constant('USER_ROLES', {
   'GUEST': 'guest',
   'USER': 'user',
+  'EDITOR': 'editor',
   'ADMIN': 'admin'
 });
 agorasturiasApp.constant('ACCESS_GROUPS', {
   'ALL': 'all',
   'LOGGED': 'logged',
-  'ADMIN': 'admin'
+  'EDITORS': 'editors',
+  'ADMINS': 'admins'
 });
 // configure the routes
 agorasturiasApp.config([
@@ -12698,16 +12700,41 @@ agorasturiasApp.config([
     }).state('new-post', {
       url: '/new-post',
       templateUrl: 'public/views/new-post.html',
-      access: ACCESS_GROUPS.ADMIN
+      access: ACCESS_GROUPS.EDITORS
     }).state('edit-post', {
       url: '/edit-post',
       templateUrl: 'public/views/edit-post.html',
-      access: ACCESS_GROUPS.ADMIN
+      access: ACCESS_GROUPS.EDITORS
     }).state('file-uploader', {
       url: '/file-uploader',
       templateUrl: 'public/views/file-uploader.html',
-      access: ACCESS_GROUPS.ADMIN
+      access: ACCESS_GROUPS.ADMINS
+    }).state('accounts-manager', {
+      url: '/accounts-manager',
+      templateUrl: 'public/views/accounts-manager.html',
+      access: ACCESS_GROUPS.ADMINS
+    }).state('profile', {
+      url: '/profile',
+      templateUrl: 'public/views/profile.html',
+      access: ACCESS_GROUPS.ALL
+    }).state('shop', {
+      url: '/shop',
+      templateUrl: 'public/views/shop.html',
+      access: ACCESS_GROUPS.ALL
+    }).state('product', {
+      url: '/product/:productId',
+      templateUrl: 'public/views/product.html',
+      access: ACCESS_GROUPS.ALL
+    }).state('basket', {
+      url: '/basket',
+      templateUrl: 'public/views/basket.html',
+      access: ACCESS_GROUPS.LOGGED
+    }).state('checkout', {
+      url: '/checkout',
+      templateUrl: 'public/views/checkout.html',
+      access: ACCESS_GROUPS.LOGGED
     });
+    ;
     $translateProvider.useUrlLoader('api/v1/translate');
     $translateProvider.preferredLanguage('en');
     $translateProvider.useCookieStorage();
@@ -12721,13 +12748,15 @@ agorasturiasApp.run([
   'USER_ROLES',
   function ($state, $rootScope, Login, ACCESS_GROUPS, USER_ROLES) {
     $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
-      if (toState.access === ACCESS_GROUPS.LOGGED && Login.role === USER_ROLES.GUEST) {
-        e.preventDefault();
-        $state.go('home');
-      }
-      if (toState.access === ACCESS_GROUPS.ADMIN && Login.role !== USER_ROLES.ADMIN) {
-        e.preventDefault();
-        $state.go('home');
+      if (Login.role !== USER_ROLES.ADMIN) {
+        if (toState.access === ACCESS_GROUPS.LOGGED && Login.role === USER_ROLES.GUEST) {
+          e.preventDefault();
+          $state.go('home');
+        }
+        if (toState.access === ACCESS_GROUPS.EDITORS && Login.role !== USER_ROLES.EDITOR) {
+          e.preventDefault();
+          $state.go('home');
+        }
       }
       $rootScope.isHomePage = toState.url === '/home';
     });
@@ -12861,8 +12890,8 @@ agorasturiasApp.controller('PostViewerCtrl', [
 ]);
 agorasturiasApp.controller('SponsorsCtrl', [
   '$scope',
-  'partitionService',
-  function ($scope, partitionService) {
+  'PartitionService',
+  function ($scope, PartitionService) {
     var sponsors = $scope.sponsors = [];
     $scope.fillsponsors = function () {
       sponsors.push({
@@ -12913,7 +12942,7 @@ agorasturiasApp.controller('SponsorsCtrl', [
     if ($scope.sponsors.length === 0) {
       $scope.fillsponsors();
     }
-    $scope.rows = partitionService.partition(sponsors, 4);
+    $scope.rows = PartitionService.partition(sponsors, 4);
   }
 ]);
 agorasturiasApp.controller('NewPostCtrl', [
@@ -12976,8 +13005,8 @@ agorasturiasApp.controller('FileUploaderCtrl', [
   '$scope',
   '$upload',
   'Data',
-  'partitionService',
-  function ($scope, $upload, Data, partitionService) {
+  'PartitionService',
+  function ($scope, $upload, Data, PartitionService) {
     $scope.$watch('files', function (files) {
       if (files !== undefined && files !== null) {
         for (var i = 0; i < files.length; i++) {
@@ -13000,7 +13029,7 @@ agorasturiasApp.controller('FileUploaderCtrl', [
           for (var i = 0; i < response.total_files; ++i) {
             files.push(response.files[i]);
           }
-          $scope.rows = partitionService.partition(files, 6);
+          $scope.rows = PartitionService.partition(files, 6);
         }
       });
     }
@@ -13138,8 +13167,8 @@ agorasturiasApp.controller('FormCtrl', [
 ]);
 agorasturiasApp.controller('ThumbnailsCtrl', [
   '$scope',
-  'partitionService',
-  function ($scope, partitionService) {
+  'PartitionService',
+  function ($scope, PartitionService) {
     var members = $scope.members = [];
     $scope.fillMembers = function () {
       members.push({
@@ -13230,9 +13259,164 @@ agorasturiasApp.controller('ThumbnailsCtrl', [
     if ($scope.members.length === 0) {
       $scope.fillMembers();
     }
-    $scope.rows = partitionService.partition(members, 4);
+    $scope.rows = PartitionService.partition(members, 4);
   }
 ]);
+function product(id, name, description, price, image) {
+  this.id = id;
+  this.name = name;
+  this.description = description;
+  this.price = price;
+  this.image = image;
+}
+function shop() {
+  this.products = [
+    new product(1, 'MATRESS', '', '19.75', 'public/img/team/alberto.png'),
+    new product(2, 'SLEEPING BAG', '', '9.75', 'public/img/team/alberto.png'),
+    new product(3, 'T-SHIRT', '', '12', 'public/img/team/alberto.png')
+  ];
+}
+shop.prototype.getProduct = function (id) {
+  for (var i = 0; i < this.products.length; i++) {
+    if (this.products[i].id === id) {
+      return this.products[i];
+    }
+  }
+  return null;
+};
+function basket(basketName) {
+  this.basketName = basketName;
+  this.clearBasket = false;
+  this.checkoutParameters = {};
+  this.items = [];
+  // load items from local storage when initializing
+  this.loadItems();
+  // save items to local storage when unloading
+  var self = this;
+  $(window).unload(function () {
+    if (self.clearBasket) {
+      self.clearItems();
+    }
+    self.saveItems();
+    self.clearBasket = false;
+  });
+}
+// load items from local storage
+basket.prototype.loadItems = function () {
+  var items = localStorage !== null ? localStorage[this.basketName + '_items'] : null;
+  if (items !== null && JSON !== null) {
+    try {
+      items = JSON.parse(items);
+      for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        if (item.sku !== null && item.name !== null && item.price !== null && item.quantity !== null) {
+          item = new cartItem(item.sku, item.name, item.price, item.quantity);
+          this.items.push(item);
+        }
+      }
+    } catch (err) {
+    }
+  }
+};
+// save items to local storage
+basket.prototype.saveItems = function () {
+  if (localStorage !== null && JSON !== null) {
+    localStorage[this.basketName + '_items'] = JSON.stringify(this.items);
+  }
+};
+// adds an item to the cart
+basket.prototype.addItem = function (id, name, price, quantity) {
+  quantity = this.toNumber(quantity);
+  if (quantity !== 0) {
+    // update quantity for existing item
+    var found = false, item = null;
+    for (var i = 0; i < this.items.length && !found; i++) {
+      item = this.items[i];
+      if (item.id === id) {
+        found = true;
+        item.quantity = this.toNumber(item.quantity + quantity);
+        if (item.quantity <= 0) {
+          this.items.splice(i, 1);
+        }
+      }
+    }
+    // new item, add now
+    if (!found) {
+      item = new basketItem(id, name, price, quantity);
+      this.items.push(item);
+    }
+    // save changes
+    this.saveItems();
+  }
+};
+basket.prototype.getTotalPrice = function (id) {
+  var total = 0;
+  for (var i = 0; i < this.items.length; i++) {
+    var item = this.items[i];
+    if (id === null || item.id === id) {
+      total += this.toNumber(item.quantity * item.price);
+    }
+  }
+  return total;
+};
+basket.prototype.getTotalCount = function (id) {
+  var count = 0;
+  for (var i = 0; i < this.items.length; i++) {
+    var item = this.items[i];
+    if (id === null || item.id === id) {
+      count += this.toNumber(item.quantity);
+    }
+  }
+  return count;
+};
+// clear the cart
+basket.prototype.clearItems = function () {
+  this.items = [];
+  this.saveItems();
+};
+basket.prototype.checkout = function () {
+};
+// utility methods
+basket.prototype.addFormFields = function (form, data) {
+  if (data !== null) {
+    $.each(data, function (name, value) {
+      if (value !== null) {
+        var input = $('<input></input>').attr('type', 'hidden').attr('name', name).val(value);
+        form.append(input);
+      }
+    });
+  }
+};
+basket.prototype.toNumber = function (value) {
+  value = value * 1;
+  return isNaN(value) ? 0 : value;
+};
+function basketItem(id, name, price, quantity) {
+  this.id = id;
+  this.name = name;
+  this.price = price * 1;
+  this.quantity = quantity * 1;
+}
+agorasturiasApp.controller('ShopCtrl', [
+  '$scope',
+  '$stateParams',
+  'ShopService',
+  function ($scope, $stateParams, ShopService) {
+    $scope.shop = ShopService.shop;
+    $scope.basket = ShopService.basket;
+    var _productId = $stateParams.productId;
+    if (_productId !== null) {
+      $scope.product = $scope.shop.getProduct(_productId);
+    }
+  }
+]);
+agorasturiasApp.factory('ShopService', function () {
+  var _shop = new shop(), _basket = new basket('AngularStore');
+  return {
+    shop: _shop,
+    basket: _basket
+  };
+});
 agorasturiasApp.controller('MainCtrl', [
   '$scope',
   '$rootScope',
@@ -13354,7 +13538,7 @@ agorasturiasApp.controller('NavigationCtrl', [
     };
   }
 ]);
-agorasturiasApp.service('partitionService', function () {
+agorasturiasApp.service('PartitionService', function () {
   this.partition = function (dataArray, chunkSize) {
     var result = [];
     for (var i = 0; i < dataArray.length; i += chunkSize) {
