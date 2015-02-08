@@ -423,6 +423,10 @@ section.slider {
     #pre-events .article.extra {
        padding-top: 30px; }
 
+#shop a {
+  cursor: pointer; }
+#shop .summary {
+   background-color: #55acee; }
 #shop td {
   vertical-align: middle; }
   #shop td a {

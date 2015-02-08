@@ -12720,15 +12720,15 @@ agorasturiasApp.config([
     }).state('shop', {
       url: '/shop',
       templateUrl: 'public/views/shop.html',
-      access: ACCESS_GROUPS.ALL
+      access: ACCESS_GROUPS.LOGGED
     }).state('product', {
       url: '/product/:productId',
       templateUrl: 'public/views/product.html',
-      access: ACCESS_GROUPS.ALL
+      access: ACCESS_GROUPS.LOGGED
     }).state('basket', {
       url: '/basket',
       templateUrl: 'public/views/basket.html',
-      access: ACCESS_GROUPS.ALL
+      access: ACCESS_GROUPS.LOGGED
     }).state('checkout', {
       url: '/checkout',
       templateUrl: 'public/views/checkout.html',
@@ -13353,7 +13353,7 @@ basket.prototype.getTotalPrice = function (id) {
   var total = 0;
   for (var i = 0; i < this.items.length; i++) {
     var item = this.items[i];
-    if (id === null || item.id === id) {
+    if (id === undefined || item.id === id) {
       total += this.toNumber(item.quantity * item.price);
     }
   }
@@ -13363,7 +13363,7 @@ basket.prototype.getTotalCount = function (id) {
   var count = 0;
   for (var i = 0; i < this.items.length; i++) {
     var item = this.items[i];
-    if (id === null || item.id === id) {
+    if (id === undefined || item.id === id) {
       count += this.toNumber(item.quantity);
     }
   }

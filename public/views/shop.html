@@ -10,15 +10,15 @@
 
             <p>Search: <input ng-model="search"></p>
 
-            <table class="table table-bordered">
+            <table class="table table-bordered table-hover">
 
-                <tr class="well">
-                    <td class="right" colspan="4" >
+                <tr>
+                    <td class="summary right" colspan="4" >
                         <a ng-click="goToBasket()" title="Go to the basket"
                             ng-disabled="basket.getTotalCount() < 1">
                             <i class="fa fa-shopping-cart" />
                             <b>{{basket.getTotalCount()}}</b> items,
-                            <b>{{basket.getTotalPrice() | currency}}</b>
+                            <b>{{(basket.getTotalPrice() | number:2) + " €"}}</b>
                         </a>
                     </td>
                 </tr>
@@ -32,7 +32,7 @@
                       <br />{{product.description}}
                     </td>
                     <td class="right">
-                      {{product.price | currency}}
+                      {{(product.price | number:2) + " €"}}
                     </td>
                     <td class="center">
                       <a ng-click="basket.addItem(product.id, product.name, product.price, 1)">
@@ -41,13 +41,13 @@
                     </td>
                 </tr>
 
-                <tr class="well">
-                    <td class="right" colspan="4">
+                <tr>
+                    <td class="summary right" colspan="4">
                       <a ng-click="goToBasket()" title="Go to basket"
                          ng-disabled="basket.getTotalCount() < 1">
                          <i class="fa fa-shopping-cart" />
                          <b>{{basket.getTotalCount()}}</b> items,
-                         <b>{{basket.getTotalPrice() | currency}}</b>
+                         <b>{{(basket.getTotalPrice() | number:2) + " €"}}</b>
                       </a>
                     </td>
                 </tr>

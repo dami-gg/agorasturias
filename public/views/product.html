@@ -54,15 +54,15 @@
                     <div <div class="col-xs-2 col-md-4">
                         <button class="btn btn-block btn-success" 
                             ng-click="basket.addItem(product.id, product.name, product.price, 1)">
-                            <i class="icon-shopping-cart icon-white" /> Add to basket
+                            <i class="fa fa-shopping-cart" /> Add to basket
                         </button>
                         <button class="btn btn-block btn-danger" 
                             ng-click="basket.addItem(product.id, product.name, product.price, -10000)"
                             ng-disabled="basket.getTotalCount(product.id) < 1">
-                            <i class="icon-trash icon-white" /> Remove from basket
+                            <i class="fa fa-trash-o" /> Remove from basket
                         </button>
                         <button class="btn btn-block" ng-click="goToShop()">
-                            <i class="icon-chevron-left" /> Back to shop
+                            <i class="fa fa-arrow-left" /> Back to shop
                         </button>
                     </div>
                 </div>
