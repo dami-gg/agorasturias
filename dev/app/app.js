@@ -156,9 +156,9 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.LOGGED
             })
 
-            .state('basket',{
-                url:'/basket',
-                templateUrl : 'public/views/basket.html',
+            .state('shopping-cart',{
+                url:'/shopping-cart',
+                templateUrl : 'public/views/shopping-cart.html',
                 access: ACCESS_GROUPS.LOGGED
             })
 

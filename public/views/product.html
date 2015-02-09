@@ -1,65 +1,54 @@
-<section id="shop" class="light" ng-controller="ShopCtrl">
+<section id="shop" class="product light" ng-controller="ShopCtrl">
 
     <div class="container">
 
-        <h1 translate="SHOP"></h1>
+        <h1 translate="PRODUCT_DESCRIPTION"></h1>
+
+        <h2 class="center">
+            <b>{{product.name}}</b>
+        </h2>
 
         <div>
 
             <div class="container-fluid">
                 <div class="row-fluid">
-                    <div class="col-xs-4 col-md-8">
+                    <div class="col-md-8">
 
-                        <table class="table table-bordered">
+                        <div class="img-wrapper">
+                            <img class="img-responsive" ng-src="{{product.image}}" alt="{{product.name}}" />
+                        </div>
 
-                            <tr>
-                                <td class="right" colspan="3">
-                                    <a ng-click="goToBasket()" title="Go to basket" 
-                                        ng-disabled="cart.getTotalCount() < 1">
-                                        <i class="fa fa-shopping-cart" />
-                                        <b>{{basket.getTotalCount()}}</b> items, 
-                                        <b>{{basket.getTotalPrice() | currency}}</b>
-                                        <span ng-show="basket.getTotalCount(product.id) > 0"><br />
-                                            This item is in the basket
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td class="center">
-                                  <b>{{product.name}}</b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="center">
-                                  <img ng-src="{{product.image}}" alt="{{product.name}}" />
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td>
-                                    {{product.description}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="right">
-                                  {{product.price | currency}}
-                                </td>
-                            </tr>
-
-                        </table>
+                        <p>
+                            {{product.description}}
+                        </p>
                     </div>
 
-                    <div <div class="col-xs-2 col-md-4">
+                    <div class="col-md-4">
+
+                        <div class="price-box">
+                            <p>
+                                Price: {{(product.price | number:2) + " €"}}
+                            </p>
+
+                            <a ng-click="goToCart()" title="Go to the shopping cart" 
+                                ng-disabled="cart.getTotalCount() < 1">
+                                <i class="fa fa-shopping-cart" />
+                                <b>{{cart.getTotalCount()}}</b> items, 
+                                <b>{{(cart.getTotalPrice() | number:2) + " €"}}</b>
+                                <span ng-show="cart.getTotalCount(product.id) > 0">
+                                    <br/>{{cart.getTotalCount(product.id)}} x {{product.name}} already in the shopping cart
+                                </span>
+                            </a>
+                        </div>
+
                         <button class="btn btn-block btn-success" 
-                            ng-click="basket.addItem(product.id, product.name, product.price, 1)">
-                            <i class="fa fa-shopping-cart" /> Add to basket
+                            ng-click="cart.addItem(product.id, product.name, product.price, 1)">
+                            <i class="fa fa-cart-plus" /> Add to the shopping cart
                         </button>
                         <button class="btn btn-block btn-danger" 
-                            ng-click="basket.addItem(product.id, product.name, product.price, -10000)"
-                            ng-disabled="basket.getTotalCount(product.id) < 1">
-                            <i class="fa fa-trash-o" /> Remove from basket
+                            ng-click="cart.addItem(product.id, product.name, product.price, -10000)"
+                            ng-disabled="cart.getTotalCount(product.id) < 1">
+                            <i class="fa fa-trash-o" /> Remove from the shopping cart
                         </button>
                         <button class="btn btn-block" ng-click="goToShop()">
                             <i class="fa fa-arrow-left" /> Back to shop

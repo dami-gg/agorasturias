@@ -423,19 +423,46 @@ section.slider {
     #pre-events .article.extra {
        padding-top: 30px; }
 
+#shop .container {
+   padding-bottom: 50px;
+  font-size: 16px; }
 #shop a {
-  cursor: pointer; }
+  cursor: pointer;
+  color: yellow; }
+#shop .search-box {
+  color: black;
+  border: none; }
 #shop .summary {
    background-color: #55acee; }
+#shop p.center {
+  text-align: center; }
 #shop td {
   vertical-align: middle; }
-  #shop td a {
-     color: yellow; }
   #shop td.center {
     text-align: center; }
   #shop td.right {
     float: none;
     text-align: right; }
+#shop .table-hover tbody tr:hover td {
+  background-color: #55acee; }
+#shop.product .price-box {
+  text-align: right;
+  margin-bottom: 20px; }
+#shop.cart .quantity-selector {
+  display: inline; }
+  #shop.cart .quantity-selector input {
+    border: none;
+    width: 50px;
+    height: 28px;
+    color: black; }
+  #shop.cart .quantity-selector button {
+    border: none;
+    width: 32px;
+    padding: 0; }
+#shop .img-wrapper {
+  margin: 40px 0 30px 0; }
+  #shop .img-wrapper img {
+    margin: 0 auto; }
 
 #contact {
   padding-bottom: 50px; }

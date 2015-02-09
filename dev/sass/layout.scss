@@ -423,19 +423,52 @@ section {
 
 #shop {
 
-    a { cursor:pointer; }
+    .container { padding-bottom:50px; font-size:16px; }
+
+    a { cursor:pointer; color:yellow; }
+
+    .search-box { color:black; border:none; }
 
     .summary { background-color:#55acee; }
+
+    p.center { text-align:center; }
 
     td {
 
         vertical-align: middle;
 
-        a { color: yellow; }
-
         &.center { text-align:center; }
 
         &.right { float:none; text-align:right; }
+    }
+
+    .table-hover tbody tr:hover td {
+        
+        background-color: #55acee;
+    }
+
+    &.product { 
+
+        .price-box { text-align: right; margin-bottom: 20px; }
+    }
+
+    &.cart {
+
+        .quantity-selector { 
+
+            display:inline; 
+
+            input { border:none; width:50px; height:28px; color:black; }
+
+            button { border:none; width:32px; padding:0; }
+        }
+    }
+
+    .img-wrapper { 
+
+        margin:40px 0 30px 0;
+
+        img { margin:0 auto; }
     }
 }
 

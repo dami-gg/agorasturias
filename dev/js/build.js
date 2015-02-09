@@ -156,9 +156,9 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.LOGGED
             })
 
-            .state('basket',{
-                url:'/basket',
-                templateUrl : 'public/views/basket.html',
+            .state('shopping-cart',{
+                url:'/shopping-cart',
+                templateUrl : 'public/views/shopping-cart.html',
                 access: ACCESS_GROUPS.LOGGED
             })
 
@@ -657,7 +657,9 @@ function product(id, name, description, price, image) {
 function shop() {
   
   this.products = [
-    new product (1, 'MATRESS', '', '19.75', 'public/img/shop/mattress.png'),
+    new product (1, 'MATTRESS', 
+        'For sleeping at a CAMPSITE. For 2 persons. 140X190cm. Flocked outer for comfort. 2-year guarantee!', 
+        '19.75', 'public/img/shop/mattress.png'),
     new product (2, 'SLEEPING BAG', '', '9.75', 'public/img/shop/mattress.png'),
     new product (3, 'T-SHIRT', '', '12', 'public/img/shop/mattress.png')
   ];
@@ -672,9 +674,9 @@ shop.prototype.getProduct = function (id) {
   }
   return null;
 };
-function basket(basketName) {
-    this.basketName = basketName;
-    this.clearBasket = false;
+function cart(cartName) {
+    this.cartName = cartName;
+    this.clearCart = false;
     this.checkoutParameters = {};
     this.items = [];
 
@@ -684,17 +686,17 @@ function basket(basketName) {
     // save items to local storage when unloading
     var self = this;
     $(window).unload(function () {
-        if (self.clearBasket) {
+        if (self.clearCart) {
             self.clearItems();
         }
         self.saveItems();
-        self.clearBasket = false;
+        self.clearCart = false;
     });
 }
 
 // load items from local storage
-basket.prototype.loadItems = function () {
-    var items = localStorage !== null ? localStorage[this.basketName + "_items"] : null;
+cart.prototype.loadItems = function () {
+    var items = localStorage !== null ? localStorage[this.cartName + "_items"] : null;
     if (items !== null && JSON !== null) {
         try {
             items = JSON.parse(items);
@@ -713,14 +715,14 @@ basket.prototype.loadItems = function () {
 };
 
 // save items to local storage
-basket.prototype.saveItems = function () {
+cart.prototype.saveItems = function () {
     if (localStorage !== null && JSON !== null) {
-        localStorage[this.basketName + "_items"] = JSON.stringify(this.items);
+        localStorage[this.cartName + "_items"] = JSON.stringify(this.items);
     }
 };
 
 // adds an item to the cart
-basket.prototype.addItem = function (id, name, price, quantity) {
+cart.prototype.addItem = function (id, name, price, quantity) {
     quantity = this.toNumber(quantity);
     if (quantity !== 0) {
 
@@ -740,7 +742,7 @@ basket.prototype.addItem = function (id, name, price, quantity) {
 
         // new item, add now
         if (!found) {
-            item = new basketItem(id, name, price, quantity);
+            item = new cartItem(id, name, price, quantity);
             this.items.push(item);
         }
 
@@ -749,7 +751,7 @@ basket.prototype.addItem = function (id, name, price, quantity) {
     }
 };
 
-basket.prototype.getTotalPrice = function (id) {
+cart.prototype.getTotalPrice = function (id) {
     var total = 0;
     for (var i = 0; i < this.items.length; i++) {
         var item = this.items[i];
@@ -760,7 +762,7 @@ basket.prototype.getTotalPrice = function (id) {
     return total;
 };
 
-basket.prototype.getTotalCount = function (id) {
+cart.prototype.getTotalCount = function (id) {
     var count = 0;
     for (var i = 0; i < this.items.length; i++) {
         var item = this.items[i];
@@ -772,18 +774,18 @@ basket.prototype.getTotalCount = function (id) {
 };
 
 // clear the cart
-basket.prototype.clearItems = function () {
+cart.prototype.clearItems = function () {
     this.items = [];
     this.saveItems();
 };
 
-basket.prototype.checkout = function () {
+cart.prototype.checkout = function () {
   
   
 };
 
 // utility methods
-basket.prototype.addFormFields = function (form, data) {
+cart.prototype.addFormFields = function (form, data) {
     if (data !== null) {
         $.each(data, function (name, value) {
             if (value !== null) {
@@ -794,12 +796,12 @@ basket.prototype.addFormFields = function (form, data) {
     }
 };
 
-basket.prototype.toNumber = function (value) {
+cart.prototype.toNumber = function (value) {
     value = value * 1;
     return isNaN(value) ? 0 : value;
 };
 
-function basketItem(id, name, price, quantity) {
+function cartItem(id, name, price, quantity) {
     this.id = id;
     this.name = name;
     this.price = price * 1;
@@ -808,7 +810,7 @@ function basketItem(id, name, price, quantity) {
 agorasturiasApp.controller('ShopCtrl', function ($scope, $stateParams, ShopService, $location) {
 
     $scope.shop = ShopService.shop;
-    $scope.basket = ShopService.basket;
+    $scope.cart = ShopService.cart;
 
     var _productId = $stateParams.productId;
 
@@ -830,18 +832,18 @@ agorasturiasApp.controller('ShopCtrl', function ($scope, $stateParams, ShopServi
         $location.path ('/product/' + productId);
     };
 
-    $scope.goToBasket = function() {
-        $location.path ('/basket');
+    $scope.goToCart = function() {
+        $location.path ('/shopping-cart');
     };
 });
 agorasturiasApp.factory('ShopService', function() {
     
     var _shop = new shop(),
-        _basket = new basket("AngularStore");
+        _cart = new cart("AngularStore");
   
     return {
         shop: _shop,
-        basket: _basket
+        cart: _cart
     };
 });
 

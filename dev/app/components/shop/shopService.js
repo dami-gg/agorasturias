@@ -1,10 +1,10 @@
 agorasturiasApp.factory('ShopService', function() {
     
     var _shop = new shop(),
-        _basket = new basket("AngularStore");
+        _cart = new cart("AngularStore");
   
     return {
         shop: _shop,
-        basket: _basket
+        cart: _cart
     };
 });

@@ -40,7 +40,7 @@ gulp.task('js', function() {
                 'dev/app/components/team/thumbnailsController.js',
                 'dev/app/components/shop/product.js',
                 'dev/app/components/shop/shop.js',                
-                'dev/app/components/shop/basket.js',
+                'dev/app/components/shop/cart.js',
                 'dev/app/components/shop/shopController.js',
                 'dev/app/components/shop/shopService.js',                
                 'dev/app/shared/mainController.js',

@@ -1,19 +1,22 @@
-<section id="shop" class="light" ng-controller="ShopCtrl">
+<section id="shop" class="cart light" ng-controller="ShopCtrl">
 
     <div class="container">
 
-        <h1 translate="SHOP"></h1>
+        <h1 translate="SHOPPING_CART"></h1>
 
         <div>
 
             <p>
-                This is your basket. Here you can edit the items, 
-                go back to the shop, clear the basket or check out.
+                This is the content of your shopping cart.
+            </p>
+
+            <p>
+                Please review that everything is correct before proceeding with the checkout.
             </p>
 
             <div class="container-fluid">
                 <div class="row-fluid">
-                    <div class="col-xs-4 col-md-8">
+                    <div class="col-md-8">
 
                         <table class="table table-bordered">
 
@@ -24,34 +27,34 @@
                                 <td />
                             </tr>
 
-                            <tr ng-hide="basket.getTotalCount() > 0" >
+                            <tr ng-hide="cart.getTotalCount() > 0" >
                                 <td class="center" colspan="4">
-                                    Your basket is empty
+                                    Your shopping cart is empty
                                 </td>
                             </tr>
 
-                            <tr ng-repeat="item in basket.items | orderBy:'name'">
+                            <tr ng-repeat="item in cart.items | orderBy:'name'">
                                 <td>{{item.name}}</td>
                                 <td class="center">
-                                  <div class="input-append">
-                                    <input class="col-md-1 text-center" type="tel" 
-                                        ng-model="item.quantity" 
-                                        ng-change="basket.saveItems()" />
-                                    <button class="btn btn-success" type="button" 
-                                        ng-disabled="item.quantity >= 1000"
-                                        ng-click="basket.addItem(item.id, item.name, item.price, +1)">
-                                        <i class="fa fa-plus" />
-                                    </button>
-                                    <button class="btn btn-inverse" type="button" 
+                                  <div class="input-group quantity-selector">
+                                    <button class="btn btn-danger input-group-addon" type="button" 
                                         ng-disabled="item.quantity <= 1"
-                                        ng-click="basket.addItem(item.id, item.name, item.price, -1)">
+                                        ng-click="cart.addItem(item.id, item.name, item.price, -1)">
                                         <i class="fa fa-minus" />
                                     </button>
+                                    <input class="text-center" type="text" 
+                                        ng-model="item.quantity" 
+                                        ng-change="cart.saveItems()" />
+                                    <button class="btn btn-success input-group-addon" type="button" 
+                                        ng-disabled="item.quantity >= 1000"
+                                        ng-click="cart.addItem(item.id, item.name, item.price, +1)">
+                                        <i class="fa fa-plus" />
+                                    </button>                                    
                                   </div>
                                 </td>
-                                <td class="right">{{item.price * item.quantity | currency}}</td>
-                                <td class="center" title="Remove from basket">
-                                    <a ng-click="basket.addItem(item.id, item.name, item.price, -10000000)" >
+                                <td class="right">{{(item.price * item.quantity | number:2) + " €"}}</td>
+                                <td class="center" title="Remove from the shopping cart">
+                                    <a ng-click="cart.addItem(item.id, item.name, item.price, -10000000)" >
                                         <i class="fa fa-times" />
                                     </a>
                                 </td>
@@ -59,23 +62,27 @@
 
                             <tr class="summary">
                                 <td><b>Total</b></td>
-                                <td class="center"><b>{{basket.getTotalCount()}}</b></td>
-                                <td class="right"><b>{{basket.getTotalPrice() | currency}}</b></td>
+                                <td class="center">
+                                    <b>{{cart.getTotalCount()}}</b>
+                                </td>
+                                <td class="right">
+                                    <b>{{(cart.getTotalPrice() | number:2) + " €"}}</b>
+                                </td>
                                 <td />
                             </tr>
                         </table>
                     </div>
 
-                    <div class="col-xs-2 col-md-4">
+                    <div class="col-md-4">
                         <p>
                             <button class="btn btn-block" ng-click="goToShop()">
                                 <i class="fa fa-arrow-left" /> Back to shop
                             </button>
                             <button 
                                 class="btn btn-block btn-danger" 
-                                ng-click="basket.clearItems()" 
-                                ng-disabled="basket.getTotalCount() < 1" >
-                                <i class="fa fa-trash-o" /> Clear basket
+                                ng-click="cart.clearItems()" 
+                                ng-disabled="cart.getTotalCount() < 1" >
+                                <i class="fa fa-trash-o" /> Clear the shopping cart
                             </button>
                         </p>
 
@@ -84,8 +91,8 @@
                         <p>
                             <button
                                 class="btn btn-block btn-success"
-                                ng-click="basket.checkout('PayPal')"
-                                ng-disabled="basket.getTotalCount() < 1">
+                                ng-click="cart.checkout('PayPal')"
+                                ng-disabled="cart.getTotalCount() < 1">
                                 <i class="fa fa-check" /> Check out using PayPal
                             </button>
                         </p>
@@ -95,8 +102,8 @@
                         <p>
                             <button 
                                 class="btn btn-block btn-link"
-                                ng-click="basket.checkout('PayPal')"
-                                ng-disabled="basket.getTotalCount() < 1" >
+                                ng-click="cart.checkout('PayPal')"
+                                ng-disabled="cart.getTotalCount() < 1" >
                                 <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" 
                                     alt="checkout PayPal"/>
                             </button>    

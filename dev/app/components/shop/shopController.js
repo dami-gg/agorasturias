@@ -1,7 +1,7 @@
 agorasturiasApp.controller('ShopCtrl', function ($scope, $stateParams, ShopService, $location) {
 
     $scope.shop = ShopService.shop;
-    $scope.basket = ShopService.basket;
+    $scope.cart = ShopService.cart;
 
     var _productId = $stateParams.productId;
 
@@ -23,7 +23,7 @@ agorasturiasApp.controller('ShopCtrl', function ($scope, $stateParams, ShopServi
         $location.path ('/product/' + productId);
     };
 
-    $scope.goToBasket = function() {
-        $location.path ('/basket');
+    $scope.goToCart = function() {
+        $location.path ('/shopping-cart');
     };
 });
