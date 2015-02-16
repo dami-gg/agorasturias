@@ -1504,6 +1504,9 @@ section.slider {
 #sponsors .sponsor {
   width: 200px;
   margin-bottom: 25px; }
+  @media only screen and (max-width: 500px) {
+    #sponsors .sponsor {
+      width: 150px; } }
 #sponsors .item {
   height: 130px; }
 #sponsors img {

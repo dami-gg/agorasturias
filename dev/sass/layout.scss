@@ -320,7 +320,12 @@ section {
 
     .row { margin-bottom:30px; }
 
-    .sponsor { width:200px; margin-bottom:25px; }
+    .sponsor { 
+
+        width:200px; margin-bottom:25px; 
+
+        @media only screen and (max-width:500px) { width:150px; }
+    }
 
     .item { height:130px; }
 
