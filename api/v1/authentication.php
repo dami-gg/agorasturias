@@ -37,6 +37,8 @@ $app->post('/login', function() use ($app) {
       if (!isset($_SESSION)) {
         session_start();
       }
+
+      $db->setSession($user);
     }
     else {
       $response['status'] = "error";

@@ -12983,7 +12983,7 @@ agorasturiasApp.controller('FileUploaderCtrl', [
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
           $scope.upload = $upload.upload({
-            url: '/agorasturias/api/v1/upload',
+            url: '/api/v1/upload',
             method: 'POST',
             data: { myObj: $scope.myModelObj },
             file: file

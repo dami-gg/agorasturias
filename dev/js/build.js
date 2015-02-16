@@ -370,7 +370,7 @@ agorasturiasApp.controller('EditPostCtrl',['$location','$scope','Data',
     });
   };
 }]);
-agorasturiasApp.controller('FileUploaderCtrl', 
+agorasturiasApp.controller('FileUploaderCtrl',
   ['$scope', '$upload', 'Data', 'partitionService', function($scope, $upload, Data, partitionService) {
 
   $scope.$watch('files', function(files) {
@@ -380,7 +380,7 @@ agorasturiasApp.controller('FileUploaderCtrl',
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
         $scope.upload = $upload.upload({
-          url: '/agorasturias/api/v1/upload', 
+          url: '/api/v1/upload', 
           method: 'POST',
           //headers: {'Authorization': 'xxx'}, // only for html5
           //withCredentials: true,
@@ -408,7 +408,7 @@ agorasturiasApp.controller('FileUploaderCtrl',
           }
 
           $scope.rows = partitionService.partition(files, 6);
-        }         
+        }
       });
   }
 
