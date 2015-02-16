@@ -28,10 +28,13 @@ agorasturiasApp.controller('MainCtrl',
       Data.get('session')
       .then(function(response){
 
-        if(response.uid !== undefined){
+        if(response.uid !== undefined && response.uid !== ""){
           LoginService.login(response.uid, response.email, response.name, response.role, response.username);
           $scope.authenticated = true;
           $scope.username = response.username;
+        }
+        else {
+          $scope.authenticated = false;
         }
       });
     }
@@ -63,9 +66,10 @@ agorasturiasApp.controller('MainCtrl',
     };
 
     $scope.logout = function () {
-      $scope.authenticated = false;
-      
-      LoginService.logout();
+      Data.get('logout').then(function (response) {          
+          $scope.authenticated = false;      
+          LoginService.logout();
+      });      
 
       $location.path('/home');
     };

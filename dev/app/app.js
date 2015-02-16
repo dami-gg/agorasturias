@@ -139,17 +139,17 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
 
 agorasturiasApp.run(
   ['$state', '$rootScope', 'LoginService', 'ACCESS_GROUPS', 'USER_ROLES',
-  function($state, $rootScope, Login, ACCESS_GROUPS, USER_ROLES) {
+  function($state, $rootScope, LoginService, ACCESS_GROUPS, USER_ROLES) {
 
     $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
 
-      if (toState.access === ACCESS_GROUPS.LOGGED && Login.role === USER_ROLES.GUEST) {
+      if (toState.access === ACCESS_GROUPS.LOGGED && LoginService.session.role === USER_ROLES.GUEST) {
 
         e.preventDefault();
         $state.go('home');
       }
 
-      if (toState.access === ACCESS_GROUPS.ADMIN && Login.role !== USER_ROLES.ADMIN) {
+      if (toState.access === ACCESS_GROUPS.ADMIN && LoginService.session.role !== USER_ROLES.ADMIN) {
 
         e.preventDefault();
         $state.go('home');

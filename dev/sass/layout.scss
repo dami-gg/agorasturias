@@ -3,9 +3,11 @@ body { font-family: Open Sans,Droid Serif,Arial,Georgia,sans-serif; text-align: 
 h1 { text-align:center; margin-bottom:40px; color:white; }
 h2, h3 { text-align:center; margin-bottom:20px; color: white; }
 
+a { cursor:pointer; }
+
 .container { padding:10px; }
 
-.nav, .pagination, .panel-title a { cursor: pointer; }
+.nav, .pagination { cursor: pointer; }
 
 .navbar { 
    
@@ -293,7 +295,7 @@ section {
 
     text-align: center;
 
-    a { cursor: pointer; color: yellow; }
+    a { color: yellow; }
 }
 
 .thumbnail {
@@ -425,7 +427,7 @@ section {
 
     padding-bottom:50px; 
 
-    a { cursor: pointer; color: yellow; }
+    a { color: yellow; }
 
     textarea { min-height: 120px; }
 

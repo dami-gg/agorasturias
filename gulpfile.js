@@ -12,7 +12,7 @@ var jshint = require('gulp-jshint'),
     notify = require('gulp-notify'),
     minifyCSS = require('gulp-minify-css'),
     ngmin = require('gulp-ngmin');
-//    minifyHTML = require('gulp-minify-html');
+    minifyHTML = require('gulp-minify-html');
 
 // Concatenate & Minify JS
 gulp.task('js', function() {
@@ -84,7 +84,7 @@ gulp.task('js', function() {
 // Compile Sass
 gulp.task('sass', function() {
     return gulp.src('dev/sass/*.scss')
-        .pipe(sass({'sourcemap=none': true, // What the crap this ugly garbage?
+        .pipe(sass({'sourcemap=none': true, // What the crap is this ugly garbage?
                         cacheLocation: '/dev/.sass-cache'}))
         .pipe(gulp.dest('dev/css'))
         .pipe(notify({ message: 'Sass task complete' }));
@@ -102,14 +102,18 @@ gulp.task('css', function() {
 });
 
 // Minify HTML files
-// gulp.task('html', function() {
-//     var opts = { comments:false };
-//
-//     gulp.src('./dev/html/*.html')
-//         .pipe(minifyHTML(opts))
-//         .pipe(gulp.dest('public/views/'))
-//         .pipe(notify({ message: 'HTML task complete' }));
-// });
+gulp.task('html', function() {
+    var opts = { comments:false };
+
+    gulp.src('./dev/index.html')
+        .pipe(minifyHTML(opts))
+        .pipe(gulp.dest('.'));
+
+    gulp.src('./dev/html/*.html')
+        .pipe(minifyHTML(opts))
+        .pipe(gulp.dest('public/views/'))
+        .pipe(notify({ message: 'HTML task complete' }));    
+});
 
 // Watch Files For Changes
 gulp.task('watch', function() {
@@ -119,6 +123,7 @@ gulp.task('watch', function() {
     gulp.watch('dev/js/functions.js', ['js']);
     gulp.watch('dev/sass/*.scss', ['sass']);
     gulp.watch('dev/css/*.css', ['css']);
+    gulp.watch('dev/index.html', ['html']);
     gulp.watch('dev/html/*.html', ['html']);
 });
 

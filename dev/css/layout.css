@@ -13,10 +13,13 @@ h2, h3 {
   margin-bottom: 20px;
   color: white; }
 
+a {
+  cursor: pointer; }
+
 .container {
   padding: 10px; }
 
-.nav, .pagination, .panel-title a {
+.nav, .pagination {
   cursor: pointer; }
 
 .navbar {
@@ -310,7 +313,6 @@ section.slider {
 .link-wrap {
   text-align: center; }
   .link-wrap a {
-    cursor: pointer;
     color: yellow; }
 
 .thumbnail {
@@ -426,7 +428,6 @@ section.slider {
 #contact {
   padding-bottom: 50px; }
   #contact a {
-    cursor: pointer;
     color: yellow; }
   #contact textarea {
     min-height: 120px; }

@@ -12719,13 +12719,13 @@ agorasturiasApp.run([
   'LoginService',
   'ACCESS_GROUPS',
   'USER_ROLES',
-  function ($state, $rootScope, Login, ACCESS_GROUPS, USER_ROLES) {
+  function ($state, $rootScope, LoginService, ACCESS_GROUPS, USER_ROLES) {
     $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
-      if (toState.access === ACCESS_GROUPS.LOGGED && Login.role === USER_ROLES.GUEST) {
+      if (toState.access === ACCESS_GROUPS.LOGGED && LoginService.session.role === USER_ROLES.GUEST) {
         e.preventDefault();
         $state.go('home');
       }
-      if (toState.access === ACCESS_GROUPS.ADMIN && Login.role !== USER_ROLES.ADMIN) {
+      if (toState.access === ACCESS_GROUPS.ADMIN && LoginService.session.role !== USER_ROLES.ADMIN) {
         e.preventDefault();
         $state.go('home');
       }
@@ -13261,10 +13261,12 @@ agorasturiasApp.controller('MainCtrl', [
       $scope.username = LoginService.session.username;
     } else {
       Data.get('session').then(function (response) {
-        if (response.uid !== undefined) {
+        if (response.uid !== undefined && response.uid !== '') {
           LoginService.login(response.uid, response.email, response.name, response.role, response.username);
           $scope.authenticated = true;
           $scope.username = response.username;
+        } else {
+          $scope.authenticated = false;
         }
       });
     }
@@ -13288,8 +13290,10 @@ agorasturiasApp.controller('MainCtrl', [
       });
     };
     $scope.logout = function () {
-      $scope.authenticated = false;
-      LoginService.logout();
+      Data.get('logout').then(function (response) {
+        $scope.authenticated = false;
+        LoginService.logout();
+      });
       $location.path('/home');
     };
   }
