@@ -13243,7 +13243,7 @@ agorasturiasApp.controller('MainCtrl', [
   'Data',
   'LoginService',
   'USER_ROLES',
-  function ($scope, $rootScope, $translate, $cookieStore, $location, $http, Data, Login, USER_ROLES) {
+  function ($scope, $rootScope, $translate, $cookieStore, $location, $http, Data, LoginService, USER_ROLES) {
     var langInCookie = $cookieStore.get('lang');
     if (langInCookie !== undefined) {
       $translate.use(langInCookie);
@@ -13256,6 +13256,18 @@ agorasturiasApp.controller('MainCtrl', [
       }
       $cookieStore.put('lang', $translate.use());
     };
+    if (LoginService.authenticated) {
+      $scope.authenticated = true;
+      $scope.username = LoginService.session.username;
+    } else {
+      Data.get('session').then(function (response) {
+        if (response.uid !== undefined) {
+          LoginService.login(response.uid, response.email, response.name, response.role, response.username);
+          $scope.authenticated = true;
+          $scope.username = response.username;
+        }
+      });
+    }
     //initially set those objects to null to avoid undefined error
     $rootScope.login = {};
     $rootScope.currentPost = null;
@@ -13265,30 +13277,19 @@ agorasturiasApp.controller('MainCtrl', [
         password: user.password
       }).then(function (response) {
         if (response.status === 'success') {
-          $scope.authenticated = true;
-          $scope.username = response.username;
-          Login.authenticated = true;
-          Login.username = response.username;
-          Login.email = response.email;
-          Login.name = response.name;
-          Login.role = response.role;
+          LoginService.login(response.uid, response.email, response.name, response.role, response.username);
           $location.path('/home');
         } else {
           alert(response.message);
-          $scope.authenticated = false;
-          Login.username = '';
-          Login.email = '';
-          Login.name = '';
-          Login.role = USER_ROLES.GUEST;
+          LoginService.logout();
         }
+        $scope.authenticated = LoginService.authenticated;
+        $scope.username = LoginService.session.username;
       });
     };
     $scope.logout = function () {
       $scope.authenticated = false;
-      Login.username = '';
-      Login.email = '';
-      Login.name = '';
-      Login.role = USER_ROLES.GUEST;
+      LoginService.logout();
       $location.path('/home');
     };
   }
@@ -13296,13 +13297,36 @@ agorasturiasApp.controller('MainCtrl', [
 agorasturiasApp.factory('LoginService', [
   'USER_ROLES',
   function (USER_ROLES) {
-    var user = {
-        username: '',
-        role: USER_ROLES.GUEST,
+    var session = {
+        userId: '',
         email: '',
-        name: ''
+        name: '',
+        role: USER_ROLES.GUEST,
+        username: ''
       };
-    return user;
+    var authenticated = false;
+    var login = function (userId, email, name, role, username) {
+      this.session.userId = userId;
+      this.session.email = email;
+      this.session.name = name;
+      this.session.role = role;
+      this.session.username = username;
+      this.authenticated = true;
+    };
+    var logout = function () {
+      this.session.userId = '';
+      this.session.email = '';
+      this.session.name = '';
+      this.session.role = USER_ROLES.GUEST;
+      this.session.username = '';
+      this.authenticated = false;
+    };
+    return {
+      session: session,
+      authenticated: authenticated,
+      login: login,
+      logout: logout
+    };
   }
 ]);
 agorasturiasApp.factory('Data', [
