@@ -428,6 +428,14 @@ section.slider {
     #pre-events .article.extra {
        padding-top: 30px; }
 
+#profile .panel-body {
+  color: black; }
+
+#new-post form > div, #edit-post form > div {
+  margin: 20px 0; }
+#new-post form p, #edit-post form p {
+  margin-top: 10px; }
+
 #contact {
   padding-bottom: 50px; }
   #contact a {

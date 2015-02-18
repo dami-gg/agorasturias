@@ -1,7 +1,7 @@
 // create the module including ngRoute for all the routing needs
 var agorasturiasApp = angular.module('agorasturiasApp',
-  ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngSanitize', 
-    'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'socialLinks']);
+  ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngAnimate', 'ngSanitize', 
+    'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'socialLinks', 'ngToast']);
 
 agorasturiasApp.constant("USER_ROLES", {
   "GUEST" : "guest",
@@ -15,7 +15,6 @@ agorasturiasApp.constant("ACCESS_GROUPS", {
   "ADMIN" : "admin"
 });
 
-// configure the routes
 agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translateProvider, ACCESS_GROUPS) {
 
         $urlRouterProvider.otherwise('/home');
@@ -112,6 +111,12 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.LOGGED
             })
 
+            .state('profile', {
+                url  : '/profile',
+                templateUrl : 'public/views/profile.html',
+                access: ACCESS_GROUPS.LOGGED
+            })
+
             .state('new-post',{
                 url:'/new-post',
                 templateUrl : 'public/views/new-post.html',
@@ -136,6 +141,13 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
       $translateProvider.useCookieStorage();
     }
 );
+
+agorasturiasApp.config(['ngToastProvider', function(ngToast) {
+    ngToast.configure({
+      verticalPosition: 'bottom',
+      horizontalPosition: 'right'
+    });
+  }]);
 
 agorasturiasApp.run(
   ['$state', '$rootScope', 'LoginService', 'ACCESS_GROUPS', 'USER_ROLES',
@@ -323,11 +335,11 @@ agorasturiasApp.controller('NewPostCtrl',['$location','$scope','Data', function(
     }).then(function(response){
 
       if(response.status==="success"){
-        alert(response.message);
         $location.path('/home');
       }
-      else
+      else {
         alert(response.message);
+      }
     });
   };
 
@@ -351,22 +363,22 @@ agorasturiasApp.controller('EditPostCtrl',['$location','$scope','Data',
     }).then(function(response){
 
       if(response.status === "success"){
-        alert("Post successfully updated");
         $location.path('/home');
       }
-      else
+      else {
         alert(response.message);
+      }
     });
   };
 
   $scope.doDeletePost = function(postId){
     Data.delete('posts/' + postId).then(function(response){
       if(response.status === "success"){
-        alert(response.message);
         $location.path('/home');
       }
-      else
+      else {
         alert(response.message);
+      }
     });
   };
 }]);
@@ -603,10 +615,17 @@ agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, partitionService)
 
   $scope.rows = partitionService.partition(members, 4);
 });
+agorasturiasApp.controller('ProfileCtrl', ['$scope', 'LoginService', 'Data', 
+    function ($scope, LoginService, Data) {
+
+        $scope.userData = LoginService.session;
+    }
+]);
 agorasturiasApp.controller('MainCtrl', 
     ['$scope',  '$rootScope', '$translate', '$cookieStore', '$location', 
-      '$http', 'Data', 'LoginService', 'USER_ROLES',
-    function ($scope, $rootScope, $translate, $cookieStore, $location, $http, Data, LoginService, USER_ROLES) { 
+      '$http', 'Data', 'LoginService', 'USER_ROLES', 'ngToast',
+    function ($scope, $rootScope, $translate, $cookieStore, $location, 
+                $http, Data, LoginService, USER_ROLES, ngToast) { 
 
     var langInCookie = $cookieStore.get("lang");
 
@@ -657,8 +676,9 @@ agorasturiasApp.controller('MainCtrl',
           if (response.status === "success") {
             LoginService.login(response.uid, response.email, response.name, 
                 response.role, response.username);
-            
+
             $location.path('/home');
+            $scope.notify("Welcome back <b>" + response.name + "</b>", 'success');
           }
           else {
             alert(response.message);
@@ -674,9 +694,18 @@ agorasturiasApp.controller('MainCtrl',
       Data.get('logout').then(function (response) {          
           $scope.authenticated = false;      
           LoginService.logout();
+          $scope.notify("See you soon!", 'danger');
       });      
 
       $location.path('/home');
+    };
+
+    $scope.notify = function(message, type){
+      var toast = ngToast.create({
+        content: message,
+        className: type,
+        timeout: 2000
+      });
     };
 }]);
 agorasturiasApp.factory('LoginService', ['USER_ROLES', function(USER_ROLES) {

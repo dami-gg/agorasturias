@@ -1,7 +1,7 @@
 // create the module including ngRoute for all the routing needs
 var agorasturiasApp = angular.module('agorasturiasApp',
-  ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngSanitize', 
-    'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'socialLinks']);
+  ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngAnimate', 'ngSanitize', 
+    'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'socialLinks', 'ngToast']);
 
 agorasturiasApp.constant("USER_ROLES", {
   "GUEST" : "guest",
@@ -15,7 +15,6 @@ agorasturiasApp.constant("ACCESS_GROUPS", {
   "ADMIN" : "admin"
 });
 
-// configure the routes
 agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translateProvider, ACCESS_GROUPS) {
 
         $urlRouterProvider.otherwise('/home');
@@ -112,6 +111,12 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.LOGGED
             })
 
+            .state('profile', {
+                url  : '/profile',
+                templateUrl : 'public/views/profile.html',
+                access: ACCESS_GROUPS.LOGGED
+            })
+
             .state('new-post',{
                 url:'/new-post',
                 templateUrl : 'public/views/new-post.html',
@@ -136,6 +141,13 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
       $translateProvider.useCookieStorage();
     }
 );
+
+agorasturiasApp.config(['ngToastProvider', function(ngToast) {
+    ngToast.configure({
+      verticalPosition: 'bottom',
+      horizontalPosition: 'right'
+    });
+  }]);
 
 agorasturiasApp.run(
   ['$state', '$rootScope', 'LoginService', 'ACCESS_GROUPS', 'USER_ROLES',

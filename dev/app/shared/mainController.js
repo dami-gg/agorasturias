@@ -1,7 +1,8 @@
 agorasturiasApp.controller('MainCtrl', 
     ['$scope',  '$rootScope', '$translate', '$cookieStore', '$location', 
-      '$http', 'Data', 'LoginService', 'USER_ROLES',
-    function ($scope, $rootScope, $translate, $cookieStore, $location, $http, Data, LoginService, USER_ROLES) { 
+      '$http', 'Data', 'LoginService', 'USER_ROLES', 'ngToast',
+    function ($scope, $rootScope, $translate, $cookieStore, $location, 
+                $http, Data, LoginService, USER_ROLES, ngToast) { 
 
     var langInCookie = $cookieStore.get("lang");
 
@@ -52,8 +53,9 @@ agorasturiasApp.controller('MainCtrl',
           if (response.status === "success") {
             LoginService.login(response.uid, response.email, response.name, 
                 response.role, response.username);
-            
+
             $location.path('/home');
+            $scope.notify("Welcome back <b>" + response.name + "</b>", 'success');
           }
           else {
             alert(response.message);
@@ -69,8 +71,17 @@ agorasturiasApp.controller('MainCtrl',
       Data.get('logout').then(function (response) {          
           $scope.authenticated = false;      
           LoginService.logout();
+          $scope.notify("See you soon!", 'danger');
       });      
 
       $location.path('/home');
+    };
+
+    $scope.notify = function(message, type){
+      var toast = ngToast.create({
+        content: message,
+        className: type,
+        timeout: 2000
+      });
     };
 }]);

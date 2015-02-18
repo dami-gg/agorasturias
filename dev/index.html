@@ -10,20 +10,27 @@
         European Students’ Forum." />
 
         <link rel="shortcut icon" href="public/img/favicon.ico" type="image/x-icon">
-    <!-- <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+        <!-- Development 
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="dev/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="dev/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="dev/css/layout.css">
         <link rel="stylesheet" type="text/css" href="dev/css/wallop-slider.css">
         <link rel="stylesheet" type="text/css" href="dev/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="dev/css/bootstrap-social.css">
-        <link rel="stylesheet" type="text/css" href="dev/css/angular-social.css">  -->
+        <link rel="stylesheet" type="text/css" href="dev/css/angular-social.css">  
+        <link rel="stylesheet" type="text/css" href="dev/css/ngToast.min.css"> -->
+        
+        <!-- Production -->
         <link rel="stylesheet" type="text/css" href="public/css/style.min.css">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
 
     <body ng-app="agorasturiasApp" ng-controller="MainCtrl" ng-cloak>
+
+        <toast></toast>
 
         <div class="navbar">
             <div class="container">
@@ -162,7 +169,9 @@
                                             <a class="submenu" href="#new-post">New post</a>
                                             <a class="submenu" href="#file-uploader">Upload files</a>
                                         </li>
-                                        <li><a class="submenu" href="#">Profile</a></li>
+                                        <li>
+                                            <a class="submenu" href="#profile" translate="PROFILE"></a>
+                                        </li>
                                         <li><a class="submenu" href="#">Shop</a></li>
                                         <li><a class="submenu" ng-click="logout()">Logout</a></li>
                                     </ul>
@@ -247,9 +256,11 @@
     <script src="dev/lib/angular-translate-loader-url.min.js"></script>
     <script src="dev/lib/angular-cookies.min.js"></script>
     <script src="dev/lib/angular-resource.min.js"></script>
+    <script src="dev/lib/angular-animate.min.js"></script>
     <script src="dev/lib/angular-sanitize.min.js"></script>
     <script src="dev/lib/angular-social-links.js"></script>
     <script src="dev/lib/angular-translate-storage-cookie.min.js"></script>
+    <script src="dev/lib/ngToast.min.js"></script>
     <script src="dev/lib/bootstrap.min.js"></script>
     <script src="dev/lib/ui-bootstrap-tpls-0.12.0.min.js"></script>
     <script src="dev/lib/wallop-slider-directive.js"></script>
@@ -261,7 +272,7 @@
 
     <!-- Production  -->
     <script src="public/js/all.min.js"></script>    
-    <script src="public/js/ckeditor/ckeditor.js"></script> 
+    <script src="public/js/ckeditor/ckeditor.js"></script>  
 
     <!-- Google analytics -->
     <script>

@@ -25,6 +25,7 @@ gulp.task('js', function() {
         .pipe(addsrc('./dev/app/components/book/*.js'))
         .pipe(addsrc('./dev/app/components/contact/*.js'))
         .pipe(addsrc('./dev/app/components/team/*.js'))
+        .pipe(addsrc('./dev/app/components/account/*.js'))
         .pipe(addsrc('./dev/app/shared/*.js'))
         .pipe(order([
                 'dev/app/app.js',
@@ -38,6 +39,7 @@ gulp.task('js', function() {
                 'dev/app/components/book/bookController.js',
                 'dev/app/components/contact/formController.js',
                 'dev/app/components/team/thumbnailsController.js',
+                'dev/app/components/account/profileController.js',
                 'dev/app/shared/mainController.js',
                 'dev/app/shared/loginService.js',
                 'dev/app/shared/apiConnectionFactory.js',
@@ -61,9 +63,11 @@ gulp.task('js', function() {
                 'dev/lib/angular-translate-loader-url.min.js',
                 'dev/lib/angular-cookies.min.js',
                 'dev/lib/angular-resource.min.js',
+                'dev/lib/angular-animate.min.js',    
                 'dev/lib/angular-sanitize.min.js',
                 'dev/lib/angular-social-links.js',
                 'dev/lib/angular-translate-storage-cookie.min.js',
+                'dev/lib/ngToast.min.js',
                 'dev/lib/bootstrap.min.js',
                 'dev/lib/ui-bootstrap-tpls-0.11.2.min.js',
                 'dev/lib/wallop-slider-directive.js',

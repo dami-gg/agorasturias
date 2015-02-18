@@ -1,37 +1,75 @@
-<div ng-if="authenticated" ng-controller="NewPostCtrl">
-  <section>
+<div id="new-post" ng-if="authenticated" ng-controller="NewPostCtrl">
+  
+  <section class="light">
+
     <div class="container">
+      
       <form name="postEditForm" role="form">
-        <input class="btn btn-default" id="submit1"
-          value="OK" ng-click="doNewPost(insertedPost)">
+        
+        <div>
 
-        <p><strong>URL a la imagen del post:</strong></p>
-        <input class="form-control" type="text" ng-model="insertedPost.image"
-          id="image" name="image">
+          <input class="btn btn-success" value="Create" 
+            ng-click="doNewPost(insertedPost); notify('Post successfully created', 'success');">
 
-        <p><strong>Versión en inglés del post</strong></p>
-        <p><i>(esta es obligatoria al menos, será la versión por defecto)</i>
+        </div>
 
-        <p><strong>Título</strong></p>
-        <input class="form-control" type="text" ng-model="insertedPost.engTitle"
-          id="engTitle" name="engTitle">
+        <div>
 
-        <strong>Cuerpo</strong>
-        <textarea ckeditor="editorOptions" name="engBody" ng-model="insertedPost.engText"></textarea>
+          <p>
+            <strong>Image URL</strong>
+          </p>
+        
+          <input class="form-control" type="text" ng-model="insertedPost.image" name="image">
 
-        <strong>Versión en español del post</strong>
+        </div>
 
-        <p><strong>Título</strong></p>
-        <input class="form-control" type="text" ng-model="insertedPost.esTitle"
-          id="esTitle" name="esTitle">
+        <div>
 
-        <strong>Cuerpo</strong>
-        <textarea ckeditor="editorOptions" name="esBody" ng-model="insertedPost.esText"></textarea>
+          <p class="lead">English version</p>
 
-        <input class="btn btn-default" id="submit2"
-            value="OK" ng-click="doNewPost(insertedPost)">
+          <p>
+            <strong>Title</strong>
+          </p>
+
+          <input class="form-control" type="text" ng-model="insertedPost.engTitle" name="engTitle">
+
+          <p>
+            <strong>Body</strong>
+          </p>
+
+          <textarea ckeditor="editorOptions" name="engBody" ng-model="insertedPost.engText"></textarea>
+
+        </div>
+
+        <div>
+
+          <p class="lead">Spanish version</p>
+
+          <p>
+            <strong>Title</strong>
+          </p>
+
+          <input class="form-control" type="text" ng-model="insertedPost.esTitle" name="esTitle">
+
+          <p>
+            <strong>Body</strong>
+          </p>
+        
+          <textarea ckeditor="editorOptions" name="esBody" ng-model="insertedPost.esText"></textarea>
+
+        </div>
+
+        <div>
+
+          <input class="btn btn-success" value="Create" 
+            ng-click="doNewPost(insertedPost); notify('Post successfully created', 'success');">
+
+        </div>
 
       </form>
+
     </div>
+
   <section>
+
 </div>

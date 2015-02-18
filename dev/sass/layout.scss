@@ -428,6 +428,21 @@ section {
     }
 }
 
+#profile {
+
+    .panel-body { color:black; }    
+}
+
+#new-post, #edit-post {
+
+    form {
+
+        > div { margin:20px 0; }
+
+        p { margin-top:10px; }
+    }
+}
+
 #contact { 
 
     padding-bottom:50px; 
