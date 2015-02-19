@@ -268,7 +268,10 @@ section.slider {
   float: left; }
   #homepage .post .post-body .text-wrap-right {
     float: right;
-    margin: 10px 10px 20px 40px; }
+    margin: 0 10px 20px 40px; }
+    #homepage .post .post-body .text-wrap-right img {
+       position: relative;
+      top: -40px; }
     @media only screen and (max-width: 670px) {
       #homepage .post .post-body .text-wrap-right {
         margin-left: 20px; } }
@@ -278,7 +281,16 @@ section.slider {
         margin: 10px auto; } }
   #homepage .post .post-body .text-wrap-left {
     float: left;
-    margin: 10px 40px 20px 10px; }
+    margin: 0 40px 20px 10px; }
+    #homepage .post .post-body .text-wrap-left img {
+      position: relative;
+      top: -40px; }
+      @media only screen and (max-width: 990px) {
+        #homepage .post .post-body .text-wrap-left img {
+          top: -15px; } }
+      @media only screen and (max-width: 700px) {
+        #homepage .post .post-body .text-wrap-left img {
+          top: 0; } }
     @media only screen and (max-width: 670px) {
       #homepage .post .post-body .text-wrap-left {
         margin-right: 20px; } }

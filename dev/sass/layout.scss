@@ -249,7 +249,9 @@ section {
 
             .text-wrap-right { 
 
-                float:right; margin: 10px 10px 20px 40px; 
+                float:right; margin: 0 10px 20px 40px; 
+
+                img { position:relative; top:-40px; }
 
                 @media only screen and (max-width:670px) { margin-left:20px; }
 
@@ -258,7 +260,16 @@ section {
 
             .text-wrap-left { 
 
-                float:left; margin: 10px 40px 20px 10px;
+                float:left; margin: 0 40px 20px 10px;
+
+                img { 
+
+                    position:relative; top:-40px;
+
+                    @media only screen and (max-width:990px) { top:-15px; }
+
+                    @media only screen and (max-width:700px) { top:0; }
+                }
 
                 @media only screen and (max-width:670px) { margin-right:20px; }
 

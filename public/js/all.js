@@ -13741,8 +13741,9 @@ agorasturiasApp.controller('NewPostCtrl', [
       Data.post('posts', { post: JSON.stringify(newPost) }).then(function (response) {
         if (response.status === 'success') {
           $location.path('/home');
-        } else
+        } else {
           alert(response.message);
+        }
       });
     };
   }
@@ -13771,8 +13772,9 @@ agorasturiasApp.controller('EditPostCtrl', [
       Data.delete('posts/' + postId).then(function (response) {
         if (response.status === 'success') {
           $location.path('/home');
-        } else
+        } else {
           alert(response.message);
+        }
       });
     };
   }
