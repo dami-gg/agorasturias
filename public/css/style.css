@@ -1179,10 +1179,13 @@ h2, h3 {
   margin-bottom: 20px;
   color: white; }
 
+a {
+  cursor: pointer; }
+
 .container {
   padding: 10px; }
 
-.nav, .pagination, .panel-title a {
+.nav, .pagination {
   cursor: pointer; }
 
 .navbar {
@@ -1431,7 +1434,10 @@ section.slider {
   float: left; }
   #homepage .post .post-body .text-wrap-right {
     float: right;
-    margin: 10px 10px 20px 40px; }
+    margin: 0 10px 20px 40px; }
+    #homepage .post .post-body .text-wrap-right img {
+       position: relative;
+      top: -40px; }
     @media only screen and (max-width: 670px) {
       #homepage .post .post-body .text-wrap-right {
         margin-left: 20px; } }
@@ -1441,7 +1447,16 @@ section.slider {
         margin: 10px auto; } }
   #homepage .post .post-body .text-wrap-left {
     float: left;
-    margin: 10px 40px 20px 10px; }
+    margin: 0 40px 20px 10px; }
+    #homepage .post .post-body .text-wrap-left img {
+      position: relative;
+      top: -40px; }
+      @media only screen and (max-width: 990px) {
+        #homepage .post .post-body .text-wrap-left img {
+          top: -15px; } }
+      @media only screen and (max-width: 700px) {
+        #homepage .post .post-body .text-wrap-left img {
+          top: 0; } }
     @media only screen and (max-width: 670px) {
       #homepage .post .post-body .text-wrap-left {
         margin-right: 20px; } }
@@ -1476,7 +1491,6 @@ section.slider {
 .link-wrap {
   text-align: center; }
   .link-wrap a {
-    cursor: pointer;
     color: yellow; }
 
 .thumbnail {
@@ -1502,6 +1516,9 @@ section.slider {
 #sponsors .sponsor {
   width: 200px;
   margin-bottom: 25px; }
+  @media only screen and (max-width: 500px) {
+    #sponsors .sponsor {
+      width: 150px; } }
 #sponsors .item {
   height: 130px; }
 #sponsors img {
@@ -1630,10 +1647,17 @@ section.slider {
   #shop .img-wrapper img {
     margin: 0 auto; }
 
+#profile .panel-body {
+  color: black; }
+
+#new-post form > div, #edit-post form > div {
+  margin: 20px 0; }
+#new-post form p, #edit-post form p {
+  margin-top: 10px; }
+
 #contact {
   padding-bottom: 50px; }
   #contact a {
-    cursor: pointer;
     color: yellow; }
   #contact textarea {
     min-height: 120px; }
@@ -1704,6 +1728,13 @@ section.slider {
       right: 30px;
       bottom: 30px; } }
 
+/*!
+ * ngToast v1.4.0 (http://tameraydin.github.io/ngToast)
+ * Copyright 2015 Tamer Aydin
+ * Licensed under MIT (http://tameraydin.mit-license.org/)
+ */
+
+.ng-toast{position:fixed;z-index:1080;width:100%;height:0;margin-top:20px;text-align:center}.ng-toast.ng-toast--top,.ng-toast.ng-toast--top .ng-toast__list{top:0;bottom:auto}.ng-toast.ng-toast--top.ng-toast--center .ng-toast__list{position:static}.ng-toast.ng-toast--bottom,.ng-toast.ng-toast--bottom .ng-toast__list{top:auto;bottom:0}.ng-toast.ng-toast--bottom.ng-toast--center .ng-toast__list{pointer-events:none}.ng-toast.ng-toast--bottom.ng-toast--center .ng-toast__message .alert{pointer-events:auto}.ng-toast.ng-toast--right .ng-toast__list{left:auto;right:0;margin-right:20px}.ng-toast.ng-toast--right .ng-toast__message{text-align:right}.ng-toast.ng-toast--left .ng-toast__list{right:auto;left:0;margin-left:20px}.ng-toast.ng-toast--left .ng-toast__message{text-align:left}.ng-toast .ng-toast__list{display:inline-block;position:absolute;right:0;left:0;margin:0 auto;padding:0;list-style:none}.ng-toast .ng-toast__message{display:block;width:100%;text-align:center}.ng-toast .ng-toast__message .alert{display:inline-block}.ng-toast .ng-enter,.ng-toast .ng-leave,.ng-toast .ng-move{transition:.3s ease left,.3s ease opacity}.ng-toast .ng-enter{left:-50px;opacity:0}.ng-toast .ng-enter.ng-enter-active,.ng-toast .ng-leave{left:0;opacity:1}.ng-toast .ng-leave.ng-leave-active{left:-50px;opacity:0}.ng-toast .ng-move{opacity:.5}.ng-toast .ng-move.ng-move-active{opacity:1}
 .wallop-slider {
   width: 100%;
 }

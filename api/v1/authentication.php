@@ -10,7 +10,7 @@ $app->get('/session', function() {
   $response["name"] = $session['name'];
   $response["role"] = $session['role'];
   $response["username"] = $session['username'];
-  echoResponse(200, json_encode($session));
+  echoResponse(200, $response);
 });
 
 $app->post('/login', function() use ($app) {
@@ -37,6 +37,8 @@ $app->post('/login', function() use ($app) {
       if (!isset($_SESSION)) {
         session_start();
       }
+
+      $db->setSession($user);
     }
     else {
       $response['status'] = "error";

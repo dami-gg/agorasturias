@@ -13,10 +13,13 @@ h2, h3 {
   margin-bottom: 20px;
   color: white; }
 
+a {
+  cursor: pointer; }
+
 .container {
   padding: 10px; }
 
-.nav, .pagination, .panel-title a {
+.nav, .pagination {
   cursor: pointer; }
 
 .navbar {
@@ -265,7 +268,10 @@ section.slider {
   float: left; }
   #homepage .post .post-body .text-wrap-right {
     float: right;
-    margin: 10px 10px 20px 40px; }
+    margin: 0 10px 20px 40px; }
+    #homepage .post .post-body .text-wrap-right img {
+       position: relative;
+      top: -40px; }
     @media only screen and (max-width: 670px) {
       #homepage .post .post-body .text-wrap-right {
         margin-left: 20px; } }
@@ -275,7 +281,16 @@ section.slider {
         margin: 10px auto; } }
   #homepage .post .post-body .text-wrap-left {
     float: left;
-    margin: 10px 40px 20px 10px; }
+    margin: 0 40px 20px 10px; }
+    #homepage .post .post-body .text-wrap-left img {
+      position: relative;
+      top: -40px; }
+      @media only screen and (max-width: 990px) {
+        #homepage .post .post-body .text-wrap-left img {
+          top: -15px; } }
+      @media only screen and (max-width: 700px) {
+        #homepage .post .post-body .text-wrap-left img {
+          top: 0; } }
     @media only screen and (max-width: 670px) {
       #homepage .post .post-body .text-wrap-left {
         margin-right: 20px; } }
@@ -310,7 +325,6 @@ section.slider {
 .link-wrap {
   text-align: center; }
   .link-wrap a {
-    cursor: pointer;
     color: yellow; }
 
 .thumbnail {
@@ -336,6 +350,9 @@ section.slider {
 #sponsors .sponsor {
   width: 200px;
   margin-bottom: 25px; }
+  @media only screen and (max-width: 500px) {
+    #sponsors .sponsor {
+      width: 150px; } }
 #sponsors .item {
   height: 130px; }
 #sponsors img {
@@ -464,10 +481,17 @@ section.slider {
   #shop .img-wrapper img {
     margin: 0 auto; }
 
+#profile .panel-body {
+  color: black; }
+
+#new-post form > div, #edit-post form > div {
+  margin: 20px 0; }
+#new-post form p, #edit-post form p {
+  margin-top: 10px; }
+
 #contact {
   padding-bottom: 50px; }
   #contact a {
-    cursor: pointer;
     color: yellow; }
   #contact textarea {
     min-height: 120px; }

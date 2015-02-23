@@ -1,7 +1,7 @@
 // create the module including ngRoute for all the routing needs
 var agorasturiasApp = angular.module('agorasturiasApp',
-  ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngSanitize', 
-    'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'socialLinks']);
+  ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngAnimate', 'ngSanitize', 
+    'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'socialLinks', 'ngToast']);
 
 agorasturiasApp.constant("USER_ROLES", {
   "GUEST" : "guest",
@@ -17,7 +17,6 @@ agorasturiasApp.constant("ACCESS_GROUPS", {
   "ADMINS" : "admins"
 });
 
-// configure the routes
 agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translateProvider, ACCESS_GROUPS) {
 
         $urlRouterProvider.otherwise('/home');
@@ -114,6 +113,12 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.LOGGED
             })
 
+            .state('profile', {
+                url  : '/profile',
+                templateUrl : 'public/views/profile.html',
+                access: ACCESS_GROUPS.LOGGED
+            })
+
             .state('new-post',{
                 url:'/new-post',
                 templateUrl : 'public/views/new-post.html',
@@ -136,12 +141,6 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 url:'/accounts-manager',
                 templateUrl : 'public/views/accounts-manager.html',
                 access: ACCESS_GROUPS.ADMINS
-            })
-
-            .state('profile',{
-                url:'/profile',
-                templateUrl : 'public/views/profile.html',
-                access: ACCESS_GROUPS.ALL
             })
 
             .state('shop',{
@@ -177,25 +176,29 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
     }
 );
 
+agorasturiasApp.config(['ngToastProvider', function(ngToast) {
+    ngToast.configure({
+        verticalPosition: 'bottom',
+        horizontalPosition: 'right'
+    });
+}]);
+
 agorasturiasApp.run(
   ['$state', '$rootScope', 'LoginService', 'ACCESS_GROUPS', 'USER_ROLES',
-  function($state, $rootScope, Login, ACCESS_GROUPS, USER_ROLES) {
+  function($state, $rootScope, LoginService, ACCESS_GROUPS, USER_ROLES) {
 
     $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
 
-        if (Login.role !== USER_ROLES.ADMIN) {
-
-          if (toState.access === ACCESS_GROUPS.LOGGED && Login.role === USER_ROLES.GUEST) {
+        if (toState.access === ACCESS_GROUPS.LOGGED && LoginService.session.role === USER_ROLES.GUEST) {
 
             e.preventDefault();
             $state.go('home');
-          }
+        }
 
-          if (toState.access === ACCESS_GROUPS.EDITORS && Login.role !== USER_ROLES.EDITOR) {
+        if (toState.access === ACCESS_GROUPS.ADMIN && LoginService.session.role !== USER_ROLES.ADMIN) {
 
             e.preventDefault();
             $state.go('home');
-          }
         }
 
         $rootScope.isHomePage = toState.url === "/home";

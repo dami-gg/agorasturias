@@ -16,22 +16,22 @@ agorasturiasApp.controller('EditPostCtrl',['$location','$scope','Data',
     }).then(function(response){
 
       if(response.status === "success"){
-        alert("Post successfully updated");
         $location.path('/home');
       }
-      else
+      else {
         alert(response.message);
+      }
     });
   };
 
   $scope.doDeletePost = function(postId){
     Data.delete('posts/' + postId).then(function(response){
       if(response.status === "success"){
-        alert(response.message);
         $location.path('/home');
       }
-      else
+      else {
         alert(response.message);
+      }
     });
   };
 }]);

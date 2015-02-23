@@ -1,0 +1,50 @@
+<section id="agora" class="light">
+    
+    <div class="container">
+
+        <h1 translate="AGORA"></h1>
+
+        <div class="article">
+
+            <div translate="AGORA_1"></div>
+
+            <div class="img-wrapper">
+                <img class="img-responsive" ng-src="public/img/agora/plenary.png" 
+                    title="Agora" width="800px" height="317px" />
+            </div>
+
+            <div translate="AGORA_2"></div>
+
+            <div class="col-xs-7 col-md-9 pull-left left-part" translate="AGORA_3"></div>   
+
+            <div class="col-xs-5 col-md-3 pull-left right-part">
+                <img class="img-responsive" ng-src="public/img/agora/anniversary-logo.png" 
+                    title="30th Anniversary of AEGEE-Europe"/>
+            </div>         
+
+        </div>
+
+    </div>
+
+    <h2>Agora for dummies</h2>
+
+    <div class="container" ng-controller="BookCtrl">
+
+        <div class="col-sm-8 col-sm-offset-2">
+            <wallop-slider
+                data-images="images" data-animation="rotate" data-current-item-index="index" 
+                data-on-previous="updateTsPrevious()" data-on-next="updateTsNext()">
+            </wallop-slider>
+        </div>
+
+    </div>
+
+    <div class="container" ng-controller="BookCtrl">
+
+        <div class="link-wrap">
+            <a href="{{filelocation}}" target="_blank">Download as pdf</a>
+        </div>
+
+    </div>
+
+</section>

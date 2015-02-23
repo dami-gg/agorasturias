@@ -18,11 +18,11 @@ agorasturiasApp.controller('NewPostCtrl',['$location','$scope','Data', function(
     }).then(function(response){
 
       if(response.status==="success"){
-        alert(response.message);
         $location.path('/home');
       }
-      else
+      else {
         alert(response.message);
+      }
     });
   };
 

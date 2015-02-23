@@ -1,7 +1,7 @@
 // create the module including ngRoute for all the routing needs
 var agorasturiasApp = angular.module('agorasturiasApp',
-  ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngSanitize', 
-    'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'socialLinks']);
+  ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngAnimate', 'ngSanitize', 
+    'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'socialLinks', 'ngToast']);
 
 agorasturiasApp.constant("USER_ROLES", {
   "GUEST" : "guest",
@@ -17,7 +17,6 @@ agorasturiasApp.constant("ACCESS_GROUPS", {
   "ADMINS" : "admins"
 });
 
-// configure the routes
 agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translateProvider, ACCESS_GROUPS) {
 
         $urlRouterProvider.otherwise('/home');
@@ -114,6 +113,12 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.LOGGED
             })
 
+            .state('profile', {
+                url  : '/profile',
+                templateUrl : 'public/views/profile.html',
+                access: ACCESS_GROUPS.LOGGED
+            })
+
             .state('new-post',{
                 url:'/new-post',
                 templateUrl : 'public/views/new-post.html',
@@ -136,12 +141,6 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 url:'/accounts-manager',
                 templateUrl : 'public/views/accounts-manager.html',
                 access: ACCESS_GROUPS.ADMINS
-            })
-
-            .state('profile',{
-                url:'/profile',
-                templateUrl : 'public/views/profile.html',
-                access: ACCESS_GROUPS.ALL
             })
 
             .state('shop',{
@@ -177,25 +176,29 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
     }
 );
 
+agorasturiasApp.config(['ngToastProvider', function(ngToast) {
+    ngToast.configure({
+        verticalPosition: 'bottom',
+        horizontalPosition: 'right'
+    });
+}]);
+
 agorasturiasApp.run(
   ['$state', '$rootScope', 'LoginService', 'ACCESS_GROUPS', 'USER_ROLES',
-  function($state, $rootScope, Login, ACCESS_GROUPS, USER_ROLES) {
+  function($state, $rootScope, LoginService, ACCESS_GROUPS, USER_ROLES) {
 
     $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
 
-        if (Login.role !== USER_ROLES.ADMIN) {
-
-          if (toState.access === ACCESS_GROUPS.LOGGED && Login.role === USER_ROLES.GUEST) {
+        if (toState.access === ACCESS_GROUPS.LOGGED && LoginService.session.role === USER_ROLES.GUEST) {
 
             e.preventDefault();
             $state.go('home');
-          }
+        }
 
-          if (toState.access === ACCESS_GROUPS.EDITORS && Login.role !== USER_ROLES.EDITOR) {
+        if (toState.access === ACCESS_GROUPS.ADMIN && LoginService.session.role !== USER_ROLES.ADMIN) {
 
             e.preventDefault();
             $state.go('home');
-          }
         }
 
         $rootScope.isHomePage = toState.url === "/home";
@@ -366,11 +369,11 @@ agorasturiasApp.controller('NewPostCtrl',['$location','$scope','Data', function(
     }).then(function(response){
 
       if(response.status==="success"){
-        alert(response.message);
         $location.path('/home');
       }
-      else
+      else {
         alert(response.message);
+      }
     });
   };
 
@@ -394,27 +397,27 @@ agorasturiasApp.controller('EditPostCtrl',['$location','$scope','Data',
     }).then(function(response){
 
       if(response.status === "success"){
-        alert("Post successfully updated");
         $location.path('/home');
       }
-      else
+      else {
         alert(response.message);
+      }
     });
   };
 
   $scope.doDeletePost = function(postId){
     Data.delete('posts/' + postId).then(function(response){
       if(response.status === "success"){
-        alert(response.message);
         $location.path('/home');
       }
-      else
+      else {
         alert(response.message);
+      }
     });
   };
 }]);
-agorasturiasApp.controller('FileUploaderCtrl', 
-  ['$scope', '$upload', 'Data', 'PartitionService', function($scope, $upload, Data, PartitionService) {
+agorasturiasApp.controller('FileUploaderCtrl',
+  ['$scope', '$upload', 'Data', 'partitionService', function($scope, $upload, Data, partitionService) {
 
   $scope.$watch('files', function(files) {
 
@@ -423,7 +426,7 @@ agorasturiasApp.controller('FileUploaderCtrl',
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
         $scope.upload = $upload.upload({
-          url: '/agorasturias/api/v1/upload', 
+          url: '/api/v1/upload', 
           method: 'POST',
           //headers: {'Authorization': 'xxx'}, // only for html5
           //withCredentials: true,
@@ -450,8 +453,8 @@ agorasturiasApp.controller('FileUploaderCtrl',
             files.push(response.files[i]);
           }
 
-          $scope.rows = PartitionService.partition(files, 6);
-        }         
+          $scope.rows = partitionService.partition(files, 6);
+        }
       });
   }
 
@@ -847,10 +850,17 @@ agorasturiasApp.factory('ShopService', function() {
     };
 });
 
+agorasturiasApp.controller('ProfileCtrl', ['$scope', 'LoginService', 'Data', 
+    function ($scope, LoginService, Data) {
+
+        $scope.userData = LoginService.session;
+    }
+]);
 agorasturiasApp.controller('MainCtrl', 
     ['$scope',  '$rootScope', '$translate', '$cookieStore', '$location', 
-      '$http', 'Data', 'LoginService', 'USER_ROLES',
-    function ($scope, $rootScope, $translate, $cookieStore, $location, $http, Data, Login, USER_ROLES) { 
+      '$http', 'Data', 'LoginService', 'USER_ROLES', 'ngToast',
+    function ($scope, $rootScope, $translate, $cookieStore, $location, 
+                $http, Data, LoginService, USER_ROLES, ngToast) { 
 
     var langInCookie = $cookieStore.get("lang");
 
@@ -869,6 +879,25 @@ agorasturiasApp.controller('MainCtrl',
       $cookieStore.put("lang", $translate.use());
     };
 
+    if (LoginService.authenticated) {
+      $scope.authenticated = true;
+      $scope.username = LoginService.session.username;
+    }
+    else {
+      Data.get('session')
+      .then(function(response){
+
+        if(response.uid !== undefined && response.uid !== ""){
+          LoginService.login(response.uid, response.email, response.name, response.role, response.username);
+          $scope.authenticated = true;
+          $scope.username = response.username;
+        }
+        else {
+          $scope.authenticated = false;
+        }
+      });
+    }
+
     //initially set those objects to null to avoid undefined error
     $rootScope.login = {};
     $rootScope.currentPost = null;
@@ -880,48 +909,78 @@ agorasturiasApp.controller('MainCtrl',
         }).then(function (response) {
           
           if (response.status === "success") {
-            $scope.authenticated = true;
-            $scope.username = response.username;
-
-            Login.authenticated = true;
-            Login.username = response.username;
-            Login.email = response.email;
-            Login.name = response.name;
-            Login.role = response.role;
+            LoginService.login(response.uid, response.email, response.name, 
+                response.role, response.username);
 
             $location.path('/home');
+            $scope.notify("Welcome back <b>" + response.name + "</b>", 'success');
           }
           else {
             alert(response.message);
-            $scope.authenticated = false;
-            Login.username = '';
-            Login.email = '';
-            Login.name = '';
-            Login.role = USER_ROLES.GUEST; 
+            LoginService.logout();
           }
+
+          $scope.authenticated = LoginService.authenticated;
+          $scope.username = LoginService.session.username;
       });
     };
 
     $scope.logout = function () {
-      $scope.authenticated = false;
-      Login.username = '';
-      Login.email = '';
-      Login.name = '';
-      Login.role = USER_ROLES.GUEST; 
+      Data.get('logout').then(function (response) {          
+          $scope.authenticated = false;      
+          LoginService.logout();
+          $scope.notify("See you soon!", 'danger');
+      });      
 
       $location.path('/home');
+    };
+
+    $scope.notify = function(message, type){
+      var toast = ngToast.create({
+        content: message,
+        className: type,
+        timeout: 2000
+      });
     };
 }]);
 agorasturiasApp.factory('LoginService', ['USER_ROLES', function(USER_ROLES) {
     
-    var user = {
-        username: '',
-        role: USER_ROLES.GUEST,
+    var session = {
+        userId: '',
         email: '',
-        name: ''
+        name: '',
+        role: USER_ROLES.GUEST,
+        username: ''        
+    };
+
+    var authenticated = false;
+
+    var login = function (userId, email, name, role, username) {
+        this.session.userId = userId;
+        this.session.email = email;
+        this.session.name = name;
+        this.session.role = role;
+        this.session.username = username;
+
+        this.authenticated = true;
+    };
+
+    var logout = function () {
+        this.session.userId = '';
+        this.session.email = '';
+        this.session.name = '';
+        this.session.role = USER_ROLES.GUEST;
+        this.session.username = '';
+
+        this.authenticated = false;
     };
     
-    return user;
+    return {
+        session : session,
+        authenticated : authenticated,
+        login : login,
+        logout : logout
+    };
 }]);
 agorasturiasApp.factory('Data', ['$http', function ($http) { 
   // This service connects to our REST API

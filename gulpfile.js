@@ -12,6 +12,7 @@ var jshint = require('gulp-jshint'),
     notify = require('gulp-notify'),
     minifyCSS = require('gulp-minify-css'),
     ngmin = require('gulp-ngmin');
+    minifyHTML = require('gulp-minify-html');
 
 // Concatenate & Minify JS
 gulp.task('js', function() {
@@ -25,6 +26,7 @@ gulp.task('js', function() {
         .pipe(addsrc('./dev/app/components/book/*.js'))
         .pipe(addsrc('./dev/app/components/contact/*.js'))
         .pipe(addsrc('./dev/app/components/team/*.js'))
+        .pipe(addsrc('./dev/app/components/account/*.js'))
         .pipe(addsrc('./dev/app/shared/*.js'))
         .pipe(order([
                 'dev/app/app.js',
@@ -42,7 +44,8 @@ gulp.task('js', function() {
                 'dev/app/components/shop/shop.js',                
                 'dev/app/components/shop/cart.js',
                 'dev/app/components/shop/shopController.js',
-                'dev/app/components/shop/shopService.js',                
+                'dev/app/components/shop/shopService.js',     
+                'dev/app/components/account/profileController.js',
                 'dev/app/shared/mainController.js',
                 'dev/app/shared/loginService.js',
                 'dev/app/shared/apiConnectionFactory.js',
@@ -66,9 +69,11 @@ gulp.task('js', function() {
                 'dev/lib/angular-translate-loader-url.min.js',
                 'dev/lib/angular-cookies.min.js',
                 'dev/lib/angular-resource.min.js',
+                'dev/lib/angular-animate.min.js',    
                 'dev/lib/angular-sanitize.min.js',
                 'dev/lib/angular-social-links.js',
                 'dev/lib/angular-translate-storage-cookie.min.js',
+                'dev/lib/ngToast.min.js',
                 'dev/lib/bootstrap.min.js',
                 'dev/lib/ui-bootstrap-tpls-0.11.2.min.js',
                 'dev/lib/wallop-slider-directive.js',
@@ -89,7 +94,7 @@ gulp.task('js', function() {
 // Compile Sass
 gulp.task('sass', function() {
     return gulp.src('dev/sass/*.scss')
-        .pipe(sass({'sourcemap=none': true, // What the crap this ugly garbage?
+        .pipe(sass({'sourcemap=none': true, // What the crap is this ugly garbage?
                         cacheLocation: '/dev/.sass-cache'}))
         .pipe(gulp.dest('dev/css'))
         .pipe(notify({ message: 'Sass task complete' }));
@@ -106,6 +111,20 @@ gulp.task('css', function() {
         .pipe(notify({ message: 'CSS task complete' }));
 });
 
+// Minify HTML files
+gulp.task('html', function() {
+    var opts = { comments:false };
+
+    gulp.src('./dev/index.html')
+        .pipe(minifyHTML(opts))
+        .pipe(gulp.dest('.'));
+
+    gulp.src('./dev/html/*.html')
+        .pipe(minifyHTML(opts))
+        .pipe(gulp.dest('public/views/'))
+        .pipe(notify({ message: 'HTML task complete' }));    
+});
+
 // Watch Files For Changes
 gulp.task('watch', function() {
     gulp.watch('dev/app/shared/*.js', ['js']);
@@ -114,7 +133,9 @@ gulp.task('watch', function() {
     gulp.watch('dev/js/functions.js', ['js']);
     gulp.watch('dev/sass/*.scss', ['sass']);
     gulp.watch('dev/css/*.css', ['css']);
+    gulp.watch('dev/index.html', ['html']);
+    gulp.watch('dev/html/*.html', ['html']);
 });
 
 // Default Task
-gulp.task('default', ['js', 'sass', 'css', 'watch']);
+gulp.task('default', ['js', 'sass', 'css', 'html', 'watch']);

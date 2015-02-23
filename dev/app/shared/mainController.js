@@ -1,7 +1,8 @@
 agorasturiasApp.controller('MainCtrl', 
     ['$scope',  '$rootScope', '$translate', '$cookieStore', '$location', 
-      '$http', 'Data', 'LoginService', 'USER_ROLES',
-    function ($scope, $rootScope, $translate, $cookieStore, $location, $http, Data, Login, USER_ROLES) { 
+      '$http', 'Data', 'LoginService', 'USER_ROLES', 'ngToast',
+    function ($scope, $rootScope, $translate, $cookieStore, $location, 
+                $http, Data, LoginService, USER_ROLES, ngToast) { 
 
     var langInCookie = $cookieStore.get("lang");
 
@@ -20,6 +21,25 @@ agorasturiasApp.controller('MainCtrl',
       $cookieStore.put("lang", $translate.use());
     };
 
+    if (LoginService.authenticated) {
+      $scope.authenticated = true;
+      $scope.username = LoginService.session.username;
+    }
+    else {
+      Data.get('session')
+      .then(function(response){
+
+        if(response.uid !== undefined && response.uid !== ""){
+          LoginService.login(response.uid, response.email, response.name, response.role, response.username);
+          $scope.authenticated = true;
+          $scope.username = response.username;
+        }
+        else {
+          $scope.authenticated = false;
+        }
+      });
+    }
+
     //initially set those objects to null to avoid undefined error
     $rootScope.login = {};
     $rootScope.currentPost = null;
@@ -31,35 +51,37 @@ agorasturiasApp.controller('MainCtrl',
         }).then(function (response) {
           
           if (response.status === "success") {
-            $scope.authenticated = true;
-            $scope.username = response.username;
-
-            Login.authenticated = true;
-            Login.username = response.username;
-            Login.email = response.email;
-            Login.name = response.name;
-            Login.role = response.role;
+            LoginService.login(response.uid, response.email, response.name, 
+                response.role, response.username);
 
             $location.path('/home');
+            $scope.notify("Welcome back <b>" + response.name + "</b>", 'success');
           }
           else {
             alert(response.message);
-            $scope.authenticated = false;
-            Login.username = '';
-            Login.email = '';
-            Login.name = '';
-            Login.role = USER_ROLES.GUEST; 
+            LoginService.logout();
           }
+
+          $scope.authenticated = LoginService.authenticated;
+          $scope.username = LoginService.session.username;
       });
     };
 
     $scope.logout = function () {
-      $scope.authenticated = false;
-      Login.username = '';
-      Login.email = '';
-      Login.name = '';
-      Login.role = USER_ROLES.GUEST; 
+      Data.get('logout').then(function (response) {          
+          $scope.authenticated = false;      
+          LoginService.logout();
+          $scope.notify("See you soon!", 'danger');
+      });      
 
       $location.path('/home');
+    };
+
+    $scope.notify = function(message, type){
+      var toast = ngToast.create({
+        content: message,
+        className: type,
+        timeout: 2000
+      });
     };
 }]);
