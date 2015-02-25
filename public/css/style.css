@@ -1646,6 +1646,8 @@ section.slider {
   margin: 40px 0 30px 0; }
   #shop .img-wrapper img {
     margin: 0 auto; }
+#shop .fa-arrow-left:before, #shop .fa-trash-o:before, #shop .fa-check:before, #shop .fa-shopping-cart:before, #shop .fa-cart-plus:before {
+  padding-right: 5px; }
 
 #profile .panel-body {
   color: black; }

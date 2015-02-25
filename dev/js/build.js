@@ -804,12 +804,95 @@ cart.prototype.toNumber = function (value) {
     return isNaN(value) ? 0 : value;
 };
 
+cart.prototype.addCheckoutParameters = function (serviceName, merchantID, options) {
+
+    if (serviceName !== "PayPal" && serviceName !== "Other") { // TODO
+        throw "serviceName must be 'PayPal' or 'Other'.";
+    }
+    if (merchantID === null) {
+        throw "A merchantID is required in order to checkout.";
+    }
+
+    this.checkoutParameters[serviceName] = new checkoutParameters(serviceName, merchantID, options);
+};
+
+cart.prototype.checkout = function (serviceName, clearCart) {
+  
+  // select service
+  if (serviceName === null) {
+    var p = this.checkoutParameters[Object.keys(this.checkoutParameters)[0]];
+    serviceName = p.serviceName;
+  }
+  if (serviceName === null) {
+    throw "Define at least one checkout service.";
+  }
+  var parms = this.checkoutParameters[serviceName];
+  if (parms === null) {
+    throw "Cannot get checkout parameters for '" + serviceName + "'.";
+  }
+
+  switch (parms.serviceName) {
+    case "PayPal":
+      this.checkoutPayPal(parms, clearCart);
+      break;
+    case "Other":
+      this.checkoutOther(parms, clearCart); // TODO
+      break;
+    default:
+      throw "Unknown checkout service: " + parms.serviceName;
+  }
+};
+
+// http://www.paypal.com/cgi-bin/webscr?cmd=p/pdn/howto_checkout-outside
+cart.prototype.checkoutPayPal = function (parms, clearCart) {
+
+    // global data
+    var data = {
+        cmd: "_cart",
+        business: parms.merchantID,
+        upload: "1",
+        rm: "2",
+        charset: "utf-8"
+    };
+
+    // item data
+    for (var i = 0; i < this.items.length; i++) {
+        var item = this.items[i];
+        var ctr = i + 1;
+        data["item_number_" + ctr] = item.id;
+        data["item_name_" + ctr] = item.name;
+        data["quantity_" + ctr] = item.quantity;
+        data["amount_" + ctr] = item.price.toFixed(2);
+    }
+
+    // build form
+    var form = $('<form></form>');
+    form.attr("action", "https://www.paypal.com/cgi-bin/webscr");
+    form.attr("method", "POST");
+    form.attr("style", "display:none;");
+    this.addFormFields(form, data);
+    this.addFormFields(form, parms.options);
+    $("body").append(form);
+
+    // submit form
+    this.clearCart = clearCart === null || clearCart;
+    form.submit();
+    form.remove();
+};
+
+function checkoutParameters(serviceName, merchantID, options) {
+    this.serviceName = serviceName;
+    this.merchantID = merchantID;
+    this.options = options;
+}
+
 function cartItem(id, name, price, quantity) {
     this.id = id;
     this.name = name;
     this.price = price * 1;
     this.quantity = quantity * 1;
 }
+
 agorasturiasApp.controller('ShopCtrl', function ($scope, $stateParams, ShopService, $location) {
 
     $scope.shop = ShopService.shop;
@@ -842,7 +925,9 @@ agorasturiasApp.controller('ShopCtrl', function ($scope, $stateParams, ShopServi
 agorasturiasApp.factory('ShopService', function() {
     
     var _shop = new shop(),
-        _cart = new cart("AngularStore");
+        _cart = new cart("AgoraShop");
+
+    _cart.addCheckoutParameters("PayPal", "XXX PayPal merchant account id"); // TODO
   
     return {
         shop: _shop,
