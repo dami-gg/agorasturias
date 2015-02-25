@@ -253,6 +253,32 @@ class DbHandler {
     return $msg;
   }
 
+  public function getSections(){
+    $results = array();
+    $query = "select * from secciones";
+
+    $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+
+    while($row = $r->fetch_assoc()){
+      $results[] = $row;
+    }
+
+    return $results;
+  }
+
+  public function getMenus(){
+    $results = array();
+    $query = "select * from menus";
+
+    $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+
+    while($row = $r->fetch_assoc()){
+      $results[] = $row;
+    }
+
+    return $results;
+
+  }
 }
 
 ?>

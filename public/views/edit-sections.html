@@ -1,0 +1,28 @@
+<div ng-if="authenticated" ng-controller="EditSectionCtrl">
+  <section>
+    <div class="container">
+      <form name="sectionEditSection" role="form">
+        <input class="btn btn-default" id="submit1" value="OK" ng-click="doEditPost(currentPost)">
+        <input class="btn btn-default" id="delete1" value="Borrar!" ng-click="doDeletePost(currentPost.id)">
+        <p><strong>URL a la imagen del post:</strong></p>
+        <input class="form-control" type="text" ng-model="currentPost.image" id="image" name="image">
+      </form>
+    </div>
+    <section>
+    </section>
+  </section>
+
+  <section ng-repeat="post in pagedPosts" ng-class-even="'light'" ng-class-odd="'dark'">
+    <div class="post container">
+      <p class=lead ng-click=openPost(post) translate={{post.title}}></p>
+      <a ng-if=authenticated ng-click=editPost(post)>Edit</a>
+      <div class=post-body><img class=img-responsive ng-class-even="'text-wrap-left'"
+        ng-class-odd="'text-wrap-right'" ng-src={{post.image}} border=0 width=200>
+
+        <p ng-bind-html="post.text | translate | limitTo: 1000 | htmlSafe"></p>
+        <button class="btn btn-success btn-sm" ng-class-even="'right'" ng-click=openPost(post)
+        translate=SHOW_MORE></button>
+      </div>
+    </div>
+  </section>
+</div>
