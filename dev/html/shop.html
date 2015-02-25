@@ -34,7 +34,8 @@
                       {{(product.price | number:2) + " €"}}
                     </td>
                     <td class="center">
-                      <a ng-click="cart.addItem(product.id, product.name, product.price, 1)">
+                      <a ng-click="cart.addItem(product.id, product.name, product.price, 1);
+                                    notify(product.name + ' has been added to the shopping cart', 'success');">
                          <i class="fa fa-cart-plus" />
                          Add to the shopping cart
                       </a>

@@ -39,7 +39,8 @@
                                   <div class="input-group quantity-selector">
                                     <button class="btn btn-danger input-group-addon" type="button" 
                                         ng-disabled="item.quantity <= 1"
-                                        ng-click="cart.addItem(item.id, item.name, item.price, -1)">
+                                        ng-click="cart.addItem(item.id, item.name, item.price, -1);
+                                            notify('One ' + item.name + ' has been removed from the shopping cart', 'success');">
                                         <i class="fa fa-minus" />
                                     </button>
                                     <input class="text-center" type="text" 
@@ -47,14 +48,16 @@
                                         ng-change="cart.saveItems()" />
                                     <button class="btn btn-success input-group-addon" type="button" 
                                         ng-disabled="item.quantity >= 1000"
-                                        ng-click="cart.addItem(item.id, item.name, item.price, +1)">
+                                        ng-click="cart.addItem(item.id, item.name, item.price, +1);
+                                            notify('One extra ' + item.name + ' has been added to the shopping cart', 'success');">
                                         <i class="fa fa-plus" />
                                     </button>                                    
                                   </div>
                                 </td>
                                 <td class="right">{{(item.price * item.quantity | number:2) + " €"}}</td>
                                 <td class="center" title="Remove from the shopping cart">
-                                    <a ng-click="cart.addItem(item.id, item.name, item.price, -10000000)" >
+                                    <a ng-click="cart.addItem(item.id, item.name, item.price, -10000000);
+                                        notify('All ' + item.name + ' have been removed from the shopping cart', 'success');">
                                         <i class="fa fa-times" />
                                     </a>
                                 </td>
@@ -78,10 +81,9 @@
                             <button class="btn btn-block" ng-click="goToShop()">
                                 <i class="fa fa-arrow-left" /> Back to shop
                             </button>
-                            <button 
-                                class="btn btn-block btn-danger" 
-                                ng-click="cart.clearItems()" 
-                                ng-disabled="cart.getTotalCount() < 1" >
+                            <button class="btn btn-block btn-danger" ng-disabled="cart.getTotalCount() < 1"
+                                ng-click="cart.clearItems(); 
+                                    notify('Shopping cart has been cleared', 'danger');">
                                 <i class="fa fa-trash-o" /> Clear the shopping cart
                             </button>
                         </p>

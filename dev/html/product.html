@@ -42,11 +42,13 @@
                         </div>
 
                         <button class="btn btn-block btn-success" 
-                            ng-click="cart.addItem(product.id, product.name, product.price, 1)">
+                            ng-click="cart.addItem(product.id, product.name, product.price, 1);
+                                notify('One ' + product.name + ' has been added to the shopping cart', 'success');">
                             <i class="fa fa-cart-plus" /> Add to the shopping cart
                         </button>
                         <button class="btn btn-block btn-danger" 
-                            ng-click="cart.addItem(product.id, product.name, product.price, -10000)"
+                            ng-click="cart.addItem(product.id, product.name, product.price, -10000);
+                                notify('All ' + product.name + ' have been removed from the shopping cart', 'danger');"
                             ng-disabled="cart.getTotalCount(product.id) < 1">
                             <i class="fa fa-trash-o" /> Remove from the shopping cart
                         </button>
