@@ -16,10 +16,3 @@ npm-debug.log
 .Trashes
 ehthumbs.db
 Thumbs.db
-
-# gulp built files #
-dev/js/build.js
-public/css/style.css
-public/css/style.min.css
-public/js/all.js
-public/js/all.min.js
