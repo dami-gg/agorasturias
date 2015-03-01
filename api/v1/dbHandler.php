@@ -279,6 +279,128 @@ class DbHandler {
     return $results;
 
   }
+
+
+  /*
+  Functions that given a parametrized query and its parameters
+  executes it and returns results in a key=>value like array
+  Parameters:
+  * Link to the DB connection established
+  * SQL query string
+  * Array with the types of parameters
+  * Array with the parameters
+  Operation:
+  ----------
+  If parameters array has only one dimension it will be treated as one single query
+  + Parameters("Param1", "param2", ..., "paramN")
+  Result will be an array like
+  + Result(
+    0=>array(column1=>value1, column2=>value2..., columnN=>valueN)
+    1=>array(column1=>value1, column2=>value2..., columnN=>valueN)
+    ...
+    N=>array(column1=>value1, column2=>value2..., columnN=>valueN)
+  )
+
+  If parameters array has more than one dimension it will be treated as a separate
+  query per each dimension the array has
+  + Parameters(array("Param1", "param2", ..., "paramN"),
+    ...,
+    array("Param1", "param2", ..., "paramN"))
+  Result will be an array of arrays, each one in the same format as above
+  + Result(
+    0=>array(
+      0=>array(column1=>value1, column2=>value2..., columnN=>valueN)
+      1=>array(column1=>value1, column2=>value2..., columnN=>valueN)
+      ...
+      N=>array(column1=>value1, column2=>value2..., columnN=>valueN)
+    )
+    1=>array(
+      0=>array(column1=>value1, column2=>value2..., columnN=>valueN)
+      1=>array(column1=>value1, column2=>value2..., columnN=>valueN)
+      ...
+      N=>array(column1=>value1, column2=>value2..., columnN=>valueN)
+    )
+    ...
+    N=>array(
+      0=>array(column1=>value1, column2=>value2..., columnN=>valueN)
+      1=>array(column1=>value1, column2=>value2..., columnN=>valueN)
+      ...
+      N=>array(column1=>value1, column2=>value2..., columnN=>valueN)
+    )
+  )
+
+  Extracted from: http://php.net/manual/es/mysqli.prepare.php#107200
+  */
+
+  function prepared_query($sql,$typeDef = FALSE,$params = FALSE){
+    $link = $this->conn;
+
+    if($stmt = mysqli_prepare($link,$sql)){
+      if(count($params) == count($params,1)){
+        $params = array($params);
+        $multiQuery = FALSE;
+      } else {
+        $multiQuery = TRUE;
+      }
+
+      if($typeDef){
+        $bindParams = array();
+        $bindParamsReferences = array();
+        $bindParams = array_pad($bindParams,(count($params,1)-count($params))/count($params),"");
+        foreach($bindParams as $key => $value){
+          $bindParamsReferences[$key] = &$bindParams[$key];
+        }
+        array_unshift($bindParamsReferences,$typeDef);
+        $bindParamsMethod = new ReflectionMethod('mysqli_stmt', 'bind_param');
+        $bindParamsMethod->invokeArgs($stmt,$bindParamsReferences);
+      }
+
+      $result = array();
+      foreach($params as $queryKey => $query){
+        foreach($bindParams as $paramKey => $value){
+          $bindParams[$paramKey] = $query[$paramKey];
+        }
+        $queryResult = array();
+        if(mysqli_stmt_execute($stmt)){
+          $resultMetaData = mysqli_stmt_result_metadata($stmt);
+          if($resultMetaData){
+            $stmtRow = array();
+            $rowReferences = array();
+            while ($field = mysqli_fetch_field($resultMetaData)) {
+              $rowReferences[] = &$stmtRow[$field->name];
+            }
+            mysqli_free_result($resultMetaData);
+            $bindResultMethod = new ReflectionMethod('mysqli_stmt', 'bind_result');
+            $bindResultMethod->invokeArgs($stmt, $rowReferences);
+            while(mysqli_stmt_fetch($stmt)){
+              $row = array();
+              foreach($stmtRow as $key => $value){
+                $row[$key] = $value;
+              }
+              $queryResult[] = $row;
+            }
+            mysqli_stmt_free_result($stmt);
+          } else {
+            $queryResult[] = mysqli_stmt_affected_rows($stmt);
+          }
+        } else {
+          $queryResult[] = FALSE;
+        }
+        $result[$queryKey] = $queryResult;
+      }
+      mysqli_stmt_close($stmt);
+    } else {
+      $result = FALSE;
+      echo $sql;
+      return $result;
+    }
+
+    if($multiQuery){
+      return $result;
+    } else {
+      return $result[0];
+    }
+  }
 }
 
 ?>

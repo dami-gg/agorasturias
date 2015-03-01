@@ -13403,7 +13403,7 @@ var agorasturiasApp = angular.module('agorasturiasApp', [
     'ui.router',
     'ui.bootstrap',
     'ngResource',
-    'ngCkeditor',
+    'CKEditor',
     'ngAnimate',
     'ngSanitize',
     'pascalprecht.translate',
@@ -13504,6 +13504,18 @@ agorasturiasApp.config([
     }).state('file-uploader', {
       url: '/file-uploader',
       templateUrl: 'public/views/file-uploader.html',
+      access: ACCESS_GROUPS.ADMIN
+    }).state('edit-menus', {
+      url: '/edit-menus',
+      templateUrl: 'public/views/edit_menus.html',
+      access: ACCESS_GROUPS.ADMIN
+    }).state('edit-sections', {
+      url: '/edit-sections',
+      templateUrl: 'public/views/edit_sections.html',
+      access: ACCESS_GROUPS.ADMIN
+    }).state('edit-section', {
+      url: '/edit-section',
+      templateUrl: 'public/views/edit-section.html',
       access: ACCESS_GROUPS.ADMIN
     });
     $translateProvider.useUrlLoader('api/v1/translate');
@@ -13814,6 +13826,52 @@ agorasturiasApp.controller('FileUploaderCtrl', [
     getFiles();
   }
 ]);
+agorasturiasApp.controller('MenusCtrl', [
+  '$rootScope',
+  '$scope',
+  '$location',
+  '$anchorScroll',
+  'Data',
+  function ($rootScope, $scope, $location, $anchorScroll, Data) {
+    $scope.doSaveMenu = function (edited_menu) {
+      edited_menu.modifier_username = $scope.username;
+      Data.put('/menus/' + edited_menu.id, { menu: edited_menu }).then(function (response) {
+        if (response.status != 'error')
+          $scope.notify('Menu successfully saved', 'success');
+        else
+          $scope.notify('Error: ' + response.message, 'danger');
+      });
+    };
+    $scope.doDeleteMenu = function (id) {
+      notify('Error: not implemented', 'danger');
+    };
+  }
+]);
+agorasturiasApp.controller('SectionsCtrl', [
+  '$rootScope',
+  '$scope',
+  '$location',
+  '$anchorScroll',
+  'Data',
+  function ($rootScope, $scope, $location, $anchorScroll, Data) {
+    $scope.doEditSection = function (edited_section) {
+      edited_section.modifier_username = $scope.username;
+      Data.put('/sections/' + edited_section.id, { section: edited_section }).then(function (response) {
+        if (response.status != 'error')
+          $scope.notify('Section successfully saved', 'success');
+        else
+          $scope.notify('Error: ' + response.message, 'danger');
+      });
+    };
+    $scope.editSection = function (section) {
+      $rootScope.currentSection = section;
+      $location.path('/edit-section');
+    };
+    $scope.doDeleteSection = function (id) {
+      notify('Error: not implemented', 'danger');
+    };
+  }
+]);
 agorasturiasApp.controller('BookCtrl', [
   '$scope',
   '$translate',
@@ -14120,6 +14178,22 @@ agorasturiasApp.controller('MainCtrl', [
           className: type,
           timeout: 2000
         });
+    };
+    $scope.editMenus = function () {
+      Data.get('/menus').then(function (response) {
+        if (response.status === 'success') {
+          $scope.menusList = response.menus;
+          $location.path('/edit-menus');
+        }
+      });
+    };
+    $scope.editSections = function () {
+      Data.get('/sections').then(function (response) {
+        if (response.status === 'success') {
+          $scope.sectionsList = response.sections;
+          $location.path('/edit-sections');
+        }
+      });
     };
   }
 ]);

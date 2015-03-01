@@ -1,6 +1,6 @@
 // create the module including ngRoute for all the routing needs
 var agorasturiasApp = angular.module('agorasturiasApp',
-  ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngAnimate', 'ngSanitize', 
+  ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngAnimate', 'ngSanitize',
     'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'socialLinks', 'ngToast']);
 
 agorasturiasApp.constant("USER_ROLES", {
@@ -133,6 +133,24 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 url:'/file-uploader',
                 templateUrl : 'public/views/file-uploader.html',
                 access: ACCESS_GROUPS.ADMIN
+            })
+
+            .state('edit-menus', {
+              url:'/edit-menus',
+              templateUrl:'public/views/edit_menus.html',
+              access: ACCESS_GROUPS.ADMIN
+            })
+
+            .state('edit-sections', {
+              url:'/edit-sections',
+              templateUrl:'public/views/edit_sections.html',
+              access: ACCESS_GROUPS.ADMIN
+            })
+
+            .state('edit-section', {
+              url:'/edit-section',
+              templateUrl:'public/views/edit-section.html',
+              access: ACCESS_GROUPS.ADMIN
             });
 
       $translateProvider.useUrlLoader('api/v1/translate');

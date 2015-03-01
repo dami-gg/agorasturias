@@ -1,0 +1,18 @@
+<div id="menus-edit" ng-controller="SectionsCtrl">
+
+  <section ng-repeat="section in sectionsList" ng-class-even="'light'" ng-class-odd="'dark'">
+
+    <div class="container">
+
+      <input class="form-control" type="text" ng-model="section.seccion" id="name" name="name">
+      <input class="btn btn-success" value="Edit"
+      ng-click="editSection(section);">
+
+      <input class="btn btn-danger" value="Delete"
+      ng-click="doDeleteSection(section.id); notify('Section successfully deleted', 'danger');">
+
+    </div>
+
+  </section>
+
+</div>
