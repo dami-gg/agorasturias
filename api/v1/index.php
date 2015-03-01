@@ -13,9 +13,10 @@ $user_id = NULL;
 
 include_once '../config.php';
 require_once 'authentication.php';
-require_once 'posts.php';
 require_once 'files.php';
 require_once 'mail.php';
+require_once 'posts.php';
+require_once 'sections.php';
 
 /**
 * Verifying required params posted or not

@@ -11,7 +11,7 @@
 
         <link rel="shortcut icon" href="public/img/favicon.ico" type="image/x-icon">
 
-        <!-- Development 
+        <!-- Development
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="dev/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="dev/css/bootstrap-theme.min.css">
@@ -19,9 +19,9 @@
         <link rel="stylesheet" type="text/css" href="dev/css/wallop-slider.css">
         <link rel="stylesheet" type="text/css" href="dev/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="dev/css/bootstrap-social.css">
-        <link rel="stylesheet" type="text/css" href="dev/css/angular-social.css">  
+        <link rel="stylesheet" type="text/css" href="dev/css/angular-social.css">
         <link rel="stylesheet" type="text/css" href="dev/css/ngToast.min.css"> -->
-        
+
         <!-- Production -->
         <link rel="stylesheet" type="text/css" href="public/css/style.min.css">
 
@@ -168,6 +168,8 @@
                                         <li ng-if="username === 'admin'">
                                             <a class="submenu" href="#new-post">New post</a>
                                             <a class="submenu" href="#file-uploader">Upload files</a>
+                                            <a class="submenu" ng-click="editMenus()" href="#">Edit menus</a>
+                                            <a class="submenu" ng-click="editSections()" href="#">Edit sections</a>
                                         </li>
                                         <li>
                                             <a class="submenu" href="#profile" translate="PROFILE"></a>
@@ -252,7 +254,7 @@
 
     <!-- Development 
     <script src="dev/lib/jquery.min-1.11.1.js"></script>
-    <script src="dev/lib/angular.min-1.2.25.js"></script>
+    <script src="dev/lib/angular-1.2.25.js"></script>
     <script src="dev/lib/angular-ui-router.min-0.2.8.js"></script>
     <script src="dev/lib/angular-translate.min.js"></script>
     <script src="dev/lib/angular-translate-loader-url.min.js"></script>

@@ -1,8 +1,8 @@
-agorasturiasApp.controller('MainCtrl', 
-    ['$scope',  '$rootScope', '$translate', '$cookieStore', '$location', 
+agorasturiasApp.controller('MainCtrl',
+    ['$scope',  '$rootScope', '$translate', '$cookieStore', '$location',
       '$http', 'Data', 'LoginService', 'USER_ROLES', 'ngToast',
-    function ($scope, $rootScope, $translate, $cookieStore, $location, 
-                $http, Data, LoginService, USER_ROLES, ngToast) { 
+    function ($scope, $rootScope, $translate, $cookieStore, $location,
+                $http, Data, LoginService, USER_ROLES, ngToast) {
 
     var langInCookie = $cookieStore.get("lang");
 
@@ -12,8 +12,8 @@ agorasturiasApp.controller('MainCtrl',
 
     $scope.changeLanguage = function () {
       if ($translate.use() === 'en') {
-        $translate.use('es');        
-      }  
+        $translate.use('es');
+      }
       else {
         $translate.use('en');
       }
@@ -45,13 +45,13 @@ agorasturiasApp.controller('MainCtrl',
     $rootScope.currentPost = null;
 
     $scope.login = function (user) {
-      Data.post('login', { 
+      Data.post('login', {
           username: user.username,
           password: user.password
         }).then(function (response) {
-          
+
           if (response.status === "success") {
-            LoginService.login(response.uid, response.email, response.name, 
+            LoginService.login(response.uid, response.email, response.name,
                 response.role, response.username);
 
             $location.path('/home');
@@ -68,11 +68,11 @@ agorasturiasApp.controller('MainCtrl',
     };
 
     $scope.logout = function () {
-      Data.get('logout').then(function (response) {          
-          $scope.authenticated = false;      
+      Data.get('logout').then(function (response) {
+          $scope.authenticated = false;
           LoginService.logout();
           $scope.notify("See you soon!", 'danger');
-      });      
+      });
 
       $location.path('/home');
     };
@@ -82,6 +82,26 @@ agorasturiasApp.controller('MainCtrl',
         content: message,
         className: type,
         timeout: 2000
+      });
+    };
+
+    $scope.editMenus = function(){
+      Data.get('/menus')
+      .then(function(response){
+        if(response.status === "success"){
+          $scope.menusList = response.menus;
+          $location.path ('/edit-menus');
+        }
+      });
+    };
+
+    $scope.editSections = function(){
+      Data.get('/sections')
+      .then(function(response){
+        if(response.status === "success"){
+          $scope.sectionsList = response.sections;
+          $location.path('/edit-sections');
+        }
       });
     };
 }]);

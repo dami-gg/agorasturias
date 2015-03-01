@@ -33,4 +33,14 @@ jQuery(document).ready(function($){
         }
     });
 
+    window.addEventListener('error', function (err) {
+        var lineAndColumnInfo = err.colno ? ' line:' + err.lineno +', column:'+ err.colno : ' line:' + err.lineno;
+        ga('send', 'event', 'JavaScript Error', err.message,
+            err.filename + lineAndColumnInfo + ' -> ' +  navigator.userAgent, 0, true);
+    });
+
+    jQuery.error = function (message) {
+        ga('send', 'event', 'jQuery Error', message, navigator.userAgent, 0, true);
+    };
+
 });

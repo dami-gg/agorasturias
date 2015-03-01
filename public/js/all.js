@@ -13506,6 +13506,7 @@ agorasturiasApp.config([
     }).state('file-uploader', {
       url: '/file-uploader',
       templateUrl: 'public/views/file-uploader.html',
+<<<<<<< HEAD
       access: ACCESS_GROUPS.ADMINS
     }).state('accounts-manager', {
       url: '/accounts-manager',
@@ -13527,6 +13528,21 @@ agorasturiasApp.config([
       url: '/checkout',
       templateUrl: 'public/views/checkout.html',
       access: ACCESS_GROUPS.LOGGED
+=======
+      access: ACCESS_GROUPS.ADMIN
+    }).state('edit-menus', {
+      url: '/edit-menus',
+      templateUrl: 'public/views/edit_menus.html',
+      access: ACCESS_GROUPS.ADMIN
+    }).state('edit-sections', {
+      url: '/edit-sections',
+      templateUrl: 'public/views/edit_sections.html',
+      access: ACCESS_GROUPS.ADMIN
+    }).state('edit-section', {
+      url: '/edit-section',
+      templateUrl: 'public/views/edit-section.html',
+      access: ACCESS_GROUPS.ADMIN
+>>>>>>> origin/master
     });
     ;
     $translateProvider.useUrlLoader('api/v1/translate');
@@ -13540,6 +13556,17 @@ agorasturiasApp.config([
     ngToast.configure({
       verticalPosition: 'bottom',
       horizontalPosition: 'right'
+    });
+  }
+]);
+agorasturiasApp.config([
+  '$provide',
+  function ($provide) {
+    $provide.decorator('$exceptionHandler', function ($delegate) {
+      return function (exception, cause) {
+        $delegate(exception, cause);
+        ga('send', 'event', 'AngularJS error', exception.message, exception.stack, 0, true);
+      };
     });
   }
 ]);
@@ -13835,6 +13862,52 @@ agorasturiasApp.controller('FileUploaderCtrl', [
       });
     }
     getFiles();
+  }
+]);
+agorasturiasApp.controller('MenusCtrl', [
+  '$rootScope',
+  '$scope',
+  '$location',
+  '$anchorScroll',
+  'Data',
+  function ($rootScope, $scope, $location, $anchorScroll, Data) {
+    $scope.doSaveMenu = function (edited_menu) {
+      edited_menu.modifier_username = $scope.username;
+      Data.put('/menus/' + edited_menu.id, { menu: edited_menu }).then(function (response) {
+        if (response.status != 'error')
+          $scope.notify('Menu successfully saved', 'success');
+        else
+          $scope.notify('Error: ' + response.message, 'danger');
+      });
+    };
+    $scope.doDeleteMenu = function (id) {
+      notify('Error: not implemented', 'danger');
+    };
+  }
+]);
+agorasturiasApp.controller('SectionsCtrl', [
+  '$rootScope',
+  '$scope',
+  '$location',
+  '$anchorScroll',
+  'Data',
+  function ($rootScope, $scope, $location, $anchorScroll, Data) {
+    $scope.doEditSection = function (edited_section) {
+      edited_section.modifier_username = $scope.username;
+      Data.put('/sections/' + edited_section.id, { section: edited_section }).then(function (response) {
+        if (response.status != 'error')
+          $scope.notify('Section successfully saved', 'success');
+        else
+          $scope.notify('Error: ' + response.message, 'danger');
+      });
+    };
+    $scope.editSection = function (section) {
+      $rootScope.currentSection = section;
+      $location.path('/edit-section');
+    };
+    $scope.doDeleteSection = function (id) {
+      notify('Error: not implemented', 'danger');
+    };
   }
 ]);
 agorasturiasApp.controller('BookCtrl', [
@@ -14394,6 +14467,22 @@ agorasturiasApp.controller('MainCtrl', [
           timeout: 2000
         });
     };
+    $scope.editMenus = function () {
+      Data.get('/menus').then(function (response) {
+        if (response.status === 'success') {
+          $scope.menusList = response.menus;
+          $location.path('/edit-menus');
+        }
+      });
+    };
+    $scope.editSections = function () {
+      Data.get('/sections').then(function (response) {
+        if (response.status === 'success') {
+          $scope.sectionsList = response.sections;
+          $location.path('/edit-sections');
+        }
+      });
+    };
   }
 ]);
 agorasturiasApp.factory('LoginService', [
@@ -14521,6 +14610,13 @@ jQuery(document).ready(function ($) {
       $('button.navbar-toggle').click();
     }
   });
+  window.addEventListener('error', function (err) {
+    var lineAndColumnInfo = err.colno ? ' line:' + err.lineno + ', column:' + err.colno : ' line:' + err.lineno;
+    ga('send', 'event', 'JavaScript Error', err.message, err.filename + lineAndColumnInfo + ' -> ' + navigator.userAgent, 0, true);
+  });
+  jQuery.error = function (message) {
+    ga('send', 'event', 'jQuery Error', message, navigator.userAgent, 0, true);
+  };
 });
 /*
  * angular-ui-bootstrap
