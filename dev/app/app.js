@@ -153,7 +153,7 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 url:'/edit-section',
                 templateUrl:'public/views/edit-section.html',
                 access: ACCESS_GROUPS.ADMIN
-            });
+            })
 
             .state('accounts-manager',{
                 url:'/accounts-manager',
