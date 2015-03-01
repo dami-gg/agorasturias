@@ -782,18 +782,14 @@ cart.prototype.clearItems = function () {
     this.saveItems();
 };
 
-cart.prototype.checkout = function () {
-  
-  
-};
-
 // utility methods
 cart.prototype.addFormFields = function (form, data) {
     if (data !== null) {
+        var _input;
         $.each(data, function (name, value) {
             if (value !== null) {
-                var input = $("<input></input>").attr("type", "hidden").attr("name", name).val(value);
-                form.append(input);
+                _input = $("<input></input>").attr("type", "hidden").attr("name", name).val(value);
+                form.append(_input);
             }
         });
     }
@@ -806,8 +802,8 @@ cart.prototype.toNumber = function (value) {
 
 cart.prototype.addCheckoutParameters = function (serviceName, merchantID, options) {
 
-    if (serviceName !== "PayPal" && serviceName !== "Other") { // TODO
-        throw "serviceName must be 'PayPal' or 'Other'.";
+    if (serviceName !== "PayPal" && serviceName !== "TransferWise") { 
+        throw "serviceName must be 'PayPal' or 'TransferWise'.";
     }
     if (merchantID === null) {
         throw "A merchantID is required in order to checkout.";
@@ -835,8 +831,8 @@ cart.prototype.checkout = function (serviceName, clearCart) {
     case "PayPal":
       this.checkoutPayPal(parms, clearCart);
       break;
-    case "Other":
-      this.checkoutOther(parms, clearCart); // TODO
+    case "TransferWise":
+      this.checkoutTransferWise(parms, clearCart); 
       break;
     default:
       throw "Unknown checkout service: " + parms.serviceName;
@@ -852,7 +848,8 @@ cart.prototype.checkoutPayPal = function (parms, clearCart) {
         business: parms.merchantID,
         upload: "1",
         rm: "2",
-        charset: "utf-8"
+        charset: "utf-8",
+        currency_code: "EUR"
     };
 
     // item data
@@ -867,15 +864,23 @@ cart.prototype.checkoutPayPal = function (parms, clearCart) {
 
     // build form
     var form = $('<form></form>');
-    form.attr("action", "https://www.paypal.com/cgi-bin/webscr");
+    form.attr("action", "https://www.sandbox.paypal.com/cgi-bin/webscr");
+    // form.attr("action", "https://www.paypal.com/cgi-bin/webscr"); TODO
     form.attr("method", "POST");
     form.attr("style", "display:none;");
     this.addFormFields(form, data);
-    this.addFormFields(form, parms.options);
+    
+    if (parms.options !== undefined) {
+        this.addFormFields(form, parms.options);
+    }
+
     $("body").append(form);
 
     // submit form
-    this.clearCart = clearCart === null || clearCart;
+    this.clearCart = clearCart === undefined || clearCart;
+
+    // TODO Send email with order or persist
+
     form.submit();
     form.remove();
 };
@@ -927,7 +932,9 @@ agorasturiasApp.factory('ShopService', function() {
     var _shop = new shop(),
         _cart = new cart("AgoraShop");
 
-    _cart.addCheckoutParameters("PayPal", "XXX PayPal merchant account id"); // TODO
+    _cart.addCheckoutParameters("PayPal", "E5YL58382ENDE");
+    // _cart.addCheckoutParameters("PayPal", "M88EFJFDDQ5DY"); // TODO AEGEE-Oviedo
+    _cart.addCheckoutParameters("TransferWise", "XXX TransferWise merchant account id"); // TODO
   
     return {
         shop: _shop,
