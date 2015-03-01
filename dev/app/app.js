@@ -147,7 +147,17 @@ agorasturiasApp.config(['ngToastProvider', function(ngToast) {
       verticalPosition: 'bottom',
       horizontalPosition: 'right'
     });
-  }]);
+}]);
+
+agorasturiasApp.config(function ($provide) {
+    $provide.decorator("$exceptionHandler", function ($delegate) {
+        return function (exception, cause) {
+            $delegate(exception, cause);
+            ga('send', 'event', 'AngularJS error', exception.message,
+                exception.stack,  0, true);
+        };
+    });
+});
 
 agorasturiasApp.run(
   ['$state', '$rootScope', 'LoginService', 'ACCESS_GROUPS', 'USER_ROLES',

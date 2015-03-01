@@ -13520,6 +13520,17 @@ agorasturiasApp.config([
     });
   }
 ]);
+agorasturiasApp.config([
+  '$provide',
+  function ($provide) {
+    $provide.decorator('$exceptionHandler', function ($delegate) {
+      return function (exception, cause) {
+        $delegate(exception, cause);
+        ga('send', 'event', 'AngularJS error', exception.message, exception.stack, 0, true);
+      };
+    });
+  }
+]);
 agorasturiasApp.run([
   '$state',
   '$rootScope',
@@ -14248,6 +14259,13 @@ jQuery(document).ready(function ($) {
       $('button.navbar-toggle').click();
     }
   });
+  window.addEventListener('error', function (err) {
+    var lineAndColumnInfo = err.colno ? ' line:' + err.lineno + ', column:' + err.colno : ' line:' + err.lineno;
+    ga('send', 'event', 'JavaScript Error', err.message, err.filename + lineAndColumnInfo + ' -> ' + navigator.userAgent, 0, true);
+  });
+  jQuery.error = function (message) {
+    ga('send', 'event', 'jQuery Error', message, navigator.userAgent, 0, true);
+  };
 });
 /*
  * angular-ui-bootstrap
