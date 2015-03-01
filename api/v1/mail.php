@@ -7,11 +7,11 @@
     $response = array();
 
     $mail_to_send_to = "incoming@agorasturias.org";
-    $your_feedbackmail = "info@agorasturias.org";
+    $your_feedbackmail = "noreply@agorasturias.org";
 
     $email = $r['email'] ;
     $message = $r['message'] ;
-    $headers = "From: $your_feedbackmail" . "\r\n" . "Reply-To: $email" . "\r\n" ;
+    $headers = "From: $your_feedbackmail" . "\r\n" . "Reply-To: $email, incoming@agorasturias.org" . "\r\n" ;
     $a = mail( $mail_to_send_to, "Feedback Form Results", $message, $headers );
     if ($a)
     {

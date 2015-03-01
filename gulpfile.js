@@ -36,6 +36,8 @@ gulp.task('js', function() {
                 'dev/app/components/admin/newPostController.js',
                 'dev/app/components/admin/editPostController.js',
                 'dev/app/components/admin/fileUploaderController.js',
+                'dev/app/components/admin/menusController.js',
+                'dev/app/components/admin/sectionsController.js',
                 'dev/app/components/book/bookController.js',
                 'dev/app/components/contact/formController.js',
                 'dev/app/components/team/thumbnailsController.js',
@@ -63,7 +65,7 @@ gulp.task('js', function() {
                 'dev/lib/angular-translate-loader-url.min.js',
                 'dev/lib/angular-cookies.min.js',
                 'dev/lib/angular-resource.min.js',
-                'dev/lib/angular-animate.min.js',    
+                'dev/lib/angular-animate.min.js',
                 'dev/lib/angular-sanitize.min.js',
                 'dev/lib/angular-social-links.js',
                 'dev/lib/angular-translate-storage-cookie.min.js',
@@ -116,7 +118,7 @@ gulp.task('html', function() {
     gulp.src('./dev/html/*.html')
         .pipe(minifyHTML(opts))
         .pipe(gulp.dest('public/views/'))
-        .pipe(notify({ message: 'HTML task complete' }));    
+        .pipe(notify({ message: 'HTML task complete' }));
 });
 
 // Watch Files For Changes
