@@ -13506,8 +13506,19 @@ agorasturiasApp.config([
     }).state('file-uploader', {
       url: '/file-uploader',
       templateUrl: 'public/views/file-uploader.html',
-<<<<<<< HEAD
       access: ACCESS_GROUPS.ADMINS
+    }).state('edit-menus', {
+      url: '/edit-menus',
+      templateUrl: 'public/views/edit_menus.html',
+      access: ACCESS_GROUPS.ADMIN
+    }).state('edit-sections', {
+      url: '/edit-sections',
+      templateUrl: 'public/views/edit_sections.html',
+      access: ACCESS_GROUPS.ADMIN
+    }).state('edit-section', {
+      url: '/edit-section',
+      templateUrl: 'public/views/edit-section.html',
+      access: ACCESS_GROUPS.ADMIN
     }).state('accounts-manager', {
       url: '/accounts-manager',
       templateUrl: 'public/views/accounts-manager.html',
@@ -13528,21 +13539,6 @@ agorasturiasApp.config([
       url: '/checkout',
       templateUrl: 'public/views/checkout.html',
       access: ACCESS_GROUPS.LOGGED
-=======
-      access: ACCESS_GROUPS.ADMIN
-    }).state('edit-menus', {
-      url: '/edit-menus',
-      templateUrl: 'public/views/edit_menus.html',
-      access: ACCESS_GROUPS.ADMIN
-    }).state('edit-sections', {
-      url: '/edit-sections',
-      templateUrl: 'public/views/edit_sections.html',
-      access: ACCESS_GROUPS.ADMIN
-    }).state('edit-section', {
-      url: '/edit-section',
-      templateUrl: 'public/views/edit-section.html',
-      access: ACCESS_GROUPS.ADMIN
->>>>>>> origin/master
     });
     ;
     $translateProvider.useUrlLoader('api/v1/translate');
@@ -14254,13 +14250,10 @@ cart.prototype.addFormFields = function (form, data) {
     var _input;
     $.each(data, function (name, value) {
       if (value !== null) {
-        var _input = $('<input></input>').attr('type', 'hidden').attr('name', name).val(value);
+        _input = $('<input></input>').attr('type', 'hidden').attr('name', name).val(value);
         form.append(_input);
       }
     });
-    var _url = window.location.href !== undefined ? window.location.href : 'http://www.agorasturias.org/';
-    _input = $('<input></input>').attr('type', 'hidden').attr('name', 'return').val(_url);
-    form.append(_input);
   }
 };
 cart.prototype.toNumber = function (value) {

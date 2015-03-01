@@ -1,4 +1,3 @@
-// create the module including ngRoute for all the routing needs
 var agorasturiasApp = angular.module('agorasturiasApp',
   ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngAnimate', 'ngSanitize',
     'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'socialLinks', 'ngToast']);
@@ -134,8 +133,25 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
             .state('file-uploader',{
                 url:'/file-uploader',
                 templateUrl : 'public/views/file-uploader.html',
-<<<<<<< HEAD
                 access: ACCESS_GROUPS.ADMINS
+            })
+
+            .state('edit-menus', {
+                url:'/edit-menus',
+                templateUrl:'public/views/edit_menus.html',
+                access: ACCESS_GROUPS.ADMIN
+            })
+
+            .state('edit-sections', {
+                url:'/edit-sections',
+                templateUrl:'public/views/edit_sections.html',
+                access: ACCESS_GROUPS.ADMIN
+            })
+
+            .state('edit-section', {
+                url:'/edit-section',
+                templateUrl:'public/views/edit-section.html',
+                access: ACCESS_GROUPS.ADMIN
             })
 
             .state('accounts-manager',{
@@ -169,28 +185,6 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
             })
 
             ;
-=======
-                access: ACCESS_GROUPS.ADMIN
-            })
-
-            .state('edit-menus', {
-              url:'/edit-menus',
-              templateUrl:'public/views/edit_menus.html',
-              access: ACCESS_GROUPS.ADMIN
-            })
-
-            .state('edit-sections', {
-              url:'/edit-sections',
-              templateUrl:'public/views/edit_sections.html',
-              access: ACCESS_GROUPS.ADMIN
-            })
-
-            .state('edit-section', {
-              url:'/edit-section',
-              templateUrl:'public/views/edit-section.html',
-              access: ACCESS_GROUPS.ADMIN
-            });
->>>>>>> origin/master
 
       $translateProvider.useUrlLoader('api/v1/translate');
 
@@ -205,8 +199,6 @@ agorasturiasApp.config(['ngToastProvider', function(ngToast) {
         horizontalPosition: 'right'
     });
 }]);
-<<<<<<< HEAD
-=======
 
 agorasturiasApp.config(function ($provide) {
     $provide.decorator("$exceptionHandler", function ($delegate) {
@@ -217,7 +209,6 @@ agorasturiasApp.config(function ($provide) {
         };
     });
 });
->>>>>>> origin/master
 
 agorasturiasApp.run(
   ['$state', '$rootScope', 'LoginService', 'ACCESS_GROUPS', 'USER_ROLES',

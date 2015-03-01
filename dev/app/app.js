@@ -1,4 +1,3 @@
-// create the module including ngRoute for all the routing needs
 var agorasturiasApp = angular.module('agorasturiasApp',
   ['ui.router', 'ui.bootstrap', 'ngResource', 'ngCkeditor', 'ngAnimate', 'ngSanitize',
     'pascalprecht.translate', 'angularFileUpload', 'ngCookies', 'socialLinks', 'ngToast']);
