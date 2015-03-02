@@ -5,7 +5,7 @@ agorasturiasApp.controller('ShopCtrl', function ($scope, $stateParams, ShopServi
 
     var _productId = $stateParams.productId;
 
-    if ($location.path().startsWith("/product") && _productId !== null) {
+    if ($location.path().lastIndexOf("/product", 0) === 0 && _productId !== null) {
     
         if (isNaN(_productId)) {
             $location.path ('/shop');
