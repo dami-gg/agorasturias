@@ -13398,9 +13398,6 @@ if ('undefined' == typeof jQuery)
     }
   ]), c;
 });
-<<<<<<< HEAD
-=======
-// create the module including ngRoute for all the routing needs
 var agorasturiasApp = angular.module('agorasturiasApp', [
     'ui.router',
     'ui.bootstrap',
@@ -13417,12 +13414,14 @@ var agorasturiasApp = angular.module('agorasturiasApp', [
 agorasturiasApp.constant('USER_ROLES', {
   'GUEST': 'guest',
   'USER': 'user',
+  'EDITOR': 'editor',
   'ADMIN': 'admin'
 });
 agorasturiasApp.constant('ACCESS_GROUPS', {
   'ALL': 'all',
   'LOGGED': 'logged',
-  'ADMIN': 'admin'
+  'EDITORS': 'editors',
+  'ADMINS': 'admins'
 });
 agorasturiasApp.config([
   '$stateProvider',
@@ -13498,15 +13497,15 @@ agorasturiasApp.config([
     }).state('new-post', {
       url: '/new-post',
       templateUrl: 'public/views/new-post.html',
-      access: ACCESS_GROUPS.ADMIN
+      access: ACCESS_GROUPS.EDITORS
     }).state('edit-post', {
       url: '/edit-post',
       templateUrl: 'public/views/edit-post.html',
-      access: ACCESS_GROUPS.ADMIN
+      access: ACCESS_GROUPS.EDITORS
     }).state('file-uploader', {
       url: '/file-uploader',
       templateUrl: 'public/views/file-uploader.html',
-      access: ACCESS_GROUPS.ADMIN
+      access: ACCESS_GROUPS.ADMINS
     }).state('edit-menus', {
       url: '/edit-menus',
       templateUrl: 'public/views/edit_menus.html',
@@ -13519,7 +13518,28 @@ agorasturiasApp.config([
       url: '/edit-section',
       templateUrl: 'public/views/edit-section.html',
       access: ACCESS_GROUPS.ADMIN
+    }).state('accounts-manager', {
+      url: '/accounts-manager',
+      templateUrl: 'public/views/accounts-manager.html',
+      access: ACCESS_GROUPS.ADMINS
+    }).state('shop', {
+      url: '/shop',
+      templateUrl: 'public/views/shop.html',
+      access: ACCESS_GROUPS.LOGGED
+    }).state('product', {
+      url: '/product/:productId',
+      templateUrl: 'public/views/product.html',
+      access: ACCESS_GROUPS.LOGGED
+    }).state('shopping-cart', {
+      url: '/shopping-cart',
+      templateUrl: 'public/views/shopping-cart.html',
+      access: ACCESS_GROUPS.LOGGED
+    }).state('checkout', {
+      url: '/checkout',
+      templateUrl: 'public/views/checkout.html',
+      access: ACCESS_GROUPS.LOGGED
     });
+    ;
     $translateProvider.useUrlLoader('api/v1/translate');
     $translateProvider.preferredLanguage('en');
     $translateProvider.useCookieStorage();
@@ -13693,8 +13713,8 @@ agorasturiasApp.controller('PostViewerCtrl', [
 ]);
 agorasturiasApp.controller('SponsorsCtrl', [
   '$scope',
-  'partitionService',
-  function ($scope, partitionService) {
+  'PartitionService',
+  function ($scope, PartitionService) {
     var sponsors = $scope.sponsors = [];
     $scope.fillsponsors = function () {
       sponsors.push({
@@ -13749,7 +13769,7 @@ agorasturiasApp.controller('SponsorsCtrl', [
     if ($scope.sponsors.length === 0) {
       $scope.fillsponsors();
     }
-    $scope.rows = partitionService.partition(sponsors, 4);
+    $scope.rows = PartitionService.partition(sponsors, 4);
   }
 ]);
 agorasturiasApp.controller('NewPostCtrl', [
@@ -14020,8 +14040,8 @@ agorasturiasApp.controller('FormCtrl', [
 ]);
 agorasturiasApp.controller('ThumbnailsCtrl', [
   '$scope',
-  'partitionService',
-  function ($scope, partitionService) {
+  'PartitionService',
+  function ($scope, PartitionService) {
     var members = $scope.members = [];
     $scope.fillMembers = function () {
       members.push({
@@ -14112,9 +14132,256 @@ agorasturiasApp.controller('ThumbnailsCtrl', [
     if ($scope.members.length === 0) {
       $scope.fillMembers();
     }
-    $scope.rows = partitionService.partition(members, 4);
+    $scope.rows = PartitionService.partition(members, 4);
   }
 ]);
+function product(id, name, description, price, image) {
+  this.id = id;
+  this.name = name;
+  this.description = description;
+  this.price = price;
+  this.image = image;
+}
+function shop() {
+  this.products = [
+    new product(1, 'MATTRESS', 'For sleeping at a CAMPSITE. For 2 persons. 140X190cm. Flocked outer for comfort. 2-year guarantee!', '19.75', 'public/img/shop/mattress.png'),
+    new product(2, 'SLEEPING BAG', '', '9.75', 'public/img/shop/mattress.png'),
+    new product(3, 'T-SHIRT', '', '12', 'public/img/shop/mattress.png')
+  ];
+}
+shop.prototype.getProduct = function (id) {
+  for (var i = 0; i < this.products.length; i++) {
+    if (this.products[i].id === id) {
+      return this.products[i];
+    }
+  }
+  return null;
+};
+function cart(cartName) {
+  this.cartName = cartName;
+  this.clearCart = false;
+  this.checkoutParameters = {};
+  this.items = [];
+  // load items from local storage when initializing
+  this.loadItems();
+  // save items to local storage when unloading
+  var self = this;
+  $(window).unload(function () {
+    if (self.clearCart) {
+      self.clearItems();
+    }
+    self.saveItems();
+    self.clearCart = false;
+  });
+}
+// load items from local storage
+cart.prototype.loadItems = function () {
+  var items = localStorage !== null ? localStorage[this.cartName + '_items'] : null;
+  if (items !== null && JSON !== null) {
+    try {
+      items = JSON.parse(items);
+      for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        if (item.sku !== null && item.name !== null && item.price !== null && item.quantity !== null) {
+          item = new cartItem(item.sku, item.name, item.price, item.quantity);
+          this.items.push(item);
+        }
+      }
+    } catch (err) {
+    }
+  }
+};
+// save items to local storage
+cart.prototype.saveItems = function () {
+  if (localStorage !== null && JSON !== null) {
+    localStorage[this.cartName + '_items'] = JSON.stringify(this.items);
+  }
+};
+// adds an item to the cart
+cart.prototype.addItem = function (id, name, price, quantity) {
+  quantity = this.toNumber(quantity);
+  if (quantity !== 0) {
+    // update quantity for existing item
+    var found = false, item = null;
+    for (var i = 0; i < this.items.length && !found; i++) {
+      item = this.items[i];
+      if (item.id === id) {
+        found = true;
+        item.quantity = this.toNumber(item.quantity + quantity);
+        if (item.quantity <= 0) {
+          this.items.splice(i, 1);
+        }
+      }
+    }
+    // new item, add now
+    if (!found) {
+      item = new cartItem(id, name, price, quantity);
+      this.items.push(item);
+    }
+    // save changes
+    this.saveItems();
+  }
+};
+cart.prototype.getTotalPrice = function (id) {
+  var total = 0;
+  for (var i = 0; i < this.items.length; i++) {
+    var item = this.items[i];
+    if (id === undefined || item.id === id) {
+      total += this.toNumber(item.quantity * item.price);
+    }
+  }
+  return total;
+};
+cart.prototype.getTotalCount = function (id) {
+  var count = 0;
+  for (var i = 0; i < this.items.length; i++) {
+    var item = this.items[i];
+    if (id === undefined || item.id === id) {
+      count += this.toNumber(item.quantity);
+    }
+  }
+  return count;
+};
+// clear the cart
+cart.prototype.clearItems = function () {
+  this.items = [];
+  this.saveItems();
+};
+// utility methods
+cart.prototype.addFormFields = function (form, data) {
+  if (data !== null) {
+    var _input;
+    $.each(data, function (name, value) {
+      if (value !== null) {
+        _input = $('<input></input>').attr('type', 'hidden').attr('name', name).val(value);
+        form.append(_input);
+      }
+    });
+  }
+};
+cart.prototype.toNumber = function (value) {
+  value = value * 1;
+  return isNaN(value) ? 0 : value;
+};
+cart.prototype.addCheckoutParameters = function (serviceName, merchantID, options) {
+  if (serviceName !== 'PayPal' && serviceName !== 'TransferWise') {
+    throw 'serviceName must be \'PayPal\' or \'TransferWise\'.';
+  }
+  if (merchantID === null) {
+    throw 'A merchantID is required in order to checkout.';
+  }
+  this.checkoutParameters[serviceName] = new checkoutParameters(serviceName, merchantID, options);
+};
+cart.prototype.checkout = function (serviceName, clearCart) {
+  // select service
+  if (serviceName === null) {
+    var p = this.checkoutParameters[Object.keys(this.checkoutParameters)[0]];
+    serviceName = p.serviceName;
+  }
+  if (serviceName === null) {
+    throw 'Define at least one checkout service.';
+  }
+  var parms = this.checkoutParameters[serviceName];
+  if (parms === null) {
+    throw 'Cannot get checkout parameters for \'' + serviceName + '\'.';
+  }
+  switch (parms.serviceName) {
+  case 'PayPal':
+    this.checkoutPayPal(parms, clearCart);
+    break;
+  case 'TransferWise':
+    this.checkoutTransferWise(parms, clearCart);
+    break;
+  default:
+    throw 'Unknown checkout service: ' + parms.serviceName;
+  }
+};
+// http://www.paypal.com/cgi-bin/webscr?cmd=p/pdn/howto_checkout-outside
+cart.prototype.checkoutPayPal = function (parms, clearCart) {
+  // global data
+  var data = {
+      cmd: '_cart',
+      business: parms.merchantID,
+      upload: '1',
+      rm: '2',
+      charset: 'utf-8',
+      currency_code: 'EUR'
+    };
+  // item data
+  for (var i = 0; i < this.items.length; i++) {
+    var item = this.items[i];
+    var ctr = i + 1;
+    data['item_number_' + ctr] = item.id;
+    data['item_name_' + ctr] = item.name;
+    data['quantity_' + ctr] = item.quantity;
+    data['amount_' + ctr] = item.price.toFixed(2);
+  }
+  // build form
+  var form = $('<form></form>');
+  form.attr('action', 'https://www.sandbox.paypal.com/cgi-bin/webscr');
+  // form.attr("action", "https://www.paypal.com/cgi-bin/webscr"); TODO
+  form.attr('method', 'POST');
+  form.attr('style', 'display:none;');
+  this.addFormFields(form, data);
+  if (parms.options !== undefined) {
+    this.addFormFields(form, parms.options);
+  }
+  $('body').append(form);
+  // submit form
+  this.clearCart = clearCart === undefined || clearCart;
+  // TODO Send email with order or persist
+  form.submit();
+  form.remove();
+};
+function checkoutParameters(serviceName, merchantID, options) {
+  this.serviceName = serviceName;
+  this.merchantID = merchantID;
+  this.options = options;
+}
+function cartItem(id, name, price, quantity) {
+  this.id = id;
+  this.name = name;
+  this.price = price * 1;
+  this.quantity = quantity * 1;
+}
+agorasturiasApp.controller('ShopCtrl', [
+  '$scope',
+  '$stateParams',
+  'ShopService',
+  '$location',
+  function ($scope, $stateParams, ShopService, $location) {
+    $scope.shop = ShopService.shop;
+    $scope.cart = ShopService.cart;
+    var _productId = $stateParams.productId;
+    if ($location.path().lastIndexOf('/product', 0) === 0 && _productId !== null) {
+      if (isNaN(_productId)) {
+        $location.path('/shop');
+      } else {
+        $scope.product = $scope.shop.getProduct(parseInt(_productId));
+      }
+    }
+    $scope.goToShop = function () {
+      $location.path('/shop');
+    };
+    $scope.openProductDescription = function (productId) {
+      $location.path('/product/' + productId);
+    };
+    $scope.goToCart = function () {
+      $location.path('/shopping-cart');
+    };
+  }
+]);
+agorasturiasApp.factory('ShopService', function () {
+  var _shop = new shop(), _cart = new cart('AgoraShop');
+  _cart.addCheckoutParameters('PayPal', 'E5YL58382ENDE');
+  // _cart.addCheckoutParameters("PayPal", "M88EFJFDDQ5DY"); // TODO AEGEE-Oviedo
+  _cart.addCheckoutParameters('TransferWise', 'XXX TransferWise merchant account id');
+  // TODO
+  return {
+    shop: _shop,
+    cart: _cart
+  };
+});
 agorasturiasApp.controller('ProfileCtrl', [
   '$scope',
   'LoginService',
@@ -14298,7 +14565,7 @@ agorasturiasApp.controller('NavigationCtrl', [
     };
   }
 ]);
-agorasturiasApp.service('partitionService', function () {
+agorasturiasApp.service('PartitionService', function () {
   this.partition = function (dataArray, chunkSize) {
     var result = [];
     for (var i = 0; i < dataArray.length; i += chunkSize) {
@@ -14313,7 +14580,6 @@ agorasturiasApp.filter('htmlSafe', [
     return $sce.trustAsHtml;
   }
 ]);
->>>>>>> origin/master
 jQuery(document).ready(function ($) {
   // browser window scroll (in pixels) after which the "back to top" link is shown
   var offset = 300,
