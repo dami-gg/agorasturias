@@ -13732,6 +13732,10 @@ agorasturiasApp.controller('SponsorsCtrl', [
         link: 'http://www.kemphor.com/'
       });
       sponsors.push({
+        logo: 'public/img/sponsors/ktm.png',
+        link: 'http://www.ktm.com/es/ready-to-race.html/'
+      });
+      sponsors.push({
         logo: 'public/img/sponsors/alsa.png',
         link: 'http://www.alsa.es/'
       });
