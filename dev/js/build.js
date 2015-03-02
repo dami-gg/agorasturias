@@ -333,6 +333,7 @@ agorasturiasApp.controller('SponsorsCtrl', function ($scope, partitionService) {
         sponsors.push({ logo: 'public/img/sponsors/aviles.png', link: 'http://aviles.es/web/turismo/' });
         sponsors.push({ logo: 'public/img/sponsors/gijon-deporte.png', link: 'http://deporte.gijon.es/' });
         sponsors.push({ logo: 'public/img/sponsors/kemphor.png', link: 'http://www.kemphor.com/' });
+        sponsors.push({ logo: 'public/img/sponsors/ktm.png', link: 'http://www.ktm.com/es/ready-to-race.html/' });
         sponsors.push({ logo: 'public/img/sponsors/alsa.png', link: 'http://www.alsa.es/' });
         sponsors.push({ logo: 'public/img/sponsors/renfe.png', link: 'http://www.renfe.es/' });
     };
