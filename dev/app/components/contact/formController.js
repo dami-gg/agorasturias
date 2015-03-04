@@ -1,4 +1,5 @@
-agorasturiasApp.controller('FormCtrl', ['$scope', 'Data', function ($scope, Data) {
+agorasturiasApp.controller('FormCtrl', ['$scope', 'Data', '$location',
+function ($scope, Data, $location) {
 
   $scope.contact = {};
 
@@ -7,10 +8,13 @@ agorasturiasApp.controller('FormCtrl', ['$scope', 'Data', function ($scope, Data
     if (isValid) {
 
       Data.post("mail", contact)
-      .success(function(response) {
+      .then(function(response) {
+        if(response.status == "success"){
           alert("Email sent correctly");
-      }).error(function(response) {
-          alert("An error occured");
+          $location.path("/home");
+        }
+        else
+          alert("There was a problem sending your email, please try again later");
       });
     }
   };

@@ -14025,14 +14025,17 @@ agorasturiasApp.controller('BookCtrl', [
 agorasturiasApp.controller('FormCtrl', [
   '$scope',
   'Data',
-  function ($scope, Data) {
+  '$location',
+  function ($scope, Data, $location) {
     $scope.contact = {};
     $scope.submitForm = function (isValid, contact) {
       if (isValid) {
-        Data.post('mail', contact).success(function (response) {
-          alert('Email sent correctly');
-        }).error(function (response) {
-          alert('An error occured');
+        Data.post('mail', contact).then(function (response) {
+          if (response.status == 'success') {
+            alert('Email sent correctly');
+            $location.path('/home');
+          } else
+            alert('There was a problem sending your email, please try again later');
         });
       }
     };
