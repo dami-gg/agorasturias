@@ -665,28 +665,6 @@ agorasturiasApp.controller('BookCtrl', ['$scope', '$translate', function ($scope
       }
     };
 });
-agorasturiasApp.controller('FormCtrl', ['$scope', 'Data', '$location',
-function ($scope, Data, $location) {
-
-  $scope.contact = {};
-
-  $scope.submitForm = function(isValid, contact) {
-
-    if (isValid) {
-
-      Data.post("mail", contact)
-      .then(function(response) {
-        if(response.status == "success"){
-          alert("Email sent correctly");
-          $location.path("/home");
-        }
-        else
-          alert("There was a problem sending your email, please try again later");
-      });
-    }
-  };
-}]);
-
 agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, PartitionService) {
 
   var members = $scope.members = [];
@@ -1059,7 +1037,8 @@ agorasturiasApp.controller('MainCtrl',
       .then(function(response){
 
         if(response.uid !== undefined && response.uid !== ""){
-          LoginService.login(response.uid, response.email, response.name, response.role, response.username);
+          LoginService.login(response.uid, response.email, response.name, 
+                              response.role, response.username, response.antenna);
           $scope.authenticated = true;
           $scope.username = response.username;
         }
@@ -1081,7 +1060,7 @@ agorasturiasApp.controller('MainCtrl',
 
           if (response.status === "success") {
             LoginService.login(response.uid, response.email, response.name,
-                response.role, response.username);
+                response.role, response.username, response.antenna);
 
             $location.path('/home');
             $scope.notify("Welcome back <b>" + response.name + "</b>", 'success');
@@ -1231,4 +1210,25 @@ agorasturiasApp.service('PartitionService', function() {
 agorasturiasApp.filter('htmlSafe',['$sce',function($sce){
   
     return $sce.trustAsHtml;
+}]);
+agorasturiasApp.controller('FormCtrl', ['$scope', 'Data', '$location',
+function ($scope, Data, $location) {
+
+  $scope.contact = {};
+
+  $scope.submitForm = function(isValid, contact) {
+
+    if (isValid) {
+
+      Data.post("mail", contact)
+      .then(function(response) {
+        if(response.status == "success"){
+          alert("Email sent correctly");
+          $location.path("/home");
+        }
+        else
+          alert("There was a problem sending your email, please try again later");
+      });
+    }
+  };
 }]);

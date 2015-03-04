@@ -497,7 +497,11 @@ section {
 
 #profile {
 
-    .panel-body { color:black; }    
+    .panel-body { color:black; text-align: center; }  
+
+    .help-block { color: yellow; }  
+
+    button { float: right; }
 }
 
 #new-post, #edit-post {
@@ -516,9 +520,9 @@ section {
 
     a { color: yellow; }
 
-    textarea { min-height: 120px; }
+    textarea { min-height: 120px; }   
 
-    .help-block { color: yellow; }
+    .help-block { color: yellow; } 
 }
 
 #buildings { height:325px; width:100%; background: url('../img/footer.png') no-repeat center bottom; }

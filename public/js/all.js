@@ -14022,20 +14022,19 @@ agorasturiasApp.controller('BookCtrl', [
     }
   };
 });
-agorasturiasApp.controller('FormCtrl', [
+agorasturiasApp.controller('ContactCtrl', [
   '$scope',
   'Data',
-  '$location',
-  function ($scope, Data, $location) {
+  function ($scope, Data) {
     $scope.contact = {};
+    $scope.submitted = false;
     $scope.submitForm = function (isValid, contact) {
+      $scope.submitted = true;
       if (isValid) {
-        Data.post('mail', contact).then(function (response) {
-          if (response.status == 'success') {
-            alert('Email sent correctly');
-            $location.path('/home');
-          } else
-            alert('There was a problem sending your email, please try again later');
+        Data.post('mail', contact).success(function (response) {
+          $scope.notify('Email sent correctly, we will reply you back as soon as possible', 'success');
+        }).error(function (response) {
+          $scope.notify(response.message, 'danger');
         });
       }
     };
@@ -14147,9 +14146,8 @@ function product(id, name, description, price, image) {
 }
 function shop() {
   this.products = [
-    new product(1, 'MATTRESS', 'For sleeping at a CAMPSITE. For 2 persons. 140X190cm. Flocked outer for comfort. 2-year guarantee!', '19.75', 'public/img/shop/mattress.png'),
-    new product(2, 'SLEEPING BAG', '', '9.75', 'public/img/shop/mattress.png'),
-    new product(3, 'T-SHIRT', '', '12', 'public/img/shop/mattress.png')
+    new product(1, 'PARTICIPATION FEE', 'AgorAsturias participation fee', '55', 'public/img/shop/fee.png'),
+    new product(2, 'MATTRESS', 'For sleeping at a CAMPSITE. For 2 persons. 140X190cm. Flocked outer for comfort. 2-year guarantee!', '19.75', 'public/img/shop/mattress.png')
   ];
 }
 shop.prototype.getProduct = function (id) {
@@ -14391,6 +14389,26 @@ agorasturiasApp.controller('ProfileCtrl', [
   'Data',
   function ($scope, LoginService, Data) {
     $scope.userData = LoginService.session;
+    $scope.submitted = false;
+    $scope.changePassword = function (isValid, oldPassword, newPassword) {
+      $scope.submitted = true;
+      if (isValid) {
+        Data.put('changepwd', {
+          username: LoginService.session.username,
+          curr_pass: oldPassword,
+          new_pass: newPassword
+        }).then(function (response) {
+          if (response.status === 'success') {
+            $scope.notify('Password correctly changed', 'success');
+          } else {
+            $scope.notify(response.message, 'danger');
+          }
+        });
+      }
+    };
+    $scope.passwordsMatch = function (newPassword, newPasswordConfirmation) {
+      return newPassword === newPasswordConfirmation;
+    };
   }
 ]);
 agorasturiasApp.controller('MainCtrl', [
@@ -14423,7 +14441,7 @@ agorasturiasApp.controller('MainCtrl', [
     } else {
       Data.get('session').then(function (response) {
         if (response.uid !== undefined && response.uid !== '') {
-          LoginService.login(response.uid, response.email, response.name, response.role, response.username);
+          LoginService.login(response.uid, response.email, response.name, response.role, response.username, response.antenna);
           $scope.authenticated = true;
           $scope.username = response.username;
         } else {
@@ -14440,7 +14458,7 @@ agorasturiasApp.controller('MainCtrl', [
         password: user.password
       }).then(function (response) {
         if (response.status === 'success') {
-          LoginService.login(response.uid, response.email, response.name, response.role, response.username);
+          LoginService.login(response.uid, response.email, response.name, response.role, response.username, response.antenna);
           $location.path('/home');
           $scope.notify('Welcome back <b>' + response.name + '</b>', 'success');
         } else {
@@ -14492,15 +14510,17 @@ agorasturiasApp.factory('LoginService', [
         email: '',
         name: '',
         role: USER_ROLES.GUEST,
-        username: ''
+        username: '',
+        antenna: ''
       };
     var authenticated = false;
-    var login = function (userId, email, name, role, username) {
+    var login = function (userId, email, name, role, username, antenna) {
       this.session.userId = userId;
       this.session.email = email;
       this.session.name = name;
       this.session.role = role;
       this.session.username = username;
+      this.session.antenna = antenna;
       this.authenticated = true;
     };
     var logout = function () {
@@ -14509,6 +14529,7 @@ agorasturiasApp.factory('LoginService', [
       this.session.name = '';
       this.session.role = USER_ROLES.GUEST;
       this.session.username = '';
+      this.session.antenna = '';
       this.authenticated = false;
     };
     return {

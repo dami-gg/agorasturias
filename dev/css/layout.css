@@ -484,7 +484,12 @@ section.slider {
   padding-right: 5px; }
 
 #profile .panel-body {
-  color: black; }
+  color: black;
+  text-align: center; }
+#profile .help-block {
+  color: yellow; }
+#profile button {
+  float: right; }
 
 #new-post form > div, #edit-post form > div {
   margin: 20px 0; }

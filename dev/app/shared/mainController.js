@@ -30,7 +30,8 @@ agorasturiasApp.controller('MainCtrl',
       .then(function(response){
 
         if(response.uid !== undefined && response.uid !== ""){
-          LoginService.login(response.uid, response.email, response.name, response.role, response.username);
+          LoginService.login(response.uid, response.email, response.name, 
+                              response.role, response.username, response.antenna);
           $scope.authenticated = true;
           $scope.username = response.username;
         }
@@ -52,7 +53,7 @@ agorasturiasApp.controller('MainCtrl',
 
           if (response.status === "success") {
             LoginService.login(response.uid, response.email, response.name,
-                response.role, response.username);
+                response.role, response.username, response.antenna);
 
             $location.path('/home');
             $scope.notify("Welcome back <b>" + response.name + "</b>", 'success');
