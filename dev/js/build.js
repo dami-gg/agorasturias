@@ -138,13 +138,13 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
 
             .state('edit-menus', {
                 url:'/edit-menus',
-                templateUrl:'public/views/edit_menus.html',
+                templateUrl:'public/views/edit-menus.html',
                 access: ACCESS_GROUPS.ADMIN
             })
 
             .state('edit-sections', {
                 url:'/edit-sections',
-                templateUrl:'public/views/edit_sections.html',
+                templateUrl:'public/views/edit-sections.html',
                 access: ACCESS_GROUPS.ADMIN
             })
 
@@ -377,11 +377,47 @@ agorasturiasApp.controller('SponsorsCtrl', function ($scope, PartitionService) {
 
     $scope.rows = PartitionService.partition(sponsors, 4);
 });
-agorasturiasApp.controller('NewPostCtrl',['$location','$scope','Data', function($location,$scope,Data){
+agorasturiasApp.controller('EditorCtrl',
+  ['$rootScope', '$scope', '$location', '$anchorScroll', 'Data',
+    function ($rootScope, $scope, $location, $anchorScroll, Data) {
 
   $scope.editorOptions = {
     language:'es',
     uiColor:'#ffffff'
+  };
+
+  /***
+  * POSTS
+  ***/
+
+  $scope.doEditPost = function(post) {
+    post.modifier_username = $scope.username;
+    post.modifier_id = $scope.uid;
+
+    Data.put('posts/' + post.id, {
+      post:JSON.stringify(post)
+    }).then(function(response){
+
+      if(response.status === "success"){
+        $scope.notify('Post successfully changed', 'success');
+        $location.path('/home');
+      }
+      else {
+        $scope.notify('Error: ' + response.message, 'danger');
+      }
+    });
+  };
+
+  $scope.doDeletePost = function(postId) {
+    Data.delete('posts/' + postId).then(function(response){
+      if(response.status === "success"){
+        $scope.notify('Post successfully deleted', 'success');
+        $location.path('/home');
+      }
+      else {
+        $scope.notify('Error: ' + response.message, 'danger');
+      }
+    });
   };
 
   $scope.doNewPost = function(newPost){
@@ -391,58 +427,97 @@ agorasturiasApp.controller('NewPostCtrl',['$location','$scope','Data', function(
     newPost.modifier_id = $scope.uid;
     newPost.header_image = '';
 
-    Data.post('posts',{
+    Data.post('posts', {
       post:JSON.stringify(newPost)
-
     }).then(function(response){
-
       if(response.status==="success"){
+        $scope.notify('Post successfully created', 'success');
         $location.path('/home');
       }
       else {
-        alert(response.message);
+        $scope.notify('Error: ' + response.message, 'danger');
       }
     });
   };
 
-}]);
+  /***
+  * MENUS
+  ***/
 
-agorasturiasApp.controller('EditPostCtrl',['$location','$scope','Data',
-  function($location,$scope,Data){
-
-  $scope.editorOptions = {
-    language:'es',
-    uiColor:'#ffffff'
+  $scope.editMenus = function() {
+    Data.get('/menus')
+      .then(function(response){
+        if(response.status === "success"){
+          $scope.menusList = response.menus;
+        }
+        else {
+          $scope.notify('Error: ' + response.message, 'danger');
+        }
+      });
   };
 
-  $scope.doEditPost = function(post){
-
-    post.modifier_username = $scope.username;
-    post.modifier_id = $scope.uid;
-
-    Data.put('posts/' + post.id, {
-      post:JSON.stringify(post)
+  $scope.doSaveMenu = function(edited_menu){
+    edited_menu.modifier_username = $scope.username;
+    Data.put('/menus/' + edited_menu.id, { 
+        menu: edited_menu 
     }).then(function(response){
-
-      if(response.status === "success"){
-        $location.path('/home');
+      if(response.status !== "error") {
+        $scope.notify('Menu successfully saved', 'success');
       }
       else {
-        alert(response.message);
+        $scope.notify('Error: ' + response.message, 'danger');
       }
     });
   };
 
-  $scope.doDeletePost = function(postId){
-    Data.delete('posts/' + postId).then(function(response){
-      if(response.status === "success"){
-        $location.path('/home');
+  $scope.doDeleteMenu = function(id){
+    notify('Error: not implemented','danger');
+  };
+
+  /***
+  * SECTIONS
+  ***/
+
+  $scope.editSections = function() {
+    Data.get('/sections')
+     .then(function(response){
+        if(response.status === "success"){
+          $scope.sectionsList = response.sections;
+          $location.path('/edit-sections');
+        }
+      });
+  };  
+
+  $scope.doEditSection = function(edited_section){
+    edited_section.modifier_username = $scope.username;
+    Data.put('/sections/' + edited_section.id, {
+      section:edited_section
+    }).then(function(response){
+      if(response.status !== "error") {
+        $scope.notify('Section successfully saved', 'success');
       }
       else {
-        alert(response.message);
+        $scope.notify('Error: ' + response.message, 'danger');
       }
     });
   };
+
+  $scope.editSection = function(section){
+    $rootScope.currentSection = section;
+    $location.path('/edit-section');
+  };
+
+  $scope.doDeleteSection = function(id){
+    notify('Error: not implemented','danger');
+  };
+
+  if ($location.path() === "/edit-menus") {
+    $scope.editMenus();
+  }
+  else if ($location.path() === "/edit-sections") {
+    $scope.editSections();
+  }
+
 }]);
 agorasturiasApp.controller('FileUploaderCtrl',
   ['$scope', '$upload', 'Data', 'partitionService', function($scope, $upload, Data, partitionService) {
@@ -487,53 +562,6 @@ agorasturiasApp.controller('FileUploaderCtrl',
   }
 
   getFiles();
-
-}]);
-
-agorasturiasApp.controller('MenusCtrl',
-['$rootScope', '$scope', '$location', '$anchorScroll', 'Data',
-function ($rootScope, $scope, $location, $anchorScroll, Data) {
-
-  $scope.doSaveMenu = function(edited_menu){
-    edited_menu.modifier_username = $scope.username;
-    Data.put('/menus/' + edited_menu.id, {menu:edited_menu})
-    .then(function(response){
-      if(response.status!="error")
-        $scope.notify('Menu successfully saved', 'success');
-      else
-        $scope.notify('Error: ' + response.message, 'danger');
-    });
-  };
-
-  $scope.doDeleteMenu = function(id){
-    notify('Error: not implemented','danger');
-  };
-
-}]);
-
-agorasturiasApp.controller('SectionsCtrl',
-['$rootScope', '$scope', '$location', '$anchorScroll', 'Data',
-function ($rootScope, $scope, $location, $anchorScroll, Data) {
-
-  $scope.doEditSection = function(edited_section){
-    edited_section.modifier_username = $scope.username;
-    Data.put('/sections/' + edited_section.id, {section:edited_section})
-    .then(function(response){
-      if(response.status!="error")
-        $scope.notify('Section successfully saved', 'success');
-      else
-        $scope.notify('Error: ' + response.message, 'danger');
-    });
-  };
-
-  $scope.editSection = function(section){
-    $rootScope.currentSection = section;
-    $location.path('/edit-section');
-  };
-
-  $scope.doDeleteSection = function(id){
-    notify('Error: not implemented','danger');
-  };
 
 }]);
 
@@ -665,6 +693,31 @@ agorasturiasApp.controller('BookCtrl', ['$scope', '$translate', function ($scope
       }
     };
 });
+agorasturiasApp.controller('ContactCtrl', ['$scope', 'Data', function ($scope, Data) {
+
+    $scope.contact = {};
+
+    $scope.submitted = false;
+
+    $scope.submitForm = function(isValid, contact) {
+
+        $scope.submitted = true;
+
+        if (isValid) {
+
+            Data.post('mail', contact)
+              .then(function(response) {                           
+                  if (response.status === "success") {
+                      $scope.notify('Email sent correctly, we will reply you back as soon as possible', 'success');
+                  }
+                  else {
+                      $scope.notify(response.message, 'danger');
+                  }                            
+              }); 
+        }
+    };
+}]);
+
 agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, PartitionService) {
 
   var members = $scope.members = [];
@@ -714,19 +767,25 @@ function product(id, name, description, price, image) {
   this.price = price;
   this.image = image;
 }
-function shop() {
-  
+function shop(Data) {  
+  /*
+  this.products = [];
+
+  Data.get('catalog').then(function(response) {
+    if (response.status === "success") {
+      this.products = response.products;
+    }
+  }); */
+
   this.products = [
-    new product (1, 'MATTRESS', 
+    new product (1, 'PARTICIPATION FEE', 'AgorAsturias participation fee', '55', 'public/img/shop/fee.png'),
+    new product (2, 'MATTRESS', 
         'For sleeping at a CAMPSITE. For 2 persons. 140X190cm. Flocked outer for comfort. 2-year guarantee!', 
-        '19.75', 'public/img/shop/mattress.png'),
-    new product (2, 'SLEEPING BAG', '', '9.75', 'public/img/shop/mattress.png'),
-    new product (3, 'T-SHIRT', '', '12', 'public/img/shop/mattress.png')
+        '19.75', 'public/img/shop/mattress.png')
   ];
 }
 
-shop.prototype.getProduct = function (id) {
-  
+shop.prototype.getProduct = function (id) {  
   for (var i = 0; i < this.products.length; i++) {
     if (this.products[i].id === id) {
       return this.products[i];
@@ -984,9 +1043,10 @@ agorasturiasApp.controller('ShopCtrl', function ($scope, $stateParams, ShopServi
         $location.path ('/shopping-cart');
     };
 });
-agorasturiasApp.factory('ShopService', function() {
+agorasturiasApp.factory('ShopService', ['Data', function(Data) {
     
-    var _shop = new shop(),
+    //var _shop = new shop(Data),
+    var _shop = new shop(Data),
         _cart = new cart("AgoraShop");
 
     _cart.addCheckoutParameters("PayPal", "E5YL58382ENDE");
@@ -997,12 +1057,40 @@ agorasturiasApp.factory('ShopService', function() {
         shop: _shop,
         cart: _cart
     };
-});
+}]);
 
 agorasturiasApp.controller('ProfileCtrl', ['$scope', 'LoginService', 'Data', 
     function ($scope, LoginService, Data) {
 
         $scope.userData = LoginService.session;
+
+        $scope.submitted = false;
+
+        $scope.changePassword = function(isValid, oldPassword, newPassword) {
+
+            $scope.submitted = true;
+
+            if (isValid) {                
+
+                Data.put('changepwd', {
+                        username: LoginService.session.username, 
+                        curr_pass: oldPassword, 
+                        new_pass: newPassword
+                    })
+                    .then(function(response) {                           
+                        if (response.status === "success") {
+                            $scope.notify('Password correctly changed', 'success');
+                        }
+                        else {
+                            $scope.notify(response.message, 'danger');
+                        }                            
+                    }); 
+            }
+        };
+
+        $scope.passwordsMatch = function(newPassword, newPasswordConfirmation) {
+            return newPassword === newPasswordConfirmation;
+        };
     }
 ]);
 agorasturiasApp.controller('MainCtrl',
@@ -1091,27 +1179,7 @@ agorasturiasApp.controller('MainCtrl',
         className: type,
         timeout: 2000
       });
-    };
-
-    $scope.editMenus = function(){
-      Data.get('/menus')
-      .then(function(response){
-        if(response.status === "success"){
-          $scope.menusList = response.menus;
-          $location.path ('/edit-menus');
-        }
-      });
-    };
-
-    $scope.editSections = function(){
-      Data.get('/sections')
-      .then(function(response){
-        if(response.status === "success"){
-          $scope.sectionsList = response.sections;
-          $location.path('/edit-sections');
-        }
-      });
-    };
+    };    
 }]);
 
 agorasturiasApp.factory('LoginService', ['USER_ROLES', function(USER_ROLES) {
@@ -1121,17 +1189,19 @@ agorasturiasApp.factory('LoginService', ['USER_ROLES', function(USER_ROLES) {
         email: '',
         name: '',
         role: USER_ROLES.GUEST,
-        username: ''        
+        username: '',
+        antenna: ''        
     };
 
     var authenticated = false;
 
-    var login = function (userId, email, name, role, username) {
+    var login = function (userId, email, name, role, username, antenna) {
         this.session.userId = userId;
         this.session.email = email;
         this.session.name = name;
         this.session.role = role;
         this.session.username = username;
+        this.session.antenna = antenna;
 
         this.authenticated = true;
     };
@@ -1142,6 +1212,7 @@ agorasturiasApp.factory('LoginService', ['USER_ROLES', function(USER_ROLES) {
         this.session.name = '';
         this.session.role = USER_ROLES.GUEST;
         this.session.username = '';
+        this.session.antenna = '';
 
         this.authenticated = false;
     };
@@ -1210,25 +1281,4 @@ agorasturiasApp.service('PartitionService', function() {
 agorasturiasApp.filter('htmlSafe',['$sce',function($sce){
   
     return $sce.trustAsHtml;
-}]);
-agorasturiasApp.controller('FormCtrl', ['$scope', 'Data', '$location',
-function ($scope, Data, $location) {
-
-  $scope.contact = {};
-
-  $scope.submitForm = function(isValid, contact) {
-
-    if (isValid) {
-
-      Data.post("mail", contact)
-      .then(function(response) {
-        if(response.status == "success"){
-          alert("Email sent correctly");
-          $location.path("/home");
-        }
-        else
-          alert("There was a problem sending your email, please try again later");
-      });
-    }
-  };
 }]);

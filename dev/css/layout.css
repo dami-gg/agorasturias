@@ -491,9 +491,9 @@ section.slider {
 #profile button {
   float: right; }
 
-#new-post form > div, #edit-post form > div {
+.editor form > div {
   margin: 20px 0; }
-#new-post form p, #edit-post form p {
+.editor form p {
   margin-top: 10px; }
 
 #contact {
