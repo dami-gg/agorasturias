@@ -17,6 +17,7 @@ require_once 'files.php';
 require_once 'mail.php';
 require_once 'posts.php';
 require_once 'sections.php';
+require_once 'shop.php';
 
 /**
 * Verifying required params posted or not

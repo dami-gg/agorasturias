@@ -14,7 +14,7 @@ function ($rootScope, $scope, $location, $anchorScroll, Data) {
   };
 
   $scope.doDeleteMenu = function(id){
-    notify('Error: not implemented','danger');
+    $scope.notify('Error: not implemented','danger');
   };
 
 }]);

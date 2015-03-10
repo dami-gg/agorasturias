@@ -10,6 +10,8 @@ $app->get('/session', function() {
   $response["name"] = $session['name'];
   $response["role"] = $session['role'];
   $response["username"] = $session['username'];
+  $response["body"] = $session['body'];
+  $response["visa"] = $session['visa'];
   echoResponse(200, $response);
 });
 
@@ -24,7 +26,7 @@ $app->post('/login', function() use ($app) {
   // $username = $r->user->username;
   $password = $r->password;
   $username = $r->username;
-  $user = $db->getOneRecord("select uid,username,name,password,email,app_id,role from users where username='$username'");
+  $user = $db->getOneRecord("select uid,username,name,password,email,app_id,role,body,visa from users where username='$username'");
   if ($user != NULL) {
     if(passwordHash::check_password($user['password'],$password)){
       $response['status'] = "success";
@@ -35,6 +37,8 @@ $app->post('/login', function() use ($app) {
       $response['app_id'] = $user['app_id'];
       $response['username'] = $user['username'];
       $response['role'] = $user['role'];
+      $response['body'] = $user['body'];
+      $response['visa'] = $user['visa'];
       if (!isset($_SESSION)) {
         session_start();
       }

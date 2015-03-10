@@ -42,7 +42,8 @@
                 <div class="form-group" ng-class="{ 'has-error' :
                     contactForm.message.$invalid && submitted }">
                     <label>Message</label>
-                    <textarea type="text" name="message" class="form-control" ng-model="contact.message" required/>
+                    <textarea type="text" name="message" class="form-control" ng-model="contact.message" required>
+                    </textarea>
                     <p class="help-block"
                         ng-show="contactForm.message.$invalid && submitted">
                         Please tell us how we can help you

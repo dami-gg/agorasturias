@@ -23,6 +23,10 @@ class DbHandler {
     return mysqli_errno($this->conn) != 0;
   }
 
+  public function getLastID(){
+    return mysqli_insert_id($conn);
+  }
+
   /* For queries where we want only the first row */
   public function getOneRecord($query) {
     $r = $this->conn->query($query.' LIMIT 1') or die($this->conn->error.__LINE__);
@@ -198,6 +202,8 @@ class DbHandler {
       $_SESSION['name'] = $userdata['name'];
       $_SESSION['username'] = $userdata['username'];
       $_SESSION['email'] = $userdata['email'];
+      $_SESSION['body'] = $userdata['body'];
+      $_SESSION['visa'] = $userdata['visa'];
       return true;
     }
 
@@ -217,6 +223,8 @@ class DbHandler {
       $sess["email"] = $_SESSION['email'];
       $sess["role"] = $_SESSION['role'];
       $sess["username"] = $_SESSION['username'];
+      $sess["body"] = $_SESSION['body'];
+      $sess["visa"] = $_SESSION['visa'];
     }
     else
     {
@@ -225,6 +233,8 @@ class DbHandler {
       $sess["email"] = '';
       $sess["role"] = '';
       $sess["username"] = '';
+      $sess["body"] = '';
+      $sess["visa"] = '';
     }
     return $sess;
   }
@@ -239,6 +249,8 @@ class DbHandler {
       unset($_SESSION['email']);
       unset($_SESSION['username']);
       unset($_SESSION['role']);
+      unset($_SESSION['body']);
+      unset($_SESSION['visa']);
       $info='info';
       if(isSet($_COOKIE[$info]))
       {
@@ -286,7 +298,7 @@ class DbHandler {
   executes it and returns results in a key=>value like array
   Parameters:
   * Link to the DB connection established
-  * SQL query string
+  * SQL query string (i - int, d - double, s - string, b - bool)
   * Array with the types of parameters
   * Array with the parameters
   Operation:
@@ -391,7 +403,7 @@ class DbHandler {
       mysqli_stmt_close($stmt);
     } else {
       $result = FALSE;
-      echo $sql;
+
       return $result;
     }
 

@@ -506,7 +506,7 @@ function ($rootScope, $scope, $location, $anchorScroll, Data) {
   };
 
   $scope.doDeleteMenu = function(id){
-    notify('Error: not implemented','danger');
+    $scope.notify('Error: not implemented','danger');
   };
 
 }]);
@@ -665,6 +665,32 @@ agorasturiasApp.controller('BookCtrl', ['$scope', '$translate', function ($scope
       }
     };
 });
+agorasturiasApp.controller('ContactCtrl', ['$rootScope','$scope', 'Data',
+function ($rootScope, $scope, Data) {
+
+    $scope.contact = {};
+
+    $scope.submitted = false;
+
+    $scope.submitForm = function(isValid, contact) {
+
+        $scope.submitted = true;
+
+        if (isValid) {
+
+            Data.post('mail', contact)
+              .then(function(response) {
+                  if (response.status === "success") {
+                      $rootScope.notify('Email sent correctly, we will reply you back as soon as possible', 'success');
+                  }
+                  else {
+                      $rootScope.notify(response.message, 'danger');
+                  }
+              });
+        }
+    };
+}]);
+
 agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, PartitionService) {
 
   var members = $scope.members = [];
@@ -706,27 +732,35 @@ agorasturiasApp.controller('ThumbnailsCtrl', function ($scope, PartitionService)
 
   $scope.rows = PartitionService.partition(members, 4);
 });
-function product(id, name, description, price, image) {
-  
-  this.id = id; 
+function product(id, name, description, price, image, number) {
+
+  this.id = id;
   this.name = name;
   this.description = description;
   this.price = price;
   this.image = image;
+  this.number = number;
 }
-function shop() {
-  
+
+function shop(Data) {
+  this.products = [];
+
+  Data.get('products').then(function(response) {
+    if (response.status === "success") {
+      this.products = response.products;
+    }
+  });
+/*
   this.products = [
-    new product (1, 'MATTRESS', 
-        'For sleeping at a CAMPSITE. For 2 persons. 140X190cm. Flocked outer for comfort. 2-year guarantee!', 
-        '19.75', 'public/img/shop/mattress.png'),
-    new product (2, 'SLEEPING BAG', '', '9.75', 'public/img/shop/mattress.png'),
-    new product (3, 'T-SHIRT', '', '12', 'public/img/shop/mattress.png')
+    new product (1, 'PARTICIPATION FEE', 'AgorAsturias participation fee', '55', 'public/img/shop/fee.png'),
+    new product (2, 'MATTRESS',
+        'For sleeping at a CAMPSITE. For 2 persons. 140X190cm. Flocked outer for comfort. 2-year guarantee!',
+        '19.75', 'public/img/shop/mattress.png')
   ];
+*/
 }
 
 shop.prototype.getProduct = function (id) {
-  
   for (var i = 0; i < this.products.length; i++) {
     if (this.products[i].id === id) {
       return this.products[i];
@@ -734,6 +768,7 @@ shop.prototype.getProduct = function (id) {
   }
   return null;
 };
+
 function cart(cartName) {
     this.cartName = cartName;
     this.clearCart = false;
@@ -984,25 +1019,52 @@ agorasturiasApp.controller('ShopCtrl', function ($scope, $stateParams, ShopServi
         $location.path ('/shopping-cart');
     };
 });
-agorasturiasApp.factory('ShopService', function() {
+agorasturiasApp.factory('ShopService', ['Data', function(Data) {
     
-    var _shop = new shop(),
+    var _shop = new shop(Data),
         _cart = new cart("AgoraShop");
 
     _cart.addCheckoutParameters("PayPal", "E5YL58382ENDE");
     // _cart.addCheckoutParameters("PayPal", "M88EFJFDDQ5DY"); // TODO AEGEE-Oviedo
-    _cart.addCheckoutParameters("TransferWise", "XXX TransferWise merchant account id"); // TODO
   
     return {
         shop: _shop,
         cart: _cart
     };
-});
+}]);
 
 agorasturiasApp.controller('ProfileCtrl', ['$scope', 'LoginService', 'Data', 
     function ($scope, LoginService, Data) {
 
         $scope.userData = LoginService.session;
+
+        $scope.submitted = false;
+
+        $scope.changePassword = function(isValid, oldPassword, newPassword) {
+
+            $scope.submitted = true;
+
+            if (isValid) {                
+
+                Data.put('changepwd', {
+                        username: LoginService.session.username, 
+                        curr_pass: oldPassword, 
+                        new_pass: newPassword
+                    })
+                    .then(function(response) {                           
+                        if (response.status === "success") {
+                            $scope.notify('Password correctly changed', 'success');
+                        }
+                        else {
+                            $scope.notify(response.message, 'danger');
+                        }                            
+                    }); 
+            }
+        };
+
+        $scope.passwordsMatch = function(newPassword, newPasswordConfirmation) {
+            return newPassword === newPasswordConfirmation;
+        };
     }
 ]);
 agorasturiasApp.controller('MainCtrl',
@@ -1037,7 +1099,7 @@ agorasturiasApp.controller('MainCtrl',
       .then(function(response){
 
         if(response.uid !== undefined && response.uid !== ""){
-          LoginService.login(response.uid, response.email, response.name, 
+          LoginService.login(response.uid, response.email, response.name,
                               response.role, response.username, response.antenna);
           $scope.authenticated = true;
           $scope.username = response.username;
@@ -1060,7 +1122,7 @@ agorasturiasApp.controller('MainCtrl',
 
           if (response.status === "success") {
             LoginService.login(response.uid, response.email, response.name,
-                response.role, response.username, response.antenna);
+                response.role, response.username, response.body);
 
             $location.path('/home');
             $scope.notify("Welcome back <b>" + response.name + "</b>", 'success');
@@ -1115,23 +1177,25 @@ agorasturiasApp.controller('MainCtrl',
 }]);
 
 agorasturiasApp.factory('LoginService', ['USER_ROLES', function(USER_ROLES) {
-    
+
     var session = {
         userId: '',
         email: '',
         name: '',
         role: USER_ROLES.GUEST,
-        username: ''        
+        username: '',
+        body: ''
     };
 
     var authenticated = false;
 
-    var login = function (userId, email, name, role, username) {
+    var login = function (userId, email, name, role, username, body) {
         this.session.userId = userId;
         this.session.email = email;
         this.session.name = name;
         this.session.role = role;
         this.session.username = username;
+        this.session.body = body;
 
         this.authenticated = true;
     };
@@ -1142,10 +1206,11 @@ agorasturiasApp.factory('LoginService', ['USER_ROLES', function(USER_ROLES) {
         this.session.name = '';
         this.session.role = USER_ROLES.GUEST;
         this.session.username = '';
+        this.session.body = '';
 
         this.authenticated = false;
     };
-    
+
     return {
         session : session,
         authenticated : authenticated,
@@ -1153,6 +1218,7 @@ agorasturiasApp.factory('LoginService', ['USER_ROLES', function(USER_ROLES) {
         logout : logout
     };
 }]);
+
 agorasturiasApp.factory('Data', ['$http', function ($http) { 
   // This service connects to our REST API
 
@@ -1210,25 +1276,4 @@ agorasturiasApp.service('PartitionService', function() {
 agorasturiasApp.filter('htmlSafe',['$sce',function($sce){
   
     return $sce.trustAsHtml;
-}]);
-agorasturiasApp.controller('FormCtrl', ['$scope', 'Data', '$location',
-function ($scope, Data, $location) {
-
-  $scope.contact = {};
-
-  $scope.submitForm = function(isValid, contact) {
-
-    if (isValid) {
-
-      Data.post("mail", contact)
-      .then(function(response) {
-        if(response.status == "success"){
-          alert("Email sent correctly");
-          $location.path("/home");
-        }
-        else
-          alert("There was a problem sending your email, please try again later");
-      });
-    }
-  };
 }]);
