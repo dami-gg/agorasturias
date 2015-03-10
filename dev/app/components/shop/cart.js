@@ -123,8 +123,8 @@ cart.prototype.toNumber = function (value) {
 
 cart.prototype.addCheckoutParameters = function (serviceName, merchantID, options) {
 
-    if (serviceName !== "PayPal" && serviceName !== "TransferWise") { 
-        throw "serviceName must be 'PayPal' or 'TransferWise'.";
+    if (serviceName !== "PayPal") { 
+        throw "serviceName must be 'PayPal'";
     }
     if (merchantID === null) {
         throw "A merchantID is required in order to checkout.";
@@ -133,30 +133,26 @@ cart.prototype.addCheckoutParameters = function (serviceName, merchantID, option
     this.checkoutParameters[serviceName] = new checkoutParameters(serviceName, merchantID, options);
 };
 
-cart.prototype.checkout = function (serviceName, clearCart) {
-  
-  // select service
+cart.prototype.checkout = function (serviceName, clearCart) {  
+    
   if (serviceName === null) {
-    var p = this.checkoutParameters[Object.keys(this.checkoutParameters)[0]];
-    serviceName = p.serviceName;
+    var _aux = this.checkoutParameters[Object.keys(this.checkoutParameters)[0]];
+    serviceName = _aux.serviceName;
   }
   if (serviceName === null) {
     throw "Define at least one checkout service.";
   }
-  var parms = this.checkoutParameters[serviceName];
-  if (parms === null) {
+
+  var params = this.checkoutParameters[serviceName];
+  if (params === null) {
     throw "Cannot get checkout parameters for '" + serviceName + "'.";
   }
 
-  switch (parms.serviceName) {
-    case "PayPal":
-      this.checkoutPayPal(parms, clearCart);
-      break;
-    case "TransferWise":
-      this.checkoutTransferWise(parms, clearCart); 
-      break;
-    default:
-      throw "Unknown checkout service: " + parms.serviceName;
+  if(params.serviceName === "PayPal") {
+    this.checkoutPayPal(params, clearCart);
+  }
+  else {
+    throw "Unknown checkout service: " + params.serviceName;
   }
 };
 
@@ -201,7 +197,6 @@ cart.prototype.checkoutPayPal = function (parms, clearCart) {
     this.clearCart = clearCart === undefined || clearCart;
 
     // TODO Send email with order or persist
-
     form.submit();
     form.remove();
 };
