@@ -138,13 +138,13 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
 
             .state('edit-menus', {
                 url:'/edit-menus',
-                templateUrl:'public/views/edit_menus.html',
+                templateUrl:'public/views/edit-menus.html',
                 access: ACCESS_GROUPS.ADMIN
             })
 
             .state('edit-sections', {
                 url:'/edit-sections',
-                templateUrl:'public/views/edit_sections.html',
+                templateUrl:'public/views/edit-sections.html',
                 access: ACCESS_GROUPS.ADMIN
             })
 

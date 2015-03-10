@@ -1,0 +1,20 @@
+.ng-ckeditor {
+  border: 0 none; }
+
+#file-uploader .button-wrapper {
+  float: left; }
+#file-uploader .drop-box {
+  float: left;
+  margin-left: 20px;
+  padding-top: 30px;
+  width: 230px;
+  height: 90px;
+  background: #F8F8F8;
+  border: 5px dashed black;
+  text-align: center;
+  color: black; }
+#file-uploader .file-name {
+  text-align: center; }
+#file-uploader .file-url {
+  text-align: center;
+  font-size: 8px; }

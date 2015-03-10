@@ -1,17 +1,17 @@
-<div id="edit-post" ng-if="authenticated" ng-controller="EditPostCtrl">
-  
+<div id="post-editor" class="editor" ng-if="authenticated" ng-controller="EditorCtrl">
+
   <section class="light">
-    
+
     <div class="container">
-      
+
       <form name="postEditForm" role="form">
 
         <div>
 
-          <input class="btn btn-success" value="Save" 
+          <input class="btn btn-success" value="Save"
             ng-click="doEditPost(currentPost); notify('Post successfully saved', 'success');">
-          
-          <input class="btn btn-danger" value="Delete" 
+
+          <input class="btn btn-danger" value="Delete"
             ng-click="doDeletePost(currentPost.id); notify('Post successfully deleted', 'danger');">
 
         </div>
@@ -21,7 +21,7 @@
           <p>
             <strong>Image URL</strong>
           </p>
-          
+
           <input class="form-control" type="text" ng-model="currentPost.image" id="image" name="image">
 
         </div>
@@ -33,7 +33,7 @@
           <p>
             <strong>Title</strong>
           </p>
-          
+
           <input class="form-control" type="text" ng-model="currentPost.engTitle" name="engTitle">
 
           <p>
@@ -64,12 +64,12 @@
 
         <div>
 
-          <input class="btn btn-success" value="Save" 
+          <input class="btn btn-success" value="Save"
             ng-click="doEditPost(currentPost); notify('Post successfully saved', 'success');">
 
-          <input class="btn btn-danger" value="Delete" 
+          <input class="btn btn-danger" value="Delete"
             ng-click="doDeletePost(currentPost.id); notify('Post successfully deleted', 'danger');">
-        
+
         </div>
 
       </form>

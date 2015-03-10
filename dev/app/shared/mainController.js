@@ -84,25 +84,5 @@ agorasturiasApp.controller('MainCtrl',
         className: type,
         timeout: 2000
       });
-    };
-
-    $scope.editMenus = function(){
-      Data.get('/menus')
-      .then(function(response){
-        if(response.status === "success"){
-          $scope.menusList = response.menus;
-          $location.path ('/edit-menus');
-        }
-      });
-    };
-
-    $scope.editSections = function(){
-      Data.get('/sections')
-      .then(function(response){
-        if(response.status === "success"){
-          $scope.sectionsList = response.sections;
-          $location.path('/edit-sections');
-        }
-      });
-    };
+    };    
 }]);
