@@ -14282,7 +14282,7 @@ cart.prototype.toNumber = function (value) {
 };
 cart.prototype.addCheckoutParameters = function (serviceName, merchantID, options) {
   if (serviceName !== 'PayPal') {
-    throw 'serviceName must be \'PayPal';
+    throw 'serviceName must be \'PayPal\'';
   }
   if (merchantID === null) {
     throw 'A merchantID is required in order to checkout.';
@@ -14369,6 +14369,7 @@ agorasturiasApp.controller('ShopCtrl', [
   function ($scope, $stateParams, ShopService, $location, Data, LoginService) {
     $scope.shop = ShopService.shop;
     $scope.cart = ShopService.cart;
+    $scope.orderId = -1;
     var _productId = $stateParams.productId;
     if ($location.path().lastIndexOf('/product', 0) === 0 && _productId !== null) {
       if (isNaN(_productId)) {
@@ -14376,6 +14377,8 @@ agorasturiasApp.controller('ShopCtrl', [
       } else {
         $scope.product = $scope.shop.getProduct(parseInt(_productId));
       }
+    } else if ($location.path().lastIndexOf('/checkout', 0) === 0 && orderId === -1) {
+      $location.path('/shop');
     }
     $scope.goToShop = function () {
       $location.path('/shop');
@@ -14397,7 +14400,8 @@ agorasturiasApp.controller('ShopCtrl', [
         if (response.status === 'success') {
           if (goToCheckoutPage) {
             $scope.cart.items = [];
-            $location.path('/checkout');
+            $scope.orderId = response.orderID;
+            $scope.goToCheckout();
           }
         } else {
           $scope.notify('Error: ' + response.message, 'danger');

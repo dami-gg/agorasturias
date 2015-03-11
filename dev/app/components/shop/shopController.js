@@ -4,6 +4,8 @@ agorasturiasApp.controller('ShopCtrl',
     $scope.shop = ShopService.shop;
     $scope.cart = ShopService.cart;
 
+    $scope.orderId = -1;
+
     var _productId = $stateParams.productId;
 
     if ($location.path().lastIndexOf("/product", 0) === 0 && _productId !== null) {
@@ -14,6 +16,9 @@ agorasturiasApp.controller('ShopCtrl',
         else {
             $scope.product = $scope.shop.getProduct(parseInt(_productId));
         }
+    }
+    else if ($location.path().lastIndexOf("/checkout", 0) === 0 && orderId === -1) {
+        $location.path ('/shop');
     }
 
     $scope.goToShop = function() {
@@ -41,7 +46,8 @@ agorasturiasApp.controller('ShopCtrl',
           if (response.status === "success") {            
             if (goToCheckoutPage) {
                 $scope.cart.items = [];
-                $location.path('/checkout');
+                $scope.orderId = response.orderID;
+                $scope.goToCheckout();
             }
           }
           else {
