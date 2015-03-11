@@ -47,7 +47,7 @@
                                         ng-model="item.quantity" 
                                         ng-change="cart.saveItems()" />
                                     <button class="btn btn-success input-group-addon" type="button" 
-                                        ng-disabled="item.quantity >= 1000"
+                                        ng-disabled="item.quantity > item.stock"
                                         ng-click="cart.addItem(item.id, item.name, item.price, +1);
                                             notify('One extra ' + item.name + ' has been added to the shopping cart', 'success');">
                                         <i class="fa fa-plus" />
@@ -91,13 +91,17 @@
                         <br/>
 
                         <p>
-                            <button 
-                                class="btn btn-block btn-link"
-                                ng-click="cart.checkout('PayPal')"
-                                ng-disabled="cart.getTotalCount() < 1" >
-                                <img src="https://www.paypalobjects.com/en_US/i/btn/x-click-but6.gif" 
-                                    alt="checkout PayPal"/>
-                            </button>    
+                            <button class="btn btn-block btn-warning"
+                                ng-click="saveOrder(false); cart.checkout('PayPal')"
+                                ng-disabled="cart.getTotalCount() < 1">
+                                <i class="fa fa-paypal" /> Check out using paypal
+                            </button>
+
+                            <button class="btn btn-block btn-primary"
+                                ng-click="saveOrder(true);"
+                                ng-disabled="cart.getTotalCount() < 1">
+                                <i class="fa fa-eur" /> Check out making a bank transfer
+                            </button> 
                         </p>
                     </div>
                 </div>

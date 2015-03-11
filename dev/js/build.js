@@ -840,7 +840,7 @@ cart.prototype.saveItems = function () {
 };
 
 // adds an item to the cart
-cart.prototype.addItem = function (id, name, price, quantity) {
+cart.prototype.addItem = function (id, name, price, quantity, stock) {
     quantity = this.toNumber(quantity);
     if (quantity !== 0) {
 
@@ -860,7 +860,7 @@ cart.prototype.addItem = function (id, name, price, quantity) {
 
         // new item, add now
         if (!found) {
-            item = new cartItem(id, name, price, quantity);
+            item = new cartItem(id, name, price, quantity, stock);
             this.items.push(item);
         }
 
@@ -962,7 +962,8 @@ cart.prototype.checkoutPayPal = function (parms, clearCart) {
         charset: "utf-8",
         currency_code: "EUR",
         return: "http://ec2-54-72-219-198.eu-west-1.compute.amazonaws.com/#/profile",
-        cancel_return: "http://ec2-54-72-219-198.eu-west-1.compute.amazonaws.com/#/profile"
+        cancel_return: "http://ec2-54-72-219-198.eu-west-1.compute.amazonaws.com/#/profile",
+        notify_url: "http://ec2-54-72-219-198.eu-west-1.compute.amazonaws.com/api/v1/ipn_notify"
     };
 
     // item data
@@ -1003,14 +1004,16 @@ function checkoutParameters(serviceName, merchantID, options) {
     this.options = options;
 }
 
-function cartItem(id, name, price, quantity) {
+function cartItem(id, name, price, quantity, stock) {
     this.id = id;
     this.name = name;
     this.price = price * 1;
     this.quantity = quantity * 1;
+    this.stock = stock;
 }
 
-agorasturiasApp.controller('ShopCtrl', function ($scope, $stateParams, ShopService, $location) {
+agorasturiasApp.controller('ShopCtrl', 
+    function ($scope, $stateParams, ShopService, $location, Data, LoginService) {
 
     $scope.shop = ShopService.shop;
     $scope.cart = ShopService.cart;
@@ -1037,6 +1040,28 @@ agorasturiasApp.controller('ShopCtrl', function ($scope, $stateParams, ShopServi
 
     $scope.goToCart = function() {
         $location.path ('/shopping-cart');
+    };
+
+    $scope.goToCheckout = function() {
+        $location.path ('/checkout');
+    };
+
+    $scope.saveOrder = function(goToCheckoutPage) {
+        Data.post('orders', {
+          username: LoginService.session.username,
+          products: $scope.cart.items
+        }).then(function (response) {
+          
+          if (response.status === "success") {            
+            if (goToCheckoutPage) {
+                $scope.cart.items = [];
+                $location.path('/checkout');
+            }
+          }
+          else {
+            $scope.notify('Error: ' + response.message, 'danger');
+          }
+      });
     };
 });
 agorasturiasApp.factory('ShopService', ['Data', function(Data) {
