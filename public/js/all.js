@@ -14291,20 +14291,20 @@ cart.prototype.addCheckoutParameters = function (serviceName, merchantID, option
 };
 cart.prototype.checkout = function (serviceName, clearCart) {
   if (serviceName === null) {
-    var p = this.checkoutParameters[Object.keys(this.checkoutParameters)[0]];
-    serviceName = p.serviceName;
+    var _aux = this.checkoutParameters[Object.keys(this.checkoutParameters)[0]];
+    serviceName = _aux.serviceName;
   }
   if (serviceName === null) {
     throw 'Define at least one checkout service.';
   }
-  var parms = this.checkoutParameters[serviceName];
-  if (parms === null) {
+  var params = this.checkoutParameters[serviceName];
+  if (params === null) {
     throw 'Cannot get checkout parameters for \'' + serviceName + '\'.';
   }
-  if (parms.serviceName === 'PayPal') {
-    this.checkoutPayPal(parms, clearCart);
+  if (params.serviceName === 'PayPal') {
+    this.checkoutPayPal(params, clearCart);
   } else {
-    throw 'Unknown checkout service: ' + parms.serviceName;
+    throw 'Unknown checkout service: ' + params.serviceName;
   }
 };
 // http://www.paypal.com/cgi-bin/webscr?cmd=p/pdn/howto_checkout-outside
@@ -14316,7 +14316,9 @@ cart.prototype.checkoutPayPal = function (parms, clearCart) {
       upload: '1',
       rm: '2',
       charset: 'utf-8',
-      currency_code: 'EUR'
+      currency_code: 'EUR',
+      return: 'http://www.agorasturias.org/#/profile',
+      cancel_return: 'http://www.agorasturias.org/#/profile'
     };
   // item data
   for (var i = 0; i < this.items.length; i++) {

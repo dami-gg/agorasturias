@@ -46,7 +46,8 @@ Requires:
   [
     username:user,
     products[
-      {productN details as given in call to get(/products)}
+      {productN details as given in call to get(/products) except of stock
+        and adding number to indicate the ammount of each product ordered}
     ]
   ]
 Returns:
@@ -72,15 +73,18 @@ function() use($app){
     // First of all we create the new order
     $sql = "insert into shop_orders (date,id_participant,total_price,status) values(NOW(),?,?,'IN_PROGRESS')";
     $db->prepared_query($sql,"id",array($session["id"],$total_price));
+
     if($db->_error()){
-      // TODO return error message
+      $response["status"] = "error";
+      $response["message"] = "Database error. Could not insert the order";
+      echoResponse(500,$response);
       return;
     }
 
     // Then read the last order_id
     $orderID = $db->getLastID();
 
-    // For each prodict in the order we have to insert the record for it
+    // For each product in the order we have to insert the record for it
     $parameters = array();
     foreach($r->prodcuts as $product){
       $parameters.push(array($product->id,$product->number,$orderID));
@@ -88,6 +92,27 @@ function() use($app){
 
     $sql = "insert into product_orders(id_product, number, shop_order_id) values(?,?,?)";
     $db->prepared_query($sql,"iii",$parameters);
+
+    if($db->_error())
+    {
+        // If there was an error we have to delete the transaction
+        $sql = "delete from shop_orders where id = ?";
+        $db->prepared_query($sql, "i", $orderID);
+        $response["status"] = "error";
+        $response["message"] = "Database error. Could not insert the order";
+        echoResponse(500,$response);
+        return;
+    }
+
+    // Last we have to update the stock of products in the database
+    $sql = "update products where id=? and id<>1 set stock = stock - ?";
+
+    unset($parameteres);
+    foreach($r->products as $product){
+      $parameters.push(array($product->id, $product->number));
+    }
+
+    $db->prepared_query($sql,"ii",$parameters);
 
     $response["status"] = "success";
     $response["orderID"] = $orderID;
@@ -100,6 +125,36 @@ function() use($app){
     echoResponse(500,$response);
     return;
   }
+
+/*
+  Returns all the orders from a user
+  NEEDS:
+  * user id of the user whose orders are being requested
+*/
+  $app->get('/orders/:userid',
+  function($userid) use($app){
+    $response = array();
+    $db = new DbHandler();
+    $session = $db->getSession();
+
+    if($session["username"]!="GUEST" && $session["uid"]==$userid){
+      $orders = $db->prepared_query("select * from shop_orders where id_participant=?",
+        "i",array($userid));
+
+      $response["orders"] = $orders;
+
+      $response["status"] = "success";
+
+      echoResponse(200, $response);
+      return;
+    }
+    else{
+      $response["status"] = "error";
+      $response["messge"] = "Not authorized";
+      echoResponse(500, $response);
+    }
+
+  });
 
 
 });

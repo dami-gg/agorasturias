@@ -123,7 +123,7 @@ cart.prototype.toNumber = function (value) {
 
 cart.prototype.addCheckoutParameters = function (serviceName, merchantID, options) {
 
-    if (serviceName !== "PayPal") { 
+    if (serviceName !== "PayPal") {
         throw "serviceName must be 'PayPal'";
     }
     if (merchantID === null) {
@@ -133,8 +133,8 @@ cart.prototype.addCheckoutParameters = function (serviceName, merchantID, option
     this.checkoutParameters[serviceName] = new checkoutParameters(serviceName, merchantID, options);
 };
 
-cart.prototype.checkout = function (serviceName, clearCart) {  
-    
+cart.prototype.checkout = function (serviceName, clearCart) {
+
   if (serviceName === null) {
     var _aux = this.checkoutParameters[Object.keys(this.checkoutParameters)[0]];
     serviceName = _aux.serviceName;
@@ -166,7 +166,10 @@ cart.prototype.checkoutPayPal = function (parms, clearCart) {
         upload: "1",
         rm: "2",
         charset: "utf-8",
-        currency_code: "EUR"
+        currency_code: "EUR",
+        return: "http://ec2-54-72-219-198.eu-west-1.compute.amazonaws.com/#/profile",
+        cancel_return: "http://ec2-54-72-219-198.eu-west-1.compute.amazonaws.com/#/profile"
+        notify_url: "http://ec2-54-72-219-198.eu-west-1.compute.amazonaws.com/api/v1/ipn_notify"
     };
 
     // item data
@@ -186,7 +189,7 @@ cart.prototype.checkoutPayPal = function (parms, clearCart) {
     form.attr("method", "POST");
     form.attr("style", "display:none;");
     this.addFormFields(form, data);
-    
+
     if (parms.options !== undefined) {
         this.addFormFields(form, parms.options);
     }
