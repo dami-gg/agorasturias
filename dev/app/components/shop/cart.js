@@ -181,6 +181,11 @@ cart.prototype.checkoutPayPal = function (parms, clearCart) {
         data["quantity_" + ctr] = item.quantity;
         data["amount_" + ctr] = item.price.toFixed(2);
     }
+	
+	data["item_number_" + (this.items.length+1)] = 0;
+    data["item_name_" + (this.items.length+1)] = "Paypal costs";
+    data["quantity_" + (this.items.length+1)] = 1;
+    data["amount_" + (this.items.length+1)] = item.price.toFixed(2);
 
     // build form
     var form = $('<form></form>');
@@ -199,7 +204,6 @@ cart.prototype.checkoutPayPal = function (parms, clearCart) {
     // submit form
     this.clearCart = clearCart === undefined || clearCart;
 
-    // TODO Send email with order or persist
     form.submit();
     form.remove();
 };
