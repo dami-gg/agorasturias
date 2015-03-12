@@ -40,10 +40,10 @@ gulp.task('js', function() {
                 'dev/app/components/contact/contactController.js',
                 'dev/app/components/team/thumbnailsController.js',
                 'dev/app/components/shop/product.js',
-                'dev/app/components/shop/shop.js',                
+                'dev/app/components/shop/shop.js',
                 'dev/app/components/shop/cart.js',
                 'dev/app/components/shop/shopController.js',
-                'dev/app/components/shop/shopService.js',     
+                'dev/app/components/shop/shopService.js',
                 'dev/app/components/account/profileController.js',
                 'dev/app/shared/mainController.js',
                 'dev/app/shared/loginService.js',
@@ -77,7 +77,7 @@ gulp.task('js', function() {
                 'dev/lib/ui-bootstrap-tpls-0.11.2.min.js',
                 'dev/lib/wallop-slider-directive.js',
                 'dev/lib/angular-file-upload.min.js',
-                'dev/lib/ng-ckeditor.min.js',
+                //'dev/lib/ng-ckeditor.min.js',
                 'dev/js/build.js',
                 'dev/js/functions.js'
             ], { base: './' }))

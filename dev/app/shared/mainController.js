@@ -71,6 +71,7 @@ agorasturiasApp.controller('MainCtrl',
     $scope.logout = function () {
       Data.get('logout').then(function (response) {
           $scope.authenticated = false;
+          localStorage = null;
           LoginService.logout();
           $scope.notify("See you soon!", 'danger');
       });
@@ -84,5 +85,5 @@ agorasturiasApp.controller('MainCtrl',
         className: type,
         timeout: 2000
       });
-    };    
+    };
 }]);

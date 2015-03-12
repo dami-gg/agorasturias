@@ -24,7 +24,7 @@ class DbHandler {
   }
 
   public function getLastID(){
-    return mysqli_insert_id($conn);
+    return mysqli_insert_id($this->conn);
   }
 
   /* For queries where we want only the first row */
@@ -290,6 +290,11 @@ class DbHandler {
 
     return $results;
 
+  }
+
+  public function updateStock($id, $qtty){
+    $query = "update products set stock = stock - $qtty where id=$id";
+    $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
   }
 
 

@@ -66,13 +66,13 @@ function() use($app){
 
   $user = $r->username;
   foreach($r->products as $item){
-    $total_price += $item->price * $item->number;
+    $total_price += $item->price * $item->quantity;
   }
 
   if($session["username"] == $user){
     // First of all we create the new order
     $sql = "insert into shop_orders (date,id_participant,total_price,status) values(NOW(),?,?,'IN_PROGRESS')";
-    $db->prepared_query($sql,"id",array($session["id"],$total_price));
+    $db->prepared_query($sql,"id",array($session["uid"],$total_price));
 
     if($db->_error()){
       $response["status"] = "error";
@@ -86,8 +86,9 @@ function() use($app){
 
     // For each product in the order we have to insert the record for it
     $parameters = array();
-    foreach($r->prodcuts as $product){
-      $parameters.push(array($product->id,$product->number,$orderID));
+    foreach($r->products as $product){
+      $id_item = $db->getOneRecord("select id from products where name = '$product->name'");
+      array_push($parameters, array($id_item["id"],$product->quantity,$orderID));
     }
 
     $sql = "insert into product_orders(id_product, number, shop_order_id) values(?,?,?)";
@@ -105,11 +106,19 @@ function() use($app){
     }
 
     // Last we have to update the stock of products in the database
-    $sql = "update products where id=? and id<>1 set stock = stock - ?";
+    $sql = "update products where id=? set stock = stock - ?";
 
-    unset($parameteres);
     foreach($r->products as $product){
-      $parameters.push(array($product->id, $product->number));
+      $id_item = $db->getOneRecord("select id,stock from products where name = '$product->name'");
+      if($id_item["id"]!=1){
+        $db->updateStock($id_item["id"], $product->quantity);
+      }
+      if($id_item["stock"]<$product->quantity){
+        $response["status"] = "error";
+        $response["message"] = "There was an error with your order. You are ordering more items than we have in stock";
+        echoResponse(500,$response);
+        return;
+      }
     }
 
     $db->prepared_query($sql,"ii",$parameters);
