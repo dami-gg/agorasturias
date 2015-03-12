@@ -154,31 +154,31 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.ADMIN
             })
 
-            .state('accounts-manager',{
+            .state('accounts-manager', {
                 url:'/accounts-manager',
                 templateUrl : 'public/views/accounts-manager.html',
                 access: ACCESS_GROUPS.ADMINS
             })
 
-            .state('shop',{
+            .state('shop', {
                 url:'/shop',
                 templateUrl : 'public/views/shop.html',
                 access: ACCESS_GROUPS.LOGGED
             })
 
-            .state('product',{
+            .state('product', {
                 url:'/product/:productId',
                 templateUrl : 'public/views/product.html',
                 access: ACCESS_GROUPS.LOGGED
             })
 
-            .state('shopping-cart',{
+            .state('shopping-cart', {
                 url:'/shopping-cart',
                 templateUrl : 'public/views/shopping-cart.html',
                 access: ACCESS_GROUPS.LOGGED
             })
 
-            .state('checkout',{
+            .state('checkout', {
                 url:'/checkout',
                 templateUrl : 'public/views/checkout.html',
                 access: ACCESS_GROUPS.LOGGED
@@ -562,6 +562,42 @@ agorasturiasApp.controller('FileUploaderCtrl',
   }
 
   getFiles();
+
+}]);
+
+agorasturiasApp.controller('AccountsManagerCtrl',
+  ['$scope', 'Data', function ($scope, Data) {
+
+  $scope.generateAllPasswords = function () {
+      Data.post('auto_pass').then(function(response){
+        $scope.notify(response.message);
+      });
+  };
+
+  $scope.generateSinglePassword = function (email) {
+     // TODO
+  };
+
+}]);
+
+agorasturiasApp.controller('MenusCtrl',
+  ['$rootScope', '$scope', '$location', '$anchorScroll', 'Data',
+  function ($rootScope, $scope, $location, $anchorScroll, Data) {
+
+  $scope.doSaveMenu = function(edited_menu){
+    edited_menu.modifier_username = $scope.username;
+    Data.put('/menus/' + edited_menu.id, {menu:edited_menu})
+    .then(function(response){
+      if(response.status!="error")
+        $scope.notify('Menu successfully saved', 'success');
+      else
+        $scope.notify('Error: ' + response.message, 'danger');
+    });
+  };
+
+  $scope.doDeleteMenu = function(id){
+    $scope.notify('Error: not implemented','danger');
+  };
 
 }]);
 
@@ -1185,7 +1221,7 @@ agorasturiasApp.controller('MainCtrl',
             $scope.notify("Welcome back <b>" + response.name + "</b>", 'success');
           }
           else {
-            alert(response.message);
+            $scope.notify("Error: " + response.message, 'danger');
             LoginService.logout();
           }
 
@@ -1203,13 +1239,7 @@ agorasturiasApp.controller('MainCtrl',
       });
 
       $location.path('/home');
-    };
-
-    $scope.generatePasswords = function () {
-      Data.post('auto_pass').then(function(response){
-        $scope.notify(response.message);
-      });
-    };
+    };    
 
     $scope.notify = function(message, type){
       var toast = ngToast.create({
@@ -1320,24 +1350,4 @@ agorasturiasApp.service('PartitionService', function() {
 agorasturiasApp.filter('htmlSafe',['$sce',function($sce){
   
     return $sce.trustAsHtml;
-}]);
-agorasturiasApp.controller('MenusCtrl',
-['$rootScope', '$scope', '$location', '$anchorScroll', 'Data',
-function ($rootScope, $scope, $location, $anchorScroll, Data) {
-
-  $scope.doSaveMenu = function(edited_menu){
-    edited_menu.modifier_username = $scope.username;
-    Data.put('/menus/' + edited_menu.id, {menu:edited_menu})
-    .then(function(response){
-      if(response.status!="error")
-        $scope.notify('Menu successfully saved', 'success');
-      else
-        $scope.notify('Error: ' + response.message, 'danger');
-    });
-  };
-
-  $scope.doDeleteMenu = function(id){
-    $scope.notify('Error: not implemented','danger');
-  };
-
 }]);

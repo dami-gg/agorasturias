@@ -506,12 +506,23 @@ section {
 
 .editor {
 
+    div { margin-bottom:10px; }
+
     form {
 
         > div { margin:20px 0; }
 
         p { margin-top:10px; }
     }
+
+    input { 
+
+        color: black; 
+
+        &.account-email { width:25%; }
+    }   
+
+    button { width:10%; color:white; } 
 }
 
 #contact { 

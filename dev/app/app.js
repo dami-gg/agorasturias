@@ -154,31 +154,31 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.ADMIN
             })
 
-            .state('accounts-manager',{
+            .state('accounts-manager', {
                 url:'/accounts-manager',
                 templateUrl : 'public/views/accounts-manager.html',
                 access: ACCESS_GROUPS.ADMINS
             })
 
-            .state('shop',{
+            .state('shop', {
                 url:'/shop',
                 templateUrl : 'public/views/shop.html',
                 access: ACCESS_GROUPS.LOGGED
             })
 
-            .state('product',{
+            .state('product', {
                 url:'/product/:productId',
                 templateUrl : 'public/views/product.html',
                 access: ACCESS_GROUPS.LOGGED
             })
 
-            .state('shopping-cart',{
+            .state('shopping-cart', {
                 url:'/shopping-cart',
                 templateUrl : 'public/views/shopping-cart.html',
                 access: ACCESS_GROUPS.LOGGED
             })
 
-            .state('checkout',{
+            .state('checkout', {
                 url:'/checkout',
                 templateUrl : 'public/views/checkout.html',
                 access: ACCESS_GROUPS.LOGGED

@@ -36,6 +36,8 @@ gulp.task('js', function() {
                 'dev/app/components/partners/sponsorsController.js',
                 'dev/app/components/admin/editorController.js',
                 'dev/app/components/admin/fileUploaderController.js',
+                'dev/app/components/admin/accountsManagerController.js',
+                'dev/app/components/admin/menusController.js',
                 'dev/app/components/book/bookController.js',
                 'dev/app/components/contact/contactController.js',
                 'dev/app/components/team/thumbnailsController.js',

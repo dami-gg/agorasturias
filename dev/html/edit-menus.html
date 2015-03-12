@@ -38,10 +38,12 @@
 
         <div>
         
-          <input class="btn btn-success" value="Save" ng-click="doSaveMenu(menu);">
+          <button class="btn btn-success" ng-click="doSaveMenu(menu);">Save</button>
 
-          <input class="btn btn-danger" value="Delete"
+          <button class="btn btn-danger"
              ng-click="doDeleteMenu(menu.id); notify('Menu successfully deleted', 'danger');">
+             Delete
+          </button>
 
         </div>
 

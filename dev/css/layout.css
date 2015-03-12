@@ -491,10 +491,19 @@ section.slider {
 #profile button {
   float: right; }
 
+.editor div {
+   margin-bottom: 10px; }
 .editor form > div {
   margin: 20px 0; }
 .editor form p {
   margin-top: 10px; }
+.editor input {
+  color: black; }
+  .editor input.account-email {
+    width: 25%; }
+.editor button {
+  width: 10%;
+  color: white; }
 
 #contact {
   padding-bottom: 50px; }

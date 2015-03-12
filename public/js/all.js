@@ -13918,6 +13918,41 @@ agorasturiasApp.controller('FileUploaderCtrl', [
     getFiles();
   }
 ]);
+agorasturiasApp.controller('AccountsManagerCtrl', [
+  '$scope',
+  'Data',
+  function ($scope, Data) {
+    $scope.generateAllPasswords = function () {
+      Data.post('auto_pass').then(function (response) {
+        $scope.notify(response.message);
+      });
+    };
+    $scope.generateSinglePassword = function (email) {
+      var a = 1;
+    };
+  }
+]);
+agorasturiasApp.controller('MenusCtrl', [
+  '$rootScope',
+  '$scope',
+  '$location',
+  '$anchorScroll',
+  'Data',
+  function ($rootScope, $scope, $location, $anchorScroll, Data) {
+    $scope.doSaveMenu = function (edited_menu) {
+      edited_menu.modifier_username = $scope.username;
+      Data.put('/menus/' + edited_menu.id, { menu: edited_menu }).then(function (response) {
+        if (response.status != 'error')
+          $scope.notify('Menu successfully saved', 'success');
+        else
+          $scope.notify('Error: ' + response.message, 'danger');
+      });
+    };
+    $scope.doDeleteMenu = function (id) {
+      $scope.notify('Error: not implemented', 'danger');
+    };
+  }
+]);
 agorasturiasApp.controller('BookCtrl', [
   '$scope',
   '$translate',
@@ -14505,7 +14540,7 @@ agorasturiasApp.controller('MainCtrl', [
           $location.path('/home');
           $scope.notify('Welcome back <b>' + response.name + '</b>', 'success');
         } else {
-          alert(response.message);
+          $scope.notify('Error: ' + response.message, 'danger');
           LoginService.logout();
         }
         $scope.authenticated = LoginService.authenticated;
@@ -14520,11 +14555,6 @@ agorasturiasApp.controller('MainCtrl', [
         $scope.notify('See you soon!', 'danger');
       });
       $location.path('/home');
-    };
-    $scope.generatePasswords = function () {
-      Data.post('auto_pass').then(function (response) {
-        $scope.notify(response.message);
-      });
     };
     $scope.notify = function (message, type) {
       var toast = ngToast.create({
@@ -14635,27 +14665,6 @@ agorasturiasApp.filter('htmlSafe', [
   '$sce',
   function ($sce) {
     return $sce.trustAsHtml;
-  }
-]);
-agorasturiasApp.controller('MenusCtrl', [
-  '$rootScope',
-  '$scope',
-  '$location',
-  '$anchorScroll',
-  'Data',
-  function ($rootScope, $scope, $location, $anchorScroll, Data) {
-    $scope.doSaveMenu = function (edited_menu) {
-      edited_menu.modifier_username = $scope.username;
-      Data.put('/menus/' + edited_menu.id, { menu: edited_menu }).then(function (response) {
-        if (response.status != 'error')
-          $scope.notify('Menu successfully saved', 'success');
-        else
-          $scope.notify('Error: ' + response.message, 'danger');
-      });
-    };
-    $scope.doDeleteMenu = function (id) {
-      $scope.notify('Error: not implemented', 'danger');
-    };
   }
 ]);
 jQuery(document).ready(function ($) {

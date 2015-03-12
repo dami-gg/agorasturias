@@ -19,8 +19,7 @@
 
             <form name="contactForm" ng-submit="submitForm(contactForm.$valid, contact)" novalidate>
 
-                <div class="form-group" ng-class="{ 'has-error' :
-                    contactForm.name.$invalid && submitted }">
+                <div class="form-group" ng-class="{ 'has-error' : contactForm.name.$invalid && submitted }">
                     <label>Name</label>
                     <input type="text" name="name" class="form-control" ng-model="contact.name" required>
                     <p class="help-block"
@@ -29,8 +28,7 @@
                     </p>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-error' :
-                    contactForm.email.$invalid && submitted }">
+                <div class="form-group" ng-class="{ 'has-error' : contactForm.email.$invalid && submitted }">
                     <label>Email</label>
                     <input type="email" name="email" class="form-control" ng-model="contact.email" required>
                     <p class="help-block"
@@ -39,8 +37,7 @@
                     </p>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-error' :
-                    contactForm.message.$invalid && submitted }">
+                <div class="form-group" ng-class="{ 'has-error' : contactForm.message.$invalid && submitted }">
                     <label>Message</label>
                     <textarea type="text" name="message" class="form-control" ng-model="contact.message" required>
                     </textarea>

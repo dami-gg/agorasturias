@@ -59,7 +59,7 @@ agorasturiasApp.controller('MainCtrl',
             $scope.notify("Welcome back <b>" + response.name + "</b>", 'success');
           }
           else {
-            alert(response.message);
+            $scope.notify("Error: " + response.message, 'danger');
             LoginService.logout();
           }
 
@@ -77,13 +77,7 @@ agorasturiasApp.controller('MainCtrl',
       });
 
       $location.path('/home');
-    };
-
-    $scope.generatePasswords = function () {
-      Data.post('auto_pass').then(function(response){
-        $scope.notify(response.message);
-      });
-    };
+    };    
 
     $scope.notify = function(message, type){
       var toast = ngToast.create({

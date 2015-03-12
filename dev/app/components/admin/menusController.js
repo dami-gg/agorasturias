@@ -1,6 +1,6 @@
 agorasturiasApp.controller('MenusCtrl',
-['$rootScope', '$scope', '$location', '$anchorScroll', 'Data',
-function ($rootScope, $scope, $location, $anchorScroll, Data) {
+  ['$rootScope', '$scope', '$location', '$anchorScroll', 'Data',
+  function ($rootScope, $scope, $location, $anchorScroll, Data) {
 
   $scope.doSaveMenu = function(edited_menu){
     edited_menu.modifier_username = $scope.username;

@@ -19,10 +19,12 @@
           
             <div>
 
-                <input class="btn btn-success" value="Edit" ng-click="editSection(section);">
+                <button class="btn btn-success" ng-click="editSection(section);">Edit</button>
 
-                <input class="btn btn-danger" value="Delete"
+                <button class="btn btn-danger" 
                     ng-click="doDeleteSection(section.id); notify('Section successfully deleted', 'danger');">
+                    Delete
+                </button>
 
             </div>
 
