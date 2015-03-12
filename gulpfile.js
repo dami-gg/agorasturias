@@ -77,7 +77,7 @@ gulp.task('js', function() {
                 'dev/lib/ui-bootstrap-tpls-0.11.2.min.js',
                 'dev/lib/wallop-slider-directive.js',
                 'dev/lib/angular-file-upload.min.js',
-                //'dev/lib/ng-ckeditor.min.js',
+                'dev/lib/ng-ckeditor.min.js',
                 'dev/js/build.js',
                 'dev/js/functions.js'
             ], { base: './' }))

@@ -1,4 +1,4 @@
-agorasturiasApp.controller('ShopCtrl', 
+agorasturiasApp.controller('ShopCtrl',
     function ($scope, $stateParams, ShopService, $location, Data, LoginService) {
 
     $scope.shop = ShopService.shop;
@@ -9,7 +9,7 @@ agorasturiasApp.controller('ShopCtrl',
     var _productId = $stateParams.productId;
 
     if ($location.path().lastIndexOf("/product", 0) === 0 && _productId !== null) {
-    
+
         if (isNaN(_productId)) {
             $location.path ('/shop');
         }
@@ -42,11 +42,12 @@ agorasturiasApp.controller('ShopCtrl',
           username: LoginService.session.username,
           products: $scope.cart.items
         }).then(function (response) {
-          
-          if (response.status === "success") {            
+
+          if (response.status === "success") {
+            $scope.orderId = response.orderID;
+            $scope.cart.checkout('PayPal');
             if (goToCheckoutPage) {
                 $scope.cart.items = [];
-                $scope.orderId = response.orderID;
                 $scope.goToCheckout();
             }
           }

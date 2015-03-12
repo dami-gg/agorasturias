@@ -133,7 +133,7 @@ cart.prototype.addCheckoutParameters = function (serviceName, merchantID, option
     this.checkoutParameters[serviceName] = new checkoutParameters(serviceName, merchantID, options);
 };
 
-cart.prototype.checkout = function (serviceName, clearCart) {
+cart.prototype.checkout = function (serviceName, clearCart, orderID) {
 
   if (serviceName === null) {
     var _aux = this.checkoutParameters[Object.keys(this.checkoutParameters)[0]];
@@ -157,7 +157,7 @@ cart.prototype.checkout = function (serviceName, clearCart) {
 };
 
 // http://www.paypal.com/cgi-bin/webscr?cmd=p/pdn/howto_checkout-outside
-cart.prototype.checkoutPayPal = function (parms, clearCart) {
+cart.prototype.checkoutPayPal = function (parms, clearCart, orderID) {
 
     // global data
     var data = {
@@ -167,9 +167,9 @@ cart.prototype.checkoutPayPal = function (parms, clearCart) {
         rm: "2",
         charset: "utf-8",
         currency_code: "EUR",
-        return: "http://ec2-54-72-219-198.eu-west-1.compute.amazonaws.com/#/profile",
-        cancel_return: "http://ec2-54-72-219-198.eu-west-1.compute.amazonaws.com/#/profile",
-        notify_url: "http://ec2-54-72-219-198.eu-west-1.compute.amazonaws.com/api/v1/ipn_notify"
+        return: "http://www.agorasturias.org/#/shop",
+        cancel_return: "http://www.agorasturias.org/#/shop",
+        notify_url: "http://www.agorasturias.org/#/api/v1/ipn_notify/" + orderID
     };
 
     // item data
@@ -181,7 +181,7 @@ cart.prototype.checkoutPayPal = function (parms, clearCart) {
         data["quantity_" + ctr] = item.quantity;
         data["amount_" + ctr] = item.price.toFixed(2);
     }
-	
+
 	data["item_number_" + (this.items.length+1)] = 0;
     data["item_name_" + (this.items.length+1)] = "Paypal costs";
     data["quantity_" + (this.items.length+1)] = 1;

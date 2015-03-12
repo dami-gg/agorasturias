@@ -79,6 +79,12 @@ agorasturiasApp.controller('MainCtrl',
       $location.path('/home');
     };
 
+    $scope.generatPasswords = function () {
+      Data.post('auto_pass').then(function(response){
+        $scope.notify(response.message);
+      });
+    }
+
     $scope.notify = function(message, type){
       var toast = ngToast.create({
         content: message,

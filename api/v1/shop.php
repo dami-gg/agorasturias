@@ -77,7 +77,7 @@ function() use($app){
     if($db->_error()){
       $response["status"] = "error";
       $response["message"] = "Database error. Could not insert the order";
-      echoResponse(500,$response);
+      echoResponse(200,$response);
       return;
     }
 
@@ -101,7 +101,7 @@ function() use($app){
         $db->prepared_query($sql, "i", $orderID);
         $response["status"] = "error";
         $response["message"] = "Database error. Could not insert the order";
-        echoResponse(500,$response);
+        echoResponse(200,$response);
         return;
     }
 
@@ -116,7 +116,7 @@ function() use($app){
       if($id_item["stock"]<$product->quantity){
         $response["status"] = "error";
         $response["message"] = "There was an error with your order. You are ordering more items than we have in stock";
-        echoResponse(500,$response);
+        echoResponse(200,$response);
         return;
       }
     }
@@ -131,7 +131,7 @@ function() use($app){
   else{
     $response["message"] = "You are not authorized to continue with this operation";
     $response["status"] = "error";
-    echoResponse(500,$response);
+    echoResponse(200,$response);
     return;
   }
 

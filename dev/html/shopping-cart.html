@@ -37,21 +37,21 @@
                                 <td>{{item.name}}</td>
                                 <td class="center">
                                   <div class="input-group quantity-selector">
-                                    <button class="btn btn-danger input-group-addon" type="button" 
+                                    <button class="btn btn-danger input-group-addon" type="button"
                                         ng-disabled="item.quantity <= 1"
                                         ng-click="cart.addItem(item.id, item.name, item.price, -1);
                                             notify('One ' + item.name + ' has been removed from the shopping cart', 'success');">
                                         <i class="fa fa-minus" />
                                     </button>
-                                    <input class="text-center" type="text" 
-                                        ng-model="item.quantity" 
+                                    <input class="text-center" type="text"
+                                        ng-model="item.quantity"
                                         ng-change="cart.saveItems()" />
-                                    <button class="btn btn-success input-group-addon" type="button" 
+                                    <button class="btn btn-success input-group-addon" type="button"
                                         ng-disabled="item.quantity > item.stock"
                                         ng-click="cart.addItem(item.id, item.name, item.price, +1);
                                             notify('One extra ' + item.name + ' has been added to the shopping cart', 'success');">
                                         <i class="fa fa-plus" />
-                                    </button>                                    
+                                    </button>
                                   </div>
                                 </td>
                                 <td class="right">{{(item.price * item.quantity | number:2) + " €"}}</td>
@@ -82,7 +82,7 @@
                                 <i class="fa fa-arrow-left" /> Back to shop
                             </button>
                             <button class="btn btn-block btn-danger" ng-disabled="cart.getTotalCount() < 1"
-                                ng-click="cart.clearItems(); 
+                                ng-click="cart.clearItems();
                                     notify('Shopping cart has been cleared', 'danger');">
                                 <i class="fa fa-trash-o" /> Clear the shopping cart
                             </button>
@@ -92,7 +92,7 @@
 
                         <p>
                             <button class="btn btn-block btn-warning"
-                                ng-click="saveOrder(false); cart.checkout('PayPal')"
+                                ng-click="saveOrder(false);"
                                 ng-disabled="cart.getTotalCount() < 1">
                                 <i class="fa fa-paypal" /> Check out using PayPal (+2.50€)
                             </button>
@@ -101,12 +101,12 @@
                                 ng-click="saveOrder(true);"
                                 ng-disabled="cart.getTotalCount() < 1">
                                 <i class="fa fa-eur" /> Check out making a bank transfer
-                            </button> 
+                            </button>
                         </p>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 
