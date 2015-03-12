@@ -185,7 +185,7 @@ cart.prototype.checkoutPayPal = function (parms, clearCart) {
 	data["item_number_" + (this.items.length+1)] = 0;
     data["item_name_" + (this.items.length+1)] = "Paypal costs";
     data["quantity_" + (this.items.length+1)] = 1;
-    data["amount_" + (this.items.length+1)] = item.price.toFixed(2);
+    data["amount_" + (this.items.length+1)] = 2.50;
 
     // build form
     var form = $('<form></form>');
