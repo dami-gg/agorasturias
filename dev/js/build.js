@@ -1019,8 +1019,8 @@ cart.prototype.checkoutPayPal = function (parms, clearCart, orderID) {
 
     // build form
     var form = $('<form></form>');
-    form.attr("action", "https://www.sandbox.paypal.com/cgi-bin/webscr");
-    // form.attr("action", "https://www.paypal.com/cgi-bin/webscr"); TODO
+    // form.attr("action", "https://www.sandbox.paypal.com/cgi-bin/webscr"); Test sandbox
+    form.attr("action", "https://www.paypal.com/cgi-bin/webscr"); 
     form.attr("method", "POST");
     form.attr("style", "display:none;");
     this.addFormFields(form, data);
@@ -1120,8 +1120,8 @@ agorasturiasApp.factory('ShopService', ['Data', function(Data) {
     var _shop = new shop(Data),
         _cart = new cart("AgoraShop");
 
-    _cart.addCheckoutParameters("PayPal", "E5YL58382ENDE");
-    // _cart.addCheckoutParameters("PayPal", "M88EFJFDDQ5DY"); // TODO AEGEE-Oviedo
+    // _cart.addCheckoutParameters("PayPal", "E5YL58382ENDE"); Test sandbox
+    _cart.addCheckoutParameters("PayPal", "M88EFJFDDQ5DY"); 
   
     return {
         shop: _shop,
