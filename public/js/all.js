@@ -13928,7 +13928,6 @@ agorasturiasApp.controller('AccountsManagerCtrl', [
       });
     };
     $scope.generateSinglePassword = function (email) {
-      var a = 1;
     };
   }
 ]);

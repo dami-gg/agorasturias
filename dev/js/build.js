@@ -1099,10 +1099,13 @@ agorasturiasApp.controller('ShopCtrl',
 
           if (response.status === "success") {
             $scope.orderId = response.orderID;
-            $scope.cart.checkout('PayPal');
+            
             if (goToCheckoutPage) {
                 $scope.cart.items = [];
                 $scope.goToCheckout();
+            }
+            else {
+                $scope.cart.checkout('PayPal');
             }
           }
           else {
