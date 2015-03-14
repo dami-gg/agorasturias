@@ -163,13 +163,13 @@ $app->post('/auto_pass', function() use($app){
 
   $session = $db->getSession();
   if($session["username"]=="admin"){
-    $r = $db->prepared_query("select uid, username, name, email from users where 1=?","i",array(1));
+    $r = $db->prepared_query("select uid, username, name, email from users where password=? LIMIT 100","s",array(""));
     foreach($r as $user){
       $pass = generatePassword(12);
       $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
       $db->prepared_query("update users set password = ? where uid = ?", "si", array($pass_hash,$user["uid"]));
 
-      $mail_to_send_to = $user['email'];
+      $mail_to_send_to = $user['email'].",info@agorasturias.org";
       $feedbackmail = "info@agorasturias.org";
 
       $name = $user['name'];
@@ -195,7 +195,7 @@ $app->post('/auto_pass', function() use($app){
       $message .= "agorAsturias organising team.";
 
       $headers = "From: $feedbackmail" . "\r\n" . "Reply-To: $email, incoming@agorasturias.org" . "\r\n" ;
-      $a = mail( $mail_to_send_to, "Contact from web form - $name", $message, $headers );
+      $a = mail( $mail_to_send_to, "Wlecome to agorAsturias web - $name", $message, $headers );
       if ($a)
       {
         $response['status'] = "success";
@@ -251,7 +251,7 @@ $app->post('/auto_pass/:userEmail', function($userEmail) use($app){
       $message .= "agorAsturias organising team.";
 
       $headers = "From: $feedbackmail" . "\r\n" . "Reply-To: $email, incoming@agorasturias.org" . "\r\n" ;
-      $a = mail( $mail_to_send_to, "Contact from web form - $name", $message, $headers );
+      $a = mail( $mail_to_send_to, "agorAsturias password reset - $name", $message, $headers );
       if ($a)
       {
         $response['status'] = "success";
