@@ -42,7 +42,7 @@
                                         <button class="btn btn-danger input-group-addon" type="button"
                                             ng-disabled="item.quantity <= 1"
                                             ng-click="cart.addItem(item.id, item.name, item.price, -1);
-                                                notify('One ' + item.name + ' has been removed from the shopping cart', 'success');">
+                                                notify('One ' + item.name + ' has been removed from the shopping cart', 'success'); updatePaypalCharge();">
                                             <i class="fa fa-minus" />
                                         </button>
                                         <input class="text-center" type="text"
@@ -51,7 +51,7 @@
                                         <button class="btn btn-success input-group-addon" type="button"
                                             ng-disabled="item.quantity > item.stock"
                                             ng-click="cart.addItem(item.id, item.name, item.price, +1);
-                                                notify('One extra ' + item.name + ' has been added to the shopping cart', 'success');">
+                                                notify('One extra ' + item.name + ' has been added to the shopping cart', 'success'); updatePaypalCharge();">
                                             <i class="fa fa-plus" />
                                         </button>
                                       </div>
@@ -59,7 +59,7 @@
                                     <td class="right">{{(item.price * item.quantity | number:2) + " €"}}</td>
                                     <td class="center" title="Remove from the shopping cart">
                                         <a ng-click="cart.addItem(item.id, item.name, item.price, -10000000);
-                                            notify('All ' + item.name + ' have been removed from the shopping cart', 'success');">
+                                            notify('All ' + item.name + ' have been removed from the shopping cart', 'success'); updatePaypalCharge();">
                                             <i class="fa fa-times" />
                                         </a>
                                     </td>
@@ -97,7 +97,10 @@
                                     ng-click="saveOrder('Paypal');"
                                     ng-disabled="cart.getTotalCount() < 1">
                                     <i class="fa fa-paypal" /> 
-                                    Check out using PayPal (+{{paypalCharge | number:2}} €)
+                                    Check out using PayPal 
+                                    <span ng-show="cart.getTotalCount() >= 1">
+                                        (+{{paypalCharge | number:2}} €)
+                                    </span>
                                 </button>
 
                                 <button class="btn btn-block btn-primary"

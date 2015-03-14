@@ -1069,7 +1069,7 @@ agorasturiasApp.controller('ShopCtrl',
     if ($location.path().lastIndexOf("/product", 0) === 0 && _productId !== null) {
 
         if (isNaN(_productId)) {
-            $location.path ('/shop');
+        	$location.path ('/shop');
         }
         else {
             $scope.product = $scope.shop.getProduct(parseInt(_productId));
@@ -1095,6 +1095,10 @@ agorasturiasApp.controller('ShopCtrl',
         $location.path ('/checkout');
     };
 
+    $scope.updatePaypalCharge = function() {
+    	$scope.paypalCharge = ($scope.cart.getTotalPrice() * 0.0355) + (0.35 * 1.0355);
+    };
+
     $scope.saveOrder = function(paymentType) {
         Data.post('orders', {
           username: LoginService.session.username,
@@ -1109,7 +1113,9 @@ agorasturiasApp.controller('ShopCtrl',
                 $scope.cart.checkout(paymentType, orderId, $scope.paypalCharge);
             }
             else {
-                $scope.cart.items = [];
+              $scope.notify('Order correctly processed. You should have received an email with details','success');
+              $scope.cart.items = [];
+              $scope.goToShop();
             }
           }
           else {

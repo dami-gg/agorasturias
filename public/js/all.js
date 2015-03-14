@@ -14369,7 +14369,7 @@ cart.prototype.checkoutPayPal = function (parms, orderID, paypalCharge) {
     data['amount_' + ctr] = item.price.toFixed(2);
   }
   data['item_number_' + (this.items.length + 1)] = 0;
-  data['item_name_' + (this.items.length + 1)] = 'Paypal costs';
+  data['item_name_' + (this.items.length + 1)] = 'Paypal charge';
   data['quantity_' + (this.items.length + 1)] = 1;
   data['amount_' + (this.items.length + 1)] = paypalCharge;
   // build form
@@ -14434,6 +14434,9 @@ agorasturiasApp.controller('ShopCtrl', [
     $scope.goToCheckout = function () {
       $location.path('/checkout');
     };
+    $scope.updatePaypalCharge = function () {
+      $scope.paypalCharge = $scope.cart.getTotalPrice() * 0.0355 + 0.35 * 1.0355;
+    };
     $scope.saveOrder = function (paymentType) {
       Data.post('orders', {
         username: LoginService.session.username,
@@ -14445,7 +14448,9 @@ agorasturiasApp.controller('ShopCtrl', [
           if (paymentType === 'PayPal') {
             $scope.cart.checkout(paymentType, orderId, $scope.paypalCharge);
           } else {
+            $scope.notify('Order correctly processed. You should have received an email with details', 'success');
             $scope.cart.items = [];
+            $scope.goToShop();
           }
         } else {
           $scope.notify('Error: ' + response.message, 'danger');
