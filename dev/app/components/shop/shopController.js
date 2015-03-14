@@ -52,7 +52,9 @@ agorasturiasApp.controller('ShopCtrl',
                 $scope.cart.checkout(paymentType, orderId, $scope.paypalCharge);
             }
             else {
-                $scope.cart.items = [];
+              $scope.notify('Order correctly processed. You should have received an email with tdetails','success');
+              $scope.cart.items = [];
+              $scope.goToShop();
             }
           }
           else {
