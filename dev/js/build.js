@@ -576,6 +576,9 @@ agorasturiasApp.controller('AccountsManagerCtrl',
 
   $scope.generateSinglePassword = function (email) {
      // TODO
+     Data.post('auto_pass/'+email).then(function(response){
+       $scope.notify(response.message);
+     });
   };
 
 }]);
@@ -963,7 +966,7 @@ cart.prototype.addCheckoutParameters = function (serviceName, merchantID, option
     this.checkoutParameters[serviceName] = new checkoutParameters(serviceName, merchantID, options);
 };
 
-cart.prototype.checkout = function (serviceName, clearCart, orderID) {
+cart.prototype.checkout = function (serviceName, orderID, paypalCharge) {
 
   if (serviceName === null) {
     var _aux = this.checkoutParameters[Object.keys(this.checkoutParameters)[0]];
@@ -979,7 +982,7 @@ cart.prototype.checkout = function (serviceName, clearCart, orderID) {
   }
 
   if(params.serviceName === "PayPal") {
-    this.checkoutPayPal(params, clearCart);
+    this.checkoutPayPal(params, orderId, paypalCharge);
   }
   else {
     throw "Unknown checkout service: " + params.serviceName;
@@ -987,7 +990,7 @@ cart.prototype.checkout = function (serviceName, clearCart, orderID) {
 };
 
 // http://www.paypal.com/cgi-bin/webscr?cmd=p/pdn/howto_checkout-outside
-cart.prototype.checkoutPayPal = function (parms, clearCart, orderID) {
+cart.prototype.checkoutPayPal = function (parms, orderID, paypalCharge) {
 
     // global data
     var data = {
@@ -1013,15 +1016,16 @@ cart.prototype.checkoutPayPal = function (parms, clearCart, orderID) {
     }
 
 	data["item_number_" + (this.items.length+1)] = 0;
-    data["item_name_" + (this.items.length+1)] = "Paypal costs";
+    data["item_name_" + (this.items.length+1)] = "Paypal charge";
     data["quantity_" + (this.items.length+1)] = 1;
-    data["amount_" + (this.items.length+1)] = 2.50;
+    data["amount_" + (this.items.length+1)] = paypalCharge;
 
     // build form
-    var form = $('<form></form>');
+    var form = $('<form></form>');    
     // form.attr("action", "https://www.sandbox.paypal.com/cgi-bin/webscr"); Test sandbox
     form.attr("action", "https://www.paypal.com/cgi-bin/webscr"); 
     form.attr("method", "POST");
+    form.attr("target", "_blank");
     form.attr("style", "display:none;");
     this.addFormFields(form, data);
 
@@ -1031,8 +1035,7 @@ cart.prototype.checkoutPayPal = function (parms, clearCart, orderID) {
 
     $("body").append(form);
 
-    // submit form
-    this.clearCart = clearCart === undefined || clearCart;
+    this.clearCart = true;
 
     form.submit();
     form.remove();
@@ -1059,6 +1062,7 @@ agorasturiasApp.controller('ShopCtrl',
     $scope.cart = ShopService.cart;
 
     $scope.orderId = -1;
+    $scope.paypalCharge = ($scope.cart.getTotalPrice() * 0.0355) + (0.35 * 1.0355);
 
     var _productId = $stateParams.productId;
 
@@ -1071,7 +1075,7 @@ agorasturiasApp.controller('ShopCtrl',
             $scope.product = $scope.shop.getProduct(parseInt(_productId));
         }
     }
-    else if ($location.path().lastIndexOf("/checkout", 0) === 0 && orderId === -1) {
+    else if ($location.path().lastIndexOf("/checkout", 0) === 0 && $scope.cart.items.length === 0) {
         $location.path ('/shop');
     }
 
@@ -1091,27 +1095,31 @@ agorasturiasApp.controller('ShopCtrl',
         $location.path ('/checkout');
     };
 
-    $scope.saveOrder = function(goToCheckoutPage) {
+    $scope.saveOrder = function(paymentType) {
         Data.post('orders', {
           username: LoginService.session.username,
-          products: $scope.cart.items
+          products: $scope.cart.items,
+          bankTransfer: (paymentType === 'Transfer')
         }).then(function (response) {
 
           if (response.status === "success") {
             $scope.orderId = response.orderID;
-            
-            if (goToCheckoutPage) {
-                $scope.cart.items = [];
-                $scope.goToCheckout();
+
+            if (paymentType === 'PayPal') {
+                $scope.cart.checkout(paymentType, orderId, $scope.paypalCharge);
             }
             else {
-                $scope.cart.checkout('PayPal');
+                $scope.cart.items = [];
             }
           }
           else {
             $scope.notify('Error: ' + response.message, 'danger');
           }
       });
+    };
+
+    $scope.confirmOrder = function() {
+        $scope.saveOrder('Transfer');
     };
 });
 
