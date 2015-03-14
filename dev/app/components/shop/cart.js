@@ -192,7 +192,6 @@ cart.prototype.checkoutPaypal = function (parms, orderId, paypalCharge) {
     // form.attr("action", "https://www.sandbox.paypal.com/cgi-bin/webscr"); Test sandbox
     form.attr("action", "https://www.paypal.com/cgi-bin/webscr");
     form.attr("method", "POST");
-    form.attr("target", "_blank");
     form.attr("style", "display:none;");
     this.addFormFields(form, data);
 
