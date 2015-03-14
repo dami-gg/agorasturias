@@ -52,8 +52,8 @@ agorasturiasApp.controller('ShopCtrl',
           if (response.status === "success") {
             $scope.orderId = response.orderID;
 
-            if (paymentType === 'PayPal') {
-                $scope.cart.checkout(paymentType, orderId, $scope.paypalCharge);
+            if (paymentType === 'Paypal') {
+                $scope.cart.checkout(paymentType, $scope.orderId, $scope.paypalCharge);
             }
             else {
               $scope.notify('Order correctly processed. You should have received an email with details','success');

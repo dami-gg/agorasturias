@@ -956,8 +956,8 @@ cart.prototype.toNumber = function (value) {
 
 cart.prototype.addCheckoutParameters = function (serviceName, merchantID, options) {
 
-    if (serviceName !== "PayPal") {
-        throw "serviceName must be 'PayPal'";
+    if (serviceName !== "Paypal") {
+        throw "serviceName must be 'Paypal'";
     }
     if (merchantID === null) {
         throw "A merchantID is required in order to checkout.";
@@ -966,7 +966,7 @@ cart.prototype.addCheckoutParameters = function (serviceName, merchantID, option
     this.checkoutParameters[serviceName] = new checkoutParameters(serviceName, merchantID, options);
 };
 
-cart.prototype.checkout = function (serviceName, orderID, paypalCharge) {
+cart.prototype.checkout = function (serviceName, orderId, paypalCharge) {
 
   if (serviceName === null) {
     var _aux = this.checkoutParameters[Object.keys(this.checkoutParameters)[0]];
@@ -981,8 +981,8 @@ cart.prototype.checkout = function (serviceName, orderID, paypalCharge) {
     throw "Cannot get checkout parameters for '" + serviceName + "'.";
   }
 
-  if(params.serviceName === "PayPal") {
-    this.checkoutPayPal(params, orderId, paypalCharge);
+  if(params.serviceName === "Paypal") {
+    this.checkoutPaypal(params, orderId, paypalCharge);
   }
   else {
     throw "Unknown checkout service: " + params.serviceName;
@@ -990,7 +990,7 @@ cart.prototype.checkout = function (serviceName, orderID, paypalCharge) {
 };
 
 // http://www.paypal.com/cgi-bin/webscr?cmd=p/pdn/howto_checkout-outside
-cart.prototype.checkoutPayPal = function (parms, orderID, paypalCharge) {
+cart.prototype.checkoutPaypal = function (parms, orderId, paypalCharge) {
 
     // global data
     var data = {
@@ -1002,7 +1002,7 @@ cart.prototype.checkoutPayPal = function (parms, orderID, paypalCharge) {
         currency_code: "EUR",
         return: "http://www.agorasturias.org/#/shop",
         cancel_return: "http://www.agorasturias.org/#/shop",
-        notify_url: "http://www.agorasturias.org/#/api/v1/ipn_notify/" + orderID
+        notify_url: "http://www.agorasturias.org/#/api/v1/ipn_notify/" + orderId
     };
 
     // item data
@@ -1018,12 +1018,12 @@ cart.prototype.checkoutPayPal = function (parms, orderID, paypalCharge) {
 	data["item_number_" + (this.items.length+1)] = 0;
     data["item_name_" + (this.items.length+1)] = "Paypal charge";
     data["quantity_" + (this.items.length+1)] = 1;
-    data["amount_" + (this.items.length+1)] = paypalCharge;
+    data["amount_" + (this.items.length+1)] = paypalCharge.toFixed(2);
 
     // build form
-    var form = $('<form></form>');    
+    var form = $('<form></form>');
     // form.attr("action", "https://www.sandbox.paypal.com/cgi-bin/webscr"); Test sandbox
-    form.attr("action", "https://www.paypal.com/cgi-bin/webscr"); 
+    form.attr("action", "https://www.paypal.com/cgi-bin/webscr");
     form.attr("method", "POST");
     form.attr("target", "_blank");
     form.attr("style", "display:none;");
@@ -1109,8 +1109,8 @@ agorasturiasApp.controller('ShopCtrl',
           if (response.status === "success") {
             $scope.orderId = response.orderID;
 
-            if (paymentType === 'PayPal') {
-                $scope.cart.checkout(paymentType, orderId, $scope.paypalCharge);
+            if (paymentType === 'Paypal') {
+                $scope.cart.checkout(paymentType, $scope.orderId, $scope.paypalCharge);
             }
             else {
               $scope.notify('Order correctly processed. You should have received an email with details','success');
@@ -1130,13 +1130,13 @@ agorasturiasApp.controller('ShopCtrl',
 });
 
 agorasturiasApp.factory('ShopService', ['Data', function(Data) {
-    
+
     var _shop = new shop(Data),
         _cart = new cart("AgoraShop");
 
-    // _cart.addCheckoutParameters("PayPal", "E5YL58382ENDE"); Test sandbox
-    _cart.addCheckoutParameters("PayPal", "M88EFJFDDQ5DY"); 
-  
+    // _cart.addCheckoutParameters("Paypal", "E5YL58382ENDE"); Test sandbox
+    _cart.addCheckoutParameters("Paypal", "M88EFJFDDQ5DY");
+
     return {
         shop: _shop,
         cart: _cart
