@@ -163,10 +163,11 @@ $app->post('/auto_pass', function() use($app){
 
   $session = $db->getSession();
   if($session["username"]=="admin"){
-    $r = $db->prepared_query("select uid, username, name, email from users where username=?","s",array("183-0665"));
+    $r = $db->prepared_query("select uid, username, name, email from users where 1=?","i",array(1));
     foreach($r as $user){
-      $pass = $this->generatePassword(12);
-      $db->prepared_query("update users set password = ? where uid = ?", "si", array($pass,$user["uid"]));
+      $pass = generatePassword(12);
+      $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
+      $db->prepared_query("update users set password = ? where uid = ?", "si", array($pass_hash,$user["uid"]));
 
       $mail_to_send_to = $user['email'];
       $feedbackmail = "info@agorasturias.org";

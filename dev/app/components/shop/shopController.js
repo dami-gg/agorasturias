@@ -40,12 +40,13 @@ agorasturiasApp.controller('ShopCtrl',
     $scope.saveOrder = function(goToCheckoutPage) {
         Data.post('orders', {
           username: LoginService.session.username,
-          products: $scope.cart.items
+          products: $scope.cart.items,
+          bankTransfer: goToCheckoutPage
         }).then(function (response) {
 
           if (response.status === "success") {
             $scope.orderId = response.orderID;
-            
+
             if (goToCheckoutPage) {
                 $scope.cart.items = [];
                 $scope.goToCheckout();

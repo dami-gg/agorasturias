@@ -123,6 +123,34 @@ function() use($app){
 
     $db->prepared_query($sql,"ii",$parameters);
 
+    // Send an email with the order
+    $session = $db->getSession();
+
+    $name = $session['name'];
+    $email = $session["email"];
+
+    $mail_to_send_to = $session['email'].",incoming@agorasturias.org";
+    $feedbackmail = "incoming@agorasturias.org";
+
+
+    $message = "Dear $name\n\n";
+    $message .= "Here you have the recept of the order you have just placed in agorAsturias shop.\n";
+    $message .= "Prease keep it together with your paymet receipt as an evidence in case there are any problems.\n\n";
+    $message .= "The ID of your order in our shop is $orderID this is the number you will have to use when.\n";
+    $message .= "contacting us about the order you just placed.\n\n";
+    $message .= "Below you have the details of your order:\n";
+    foreach($r->products as $product){
+      $message .= " * ".$product->name." x".$product->quantity."(".$product->price." EUR per unit) = ".$product->price*$product->quantity." EUR.\n";
+    }
+    $message .= "\n TOTAL: $total_price EUR\n\n";
+    $message .= "\n\nShould you have any problem with this order please contact us in incoming@agorasturias.org.\n\n";
+    $message .= "Best regards and remember to contact us if you have any problem or doubts\n";
+    $message .= "agorAsturias organising team.";
+
+    $headers = "From: $feedbackmail" . "\r\n" . "Reply-To: $email, incoming@agorasturias.org" . "\r\n" ;
+    $a = mail( $mail_to_send_to, "$name - agorAsturias online shop order", $message, $headers );
+
+
     $response["status"] = "success";
     $response["orderID"] = $orderID;
     echoResponse(200,$response);

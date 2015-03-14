@@ -9,6 +9,9 @@ agorasturiasApp.controller('AccountsManagerCtrl',
 
   $scope.generateSinglePassword = function (email) {
      // TODO
+     Data.post('auto_pass/'+email).then(function(response){
+       $scope.notify(response.message);
+     });
   };
 
 }]);
