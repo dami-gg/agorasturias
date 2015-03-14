@@ -57,6 +57,11 @@ Returns:
 $app->post('/orders',
 function() use($app){
   $r = json_decode($app->request->getBody());
+  $bankTransfer = $r->bankTransfer;
+  $bankTransfer_flag = 1;
+
+  if($bankTransfer == TRUE)
+    $bankTransfer_flag = 0;
 
   $orderID = 0;
   $total_price = 0;
@@ -71,8 +76,8 @@ function() use($app){
 
   if($session["username"] == $user){
     // First of all we create the new order
-    $sql = "insert into shop_orders (date,id_participant,total_price,status) values(NOW(),?,?,'IN_PROGRESS')";
-    $db->prepared_query($sql,"id",array($session["uid"],$total_price));
+    $sql = "insert into shop_orders (date,id_participant,total_price,status,paypal) values(NOW(),?,?,1,?)";
+    $db->prepared_query($sql,"idi",array($session["uid"],$total_price,$bankTransfer_flag));
 
     if($db->_error()){
       $response["status"] = "error";
@@ -143,6 +148,18 @@ function() use($app){
       $message .= " * ".$product->name." x".$product->quantity."(".$product->price." EUR per unit) = ".$product->price*$product->quantity." EUR.\n";
     }
     $message .= "\n TOTAL: $total_price EUR\n\n";
+
+    if($bankTransfer_flag==0){
+      $message .= "\n\nHere you have the bank account details:\n";
+      $message .= "\nName: AEGEE-Oviedo";
+      $message .= "\nAccount number:2048 0153 64 3400002243";
+      $message .= "\nIBAN: ES78 2048 0153 64 3400002243";
+      $message .= "\nSWIFT/BIC: CECAESMM048";
+      $message .= "\nBank: Liberbank S.A.";
+      $message .= "\nAddress: Pz Gesta de Oviedo, 4\n33007 Oviedo (Spain)";
+
+    }
+
     $message .= "\n\nShould you have any problem with this order please contact us in incoming@agorasturias.org.\n\n";
     $message .= "Best regards and remember to contact us if you have any problem or doubts\n";
     $message .= "agorAsturias organising team.";
