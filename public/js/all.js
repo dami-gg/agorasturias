@@ -13755,7 +13755,7 @@ agorasturiasApp.controller('SponsorsCtrl', [
       });
       sponsors.push({
         logo: 'public/img/sponsors/ktm.png',
-        link: 'http://www.ktm.com/es/ready-to-race.html/'
+        link: 'http://www.ktm.com/es/ready-to-race.html'
       });
       sponsors.push({
         logo: 'public/img/sponsors/alsa.png',

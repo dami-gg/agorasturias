@@ -225,7 +225,7 @@ $app->post('/auto_pass/:userEmail', function($userEmail) use($app){
       $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
       $db->prepared_query("update users set password = ? where uid = ?", "si", array($pass_hash,$user["uid"]));
 
-      $mail_to_send_to = $user['email'];
+      $mail_to_send_to = $user['email'].",info@agorasturias.org";
       $feedbackmail = "info@agorasturias.org";
 
       $name = $user['name'];

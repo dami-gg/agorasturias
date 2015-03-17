@@ -139,7 +139,7 @@ function() use($app){
 
 
     $message = "Dear $name\n\n";
-    $message .= "Here you have the recept of the order you have just placed in agorAsturias shop.\n";
+    $message .= "Here you have the receipt of the order you have just placed in agorAsturias shop.\n";
     $message .= "Prease keep it together with your paymet receipt as an evidence in case there are any problems.\n\n";
     $message .= "The ID of your order in our shop is $orderID this is the number you will have to use when.\n";
     $message .= "contacting us about the order you just placed.\n\n";
@@ -150,6 +150,7 @@ function() use($app){
     $message .= "\n TOTAL: $total_price EUR\n\n";
 
     if($bankTransfer_flag==0){
+      $message .= "\n\nRemember to state in the detail of the transfer your name, surname and body:\n";
       $message .= "\n\nHere you have the bank account details:\n";
       $message .= "\nName: AEGEE-Oviedo";
       $message .= "\nAccount number:2048 0153 64 3400002243";
