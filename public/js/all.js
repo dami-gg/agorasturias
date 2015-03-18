@@ -14070,10 +14070,9 @@ agorasturiasApp.controller('BookCtrl', [
   };
 });
 agorasturiasApp.controller('ContactCtrl', [
-  '$rootScope',
   '$scope',
   'Data',
-  function ($rootScope, $scope, Data) {
+  function ($scope, Data) {
     $scope.contact = {};
     $scope.submitted = false;
     $scope.submitForm = function (isValid, contact) {
@@ -14081,9 +14080,12 @@ agorasturiasApp.controller('ContactCtrl', [
       if (isValid) {
         Data.post('mail', contact).then(function (response) {
           if (response.status === 'success') {
-            $rootScope.notify('Email sent correctly, we will reply you back as soon as possible', 'success');
+            $scope.notify('Email sent correctly, we will reply you back as soon as possible', 'success');
+            $scope.contactForm.$setPristine();
+            $scope.contact = {};
+            $scope.submitted = false;
           } else {
-            $rootScope.notify(response.message, 'danger');
+            $scope.notify(response.message, 'danger');
           }
         });
       }
@@ -14254,27 +14256,33 @@ cart.prototype.saveItems = function () {
 };
 // adds an item to the cart
 cart.prototype.addItem = function (id, name, price, quantity, stock) {
-  quantity = this.toNumber(quantity);
-  if (quantity !== 0) {
-    // update quantity for existing item
-    var found = false, item = null;
-    for (var i = 0; i < this.items.length && !found; i++) {
-      item = this.items[i];
-      if (item.id === id) {
-        found = true;
-        item.quantity = this.toNumber(item.quantity + quantity);
-        if (item.quantity <= 0) {
-          this.items.splice(i, 1);
+  if (stock > 0) {
+    quantity = this.toNumber(quantity);
+    if (quantity !== 0) {
+      // update quantity for existing item
+      var found = false, item = null;
+      for (var i = 0; i < this.items.length && !found; i++) {
+        item = this.items[i];
+        if (item.id === id) {
+          found = true;
+          if (item.quantity + quantity > stock) {
+            item.quantity = stock;
+          } else {
+            item.quantity = this.toNumber(item.quantity + quantity);
+          }
+          if (item.quantity <= 0) {
+            this.items.splice(i, 1);
+          }
         }
       }
+      // new item, add now
+      if (!found) {
+        item = new cartItem(id, name, price, quantity, stock);
+        this.items.push(item);
+      }
+      // save changes
+      this.saveItems();
     }
-    // new item, add now
-    if (!found) {
-      item = new cartItem(id, name, price, quantity, stock);
-      this.items.push(item);
-    }
-    // save changes
-    this.saveItems();
   }
 };
 cart.prototype.getTotalPrice = function (id) {
