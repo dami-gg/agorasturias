@@ -356,7 +356,7 @@ agorasturiasApp.controller('SponsorsCtrl', function ($scope, PartitionService) {
   var sponsors = $scope.sponsors = [];
 
     $scope.fillsponsors = function() {
-
+        
         sponsors.push({ logo: 'public/img/sponsors/uniovi.png', link: 'http://www.uniovi.es/' });
         sponsors.push({ logo: 'public/img/sponsors/ayto-gijon.png', link: 'http://www.gijon.es/' });
         sponsors.push({ logo: 'public/img/sponsors/epi.png', link: 'http://www.epigijon.uniovi.es/' });
@@ -366,7 +366,7 @@ agorasturiasApp.controller('SponsorsCtrl', function ($scope, PartitionService) {
         sponsors.push({ logo: 'public/img/sponsors/aviles.png', link: 'http://aviles.es/web/turismo/' });
         sponsors.push({ logo: 'public/img/sponsors/gijon-deporte.png', link: 'http://deporte.gijon.es/' });
         sponsors.push({ logo: 'public/img/sponsors/kemphor.png', link: 'http://www.kemphor.com/' });
-        sponsors.push({ logo: 'public/img/sponsors/ktm.png', link: 'http://www.ktm.com/es/ready-to-race.html' });
+        sponsors.push({ logo: 'public/img/sponsors/ktm.png', link: 'http://www.ktm.com/es/ready-to-race.html/' });
         sponsors.push({ logo: 'public/img/sponsors/alsa.png', link: 'http://www.alsa.es/' });
         sponsors.push({ logo: 'public/img/sponsors/renfe.png', link: 'http://www.renfe.es/' });
     };
@@ -377,7 +377,6 @@ agorasturiasApp.controller('SponsorsCtrl', function ($scope, PartitionService) {
 
     $scope.rows = PartitionService.partition(sponsors, 4);
 });
-
 agorasturiasApp.controller('EditorCtrl',
   ['$rootScope', '$scope', '$location', '$anchorScroll', 'Data',
     function ($rootScope, $scope, $location, $anchorScroll, Data) {
@@ -733,8 +732,8 @@ agorasturiasApp.controller('BookCtrl', ['$scope', '$translate', function ($scope
       }
     };
 });
-agorasturiasApp.controller('ContactCtrl', ['$scope', 'Data',
-	function ($scope, Data) {
+agorasturiasApp.controller('ContactCtrl', ['$rootScope','$scope', 'Data',
+function ($rootScope, $scope, Data) {
 
     $scope.contact = {};
 
@@ -749,15 +748,10 @@ agorasturiasApp.controller('ContactCtrl', ['$scope', 'Data',
             Data.post('mail', contact)
               .then(function(response) {
                   if (response.status === "success") {
-                      $scope.notify('Email sent correctly, we will reply you back as soon as possible',
-                      	'success');
-
-                      $scope.contactForm.$setPristine();
-                      $scope.contact = {};
-                      $scope.submitted = false;
+                      $rootScope.notify('Email sent correctly, we will reply you back as soon as possible', 'success');
                   }
                   else {
-                      $scope.notify(response.message, 'danger');
+                      $rootScope.notify(response.message, 'danger');
                   }
               });
         }
@@ -886,37 +880,32 @@ cart.prototype.saveItems = function () {
 
 // adds an item to the cart
 cart.prototype.addItem = function (id, name, price, quantity, stock) {
-    if (stock > 0) {
-	    quantity = this.toNumber(quantity);
-	    if (quantity !== 0) {
+    quantity = this.toNumber(quantity);
+    if (quantity !== 0) {
 
-	        // update quantity for existing item
-	        var found = false,
-	            item = null;
-	        for (var i = 0; i < this.items.length && !found; i++) {
-	            item = this.items[i];
-	            if (item.id === id) {
-	                found = true;
+        // update quantity for existing item
+        var found = false,
+            item = null;
+        for (var i = 0; i < this.items.length && !found; i++) {
+            item = this.items[i];
+            if (item.id === id) {
+                found = true;
+                item.quantity = this.toNumber(item.quantity + quantity);
+                if (item.quantity <= 0) {
+                    this.items.splice(i, 1);
+                }
+            }
+        }
 
-	                item.quantity = (item.quantity + quantity > stock)
-	                					? stock : this.toNumber(item.quantity + quantity);
+        // new item, add now
+        if (!found) {
+            item = new cartItem(id, name, price, quantity, stock);
+            this.items.push(item);
+        }
 
-	                if (item.quantity <= 0) {
-	                    this.items.splice(i, 1);
-	                }
-	            }
-	        }
-
-	        // new item, add now
-	        if (!found) {
-	            item = new cartItem(id, name, price, quantity, stock);
-	            this.items.push(item);
-	        }
-
-	        // save changes
-	        this.saveItems();
-	    }
-	}
+        // save changes
+        this.saveItems();
+    }
 };
 
 cart.prototype.getTotalPrice = function (id) {

@@ -1,5 +1,5 @@
-agorasturiasApp.controller('ContactCtrl', ['$scope', 'Data',
-	function ($scope, Data) {
+agorasturiasApp.controller('ContactCtrl', ['$rootScope','$scope', 'Data',
+function ($rootScope, $scope, Data) {
 
     $scope.contact = {};
 
@@ -14,15 +14,10 @@ agorasturiasApp.controller('ContactCtrl', ['$scope', 'Data',
             Data.post('mail', contact)
               .then(function(response) {
                   if (response.status === "success") {
-                      $scope.notify('Email sent correctly, we will reply you back as soon as possible',
-                      	'success');
-
-                      $scope.contactForm.$setPristine();
-                      $scope.contact = {};
-                      $scope.submitted = false;
+                      $rootScope.notify('Email sent correctly, we will reply you back as soon as possible', 'success');
                   }
                   else {
-                      $scope.notify(response.message, 'danger');
+                      $rootScope.notify(response.message, 'danger');
                   }
               });
         }

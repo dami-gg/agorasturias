@@ -446,11 +446,6 @@ section.slider {
 .shop a {
   cursor: pointer;
   color: yellow; }
-  .shop a.crossed {
-    cursor: initial; }
-    .shop a.crossed i {
-      color: white;
-      text-decoration: line-through; }
 .shop .search-box {
   color: black;
   border: none; }
@@ -458,8 +453,6 @@ section.slider {
    background-color: #55acee; }
 .shop p.center {
   text-align: center; }
-.shop p.stock {
-  font-size: 12px; }
 .shop td {
   vertical-align: middle !important; }
   .shop td.center {

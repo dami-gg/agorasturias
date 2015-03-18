@@ -443,28 +443,13 @@ section {
 
     .container { padding-bottom:50px; font-size:16px; }
 
-    a { 
-
-        cursor:pointer; color:yellow; 
-
-        &.crossed {
-
-            cursor:initial;
-
-            i { color:white; text-decoration:line-through; }
-        }
-    }
+    a { cursor:pointer; color:yellow; }
 
     .search-box { color:black; border:none; }
 
     .summary { background-color:#55acee; }
 
-    p {
-
-        &.center { text-align:center; }
-
-        &.stock { font-size:12px; }
-    }
+    p.center { text-align:center; }
 
     td {
 
