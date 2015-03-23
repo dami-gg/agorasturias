@@ -478,6 +478,11 @@ section {
     }
 }
 
+#social-programme .img-wrapper {
+
+    @media only screen and (min-width:990px) { float:right; margin-top:50px; } 
+}
+
 #product { .price-box { text-align: right; margin-bottom: 20px; } }
 
 #cart {

@@ -469,6 +469,11 @@ section.slider {
 .shop .fa-arrow-left:before, .shop .fa-trash-o:before, .shop .fa-check:before, .shop .fa-shopping-cart:before, .shop .fa-cart-plus:before, .shop .fa-paypal:before, .shop .fa-eur:before {
   padding-right: 5px; }
 
+@media only screen and (min-width: 990px) {
+  #social-programme .img-wrapper {
+    float: right;
+    margin-top: 50px; } }
+
 #product .price-box {
   text-align: right;
   margin-bottom: 20px; }

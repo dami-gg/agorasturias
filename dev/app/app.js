@@ -70,6 +70,12 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.ALL
             })
 
+            .state('what-to-see', {
+                url  : '/what-to-see',
+                templateUrl : 'public/views/what-to-see.html',
+                access: ACCESS_GROUPS.ALL
+            })
+
             .state('press', {
                 url  : '/press',
                 templateUrl : 'public/views/press.html',
@@ -79,6 +85,12 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
             .state('event-timetable', {
                 url : '/event-timetable',
                 templateUrl : 'public/views/event-timetable.html',
+                access: ACCESS_GROUPS.ALL
+            })
+
+            .state('social-programme', {
+                url : '/social-programme',
+                templateUrl : 'public/views/social-programme.html',
                 access: ACCESS_GROUPS.ALL
             })
 
