@@ -25,7 +25,7 @@
       
         <p class="lead" ng-click="openPost(post)" translate={{post.title}}></p>
 
-        <a ng-if="authenticated" ng-click="editPost(post)">Edit</a>
+        <a ng-if="adminAccess" ng-click="editPost(post)">Edit</a>
 
         <div class="post-body">
           

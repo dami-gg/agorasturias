@@ -14544,8 +14544,10 @@ agorasturiasApp.controller('MainCtrl', [
           LoginService.login(response.uid, response.email, response.name, response.role, response.username, response.antenna);
           $scope.authenticated = true;
           $scope.username = response.username;
+          $scope.adminAccess = response.role === USER_ROLES.ADMIN;
         } else {
           $scope.authenticated = false;
+          $scope.adminAccess = false;
         }
       });
     }
@@ -14567,6 +14569,7 @@ agorasturiasApp.controller('MainCtrl', [
         }
         $scope.authenticated = LoginService.authenticated;
         $scope.username = LoginService.session.username;
+        $scope.adminAccess = LoginService.adminAccess;
       });
     };
     $scope.logout = function () {
@@ -14599,6 +14602,7 @@ agorasturiasApp.factory('LoginService', [
         body: ''
       };
     var authenticated = false;
+    var adminAccess = false;
     var login = function (userId, email, name, role, username, body) {
       this.session.userId = userId;
       this.session.email = email;
@@ -14607,6 +14611,7 @@ agorasturiasApp.factory('LoginService', [
       this.session.username = username;
       this.session.body = body;
       this.authenticated = true;
+      this.adminAccess = role === USER_ROLES.ADMIN;
     };
     var logout = function () {
       this.session.userId = '';
@@ -14616,10 +14621,12 @@ agorasturiasApp.factory('LoginService', [
       this.session.username = '';
       this.session.body = '';
       this.authenticated = false;
+      this.adminAccess = false;
     };
     return {
       session: session,
       authenticated: authenticated,
+      adminAccess: adminAccess,
       login: login,
       logout: logout
     };

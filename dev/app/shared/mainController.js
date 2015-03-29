@@ -34,9 +34,12 @@ agorasturiasApp.controller('MainCtrl',
                               response.role, response.username, response.antenna);
           $scope.authenticated = true;
           $scope.username = response.username;
+
+          $scope.adminAccess = (response.role === USER_ROLES.ADMIN);
         }
         else {
           $scope.authenticated = false;
+          $scope.adminAccess = false;
         }
       });
     }
@@ -65,6 +68,7 @@ agorasturiasApp.controller('MainCtrl',
 
           $scope.authenticated = LoginService.authenticated;
           $scope.username = LoginService.session.username;
+          $scope.adminAccess = LoginService.adminAccess;
       });
     };
 
@@ -77,7 +81,7 @@ agorasturiasApp.controller('MainCtrl',
       });
 
       $location.path('/home');
-    };    
+    };
 
     $scope.notify = function(message, type){
       var toast = ngToast.create({

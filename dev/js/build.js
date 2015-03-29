@@ -1231,9 +1231,12 @@ agorasturiasApp.controller('MainCtrl',
                               response.role, response.username, response.antenna);
           $scope.authenticated = true;
           $scope.username = response.username;
+
+          $scope.adminAccess = (response.role === USER_ROLES.ADMIN);
         }
         else {
           $scope.authenticated = false;
+          $scope.adminAccess = false;
         }
       });
     }
@@ -1262,6 +1265,7 @@ agorasturiasApp.controller('MainCtrl',
 
           $scope.authenticated = LoginService.authenticated;
           $scope.username = LoginService.session.username;
+          $scope.adminAccess = LoginService.adminAccess;
       });
     };
 
@@ -1274,7 +1278,7 @@ agorasturiasApp.controller('MainCtrl',
       });
 
       $location.path('/home');
-    };    
+    };
 
     $scope.notify = function(message, type){
       var toast = ngToast.create({
@@ -1298,6 +1302,8 @@ agorasturiasApp.factory('LoginService', ['USER_ROLES', function(USER_ROLES) {
 
     var authenticated = false;
 
+    var adminAccess = false;
+
     var login = function (userId, email, name, role, username, body) {
         this.session.userId = userId;
         this.session.email = email;
@@ -1307,6 +1313,7 @@ agorasturiasApp.factory('LoginService', ['USER_ROLES', function(USER_ROLES) {
         this.session.body = body;
 
         this.authenticated = true;
+        this.adminAccess = (role === USER_ROLES.ADMIN);
     };
 
     var logout = function () {
@@ -1318,11 +1325,13 @@ agorasturiasApp.factory('LoginService', ['USER_ROLES', function(USER_ROLES) {
         this.session.body = '';
 
         this.authenticated = false;
+        this.adminAccess = false;
     };
 
     return {
         session : session,
         authenticated : authenticated,
+        adminAccess : adminAccess,
         login : login,
         logout : logout
     };

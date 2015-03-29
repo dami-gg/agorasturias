@@ -11,6 +11,8 @@ agorasturiasApp.factory('LoginService', ['USER_ROLES', function(USER_ROLES) {
 
     var authenticated = false;
 
+    var adminAccess = false;
+
     var login = function (userId, email, name, role, username, body) {
         this.session.userId = userId;
         this.session.email = email;
@@ -20,6 +22,7 @@ agorasturiasApp.factory('LoginService', ['USER_ROLES', function(USER_ROLES) {
         this.session.body = body;
 
         this.authenticated = true;
+        this.adminAccess = (role === USER_ROLES.ADMIN);
     };
 
     var logout = function () {
@@ -31,11 +34,13 @@ agorasturiasApp.factory('LoginService', ['USER_ROLES', function(USER_ROLES) {
         this.session.body = '';
 
         this.authenticated = false;
+        this.adminAccess = false;
     };
 
     return {
         session : session,
         authenticated : authenticated,
+        adminAccess : adminAccess,
         login : login,
         logout : logout
     };
