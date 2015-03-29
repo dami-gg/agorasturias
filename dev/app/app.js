@@ -100,6 +100,12 @@ agorasturiasApp.config(function($stateProvider, $urlRouterProvider, $translatePr
                 access: ACCESS_GROUPS.ALL
             })
 
+            .state('streaming', {
+                url : '/streaming',
+                templateUrl : 'public/views/streaming.html',
+                access: ACCESS_GROUPS.LOGGED
+            })
+
             .state('sponsors', {
                 url  : '/sponsors',
                 templateUrl : 'public/views/sponsors.html',

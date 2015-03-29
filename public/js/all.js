@@ -13482,6 +13482,10 @@ agorasturiasApp.config([
       url: '/pre-events',
       templateUrl: 'public/views/pre-events.html',
       access: ACCESS_GROUPS.ALL
+    }).state('streaming', {
+      url: '/streaming',
+      templateUrl: 'public/views/streaming.html',
+      access: ACCESS_GROUPS.LOGGED
     }).state('sponsors', {
       url: '/sponsors',
       templateUrl: 'public/views/sponsors.html',
@@ -14158,6 +14162,12 @@ agorasturiasApp.controller('ThumbnailsCtrl', [
         name: 'Alba',
         position: 'MEALS',
         image: 'public/img/team/alba.png',
+        hover: ''
+      });
+      members.push({
+        name: 'Luz',
+        position: 'MEALS',
+        image: 'public/img/team/luz.png',
         hover: ''
       });
       members.push({
