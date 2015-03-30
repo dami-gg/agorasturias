@@ -13727,61 +13727,116 @@ agorasturiasApp.controller('SponsorsCtrl', [
   '$scope',
   'PartitionService',
   function ($scope, PartitionService) {
-    var sponsors = $scope.sponsors = [];
-    $scope.fillsponsors = function () {
-      sponsors.push({
-        logo: 'public/img/sponsors/uniovi.png',
-        link: 'http://www.uniovi.es/'
+    var mainPartners = $scope.mainPartners = [], universityPartners = $scope.universityPartners = [], sponsors = $scope.sponsors = [], transportationPartners = $scope.transportationPartners = [];
+    var fillSponsors = function () {
+      mainPartners.push({
+        logo: 'public/img/sponsors/asturias.png',
+        link: 'http://www.asturias.es/'
       });
-      sponsors.push({
+      mainPartners.push({
         logo: 'public/img/sponsors/ayto-gijon.png',
         link: 'http://www.gijon.es/'
       });
-      sponsors.push({
+      mainPartners.push({
+        logo: 'public/img/sponsors/laboral.png',
+        link: 'http://www.laboralciudaddelacultura.com/'
+      });
+      mainPartners.push({
+        logo: 'public/img/sponsors/oficongresos.png',
+        link: 'http://congresos.gijon.es/'
+      });
+      mainPartners.push({
+        logo: 'public/img/sponsors/divertia.png',
+        link: 'http://www.teatrojovellanos.com/'
+      });
+      mainPartners.push({
+        logo: 'public/img/sponsors/gijon-deporte.png',
+        link: 'http://deporte.gijon.es/'
+      });
+      universityPartners.push({
+        logo: 'public/img/sponsors/uniovi.png',
+        link: 'http://www.uniovi.es/'
+      });
+      universityPartners.push({
         logo: 'public/img/sponsors/epi.png',
         link: 'http://www.epigijon.uniovi.es/'
       });
       sponsors.push({
-        logo: 'public/img/sponsors/laboral.png',
-        link: 'http://www.laboralciudaddelacultura.com/'
-      });
-      sponsors.push({
-        logo: 'public/img/sponsors/oficongresos.png',
-        link: 'http://congresos.gijon.es/'
-      });
-      sponsors.push({
-        logo: 'public/img/sponsors/conseyu.png',
-        link: 'http://www.cmpa.es/'
-      });
-      sponsors.push({
-        logo: 'public/img/sponsors/aviles.png',
-        link: 'http://aviles.es/web/turismo/'
-      });
-      sponsors.push({
-        logo: 'public/img/sponsors/gijon-deporte.png',
-        link: 'http://deporte.gijon.es/'
+        logo: 'public/img/sponsors/tirma.png',
+        link: ''
       });
       sponsors.push({
         logo: 'public/img/sponsors/kemphor.png',
         link: 'http://www.kemphor.com/'
       });
       sponsors.push({
+        logo: 'public/img/sponsors/aviles.png',
+        link: 'http://aviles.es/web/turismo/'
+      });
+      sponsors.push({
+        logo: 'public/img/sponsors/conseyu-gijon.png',
+        link: ''
+      });
+      sponsors.push({
+        logo: 'public/img/sponsors/garcia.png',
+        link: ''
+      });
+      sponsors.push({
+        logo: 'public/img/sponsors/kia.png',
+        link: ''
+      });
+      sponsors.push({
+        logo: 'public/img/sponsors/moka.png',
+        link: ''
+      });
+      sponsors.push({
         logo: 'public/img/sponsors/ktm.png',
         link: 'http://www.ktm.com/es/ready-to-race.html'
       });
       sponsors.push({
+        logo: 'public/img/sponsors/redyser.png',
+        link: ''
+      });
+      sponsors.push({
+        logo: 'public/img/sponsors/elarco.png',
+        link: ''
+      });
+      sponsors.push({
+        logo: 'public/img/sponsors/conseyu.png',
+        link: 'http://www.cmpa.es/'
+      });
+      sponsors.push({
+        logo: 'public/img/sponsors/makro.png',
+        link: ''
+      });
+      sponsors.push({
+        logo: 'public/img/sponsors/uni-alicante.png',
+        link: 'http://www.ua.es/'
+      });
+      sponsors.push({
+        logo: 'public/img/sponsors/elvalle.png',
+        link: ''
+      });
+      sponsors.push({
+        logo: 'public/img/sponsors/graphicshops.png',
+        link: ''
+      });
+      transportationPartners.push({
         logo: 'public/img/sponsors/alsa.png',
         link: 'http://www.alsa.es/'
       });
-      sponsors.push({
+      transportationPartners.push({
         logo: 'public/img/sponsors/renfe.png',
         link: 'http://www.renfe.es/'
       });
     };
     if ($scope.sponsors.length === 0) {
-      $scope.fillsponsors();
+      fillSponsors();
     }
-    $scope.rows = PartitionService.partition(sponsors, 4);
+    $scope.mainPartners = PartitionService.partition(mainPartners, 3);
+    $scope.universityPartners = PartitionService.partition(universityPartners, 2);
+    $scope.sponsors = PartitionService.partition(sponsors, 4);
+    $scope.transportationPartners = PartitionService.partition(transportationPartners, 2);
   }
 ]);
 agorasturiasApp.controller('EditorCtrl', [

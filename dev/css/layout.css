@@ -345,19 +345,25 @@ section.slider {
   .thumbnail .caption {
     color: white; }
 
+#sponsors .lead {
+  text-align: center; }
 #sponsors .row {
   margin-bottom: 30px; }
 #sponsors .sponsor {
-  width: 200px;
-  margin-bottom: 25px; }
+  max-width: 200px;
+  margin: 0 auto; }
   @media only screen and (max-width: 500px) {
     #sponsors .sponsor {
-      width: 150px; } }
+      max-width: 150px; } }
 #sponsors .item {
   height: 130px; }
+  @media only screen and (max-width: 500px) {
+    #sponsors .item {
+      height: 75px; } }
 #sponsors img {
   width: 200px;
-  border: 0; }
+  border: 0;
+  margin: 0 auto; }
   @media only screen and (max-width: 500px) {
     #sponsors img {
       width: 150px; } }

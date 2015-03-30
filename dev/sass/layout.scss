@@ -329,20 +329,27 @@ section {
 
 #sponsors {
 
+    .lead { text-align:center; }
+
     .row { margin-bottom:30px; }
 
     .sponsor { 
 
-        width:200px; margin-bottom:25px; 
+        max-width:200px; margin:0 auto;
 
-        @media only screen and (max-width:500px) { width:150px; }
+        @media only screen and (max-width:500px) { max-width:150px; }
     }
 
-    .item { height:130px; }
+    .item { 
+
+        height:130px; 
+
+        @media only screen and (max-width:500px) { height:75px; }
+    }
 
     img { 
 
-        width:200px; border:0; 
+        width:200px; border:0; margin:0 auto;
 
         @media only screen and (max-width:500px) { width:150px; }
     }
